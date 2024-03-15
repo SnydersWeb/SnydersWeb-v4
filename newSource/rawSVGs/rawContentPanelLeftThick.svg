@@ -1,0 +1,47 @@
+<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        :root {
+            --bar-blue-transparent-fill: #2c418e;
+            --bar-grey-transparent-fill: #333333;
+            --bar-solid-dark-grey: #536170; 
+--bar-solid-light-grey: #696e76;
+            
+            --stroke: 0;
+        }
+        .pathProps {
+            display: inline;
+            stroke-width: var(--stroke);
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-dasharray: none;
+            stroke-opacity: 1;
+        }
+        .blueTransparentPart {
+            fill-opacity: 0.5;
+            fill: var(--bar-blue-transparent-fill);
+        }
+        .greyTransparentPart {
+            fill-opacity: 0.5;
+            fill: var(--bar-grey-transparent-fill);
+        }
+        .darkGreyPart {
+            fill-opacity: 1;
+            fill: var(--bar-solid-dark-grey);
+        }
+        .lightGreyPart {
+            fill-opacity: 1;
+            fill: var(--bar-solid-light-grey);
+        }
+    </style>
+
+    <defs>
+        <pattern id="barBotDropRight" x="0" y="0" width="14" height="16" patternUnits="userSpaceOnUse">
+          <g>
+    <path class="pathProps " style"display:inline;fill:#536170;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" d="M 18,0 H 0 v 11 h 18 z" id="path2-2-7" />
+    <path class="pathProps " style"fill:#333333;fill-opacity:0.501961;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" d="m 18,0 h 1 v 11 h -1 z" id="path2" />
+          </g>
+        </pattern>
+    </defs>
+    
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#barBotDropRight)"></rect>
+</svg>

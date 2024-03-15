@@ -1,0 +1,87 @@
+3/12/2024 - Investigation day
+OK.. in ES6 you no longer need to do const testMe = document.getElementById('topicBar2') - instead you can do const testMe = $('#topicBar2');
+would seem (nice to see it got some JQuery tools).
+
+export default class Container extends HTMLDivElement {
+    constructor() {
+        super();
+        this.innerHTML = 'Content'; // Does Nothing
+    } 
+    connectedCallback() { // Fires when attached
+      console.log('Callback');
+      this.innerHTML = "Content";
+    }  
+}
+
+customElements.define('my-contain', Container, { extends: "div" });
+
+https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry
+https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
+
+https://stackoverflow.com/questions/50078527/create-html-element-with-es6
+
+appendChild seems the same but
+https://developer.mozilla.org/en-US/docs/Web/API/Element/append
+
+To get all by className
+let testMe2 = document.querySelectorAll('div.unSelectedBar');
+
+https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll
+querySelectorAll does NOT work with ID's but this does:
+let testMe2 = document.querySelector("div#topicBar2");
+
+document.createElement is prettymuch exactly the same.
+
+Sample in-line SVG:
+<button class="basket-component ga-theme-quality-income">
+    <span class="basket-info">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="18" fill="#ECECEC"></rect>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.00004 10.1334V17.4358C8.99249 22.286 11.7912 26.6425 16.0452 28.4024L17.01 28.8021C17.6497 29.066 18.3593 29.066 18.999 28.8021L19.9593 28.4072C24.2131 26.6451 27.0101 22.2865 27 17.4358V10.1334C27.0025 9.55907 26.6895 9.03599 26.199 8.79468C23.6163 7.58677 20.8217 6.97534 18 7.00086C15.1786 6.97384 12.384 7.58363 9.80104 8.7899C9.30904 9.03193 8.99578 9.55734 9.00004 10.1334Z" stroke="#368727" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M17.6511 22.0909V11.1818H18.35V22.0909H17.6511ZM20.0034 14.4545C19.9522 14.0227 19.7449 13.6875 19.3812 13.4489C19.0176 13.2102 18.5716 13.0909 18.0431 13.0909C17.6568 13.0909 17.3187 13.1534 17.0289 13.2784C16.742 13.4034 16.5176 13.5753 16.3556 13.794C16.1966 14.0128 16.117 14.2614 16.117 14.5398C16.117 14.7727 16.1724 14.973 16.2832 15.1406C16.3968 15.3054 16.5417 15.4432 16.7179 15.554C16.894 15.6619 17.0787 15.7514 17.2718 15.8224C17.465 15.8906 17.6426 15.946 17.8045 15.9886L18.6909 16.2273C18.9181 16.2869 19.171 16.3693 19.4494 16.4744C19.7306 16.5795 19.9991 16.723 20.2548 16.9048C20.5133 17.0838 20.7264 17.3139 20.894 17.5952C21.0616 17.8764 21.1454 18.2216 21.1454 18.6307C21.1454 19.1023 21.0218 19.5284 20.7747 19.9091C20.5304 20.2898 20.1724 20.5923 19.7008 20.8168C19.2321 21.0412 18.6625 21.1534 17.992 21.1534C17.367 21.1534 16.8258 21.0526 16.3684 20.8509C15.9139 20.6491 15.5559 20.3679 15.2946 20.0071C15.036 19.6463 14.8897 19.2273 14.8556 18.75H15.9466C15.975 19.0795 16.0858 19.3523 16.2789 19.5682C16.475 19.7812 16.7221 19.9403 17.0204 20.0455C17.3216 20.1477 17.6454 20.1989 17.992 20.1989C18.3954 20.1989 18.7576 20.1335 19.0787 20.0028C19.3997 19.8693 19.6539 19.6847 19.8414 19.4489C20.0289 19.2102 20.1227 18.9318 20.1227 18.6136C20.1227 18.3239 20.0417 18.0881 19.8798 17.9062C19.7179 17.7244 19.5048 17.5767 19.2406 17.4631C18.9764 17.3494 18.6909 17.25 18.3841 17.1648L17.3102 16.858C16.6284 16.6619 16.0886 16.3821 15.6909 16.0185C15.2931 15.6548 15.0943 15.179 15.0943 14.5909C15.0943 14.1023 15.2264 13.6761 15.4906 13.3125C15.7576 12.946 16.1156 12.6619 16.5645 12.4602C17.0162 12.2557 17.5204 12.1534 18.0772 12.1534C18.6397 12.1534 19.1397 12.2543 19.5772 12.456C20.0147 12.6548 20.3613 12.9276 20.617 13.2741C20.8755 13.6207 21.0119 14.0142 21.0261 14.4545H20.0034Z" fill="#368727"></path>
+        </svg>
+        <span class="basket-component__caption">Quality income</span>
+    </span>
+</button>
+
+More SVG
+https://webdesign.tutsplus.com/how-to-use-svg-patterns-as-backgrounds--cms-31507t
+
+<svg width="100%" height="100%">
+    <defs>
+        <pattern id="polka-dots" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+            
+            <circle fill="#bee9e8" cx="50" cy="50" r="25">
+            </circle>
+            
+        </pattern>
+    </defs>
+    
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#polka-dots)"></rect>
+</svg>
+
+Also interesting:
+https://stackoverflow.com/questions/56309871/svg-as-a-css-background-is-there-any-way-to-repeat-x-with-no-space-in-between
+
+3/13 - Background SVG work
+Spent a fairly big chunk of the day re-creating the background elements in SVG in InkScape - just need to ensure the Document Scale is 1 in the document properties!!!!
+
+Want to see if there is a place where I can move that SVG declaration - it's riding a bit.. 'heavy' in the DOM.  Overall it looks great though.
+
+3/14
+Background Elements completed - In this case I am very satisfied with where they are and how the're being put in.
+
+Though For simpler SVG - those might be better doing inline rather than inline.. but background images allow me to do mouseover effects and so on eaiser and would be mroe consistent with the original implementation of it.
+
+3/15
+Everything is now SVG!!
+
+Leaving the print logo alone for now.
+
+Todo:
+1. Want to convert the old submenu system into somthing different.  Going to use the subTopic tabs and ditch the drop-down menu alltogether.
+2. I'll see about accessibility type stuff (using Fidelity's CAT tool)
+3. Then Custom Tags (need to see about breaking XML validation by doing that though or whether it breaks the loading system)
+4. Fresh coat of JavaScript - ES6 ALL THE WAY
+5. Content updates.
