@@ -85,3 +85,5 @@ Todo:
 3. Then Custom Tags (need to see about breaking XML validation by doing that though or whether it breaks the loading system)
 4. Fresh coat of JavaScript - ES6 ALL THE WAY
 5. Content updates.
+
+Update - #1 is now completed!
