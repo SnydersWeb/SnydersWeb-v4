@@ -24,12 +24,12 @@
     </style>
 
     <defs>
-        <pattern id="subTopicBody" x="0" y="0" width="13" height="24" patternUnits="userSpaceOnUse">
+        <pattern id="subItemBody" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps greenTransparentPart" d="M 13,0 H 0 v 24 h 13 z" />
+            <path class="pathProps purpleTransparentPart" d="M 13,0 H 0 v 18 h 13 z" />
           </g>
         </pattern>
     </defs>
     
-    <rect x="0" y="0" width="100%" height="100%" fill="url(#subTopicBody)"></rect>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#subItemBody)"></rect>
 </svg>

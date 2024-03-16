@@ -68,7 +68,7 @@
 		left: 0px;
 		border: 1px #CCCCCC solid;
 		padding: 4px;
-		font-family: Arial, Verdana, Helvetica, sans-serif;
+		font-family: Roboto, arial, sans-serif;
 		font-size: 200%;
 		font-weight: bold;
 		color: #CCCCCC;
@@ -580,7 +580,7 @@
 	
 	#printBanner {
 		position: absolute;
-		font-family: Arial, Verdana, Helvetica, sans-serif;
+		font-family: Roboto, arial, sans-serif;
 		color: #333333;
 		margin-top: 0px;
 		font-size: 10%;
@@ -661,173 +661,82 @@
 	/* End Topic Bar ID Selctors */
 	
 	/* Begin SubMenu Selctors */
-	#subMenu {
+	#subMenuArea {
 		position: absolute;
-		right: 32px;
-		top: 29px;
-		width: 235px;
-		z-index: 2;
+		float: left;
+		top: 28px;
+		left: 90px;
+		right: 5px;
+		height: 28px;
 	}
-	
-		#subMenu #nub {
-			position: relative;
-			height: 17px;
-		}
-	
-			#subMenu #nub #nubLeft {
-				position: absolute;
-				height: 17px;
-				width: 16px;
-				left: 0px;
-				top: 0px;
-				background-image: url('../svgImages/subMenuNubLeft.svg');
-				background-repeat: no-repeat;
+			#subMenuArea ul {
+				list-style: none;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+				float: left;
 			}
-	
-			#subMenu #nub #nubBody {
-				position: relative;
-				height: 17px;
-				margin-left: 16px;
-				margin-right: 16px;
-				background-color: #486053;
-				font-family: Arial, Verdana, Helvetica, sans-serif;
-				font-weight: bold;
-				font-size: 68%;
-				color: #FFFFFF;
-			}
-	
-			#subMenu #nub #nubRight {
-				position: absolute;
-				height: 17px;
-				width: 16px;
-				right: 0px;
-				top: 0px;
-				background-image: url('../svgImages/subMenuNubRight.svg');
-				background-repeat: no-repeat;
-			}
-	
-		#subMenu #subPulldown {
-			position: relative;
-			height: auto;
-			width: auto;
-			z-index: -1;
-		}
-		
-			#subMenu #subPulldown #subBody {
-				position: relative;
-				margin-right: 16px;
-				padding-left: 2px;
-				padding-right: 2px;
-				border-bottom: 1px solid  #486053;
-				background-color: #486053;
-			}
-		
-				#subMenu #subPulldown #subBody .subMenuItem {
-					position: relative;
-					margin-bottom: 2px;
-					padding: 1px;
-					background-color: #6C7B6D;
-					font-family: Arial, Verdana, Helvetica, sans-serif;
-					font-weight: bold;
-					font-size: 73%;
-					color: #FFFFFF;
+				#subMenuArea ul li {
+					padding: 0px;
+					margin: 2px 0px 0px -10px;
+					float: left;
 				}
-				
-				#subMenu #subPulldown #subBody .subMenuItem A:link, #subMenu #subPulldown #subBody .subMenuItem A:visited {
-					text-decoration: none;
-					color: #FFFFFF;
-				}
-				
-				#subMenu #subPulldown #subBody .subMenuItem:hover {
-					background-color: #999966;
-				}
+	
+					#subMenuArea ul li .subTopic {
+						padding: 0px;
+						margin: 0px;
+						height: 18px;
+						width: auto;
+						white-space: nowrap;
+						float: left;
+						clear: none;
+						table-layout: fixed;						
+					}
+
+						#subMenuArea ul li .subTopicLeft {
+							float: left;
+							width: 13px;
+							height: 18px;
+							left: -5px;
+							top: 0px;
+							background-image: url('../svgImages/subItemLeft.svg');
+							background-repeat: no-repeat;
+						}
+					
+						#subMenuArea ul li .subTopicBody {
+							float: left;
+							height: 18px;
+							width: auto;
+							font-family: Roboto, arial, sans-serif;
+							font-size: 70%;
+							font-weight: bold;
+							color: #8EF000;
+							line-height: 1.45em;
+							padding: 0px 0px 0px 0px;
+							background-image: url('../svgImages/subItemBody.svg');			
+						}
 								
-			#subMenu #subPulldown #subBottom {
-				position: relative;
-				height: 18px;
-				bottom: 1px;
-				margin-right: 16px;
-			}
-		
-				#subMenu #subPulldown #subBottom #subBotLeft {
-					position: absolute;
-					height: 18px;
-					width: 18px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../svgImages/subMenuBotLeft.svg');
-					background-repeat: no-repeat;
-				}
-		
-				#subMenu #subPulldown #subBottom #subBotMiddle {
-					position: relative;
-					height: 18px;
-					margin-left: 18px;
-					margin-right: 18px;
-					background-color: #486053;
-				}
-		
-				#subMenu #subPulldown #subBottom #subBotRight {
-					position: absolute;
-					height: 18px;
-					width: 18px;
-					right: 0px;
-					top: 0px;
-					background-image: url('../svgImages/subMenuBotRight.svg');
-					background-repeat: no-repeat;
-				}	
-	
-	/* Begin "hot" selectors - used in animations */
-	#subMenu.hot {
-	}
-	
-		#subMenu.hot #nub {
-		}
-	
-			#subMenu.hot #nub #nubLeft {
-				background-image: url('../svgImages/subMenuNubLeftHot.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#subMenu.hot #nub #nubBody {
-				background-color: #93AB9E;
-			}
-	
-			#subMenu.hot #nub #nubRight  {
-				background-image: url('../svgImages/subMenuNubRightHot.svg');
-				background-repeat: no-repeat;
-			}
-	
-		#subMenu.hot #subPulldown {
-		}
-		
-			#subMenu.hot #subPulldown #subBody {
-				border-bottom: 1px solid  #93AB9E;
-				background-color: #93AB9E;
-			}
-		
-				#subMenu.hot #subPulldown #subBody .subMenuItem  {
-					background-color: #B7C6B8;
-				}
-				
-			#subMenu.hot #subPulldown #subBottom {
-			}
-		
-				#subMenu.hot #subPulldown #subBottom #subBotLeft {
-					background-image: url('../svgImages/subMenuBotLeftHot.svg');
-					background-repeat: no-repeat;
-				}
-		
-				#subMenu.hot #subPulldown #subBottom #subBotMiddle {
-					background-color: #93AB9E;
-				}
-		
-				#subMenu.hot #subPulldown #subBottom #subBotRight {
-					background-image: url('../svgImages/subMenuBotRightHot.svg');
-					background-repeat: no-repeat;
-				}	
-	/* End "hot" selectors - used in animations */
-	
+						#subMenuArea ul li .subTopicBody A:link, #subMenuArea ul li .subTopicBody A:visited {
+							color: #8EF000;
+							text-decoration: none;
+						}			
+						
+						#subMenuArea ul li .subTopicBody A:hover, #subMenuArea ul li .subTopicBody A:active {
+							color: #FFFFFF;
+							text-decoration: none;
+						}		
+					
+						#subMenuArea ul li .subTopicRight {
+							float: left;
+							width: 13px;
+							height: 18px;
+							right: -5px;
+							top: 0px;
+							background-image: url('../svgImages/subItemRight.svg');
+							background-repeat: no-repeat;
+						}
+
+
 	/* End SubMenu Selctors */
 			
 	/* Begin Topic Bar Class Selctors */
@@ -901,7 +810,7 @@
 	
 				.topicBarBody .topicBarBodyMiddle .barText {
 					position: relative;
-					font-family: Arial, Verdana, Helvetica, sans-serif;
+					font-family: Roboto, arial, sans-serif;
 					font-size: 95%;
 					font-weight: bold;
 					color: #8EF000;
@@ -1142,15 +1051,21 @@
 	
 	/* Begin SubTopic Class Selectors */
 	.subTopic {
-		position: relative;
 		height: 24px;
 		width: auto;
 		white-space: nowrap;
 		float: left;
+		clear: none;
+		table-layout: fixed;
+	}
+
+	.subTopic > .subTopic {
+		clear: none;
+		margin-left: -9px;
 	}
 	
 		.subTopicLeft {
-			position: absolute;
+			float: left;
 			width: 13px;
 			height: 24px;
 			left: -5px;
@@ -1160,12 +1075,10 @@
 		}
 	
 		.subTopicBody {
-			position: relative;
+			float: left;
 			height: 24px;
-			width: 1%;
-			margin-left: 8px;
-			margin-right: 8px;
-			font-family: Arial, Verdana, Helvetica, sans-serif;
+			width: auto;
+			font-family: Roboto, arial, sans-serif;
 			font-size: 95%;
 			font-weight: bold;
 			color: #8EF000;
@@ -1173,12 +1086,7 @@
 			padding: 0px 0px 0px 0px;
 			background-image: url('../svgImages/subTopicBody.svg');			
 		}
-		
-		/* IE Forces yet another CSS trick to fix it */
-		.subTopic > .subTopicBody {
-			width: auto;
-		}	
-		
+				
 		.subTopicBody A:link, .subTopicBody A:visited {
 			color: #8EF000;
 			text-decoration: none;
@@ -1190,7 +1098,7 @@
 		}		
 	
 		.subTopicRight {
-			position: absolute;
+			float: left;
 			width: 13px;
 			height: 24px;
 			right: -5px;
@@ -1255,6 +1163,7 @@
 			background-repeat: no-repeat;
 		}
 	/* End "hot" selectors - used in animations */
+
 	/* End SubTopic Class Selectors */
 		
 	

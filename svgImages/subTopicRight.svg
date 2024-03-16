@@ -2,6 +2,7 @@
     <style>
         :root {
             --bar-purple-transparent-fill: #514860;
+            --bar-green-transparent-fill: #486053;
             --stroke: 0;
         }
         .pathProps {
@@ -16,12 +17,16 @@
             fill-opacity: 0.9;
             fill: var(--bar-purple-transparent-fill);
         }
+        .greenTransparentPart {
+            fill-opacity: 0.9;
+            fill: var(--bar-green-transparent-fill);
+        }
     </style>
 
     <defs>
         <pattern id="subTopicRight" x="0" y="0" width="13" height="24" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps purpleTransparentPart" d="M 13,0 H 0 v 24 z" />
+            <path class="pathProps greenTransparentPart" d="M 13,0 H 0 v 24 z" />
           </g>
         </pattern>
     </defs>
