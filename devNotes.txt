@@ -94,3 +94,31 @@ Some of the custom tags and even the "is" attribute seem to make XHTML checkers 
 Spent a bit more time trying to adjust for accessibility.  I need to figure out what tools I can get since I don't seem to have access to CAT (might ask for it).
 
 Next - think I might just need to dive into the scripting.
+
+Thinking about the SubItem stuff - I might be able to get away with a "Selected" attribute to make it bigger and so on.
+
+3/17
+OK.. think I'm now done messing with the HTML and CSS and getting some stuff that should help accessibility.  I used semantic markup to help with that a bit - but I do need to find a validator.
+
+On fetching content - one big hangup with my old site was that in order for a document to get pulled in and parsed, it had to validate against a given DTD (hence the xhtml links).  The big downside to that is that it would throw out the ability to use custom tags and so on.
+
+When researching the DTD issue - with Fetch that might not be a relevent issue anymore:
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data
+
+// Parse the XML and DTD strings
+const xmlDoc = new DOMParser().parseFromString(xml, 'application/xml');
+const dtdDoc = new DOMParser().parseFromString(dtd, 'text/xml');
+
+// Validate the XML against the DTD
+const hasErrors = validator.validate(xmlDoc, dtdDoc);
+if (hasErrors) {
+  console.log('XML is not valid against the DTD');
+} else {
+  console.log('XML is valid against the DTD');
+}
+
+So if I wanted to (I don't) I could do that - I am hoping I can at least parse the document in enough to use XPathing for node retreval.  Course I could refer to my old site!
+
+
+
+
