@@ -24,9 +24,9 @@
     </style>
 
     <defs>
-        <pattern id="subTopicBody" x="0" y="0" width="13" height="24" patternUnits="userSpaceOnUse">
+        <pattern id="subTopicBody" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps greenTransparentPart" d="M 13,0 H 0 v 24 h 13 z" />
+            <path class="pathProps purpleTransparentPart" d="M 13,0 H 0 v 18 h 13 z" />
           </g>
         </pattern>
     </defs>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="english">
 <head>
 	<title>SnydersWeb.com</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -43,15 +43,15 @@
 				<div class="topicBarBodyLeft"></div>
 				<div class="topicBarBodyMiddle">
 					<div class="barText"><a href="./index.html">Home</a></div>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew.html">What's New (Blog)</a></div>
-						<div class="subTopicRight"></div>
+					<div class="selSubTopic">
+						<div class="selSubTopicLeft"></div>
+						<div class="selSubTopicBody"><a href="whatsNew.html">What's New (Blog)</a></div>
+						<div class="selSubTopicRight"></div>
 						
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew2006.html">2006</a></div>
-							<div class="subTopicRight"></div>
+						<div class="selSubTopic">
+							<div class="selSubTopicLeft"></div>
+							<div class="selSubTopicBody"><a href="whatsNew2006.html">2006</a></div>
+							<div class="selSubTopicRight"></div>
 						</div>
 					</div>
 				</div>
@@ -69,7 +69,7 @@
 		<!-- Begin Submenu -->
 		<div id="subMenuArea">
 			<!-- Begin Submenu Items -->
-			<ul>
+			<ul role="navigation" aria-label="Sub Navigation">
 				<li>
 					<div class="subTopic">
 						<div class="subTopicLeft"></div>
@@ -156,121 +156,129 @@
 
 	<!-- End UnSelected Topic Bar Area -->
 	<div id="unSelectedBarArea">
-		<div class="topicBar" id="topicBar2">
-			<div class="topicBarTop">
-				<div class="topicBarTopLeft"></div>
-				<div class="topicBarTopMiddle"></div>
-				<div class="topicBarTopRight"></div>
-			</div>
-			<div class="topicBarBody">
-				<div class="topicBarBodyLeft"></div>
-				<div class="topicBarBodyMiddle">
-					<div class="barText"><a href="aboutMe/index.html">About Me</a></div>
+		<ul role="navigation" aria-label="Main Navigation">
+			<li class="topicBarParking"></li>
+			<li class="topicBarParking">
+				<div class="topicBar" id="topicBar2">
+					<div class="topicBarTop">
+						<div class="topicBarTopLeft"></div>
+						<div class="topicBarTopMiddle"></div>
+						<div class="topicBarTopRight"></div>
+					</div>
+					<div class="topicBarBody">
+						<div class="topicBarBodyLeft"></div>
+						<div class="topicBarBodyMiddle">
+							<div class="barText"><a href="aboutMe/index.html">About Me</a></div>
+						</div>
+						<div class="topicBarBodyRight"></div>
+					</div>
+					<div class="topicBarBottom">
+						<div class="topicBarBottomLeft"></div>
+						<div class="drop"></div>
+						<div class="dropBottom"></div>
+						<div class="dropTrans"></div>
+						<div class="extender"></div>
+						<div class="topicBarBottomRight"></div>
+					</div>
 				</div>
-				<div class="topicBarBodyRight"></div>
-			</div>
-			<div class="topicBarBottom">
-				<div class="topicBarBottomLeft"></div>
-				<div class="drop"></div>
-				<div class="dropBottom"></div>
-				<div class="dropTrans"></div>
-				<div class="extender"></div>
-				<div class="topicBarBottomRight"></div>
-			</div>
-		</div>
-			
-		<div class="topicBar" id="topicBar3">
-			<div class="topicBarTop">
-				<div class="topicBarTopLeft"></div>
-				<div class="topicBarTopMiddle"></div>
-				<div class="topicBarTopRight"></div>
-			</div>
-			<div class="topicBarBody">
-				<div class="topicBarBodyLeft"></div>
-				<div class="topicBarBodyMiddle">
-					<div class="barText"><a href="webSites/index.html">Web Sites</a></div>
+			</li>
+			<li class="topicBarParking">
+				<div class="topicBar" id="topicBar3">
+					<div class="topicBarTop">
+						<div class="topicBarTopLeft"></div>
+						<div class="topicBarTopMiddle"></div>
+						<div class="topicBarTopRight"></div>
+					</div>
+					<div class="topicBarBody">
+						<div class="topicBarBodyLeft"></div>
+						<div class="topicBarBodyMiddle">
+							<div class="barText"><a href="webSites/index.html">Web Sites</a></div>
+						</div>
+						<div class="topicBarBodyRight"></div>
+					</div>
+					<div class="topicBarBottom">
+						<div class="topicBarBottomLeft"></div>
+						<div class="drop"></div>
+						<div class="dropBottom"></div>
+						<div class="dropTrans"></div>
+						<div class="extender"></div>
+						<div class="topicBarBottomRight"></div>
+					</div>
 				</div>
-				<div class="topicBarBodyRight"></div>
-			</div>
-			<div class="topicBarBottom">
-				<div class="topicBarBottomLeft"></div>
-				<div class="drop"></div>
-				<div class="dropBottom"></div>
-				<div class="dropTrans"></div>
-				<div class="extender"></div>
-				<div class="topicBarBottomRight"></div>
-			</div>
-		</div>
-
-		<div class="topicBar" id="topicBar4">
-			<div class="topicBarTop">
-				<div class="topicBarTopLeft"></div>
-				<div class="topicBarTopMiddle"></div>
-				<div class="topicBarTopRight"></div>
-			</div>
-			<div class="topicBarBody">
-				<div class="topicBarBodyLeft"></div>
-				<div class="topicBarBodyMiddle">
-					<div class="barText"><a href="portfolio/index.html">Art Portfolio</a></div>
+			</li>
+			<li class="topicBarParking">
+				<div class="topicBar" id="topicBar4">
+					<div class="topicBarTop">
+						<div class="topicBarTopLeft"></div>
+						<div class="topicBarTopMiddle"></div>
+						<div class="topicBarTopRight"></div>
+					</div>
+					<div class="topicBarBody">
+						<div class="topicBarBodyLeft"></div>
+						<div class="topicBarBodyMiddle">
+							<div class="barText"><a href="portfolio/index.html">Art Portfolio</a></div>
+						</div>
+						<div class="topicBarBodyRight"></div>
+					</div>
+					<div class="topicBarBottom">
+						<div class="topicBarBottomLeft"></div>
+						<div class="drop"></div>
+						<div class="dropBottom"></div>
+						<div class="dropTrans"></div>
+						<div class="extender"></div>
+						<div class="topicBarBottomRight"></div>
+					</div>
 				</div>
-				<div class="topicBarBodyRight"></div>
-			</div>
-			<div class="topicBarBottom">
-				<div class="topicBarBottomLeft"></div>
-				<div class="drop"></div>
-				<div class="dropBottom"></div>
-				<div class="dropTrans"></div>
-				<div class="extender"></div>
-				<div class="topicBarBottomRight"></div>
-			</div>
-		</div>
-
-		<div class="topicBar" id="topicBar5">
-			<div class="topicBarTop">
-				<div class="topicBarTopLeft"></div>
-				<div class="topicBarTopMiddle"></div>
-				<div class="topicBarTopRight"></div>
-			</div>
-			<div class="topicBarBody">
-				<div class="topicBarBodyLeft"></div>
-				<div class="topicBarBodyMiddle">
-					<div class="barText"><a href="destinations/index.html">Destinations</a></div>
+			</li>
+			<li class="topicBarParking">
+				<div class="topicBar" id="topicBar5">
+					<div class="topicBarTop">
+						<div class="topicBarTopLeft"></div>
+						<div class="topicBarTopMiddle"></div>
+						<div class="topicBarTopRight"></div>
+					</div>
+					<div class="topicBarBody">
+						<div class="topicBarBodyLeft"></div>
+						<div class="topicBarBodyMiddle">
+							<div class="barText"><a href="destinations/index.html">Destinations</a></div>
+						</div>
+						<div class="topicBarBodyRight"></div>
+					</div>
+					<div class="topicBarBottom">
+						<div class="topicBarBottomLeft"></div>
+						<div class="drop"></div>
+						<div class="dropBottom"></div>
+						<div class="dropTrans"></div>
+						<div class="extender"></div>
+						<div class="topicBarBottomRight"></div>
+					</div>
 				</div>
-				<div class="topicBarBodyRight"></div>
-			</div>
-			<div class="topicBarBottom">
-				<div class="topicBarBottomLeft"></div>
-				<div class="drop"></div>
-				<div class="dropBottom"></div>
-				<div class="dropTrans"></div>
-				<div class="extender"></div>
-				<div class="topicBarBottomRight"></div>
-			</div>
-		</div>
-		
-		<div class="topicBar" id="topicBar6">
-			<div class="topicBarTop">
-				<div class="topicBarTopLeft"></div>
-				<div class="topicBarTopMiddle"></div>
-				<div class="topicBarTopRight"></div>
-			</div>
-			<div class="topicBarBody">
-				<div class="topicBarBodyLeft"></div>
-				<div class="topicBarBodyMiddle">
-					<div class="barText"><a href="contact/index.html">Contact Me</a></div>
+			</li>
+			<li class="topicBarParking">
+				<div class="topicBar" id="topicBar6">
+					<div class="topicBarTop">
+						<div class="topicBarTopLeft"></div>
+						<div class="topicBarTopMiddle"></div>
+						<div class="topicBarTopRight"></div>
+					</div>
+					<div class="topicBarBody">
+						<div class="topicBarBodyLeft"></div>
+						<div class="topicBarBodyMiddle">
+							<div class="barText"><a href="contact/index.html">Contact Me</a></div>
+						</div>
+						<div class="topicBarBodyRight"></div>
+					</div>
+					<div class="topicBarBottom">
+						<div class="topicBarBottomLeft"></div>
+						<div class="drop"></div>
+						<div class="dropBottom"></div>
+						<div class="dropTrans"></div>
+						<div class="extender"></div>
+						<div class="topicBarBottomRight"></div>
+					</div>
 				</div>
-				<div class="topicBarBodyRight"></div>
-			</div>
-			<div class="topicBarBottom">
-				<div class="topicBarBottomLeft"></div>
-				<div class="drop"></div>
-				<div class="dropBottom"></div>
-				<div class="dropTrans"></div>
-				<div class="extender"></div>
-				<div class="topicBarBottomRight"></div>
-			</div>
-		</div>
-		
+			</li>
+		</ul>
 	</div>
 	<!-- End UnSelected Topic Bar Area -->
 
@@ -293,9 +301,7 @@
 			</div>
 			<!-- Begin Page Content -->
 			<div id="contentArea">
-				<div id="content" class="bodyText">
-
-<div id="subMenuGapper"></div>
+				<div id="content" class="bodyText" role="document">
 
 <!-- Begin Breadcrumb Area -->
 <span class="breadCrumbCurrent"><a href="index.html">Home</a></span>
@@ -376,10 +382,6 @@ The Epson printer is working pretty well, still, maybe it's just me but it seems
 	<!-- End Content Window -->
 	
 </div>
-
-<script type="text/javascript">
-InitInterface();
-</script>
 
 </body>
 </html>

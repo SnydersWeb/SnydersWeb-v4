@@ -1,9 +1,8 @@
 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
     <style>
         :root {
-            --bar-grey-transparent-fill: #333333;
-            --bar-solid-dark-grey: #536170; 
-            --bar-solid-light-grey: #696e76;
+            --bar-blue-transparent-fill: #8e792c;
+            --bar-solid-dark-grey: #6e5f51; 
             --stroke: 0;
         }
         .pathProps {
@@ -14,9 +13,9 @@
             stroke-dasharray: none;
             stroke-opacity: 1;
         }
-        .greyTransparentPart {
+        .blueTransparentPart {
             fill-opacity: 0.5;
-            fill: var(--bar-grey-transparent-fill);
+            fill: var(--bar-blue-transparent-fill);
         }
         .darkGreyPart {
             fill-opacity: 1;
@@ -25,13 +24,13 @@
     </style>
 
     <defs>
-        <pattern id="contentPanelRightBot" x="0" y="0" width="18" height="13" patternUnits="userSpaceOnUse">
+        <pattern id="barRightBotSel" x="0" y="0" width="14" height="16" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps darkGreyPart" d="M 1,15 H 7 L 18,2 V 0 H 1 Z" />
-            <path class="pathProps greyTransparentPart" d="M 0,0 H 1 V 15 H 0 Z" />
+            <path class="pathProps blueTransparentPart" d="M 8,0 H 0 v 8 z" />
+            <path class="pathProps darkGreyPart" d="M 8,0 0,8 v 2 H 1 L 10,1 V 0 Z" />
           </g>
         </pattern>
     </defs>
     
-    <rect x="0" y="0" width="100%" height="100%" fill="url(#contentPanelRightBot)"></rect>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#barRightBotSel)"></rect>
 </svg>

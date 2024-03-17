@@ -87,3 +87,10 @@ Todo:
 5. Content updates.
 
 Update - #1 is now completed!
+
+3/16
+Some of the custom tags and even the "is" attribute seem to make XHTML checkers throw an absolute FIT.  So those might be relegated to only the dynamic version.
+
+Spent a bit more time trying to adjust for accessibility.  I need to figure out what tools I can get since I don't seem to have access to CAT (might ask for it).
+
+Next - think I might just need to dive into the scripting.

@@ -1,7 +1,7 @@
 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
     <style>
         :root {
-            --bar-purple-transparent-fill: #514860;
+            --bar-purple-transparent-fill: #7e758d;
             --bar-green-transparent-fill: #486053;
             --stroke: 0;
         }
@@ -24,12 +24,12 @@
     </style>
 
     <defs>
-        <pattern id="subItemLeft" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
+        <pattern id="selSubTopicBodySel" x="0" y="0" width="13" height="24" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps purpleTransparentPart" d="M 13,0 0,18 h 13 z" />
+            <path class="pathProps purpleTransparentPart" d="M 13,0 H 0 v 24 h 13 z" />
           </g>
         </pattern>
     </defs>
     
-    <rect x="0" y="0" width="100%" height="100%" fill="url(#subItemLeft)"></rect>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#selSubTopicBodySel)"></rect>
 </svg>
