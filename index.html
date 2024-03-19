@@ -7,6 +7,7 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="styleSheets/baseStyle.css" />
+	<script type="text/javascript" src="scripts/topicBarComponent.js" defer></script>
 </head>
 
 <body>
@@ -29,251 +30,118 @@
 	
 	<!-- Begin Selected Topic Bar Area -->
 	<header id="selectedBar">
-		<div class="topicBar" id="topicBar1">
-			<div class="topicBarTop">
-				<div class="topicBarTopLeft"></div>
-				<div class="topicBarTopMiddle"></div>
-				<div class="topicBarTopRight"></div>
-			</div>
-			<div class="topicBarBody">
-				<div class="topicBarBodyLeft"></div>
-				<div class="topicBarBodyMiddle">
-					<div class="barText"><a href="./index.html">Home</a></div>
+		<topic-bar href="index.html">
+			<div class="barTextSlot">Home</div>
+			<div name="selectedSubTopic" class="selSubTopics">
+				<div class="subTopic" data-promoted="true">
+					<div class="subTopicLeft"></div>
+					<div class="subTopicBody"><a href="whatsNew.html">What's New (Blog)</a></div>
+					<div class="subTopicRight"></div>
+					
 					<div class="subTopic" data-promoted="true">
 						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew.html">What's New (Blog)</a></div>
+						<div class="subTopicBody"><a href="whatsNew2023.html">2023</a></div>
 						<div class="subTopicRight"></div>
-						
-						<div class="subTopic" data-promoted="true">
+					</div>
+				</div>				
+			</div>
+			<div name="subTopics" class="subTopics">
+				<!-- Begin Submenu Items -->
+				<menu role="navigation" aria-label="Sub Navigation">
+					<li>
+						<div class="subTopic">
 							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew2006.html">2006</a></div>
+							<div class="subTopicBody"><a href="whatsNew122023.html">December 2023</a></div>
 							<div class="subTopicRight"></div>
 						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew102023.html">October 2023</a></div>
+							<div class="subTopicRight">
+						</div>
 					</div>
-				</div>
-				<div class="topicBarBodyRight"></div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew092023.html">September 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew082023.html">August 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew072023.html">July 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew062023.html">June 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew052023.html">May 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew042023.html">April 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew032023.html">March 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew022023.html">February 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+					<li>
+						<div class="subTopic">
+							<div class="subTopicLeft"></div>
+							<div class="subTopicBody"><a href="whatsNew012023.html">January 2023</a></div>
+							<div class="subTopicRight"></div>
+						</div>
+					</li>
+				</menu>
 			</div>
-			<div class="topicBarBottom">
-				<div class="topicBarBottomLeft"></div>
-				<div class="drop"></div>
-				<div class="dropBottom"></div>
-				<div class="dropTrans"></div>
-				<div class="extender"></div>
-				<div class="topicBarBottomRight"></div>
-			</div>
-		</div>
-		<!-- Begin Submenu -->
-		<div id="subMenuArea">
-			<!-- Begin Submenu Items -->
-			<menu role="navigation" aria-label="Sub Navigation">
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew122006.html">December 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew102006.html">October 2006</a></div>
-						<div class="subTopicRight">
-					</div>
-				</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew092006.html">September 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew082006.html">August 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew072006.html">July 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew062006.html">June 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew052006.html">May 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew042006.html">April 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew032006.html">March 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew022006.html">February 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-				<li>
-					<div class="subTopic">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew012006.html">January 2006</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</li>
-			</menu>
-		</div>
-		<!-- End Submenu -->
+		</topic-bar>
+
 	</header>
 	<!-- End Selected Topic Bar Area -->
 
 	<!-- End UnSelected Topic Bar Area -->
 	<nav id="unSelectedBarArea">
 		<menu role="navigation" aria-label="Main Navigation">
-			<li class="topicBarParking"></li>
-			<li class="topicBarParking">
-				<div class="topicBar" id="topicBar2">
-					<div class="topicBarTop">
-						<div class="topicBarTopLeft"></div>
-						<div class="topicBarTopMiddle"></div>
-						<div class="topicBarTopRight"></div>
-					</div>
-					<div class="topicBarBody">
-						<div class="topicBarBodyLeft"></div>
-						<div class="topicBarBodyMiddle">
-							<div class="barText"><a href="aboutMe/index.html">About Me</a></div>
-						</div>
-						<div class="topicBarBodyRight"></div>
-					</div>
-					<div class="topicBarBottom">
-						<div class="topicBarBottomLeft"></div>
-						<div class="drop"></div>
-						<div class="dropBottom"></div>
-						<div class="dropTrans"></div>
-						<div class="extender"></div>
-						<div class="topicBarBottomRight"></div>
-					</div>
-				</div>
-			</li>
-			<li class="topicBarParking">
-				<div class="topicBar" id="topicBar3">
-					<div class="topicBarTop">
-						<div class="topicBarTopLeft"></div>
-						<div class="topicBarTopMiddle"></div>
-						<div class="topicBarTopRight"></div>
-					</div>
-					<div class="topicBarBody">
-						<div class="topicBarBodyLeft"></div>
-						<div class="topicBarBodyMiddle">
-							<div class="barText"><a href="webSites/index.html">Web Sites</a></div>
-						</div>
-						<div class="topicBarBodyRight"></div>
-					</div>
-					<div class="topicBarBottom">
-						<div class="topicBarBottomLeft"></div>
-						<div class="drop"></div>
-						<div class="dropBottom"></div>
-						<div class="dropTrans"></div>
-						<div class="extender"></div>
-						<div class="topicBarBottomRight"></div>
-					</div>
-				</div>
-			</li>
-			<li class="topicBarParking">
-				<div class="topicBar" id="topicBar4">
-					<div class="topicBarTop">
-						<div class="topicBarTopLeft"></div>
-						<div class="topicBarTopMiddle"></div>
-						<div class="topicBarTopRight"></div>
-					</div>
-					<div class="topicBarBody">
-						<div class="topicBarBodyLeft"></div>
-						<div class="topicBarBodyMiddle">
-							<div class="barText"><a href="portfolio/index.html">Art Portfolio</a></div>
-						</div>
-						<div class="topicBarBodyRight"></div>
-					</div>
-					<div class="topicBarBottom">
-						<div class="topicBarBottomLeft"></div>
-						<div class="drop"></div>
-						<div class="dropBottom"></div>
-						<div class="dropTrans"></div>
-						<div class="extender"></div>
-						<div class="topicBarBottomRight"></div>
-					</div>
-				</div>
-			</li>
-			<li class="topicBarParking">
-				<div class="topicBar" id="topicBar5">
-					<div class="topicBarTop">
-						<div class="topicBarTopLeft"></div>
-						<div class="topicBarTopMiddle"></div>
-						<div class="topicBarTopRight"></div>
-					</div>
-					<div class="topicBarBody">
-						<div class="topicBarBodyLeft"></div>
-						<div class="topicBarBodyMiddle">
-							<div class="barText"><a href="destinations/index.html">Destinations</a></div>
-						</div>
-						<div class="topicBarBodyRight"></div>
-					</div>
-					<div class="topicBarBottom">
-						<div class="topicBarBottomLeft"></div>
-						<div class="drop"></div>
-						<div class="dropBottom"></div>
-						<div class="dropTrans"></div>
-						<div class="extender"></div>
-						<div class="topicBarBottomRight"></div>
-					</div>
-				</div>
-			</li>
-			<li class="topicBarParking">
-				<div class="topicBar" id="topicBar6">
-					<div class="topicBarTop">
-						<div class="topicBarTopLeft"></div>
-						<div class="topicBarTopMiddle"></div>
-						<div class="topicBarTopRight"></div>
-					</div>
-					<div class="topicBarBody">
-						<div class="topicBarBodyLeft"></div>
-						<div class="topicBarBodyMiddle">
-							<div class="barText"><a href="contact/index.html">Contact Me</a></div>
-						</div>
-						<div class="topicBarBodyRight"></div>
-					</div>
-					<div class="topicBarBottom">
-						<div class="topicBarBottomLeft"></div>
-						<div class="drop"></div>
-						<div class="dropBottom"></div>
-						<div class="dropTrans"></div>
-						<div class="extender"></div>
-						<div class="topicBarBottomRight"></div>
-					</div>
-				</div>
-			</li>
+			<li class="topicBarParking"><topic-bar href="index.html"><div class="barTextSlot">Home</div></topic-bar></li>
+			<li class="topicBarParking"><topic-bar href="aboutMe/index.html"><div class="barTextSlot">About Me</div></topic-bar></li>
+			<li class="topicBarParking"><topic-bar href="webSites/index.html"><div class="barTextSlot">Web Sites</div></topic-bar></li>
+			<li class="topicBarParking"><topic-bar href="portfolio/index.html"><div class="barTextSlot">Art Portfolio</div></topic-bar></li>
+			<li class="topicBarParking"><topic-bar href="destinations/index.html"><div class="barTextSlot">Destinations</div></topic-bar></li>
+			<li class="topicBarParking"><topic-bar href="contact/index.html"><div class="barTextSlot">Contact Me</div></topic-bar></li>
 		</menu>
 	</nav>
 	<!-- End UnSelected Topic Bar Area -->
@@ -300,56 +168,23 @@
 				<div id="content" class="bodyText" role="document">
 
 <!-- Begin Breadcrumb Area -->
-<span class="breadCrumbCurrent"><a href="index.html">Home</a></span>
+<span class="breadCrumbHist"><a href="index.html">Home</a> : </span>
+<span class="breadCrumbHist"><a href="whatsNew.html">What's New (Blog)</a> : </span>
+<span class="breadCrumbCurrent"><a href="whatsNew2006.html">2023</a></span>
 <!-- End Breadcrumb Area -->
 <br /><br />
 
+
 <h1>What's New (Blog)</h1>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et netus et malesuada fames ac turpis egestas. Fusce ut placerat orci nulla. Maecenas ultricies mi eget mauris. Mauris vitae ultricies leo integer malesuada nunc vel risus commodo. Sem integer vitae justo eget magna fermentum iaculis eu non. A condimentum vitae sapien pellentesque habitant. Malesuada fames ac turpis egestas maecenas pharetra. Nibh nisl condimentum id venenatis a condimentum vitae. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Molestie nunc non blandit massa enim nec dui nunc mattis. Nec tincidunt praesent semper feugiat nibh sed. Bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim. Molestie a iaculis at erat pellentesque. Donec ac odio tempor orci dapibus ultrices in. Nunc congue nisi vitae suscipit tellus. A diam maecenas sed enim.<br /><br />
 
-<h2>1.24.2006 - Comcast - GRRRR!!</h2>
-Lo and behold the possible catastrophic outage I mentioned on my blog update on 12.18.2005 came true.  Yet <strong>another</strong> train derailment - this one near Winter Park resulted in <strong>another</strong> multi-day outage.<br /><br />
+Curabitur vitae nunc sed velit. Viverra adipiscing at in tellus integer feugiat. Eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar. Rhoncus est pellentesque elit ullamcorper dignissim. Sed cras ornare arcu dui. Pharetra diam sit amet nisl suscipit. Amet mauris commodo quis imperdiet massa tincidunt. Nisi lacus sed viverra tellus in hac. Ultrices vitae auctor eu augue ut lectus arcu. Duis convallis convallis tellus id interdum velit laoreet. Aliquam id diam maecenas ultricies mi eget mauris pharetra. Sit amet mattis vulputate enim. Quis hendrerit dolor magna eget est lorem ipsum dolor sit.<br /><br />
 
-OK, the first one I can forgive - but now this has happened twice!  For bonus points, since I'm now on Vonage, it effectively killed my land line too.  Fortunately Vonage was transferring all me calls to my cell phone automatically.  Comcast really needs to get some redundancy around here.  People, or at least I, depend on having an Internet connection available when I'm home.  I use it for my livelihood, my entertainment, paying bills, tracking accounts, following news, I consider it as if not more important than my phone service.  This outage effected Aspen, Glenwood Springs, all the way west to Grand Mesa.  Quite a large area of customers to have disconnected and disgruntled.<br /><br />
+Molestie nunc non blandit massa enim nec dui nunc. Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Maecenas volutpat blandit aliquam etiam erat velit scelerisque in. Maecenas accumsan lacus vel facilisis volutpat. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat. Tristique senectus et netus et malesuada fames ac. Libero volutpat sed cras ornare arcu dui vivamus arcu felis. Placerat vestibulum lectus mauris ultrices eros in cursus. Non enim praesent elementum facilisis leo vel. Non odio euismod lacinia at. Amet risus nullam eget felis eget nunc. Faucibus in ornare quam viverra orci. Donec enim diam vulputate ut.<br /><br />
 
-I can only imagine this outage has cost Comcast a number of customers.  Adding to the irritation is Comcast's lame and constant barrage of anti-DSL commercials.  Safe to say that if this happens again Comcast will likely lose my business too.  The only trick is now my land line is a thing of the past so I'll have to find a way to get DSL without the rest of the phone service.  May not be possible.<br /><br />
+Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Nisl pretium fusce id velit ut tortor pretium. Tristique senectus et netus et. Enim diam vulputate ut pharetra sit. Sed velit dignissim sodales ut. Massa sed elementum tempus egestas sed. Ligula ullamcorper malesuada proin libero. Morbi non arcu risus quis varius quam quisque id diam. Dignissim suspendisse in est ante in nibh mauris cursus mattis. Morbi leo urna molestie at elementum. Quisque id diam vel quam elementum. Risus at ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Commodo elit at imperdiet dui accumsan sit amet. Scelerisque eu ultrices vitae auctor. Senectus et netus et malesuada fames. Turpis in eu mi bibendum neque egestas. Urna neque viverra justo nec ultrices dui sapien. Cursus in hac habitasse platea dictumst. Eleifend mi in nulla posuere sollicitudin aliquam.<br /><br />
 
-
-<h2>1.16.2006 - Enter Gentoo</h2>
-Managed to get my printer working via CUPS on my FreeBSD box - pretty satisfied with it but I made the mistake of skipping the footmatic and ghostscript drivers.  Now it's working great!  For those of you who've stumbled across my site trying to get a CX11NF working in CUPS - you can get the driver <a href="http://www.avasys.jp/english/linux_e/dl_laser.html">here</a> - a site in Japan but it works just fine.  Took some digging to find that - Epson wasn't exactly forthcoming or supportive with that gem.<br /><br />
-
-After spending time and effort getting my printer working under CUPS on my Fedora Core 4 box I go and switch it to Gentoo.  My friend <a href="http://www.vader.net">Tom</a> made the first jump and I quickly followed.  It has been fun comparing notes with him.  He switched because Fedora Core was causing problems getting certain device drivers running.  I switched because Fedora Core was locking up on some activities - not good! <br /><br />
-
-Gentoo is interesting.  On the whole - I like it!  The install on a SATA system was a bit different - only big gripes I have is that you have to manually write your own fstab and grub.conf files - not fun and it took a lot of trial and error to get it to boot properly.  Oof.  Never did get genkernel running using their example but I did get my own kernel running well enough.<br /><br />
-
-In terms of how it handles - WOW.  Very nice!  It's fast, it's easy to add/remove stuff and on the whole I'm quite impressed.  It has documentation that rivals FreeBSD's.  Good documentation is an extremely valuable tool to have when installing and configuring a UNIX OS of any flavor.<br /><br />
-
-Gentoo's emerge/portage system is really cool - it's a bit like portupgrade/ports on FreeBSD but different.  Beats going on an RPM easter egg hunt.<br /><br />
-
-This time I got my CX11NF working under Gentoo on the first crack!<br /><br />
-
-I was a bit puzzled when looking at my web reports to see that my pictures of <a href="destinations/images/starwarsC2/lgJohnHollis.jpg">John Hollis</a> and <a href="destinations/images/starwarsC2/lgWilliamHootkins.jpg">Bill Hootkins</a> were getting quite a few direct links.  John was pretty shaky at Celebration II and I wasn't too surprised to hear he had passed.  However I was really bummed to read that Bill had passed away back in October - he was such a delight to meet.  I was lucky to have met both and have gotten their autographs.<br /><br />
-
-
-<h2>1.8.2006 - Completed Switch</h2>
-My phone is now 100% on Vonage.  So far it's pretty good.  Everything is working very well.  To Qwest's credit, they didn't pull any more games after that first day. <br /><br />
-
-With help from Tom the firewall rule set is now working perfectly.  This way I can make massive file transfers and not have it effect the quality of the phone call much at all.  To help others, I posted a simplified version of the rule set <a href="http://www.vonage-forum.com/ftopic10443.html">here</a>.  Hopefully others will find it useful.<br /><br />
-
-Putting the finishing touches onto WestStar's new intranet for launch.  Mainly just putting it little tweaks and polishes and sometime this week I'll get to launch it.  Looking forward to getting it out - it is a vast improvement over what we have now.<br /><br />
-
-On checking my site logs with <a href="http://awstats.sourceforge.net/">AWStats</a> I decided to put in some tweaks and polishes on some of the code that runs this show.  Had some little minor things here and there - they were causing 404-Not Found errors on some of the interface images.  I still need to work on the print style sheet for IE.  Firefox does a good job printing most pages while IE is turning some pages into a virtual train wreck.<br /><br />
-
-I'd download and try <a href="http://www.microsoft.com/windows/ie/ie7/default.mspx">IE 7</a> but I can't say I'm overly comfortable installing something that will integrate itself into every nook and cranny of my OS.  I'll wait until it's a bit closer to release - hopefully MS will allow IE 6 and 7 to be run in parallel for testing.<br /><br />
-
-
-<h2>1.1.2006 - A New Year</h2>
-I spent New Years Eve at <a href="http://www.glenwoodcaverns.com/">Glenwood Caverns</a> had a great time there in spite of going "stag" as it were.  Met some fun an interesting people.  It was a good way to start what I hope to be a year that realizes my dreams.<br /><br />
-
-So far so good on Vonage - now if only Qwest will comply on transferring my number over.  If they want to make it difficult fine - they'll only decrease the likelihood I'll ever do business with them again.  Hopefully they'll get my number transferred over.<br /><br />
-
-To Vonage's credit, it appears to very much be a VOIP that any Joe Sixpack with a cable modem could implement and get it working in 2 minutes.  For that well done!  I'm not perfectly content just yet though - I've been working on prefecting my firewall's ruleset so that whenever I'm uploading it doesn't adversely effect the phone call.  Right now when I upload a file it can cause the phone call to sound choppy.  So in the mean time I'll just keep crunching on it.<br /><br />
-
-The Epson printer is working pretty well, still, maybe it's just me but it seems to be going through the black cartridge pretty quick.  It was a real pain to get it working under my FedoraCore 4 box.  There's no driver included for it - after some digging I found one that I was able to get in after some hacking.  Not that I print very often from that box but I like having that option when I need it - now to get my FreeBSD box using it.<br /><br />
+Viverra justo nec ultrices dui sapien eget mi proin sed. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Tincidunt augue interdum velit euismod in pellentesque. Orci nulla pellentesque dignissim enim sit amet venenatis urna. Tristique senectus et netus et malesuada fames ac. At tellus at urna condimentum. Tincidunt arcu non sodales neque sodales ut etiam sit amet. Tincidunt dui ut ornare lectus sit amet est placerat in. Interdum velit laoreet id donec. Laoreet suspendisse interdum consectetur libero id. Sit amet nisl purus in mollis nunc. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Lacinia at quis risus sed vulputate odio ut enim blandit. Aliquam nulla facilisi cras fermentum odio eu. Ultrices in iaculis nunc sed augue. Placerat orci nulla pellentesque dignissim.<br /><br />
 
 				<br /><br />
 			

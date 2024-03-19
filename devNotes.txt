@@ -119,6 +119,9 @@ if (hasErrors) {
 
 So if I wanted to (I don't) I could do that - I am hoping I can at least parse the document in enough to use XPathing for node retreval.  Course I could refer to my old site!
 
+3/18 and 3/19
+Working on custom web componenets.  They're definintely a little different and I'm starting to make friends with them.
 
+Need to work on nesting the sub menu items.. but so far so good.
 
 
