@@ -124,4 +124,17 @@ Working on custom web componenets.  They're definintely a little different and I
 
 Need to work on nesting the sub menu items.. but so far so good.
 
+The Shadow-DOM definitely creates some interesting challenges here.   The sub-menu needs better stylings - but I figure it's best to progress onto the subMenu components and then try to solve them all next since that may impact styling.
+
+3/20 
+SUCCESS!!!  I've got my two basic web components in - TopicBars and SubTopic bars.   Next - I think comes the more fun parts.   Framing out the site, and writing the fetch mechanisms.
+
+For now, I will just worry about fetching, parsing, and swapping everything around.  After that.. animating them.  My goal there is to make each web component take care of that aspect itself if possible.
+
+I might at least for now focus on just 2 pages.. having 1 on home and the other on a lv3 depth with sub items so I can keep the chaos somewhat contained.
+
+One downside to the custom web components - that might well have HAMMERED accessibility goals.  Not good, it's something those are notorious for - but it's a matter of choices there for now.
+
+
+
 

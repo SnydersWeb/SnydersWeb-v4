@@ -547,8 +547,34 @@
 		left: 185px;
 		right: 5px;
 	}
+	
+		#selectedBar .selSubTopics SUB-TOPIC {
+			float: left;
+		}
 
-			
+		#selectedBar .selSubTopics SUB-TOPIC + SUB-TOPIC {
+			float: left;
+			margin: 0px 0px 0px -9px;
+		}
+
+		#selectedBar .subTopics MENU {
+			float: left;
+			padding: 0px 55px 0px 0px;
+			margin: 2px 0px 0px 0px;
+		}
+
+			#selectedBar .subTopics MENU LI {
+				float: left;
+			}
+
+			#selectedBar .subTopics MENU LI + LI {
+				margin: 0px 0px 0px -7px;
+			}
+
+				#selectedBar .subTopics MENU LI SUB-TOPIC {
+					float: left;
+				}
+
 	/* End Selected Topic Bar Selctors */
 	
 	/* Begin UnSelected Topic Bar Selctors */
@@ -566,125 +592,6 @@
 					
 	/* End UnSelected Topic Bar Selctors */
 		
-	
-	/* Begin SubItem Class Selectors */
-	.subTopic {
-		padding: 0px;
-		margin: 0px;
-		height: 18px;
-		width: auto;
-		white-space: nowrap;
-		float: left;
-		clear: none;
-		table-layout: fixed;	
-	}
-
-	.subTopic[data-promoted="true"] {
-		height: 24px;
-	}
-
-	.subTopic[data-promoted="true"] > .subTopic[data-promoted="true"] {
-		margin-left: -9px;
-	}
-
-		.subTopicLeft {
-			float: left;
-			width: 13px;
-			height: 18px;
-			left: -5px;
-			top: 0px;
-			background-image: url('../interfaceImages/subTopicLeft.svg');
-			background-repeat: no-repeat;
-		}
-
-		.subTopic[data-promoted="true"] .subTopicLeft {
-			height: 24px;
-			background-image: url('../interfaceImages/selSubTopicLeft.svg');
-		}
-	
-		.subTopicBody {
-			float: left;
-			height: 18px;
-			width: auto;
-			font-family: var(--fonts);
-			font-size: 70%;
-			font-weight: bold;
-			color: var(--color-bar-green);
-			line-height: 1.45em;
-			padding: 0px 0px 0px 0px;
-			background-image: url('../interfaceImages/subTopicBody.svg');		
-		}
-
-		.subTopic[data-promoted="true"] .subTopicBody {
-			height: 24px;
-			font-size: 95%;
-			background-image: url('../interfaceImages/selSubTopicBody.svg');
-		}
-				
-		.subTopicBody A:link, .subTopicBody A:visited {
-			color: var(--color-bar-green);
-			text-decoration: none;
-		}			
-		
-		.subTopicBody A:hover, .subTopicBody A:active {
-			color: #FFFFFF;
-			text-decoration: none;
-		}		
-	
-		.subTopicRight {
-			float: left;
-			width: 13px;
-			height: 18px;
-			right: -5px;
-			top: 0px;
-			background-image: url('../interfaceImages/subTopicRight.svg');
-			background-repeat: no-repeat;
-		}
-
-		.subTopic[data-promoted="true"] .subTopicRight {
-			height: 24px;
-			background-image: url('../interfaceImages/selSubTopicRight.svg');
-		}
-				
-	.subTopic:hover {
-	}
-	
-		.subTopic:hover .subTopicLeft {
-			background-image: url('../interfaceImages/subTopicLeftSel.svg');
-			background-repeat: no-repeat;
-		}
-	
-		.subTopic:hover .subTopicBody {
-			background-image: url('../interfaceImages/subTopicBodySel.svg');		
-		}
-		
-		.subTopic:hover .subTopicBody A:link, .subTopic:hover .subTopicBody A:visited {
-			color: var(--color-bar-green);
-			text-decoration: none;
-		}			
-		
-		.subTopic:hover .subTopicRight {
-			background-image: url('../interfaceImages/subTopicRightSel.svg');
-			background-repeat: no-repeat;
-		}
-				
-	.subTopic[data-promoted="true"]:hover {
-	}
-	
-		.subTopic[data-promoted="true"]:hover .subTopicLeft {
-			background-image: url('../interfaceImages/selSubTopicLeftSel.svg');
-		}
-	
-		.subTopic[data-promoted="true"]:hover .subTopicBody {
-			background-image: url('../interfaceImages/selSubTopicBodySel.svg');	
-		}
-		
-		.subTopic[data-promoted="true"]:hover .subTopicRight {
-			background-image: url('../interfaceImages/selSubTopicRightSel.svg');
-		}
-	
-		
-	/* End SubItem Class Selectors */		
 		
 	.bodyText {
 		font-size: 83%;

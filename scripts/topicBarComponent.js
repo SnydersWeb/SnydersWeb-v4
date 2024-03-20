@@ -1,7 +1,7 @@
 
 
-const template = document.createElement('template');
-template.innerHTML = `
+const topicBarTemplate = document.createElement('template');
+topicBarTemplate.innerHTML = `
     <style>
     /* Vars */
     :root {
@@ -22,7 +22,8 @@ template.innerHTML = `
         float: left;
     }
     ::slotted(.selSubTopics) {
-        float: left;
+        position: relative;
+        z-index: 20;
     }
     ::slotted(.subTopics) {
         position: relative;
@@ -30,18 +31,18 @@ template.innerHTML = `
         top: 2px;
         right: 5px;
         height: 24px;
+        z-index: 10;
     }
-    
+
     @media screen {
         .topicBar {
             position: relative;
+            z-index: 1;
         }
-        
             .topicBarTop {
                 position: relative;
                 width: 100%;
             }
-        
                 .topicBarTop .topicBarTopLeft {
                     position: absolute;
                     height: 13px;
@@ -212,69 +213,69 @@ template.innerHTML = `
                 }
 
         /* Begin hover selectors for topicBar */
-        .topicBarHover {
+        .topicBar.hover {
         }
         
-            .topicBarHover .topicBarTop {
+            .topicBar.hover .topicBarTop {
             }
         
-                .topicBarHover .topicBarTop .topicBarTopLeft {
+                .topicBar.hover .topicBarTop .topicBarTopLeft {
                     background-image: url('./interfaceImages/barLeftTopSel.svg');
                 }
             
-                .topicBarHover .topicBarTop .topicBarTopMiddle {
+                .topicBar.hover .topicBarTop .topicBarTopMiddle {
                     background-color: var(--color-sel-bar-color);
                 }
             
-                .topicBarHover .topicBarTop .topicBarTopRight {
+                .topicBarH.hover .topicBarTop .topicBarTopRight {
                     background-image: url('./interfaceImages/barRightTopSel.svg');
                 }
                         
-            .topicBarHover .topicBarBody {
+            .topicBar.hover .topicBarBody {
             }
         
-                .topicBarHover .topicBarBody .topicBarBodyLeft {
+                .topicBar.hover .topicBarBody .topicBarBodyLeft {
                     background-image: url('./interfaceImages/barBodySel.svg');
                     border-left: 2px solid var(--color-sel-bar-color);
                 }
             
-                .topicBarHover .topicBarBody .topicBarBodyMiddle {
+                .topicBar.hover .topicBarBody .topicBarBodyMiddle {
                     background-image: url('./interfaceImages/barBodySel.svg');
                 }
         
-                    .topicBarHover .topicBarBody .topicBarBodyMiddle .barText {
+                    .topicBar.hover .topicBarBody .topicBarBodyMiddle .barText {
                         color: #FFFFFF;
                     }			
                 
-                .topicBarHover .topicBarBody .topicBarBodyRight {
+                .topicBar.hover .topicBarBody .topicBarBodyRight {
                     background-image: url('./interfaceImages/barBodySel.svg');
                     border-right: 2px solid var(--color-sel-bar-color);;
                 }
                     
-            .topicBarHover .topicBarBottom {
+            .topicBar.hover .topicBarBottom {
             }
             
-                .topicBarHover .topicBarBottom .topicBarBottomLeft {
+                .topicBar.hover .topicBarBottom .topicBarBottomLeft {
                     background-image: url('./interfaceImages/barLeftBotSel.svg');
                 }
         
-                .topicBarHover .topicBarBottom .drop {
+                .topicBar.hover .topicBarBottom .drop {
                     background-image: url('./interfaceImages/barBodySel.svg');
                 }
                 
-                .topicBarHover .topicBarBottom .dropBottom {
+                .topicBar.hover .topicBarBottom .dropBottom {
                     background-color: var(--color-sel-bar-color);
                 }
         
-                .topicBarHover .topicBarBottom .dropTrans {
+                .topicBar.hover .topicBarBottom .dropTrans {
                     background-image: url('./interfaceImages/barBotDropRightSel.svg');
                 }
                                     
-                .topicBarHover .topicBarBottom .extender {
+                .topicBar.hover .topicBarBottom .extender {
                     background-color: var(--color-sel-bar-color);
                 }
             
-                .topicBarHover .topicBarBottom .topicBarBottomRight {
+                .topicBar.hover .topicBarBottom .topicBarBottomRight {
                     background-image: url('./interfaceImages/barRightBotSel.svg');
                 }			
         /* End hover selectors for topicBar */                
@@ -350,7 +351,7 @@ template.innerHTML = `
             <div class="dropBottom"></div>
             <div class="dropTrans"></div>
             <div class="subMenuArea">
-                <slot name="subTopics"></slot>
+                <slot name="subTopics" class="subTopics"></slot>
             </div>
             <div class="topicBarBottomRight"></div>
         </div>
@@ -366,7 +367,7 @@ class TopicBar extends HTMLElement {
         //this._internals = this.attachInternals();
         
         this._shadow = this.attachShadow({mode: "open"});
-        const templateText = template.content.cloneNode(true);
+        const templateText = topicBarTemplate.content.cloneNode(true);
         this.shadowRoot.append(templateText);
         this.bar = this.shadowRoot.querySelector(".topicBar");
 
@@ -378,15 +379,15 @@ class TopicBar extends HTMLElement {
     }
 
     handleClick = (evt) => {
-        console.log(`Going to: ${this.href} ${evt}`);
+        console.log(`Going to: ${this.href}`);
     };
 
     mouseOver = (evt) => {
-        evt.currentTarget.className = "topicBarHover";
+        evt.currentTarget.className = `${evt.currentTarget.className} hover`;
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.className = "topicBar";
+        evt.currentTarget.className = evt.currentTarget.className.replace("hover", "");
     };
 
     connectedCallback = () => {

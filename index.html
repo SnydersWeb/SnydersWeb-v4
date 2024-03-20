@@ -8,6 +8,7 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="styleSheets/baseStyle.css" />
 	<script type="text/javascript" src="scripts/topicBarComponent.js" defer></script>
+	<script type="text/javascript" src="scripts/subTopicComponent.js" defer></script>
 </head>
 
 <body>
@@ -22,7 +23,6 @@
 <div id="backgroundBackLayer"></div>
 <div id="backgroundFrontLayer"></div>
 
-
 <div id="mainContainer">
 	<!-- Begin Site Logo Div -->
 	<div id="logo"><img src="interfaceImages/snydersWebLogo.svg" width="169" height="145" alt="SnydersWeb" /></div>
@@ -32,100 +32,24 @@
 	<header id="selectedBar">
 		<topic-bar href="index.html">
 			<div class="barTextSlot">Home</div>
-			<div name="selectedSubTopic" class="selSubTopics">
-				<div class="subTopic" data-promoted="true">
-					<div class="subTopicLeft"></div>
-					<div class="subTopicBody"><a href="whatsNew.html">What's New (Blog)</a></div>
-					<div class="subTopicRight"></div>
-					
-					<div class="subTopic" data-promoted="true">
-						<div class="subTopicLeft"></div>
-						<div class="subTopicBody"><a href="whatsNew2023.html">2023</a></div>
-						<div class="subTopicRight"></div>
-					</div>
-				</div>				
+			<div name="selectedSubTopic" class="selSubTopics">				
+				<sub-topic href="whatsNew.html" isHeader="true">What's New (Blog)</sub-topic>
+				<sub-topic href="whatsNew2023.html" isHeader="true">2023</sub-topic>									
 			</div>
 			<div name="subTopics" class="subTopics">
 				<!-- Begin Submenu Items -->
 				<menu role="navigation" aria-label="Sub Navigation">
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew122023.html">December 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew102023.html">October 2023</a></div>
-							<div class="subTopicRight">
-						</div>
-					</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew092023.html">September 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew082023.html">August 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew072023.html">July 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew062023.html">June 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew052023.html">May 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew042023.html">April 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew032023.html">March 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew022023.html">February 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
-					<li>
-						<div class="subTopic">
-							<div class="subTopicLeft"></div>
-							<div class="subTopicBody"><a href="whatsNew012023.html">January 2023</a></div>
-							<div class="subTopicRight"></div>
-						</div>
-					</li>
+					<li><sub-topic href="whatsNew122023.html">December 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew102023.html">October 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew092023.html">September 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew082023.html">August 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew072023.html">July 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew062023.html">June 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew052023.html">May 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew042023.html">April 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew032023.html">March 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew022023.html">February 2023</sub-topic></li>
+					<li><sub-topic href="whatsNew012023.html">January 2023</sub-topic></li>
 				</menu>
 			</div>
 		</topic-bar>
