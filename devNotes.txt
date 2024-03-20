@@ -1,3 +1,6 @@
+chrome --allow-file-access-from-files file:///E:/Site%20Work/SnydersWeb-v4/index.html
+
+
 3/12/2024 - Investigation day
 OK.. in ES6 you no longer need to do const testMe = document.getElementById('topicBar2') - instead you can do const testMe = $('#topicBar2');
 would seem (nice to see it got some JQuery tools).
@@ -134,6 +137,13 @@ For now, I will just worry about fetching, parsing, and swapping everything arou
 I might at least for now focus on just 2 pages.. having 1 on home and the other on a lv3 depth with sub items so I can keep the chaos somewhat contained.
 
 One downside to the custom web components - that might well have HAMMERED accessibility goals.  Not good, it's something those are notorious for - but it's a matter of choices there for now.
+
+I was trying to get a React style import x from 'y' type thing - but it didn't like it.  So at least for now I'm sticking with the old fasioned way since I don't have a package.json here.  Might revisit that.
+
+OK - I've also gotten the main function working along with the pageFetcher.   The pageFetcher needs a bit of work to "digest" the page though.
+
+Also of note - need to figure out how to make the web components a bit more.. page agnostic. The shadow-DOM style sheet's references to images seems to be a bit "fragile".
+
 
 
 

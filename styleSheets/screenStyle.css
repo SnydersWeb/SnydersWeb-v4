@@ -74,7 +74,7 @@
 	}
 			
 		/* this rule is skipped by IE - this is the PROPER way to draw that div! */
-		#contentPanel #contentTop {
+		#contentPanel .contentTop {
 			position: absolute;
 			top: 0px;
 			height: 15px;
@@ -83,7 +83,7 @@
 			right: 0px;
 		}
 				
-			#contentPanel #contentTop #contentTopLeft {
+			#contentPanel .contentTop .contentTopLeft {
 				position: absolute;
 				top: 0px;
 				left: 0px;
@@ -93,7 +93,7 @@
 				background-repeat: no-repeat;
 			}
 			
-			#contentPanel #contentTop #contentTopLeftInner {
+			#contentPanel .contentTop .contentTopLeftInner {
 				position: absolute;
 				top: 0px;
 				left: 19px;
@@ -103,7 +103,7 @@
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel #contentTop #contentTopMiddle {
+			#contentPanel .contentTop .contentTopMiddle {
 				position: relative;
 				left: 0px;
 				width: auto;
@@ -114,7 +114,7 @@
 				background-repeat: repeat-x;
 			}
 	
-			#contentPanel #contentTop #contentTopRightInner {
+			#contentPanel .contentTop .contentTopRightInner {
 				position: absolute;
 				top: 0px;
 				right: 24px;
@@ -124,7 +124,7 @@
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel #contentTop #contentTopRight {
+			#contentPanel .contentTop .contentTopRight {
 				position: absolute;
 				top: 0px;
 				right: 6px;
@@ -134,7 +134,7 @@
 				background-repeat: no-repeat;
 			}
 			
-		#contentPanel #contentBody {
+		#contentPanel .contentBody {
 			position: absolute;
 			top: 15px;
 			bottom: 13px;
@@ -143,7 +143,7 @@
 			right: 0px;
 		}
 	
-			#contentPanel #contentBody #contentBodyLeft {
+			#contentPanel .contentBody .contentBodyLeft {
 				position: absolute;
 				width: 19px;
 				height: auto;
@@ -154,7 +154,7 @@
 				background-repeat: repeat-y;
 			}
 								
-				#contentPanel #contentBody #contentBodyLeft #leftTop {
+				#contentPanel .contentBody .contentBodyLeft .leftTop {
 					position: relative;
 					width: 19px;
 					height: 11px;
@@ -164,7 +164,7 @@
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel #contentBody #contentBodyLeft #leftThick {
+				#contentPanel .contentBody .contentBodyLeft .leftThick {
 					position: relative;
 					width: 19px;
 					height: 33%;
@@ -174,7 +174,7 @@
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel #contentBody #contentBodyLeft #leftTrans {
+				#contentPanel .contentBody .contentBodyLeft .leftTrans {
 					position: relative;
 					width: 19px;
 					height: 15px;
@@ -184,7 +184,7 @@
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel #contentBody #contentBodyLeft #leftDouble {
+				#contentPanel .contentBody .contentBodyLeft .leftDouble {
 					position: relative;
 					width: 19px;
 					height: 33%;
@@ -194,7 +194,7 @@
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel #contentBody #contentBodyLeft #leftDoubleEnd {
+				#contentPanel .contentBody .contentBodyLeft .leftDoubleEnd {
 					position: relative;
 					width: 19px;
 					height: 8px;
@@ -204,7 +204,7 @@
 					background-repeat: no-repeat;
 				}
 	
-			#contentPanel #contentBody #contentArea {
+			#contentPanel .contentBody .contentArea {
 				position: absolute;
 				width: auto;
 				height: auto;
@@ -216,14 +216,14 @@
 				background-image: url('../interfaceImages/contentPanelBody.svg');
 			}
 				
-				#contentPanel #contentBody #contentArea #content {
+				#contentPanel .contentBody .contentArea #content {
 					position: absolute;
 					height: 100%;
 					width: 100%;
 					overflow: auto;
 				}
 			
-			#contentPanel #contentBody #contentBodyRight {
+			#contentPanel .contentBody .contentBodyRight {
 				position: absolute;
 				width: 18px;
 				height: 100%;
@@ -233,7 +233,7 @@
 				background-repeat: repeat-y;
 			}
 		
-				#contentPanel #contentBody #contentBodyRight #rightThin {
+				#contentPanel .contentBody .contentBodyRight .rightThin {
 					position: relative;
 					width: 18px;
 					height: 20%;
@@ -243,7 +243,7 @@
 					background-repeat: repeat-y;
 				}
 				
-				#contentPanel #contentBody #contentBodyRight #rightDoubleEnd {
+				#contentPanel .contentBody .contentBodyRight .rightDoubleEnd {
 					position: relative;
 					width: 18px;
 					height: 7px;
@@ -253,7 +253,7 @@
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel #contentBody #contentBodyRight #rightDouble {
+				#contentPanel .contentBody .contentBodyRight .rightDouble {
 					position: relative;
 					width: 18px;
 					height: 40%;
@@ -263,7 +263,7 @@
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel #contentBody #contentBodyRight #rightTrans {
+				#contentPanel .contentBody .contentBodyRight .rightTrans {
 					position: relative;
 					width: 18px;
 					height: 16px;
@@ -273,7 +273,7 @@
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel #contentBody #contentBodyRight #rightThick {
+				#contentPanel .contentBody .contentBodyRight .rightThick {
 					position: relative;
 					width: 18px;
 					height: 32%;
@@ -283,7 +283,7 @@
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel #contentBody #contentBodyRight #rightBottom {
+				#contentPanel .contentBody .contentBodyRight #rightBottom {
 					position: relative;
 					width: 18px;
 					height: 13px;
@@ -293,7 +293,7 @@
 					background-repeat: no-repeat;
 				}
 	
-		#contentPanel #contentBottom {
+		#contentPanel .contentBottom {
 			position: absolute;
 			top: auto;
 			bottom: 2px;
@@ -302,7 +302,7 @@
 			right: 0px;
 		}
 		
-			#contentPanel #contentBottom #contentBotLeft {
+			#contentPanel .contentBottom .contentBotLeft {
 				position: absolute;
 				top: 0px;
 				left: 0px;
@@ -312,7 +312,7 @@
 				background-repeat: no-repeat;
 			}
 			
-			#contentPanel #contentBottom #contentBotLeftInner {
+			#contentPanel .contentBottom .contentBotLeftInner {
 				position: absolute;
 				top: 0px;
 				left: 19px;
@@ -322,7 +322,7 @@
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel #contentBottom #contentBotMiddle {
+			#contentPanel .contentBottom .contentBotMiddle {
 				position: relative;
 				left: 0px;
 				width: auto;
@@ -333,7 +333,7 @@
 				background-repeat: repeat-x;
 			}
 	
-			#contentPanel #contentBottom #contentBotRightInner {
+			#contentPanel .contentBottom .contentBotRightInner {
 				position: absolute;
 				top: 0px;
 				right: 18px;
@@ -343,7 +343,7 @@
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel #contentBottom #contentBotRight {
+			#contentPanel .contentBottom .contentBotRight {
 				position: absolute;
 				top: 0px;
 				right: 0px;
@@ -357,133 +357,133 @@
 	#contentPanel.hot {
 	}
 		
-		#contentPanel.hot #contentTop {
+		#contentPanel.hot .contentTop {
 		}
 				
-			#contentPanel.hot #contentTop #contentTopLeft {
+			#contentPanel.hot .contentTop .contentTopLeft {
 				background-image: url('../interfaceImages/contentPanelTopLeftHot.svg');
 				background-repeat: no-repeat;
 			}
 			
-			#contentPanel.hot #contentTop #contentTopLeftInner {
+			#contentPanel.hot .contentTop .contentTopLeftInner {
 				background-image: url('../interfaceImages/contentPanelTopLeftInnerHot.svg');
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel.hot #contentTop #contentTopMiddle {
+			#contentPanel.hot .contentTop .contentTopMiddle {
 				background-image: url('../interfaceImages/contentPanelTopHot.svg');
 				background-repeat: repeat-x;
 			}
 	
-			#contentPanel.hot #contentTop #contentTopRightInner {
+			#contentPanel.hot .contentTop .contentTopRightInner {
 				background-image: url('../interfaceImages/contentPanelTopRightInnerHot.svg');
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel.hot #contentTop #contentTopRight {
+			#contentPanel.hot .contentTop .contentTopRight {
 				background-image: url('../interfaceImages/contentPanelTopRightHot.svg');
 				background-repeat: no-repeat;
 			}
 			
-		#contentPanel.hot #contentBody {
+		#contentPanel.hot .contentBody {
 		}
 	
-			#contentPanel.hot #contentBody #contentBodyLeft {
+			#contentPanel.hot .contentBody .contentBodyLeft {
 				background-image: url('../interfaceImages/contentPanelLeftThinHot.svg');
 				background-repeat: repeat-y;
 			}
 			
-				#contentPanel.hot #contentBody #contentBodyLeft #leftTop {
+				#contentPanel.hot .contentBody .contentBodyLeft .leftTop {
 					background-image: url('../interfaceImages/contentPanelLeftTopHot.svg');
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyLeft #leftThick {
+				#contentPanel.hot .contentBody .contentBodyLeft .leftThick {
 					background-image: url('../interfaceImages/contentPanelLeftThickHot.svg');
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyLeft #leftTrans {
+				#contentPanel.hot .contentBody .contentBodyLeft .leftTrans {
 					background-image: url('../interfaceImages/contentPanelLeftTransHot.svg');
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyLeft #leftDouble {
+				#contentPanel.hot .contentBody .contentBodyLeft .leftDouble {
 					background-image: url('../interfaceImages/contentPanelLeftDoubleHot.svg');
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyLeft #leftDoubleEnd {
+				#contentPanel.hot .contentBody .contentBodyLeft .leftDoubleEnd {
 					background-image: url('../interfaceImages/contentPanelLeftDoubleEndHot.svg');
 					background-repeat: no-repeat;
 				}
 	
-			#contentPanel.hot #contentBody #contentArea {
+			#contentPanel.hot .contentBody .contentArea {
 				background-image: url('../interfaceImages/contentPanelBodyHot.svg');
 			}
 			
-				#contentPanel.hot #contentBody #contentArea #content {
+				#contentPanel.hot .contentBody .contentArea #content {
 				}
 			
-			#contentPanel.hot #contentBody #contentBodyRight {
+			#contentPanel.hot .contentBody .contentBodyRight {
 				background-image: url('../interfaceImages/contentPanelRightThinHot.svg');
 				background-repeat: repeat-y;
 			}
 		
-				#contentPanel.hot #contentBody #contentBodyRight #rightThin {
+				#contentPanel.hot .contentBody .contentBodyRight .rightThin {
 					background-image: url('../interfaceImages/contentPanelRightThinHot.svg');
 					background-repeat: repeat-y;
 				}
 				
-				#contentPanel.hot #contentBody #contentBodyRight #rightDoubleEnd {
+				#contentPanel.hot .contentBody .contentBodyRight .rightDoubleEnd {
 					background-image: url('../interfaceImages/contentPanelRightDoubleEndHot.svg');
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyRight #rightDouble {
+				#contentPanel.hot .contentBody .contentBodyRight .rightDouble {
 					background-image: url('../interfaceImages/contentPanelRightDoubleHot.svg');
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyRight #rightTrans {
+				#contentPanel.hot .contentBody .contentBodyRight .rightTrans {
 					background-image: url('../interfaceImages/contentPanelRightTransHot.svg');
 					background-repeat: no-repeat;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyRight #rightThick {
+				#contentPanel.hot .contentBody .contentBodyRight .rightThick {
 					background-image: url('../interfaceImages/contentPanelRightThickHot.svg');
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel.hot #contentBody #contentBodyRight #rightBottom {
+				#contentPanel.hot .contentBody .contentBodyRight #rightBottom {
 					background-image: url('../interfaceImages/contentPanelRightBotHot.svg');
 					background-repeat: no-repeat;
 				}
 	
-		#contentPanel.hot #contentBottom {
+		#contentPanel.hot .contentBottom {
 		}
 		
-			#contentPanel.hot #contentBottom #contentBotLeft {
+			#contentPanel.hot .contentBottom .contentBotLeft {
 				background-image: url('../interfaceImages/contentPanelBotLeftHot.svg');
 				background-repeat: no-repeat;
 			}
 			
-			#contentPanel.hot #contentBottom #contentBotLeftInner {
+			#contentPanel.hot .contentBottom .contentBotLeftInner {
 				background-image: url('../interfaceImages/contentPanelBotLeftInnerHot.svg');
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel.hot #contentBottom #contentBotMiddle {
+			#contentPanel.hot .contentBottom .contentBotMiddle {
 				background-image: url('../interfaceImages/contentPanelBotHot.svg');
 				background-repeat: repeat-x;
 			}
 	
-			#contentPanel.hot #contentBottom #contentBotRightInner {
+			#contentPanel.hot .contentBottom .contentBotRightInner {
 				background-image: url('../interfaceImages/contentPanelBotRightInnerHot.svg');
 				background-repeat: no-repeat;
 			}
 	
-			#contentPanel.hot #contentBottom #contentBotRight {
+			#contentPanel.hot .contentBottom .contentBotRight {
 				background-image: url('../interfaceImages/contentPanelBotRightHot.svg');
 				background-repeat: no-repeat;
 			}
@@ -594,7 +594,6 @@
 		
 		
 	.bodyText {
-		font-size: 83%;
 		color: #FFFFFF;
 	}
 	

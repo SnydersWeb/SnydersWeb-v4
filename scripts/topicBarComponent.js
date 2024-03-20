@@ -49,7 +49,7 @@ topicBarTemplate.innerHTML = `
                     width: 13px;
                     left: 0px;
                     top: 0px;
-                    background-image: url('./interfaceImages/barLeftTop.svg');
+                    background-image: url('interfaceImages/barLeftTop.svg');
                     background-repeat: no-repeat;
                 }
             
@@ -69,7 +69,7 @@ topicBarTemplate.innerHTML = `
                     width: 10px;
                     right: 0px;
                     top: 0px;
-                    background-image: url('./interfaceImages/barRightTop.svg');
+                    background-image: url('interfaceImages/barRightTop.svg');
                     background-repeat: no-repeat;
                 }
                         
@@ -85,7 +85,7 @@ topicBarTemplate.innerHTML = `
                     height: .8em;
                     left: 0px;
                     top: 11px;
-                    background-image: url('./interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                     border-left: 2px solid var(--color-bar-color);
                 }
             
@@ -96,13 +96,13 @@ topicBarTemplate.innerHTML = `
                     height: 1.5em;
                     margin-left: 13px;
                     margin-right: 10px;
-                    background-image: url('./interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                 }
         
                     .topicBarBody .topicBarBodyMiddle .barText {
                         position: relative;
                         font-family: var(--fonts);
-                        font-size: 95%;
+                        font-size: 100%;
                         font-weight: bold;
                         color: var(--color-bar-green);
                         line-height: 1.45em;
@@ -118,7 +118,7 @@ topicBarTemplate.innerHTML = `
                     .topicBarBody .topicBarBodyMiddle .barText {
                         position: relative;
                         font-family: var(--fonts);
-                        font-size: 95%;
+                        font-size: 100%;
                         font-weight: bold;
                         color: var(--color-bar-green);
                         line-height: 1.45em;
@@ -132,7 +132,7 @@ topicBarTemplate.innerHTML = `
                     height: .50em;
                     right: 0px;
                     top: 8px;
-                    background-image: url('./interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                     border-right: 2px solid var(--color-bar-color);
                 }
                     
@@ -147,7 +147,7 @@ topicBarTemplate.innerHTML = `
                     top: 0px;
                     height: 16px;
                     width: 14px;
-                    background-image: url('./interfaceImages/barLeftBot.svg');
+                    background-image: url('interfaceImages/barLeftBot.svg');
                     background-repeat: no-repeat;
                 }
         
@@ -157,7 +157,7 @@ topicBarTemplate.innerHTML = `
                     top: 0px;
                     height: 14px;
                     width: 60px;
-                    background-image: url('./interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                 }
                 
                 .topicBarBottom .dropBottom {
@@ -175,7 +175,7 @@ topicBarTemplate.innerHTML = `
                     top: 0px;
                     height: 16px;
                     width: 14px;
-                    background-image: url('./interfaceImages/barBotDropRight.svg');
+                    background-image: url('interfaceImages/barBotDropRight.svg');
                     background-repeat: no-repeat;
                 }
                                     
@@ -208,7 +208,7 @@ topicBarTemplate.innerHTML = `
                     height: 10px;
                     right: 0px;
                     top: -8px;
-                    background-image: url('./interfaceImages/barRightBot.svg');
+                    background-image: url('interfaceImages/barRightBot.svg');
                     background-repeat: no-repeat;
                 }
 
@@ -220,27 +220,27 @@ topicBarTemplate.innerHTML = `
             }
         
                 .topicBar.hover .topicBarTop .topicBarTopLeft {
-                    background-image: url('./interfaceImages/barLeftTopSel.svg');
+                    background-image: url('interfaceImages/barLeftTopSel.svg');
                 }
             
                 .topicBar.hover .topicBarTop .topicBarTopMiddle {
                     background-color: var(--color-sel-bar-color);
                 }
             
-                .topicBarH.hover .topicBarTop .topicBarTopRight {
-                    background-image: url('./interfaceImages/barRightTopSel.svg');
+                .topicBar.hover .topicBarTop .topicBarTopRight {
+                    background-image: url('interfaceImages/barRightTopSel.svg');
                 }
                         
             .topicBar.hover .topicBarBody {
             }
         
                 .topicBar.hover .topicBarBody .topicBarBodyLeft {
-                    background-image: url('./interfaceImages/barBodySel.svg');
+                    background-image: url('interfaceImages/barBodySel.svg');
                     border-left: 2px solid var(--color-sel-bar-color);
                 }
             
                 .topicBar.hover .topicBarBody .topicBarBodyMiddle {
-                    background-image: url('./interfaceImages/barBodySel.svg');
+                    background-image: url('interfaceImages/barBodySel.svg');
                 }
         
                     .topicBar.hover .topicBarBody .topicBarBodyMiddle .barText {
@@ -248,7 +248,7 @@ topicBarTemplate.innerHTML = `
                     }			
                 
                 .topicBar.hover .topicBarBody .topicBarBodyRight {
-                    background-image: url('./interfaceImages/barBodySel.svg');
+                    background-image: url('interfaceImages/barBodySel.svg');
                     border-right: 2px solid var(--color-sel-bar-color);;
                 }
                     
@@ -256,11 +256,11 @@ topicBarTemplate.innerHTML = `
             }
             
                 .topicBar.hover .topicBarBottom .topicBarBottomLeft {
-                    background-image: url('./interfaceImages/barLeftBotSel.svg');
+                    background-image: url('interfaceImages/barLeftBotSel.svg');
                 }
         
                 .topicBar.hover .topicBarBottom .drop {
-                    background-image: url('./interfaceImages/barBodySel.svg');
+                    background-image: url('interfaceImages/barBodySel.svg');
                 }
                 
                 .topicBar.hover .topicBarBottom .dropBottom {
@@ -268,7 +268,7 @@ topicBarTemplate.innerHTML = `
                 }
         
                 .topicBar.hover .topicBarBottom .dropTrans {
-                    background-image: url('./interfaceImages/barBotDropRightSel.svg');
+                    background-image: url('interfaceImages/barBotDropRightSel.svg');
                 }
                                     
                 .topicBar.hover .topicBarBottom .extender {
@@ -276,7 +276,7 @@ topicBarTemplate.innerHTML = `
                 }
             
                 .topicBar.hover .topicBarBottom .topicBarBottomRight {
-                    background-image: url('./interfaceImages/barRightBotSel.svg');
+                    background-image: url('interfaceImages/barRightBotSel.svg');
                 }			
         /* End hover selectors for topicBar */                
     }    
@@ -375,19 +375,32 @@ class TopicBar extends HTMLElement {
         this.bar.addEventListener('mouseover', this.mouseOver);
         this.bar.addEventListener('mouseout', this.mouseOut);
 
-        this.href = this.getAttribute("href");   
+        this.href = this.getAttribute("href");
+        this.event = new CustomEvent(
+            "fetchPage", 
+            {
+                detail: {
+                    pageURL: this.href
+                }, 
+                bubbles: false,
+                cancelable: true,
+            }
+        );
     }
 
     handleClick = (evt) => {
-        console.log(`Going to: ${this.href}`);
+        evt.cancelBubble = true; 
+        document.querySelector("#mainContainer").dispatchEvent(this.event);
     };
 
     mouseOver = (evt) => {
         evt.currentTarget.className = `${evt.currentTarget.className} hover`;
+        evt.cancelBubble = true; 
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.className = evt.currentTarget.className.replace("hover", "");
+        evt.currentTarget.className = evt.currentTarget.className.replace(" hover", "");
+        evt.cancelBubble = true; 
     };
 
     connectedCallback = () => {

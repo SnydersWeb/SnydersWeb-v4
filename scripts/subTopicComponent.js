@@ -50,13 +50,13 @@ subTopicTemplate.innerHTML = `
                 height: 18px;
                 left: -5px;
                 top: 0px;
-                background-image: url('./interfaceImages/subTopicLeft.svg');
+                background-image: url('interfaceImages/subTopicLeft.svg');
                 background-repeat: no-repeat;
             }
 
             .subTopic.header .subTopicLeft {
                 height: 24px;
-                background-image: url('./interfaceImages/selSubTopicLeft.svg');
+                background-image: url('interfaceImages/selSubTopicLeft.svg');
             }
         
             .subTopicBody {
@@ -64,18 +64,18 @@ subTopicTemplate.innerHTML = `
                 height: 18px;
                 width: auto;
                 font-family: var(--fonts);
-                font-size: 70%;
+                font-size: 80%;
                 font-weight: bold;
                 color: var(--color-bar-green);
                 line-height: 1.45em;
                 padding: 0px 0px 0px 0px;
-                background-image: url('./interfaceImages/subTopicBody.svg');		
+                background-image: url('interfaceImages/subTopicBody.svg');		
             }
 
             .subTopic.header .subTopicBody {
                 height: 24px;
                 font-size: 95%;
-                background-image: url('./interfaceImages/selSubTopicBody.svg');
+                background-image: url('interfaceImages/selSubTopicBody.svg');
             }
                     
             .subTopicBody A:link, .subTopicBody A:visited {
@@ -94,24 +94,24 @@ subTopicTemplate.innerHTML = `
                 height: 18px;
                 right: -5px;
                 top: 0px;
-                background-image: url('./interfaceImages/subTopicRight.svg');
+                background-image: url('interfaceImages/subTopicRight.svg');
                 background-repeat: no-repeat;
             }
 
             .subTopic.header .subTopicRight {
                 height: 24px;
-                background-image: url('./interfaceImages/selSubTopicRight.svg');
+                background-image: url('interfaceImages/selSubTopicRight.svg');
             }
                     
         .subTopic.hover {
         }        
             .subTopic.hover .subTopicLeft {
-                background-image: url('./interfaceImages/subTopicLeftSel.svg');
+                background-image: url('interfaceImages/subTopicLeftSel.svg');
                 background-repeat: no-repeat;
             }
         
             .subTopic.hover .subTopicBody {
-                background-image: url('./interfaceImages/subTopicBodySel.svg');		
+                background-image: url('interfaceImages/subTopicBodySel.svg');		
             }
             
             .subTopic.hover .subTopicBody A:link, .subTopic:hover .subTopicBody A:visited {
@@ -120,7 +120,7 @@ subTopicTemplate.innerHTML = `
             }			
             
             .subTopic.hover .subTopicRight {
-                background-image: url('./interfaceImages/subTopicRightSel.svg');
+                background-image: url('interfaceImages/subTopicRightSel.svg');
                 background-repeat: no-repeat;
             }
                     
@@ -129,15 +129,15 @@ subTopicTemplate.innerHTML = `
         }
         
             .subTopic.header.hover .subTopicLeft {
-                background-image: url('./interfaceImages/selSubTopicLeftSel.svg');
+                background-image: url('interfaceImages/selSubTopicLeftSel.svg');
             }
         
             .subTopic.header.hover .subTopicBody {
-                background-image: url('./interfaceImages/selSubTopicBodySel.svg');	
+                background-image: url('interfaceImages/selSubTopicBodySel.svg');	
             }
             
             .subTopic.header.hover .subTopicRight {
-                background-image: url('./interfaceImages/selSubTopicRightSel.svg');
+                background-image: url('interfaceImages/selSubTopicRightSel.svg');
             }
         
             
@@ -216,20 +216,31 @@ class SubTopic extends HTMLElement {
         if (/true/i.test(this.isHeader)) {
             this.bar.className = `${this.bar.className} header`;
         }
+        
+        this.event = new CustomEvent(
+            "fetchPage", 
+            {
+                detail: {
+                    pageURL: this.href
+                }, 
+                bubbles: false,
+                cancelable: true,
+            }
+        );
     }
 
     handleClick = (evt) => {
-        console.log(`Going to: ${this.href}`);        
         evt.cancelBubble = true; //Block this from going to the title bar!
+        document.querySelector("#mainContainer").dispatchEvent(this.event);
     };
 
     mouseOver = (evt) => {
-        evt.currentTarget.className = `${evt.currentTarget.className} hover`;
+        evt.currentTarget.className = `${(evt.currentTarget.className).trim()} hover`;
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.className = evt.currentTarget.className.replace("hover", "");
+        evt.currentTarget.className = evt.currentTarget.className.replace(" hover", "");
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
