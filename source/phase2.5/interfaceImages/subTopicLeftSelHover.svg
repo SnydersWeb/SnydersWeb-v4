@@ -1,0 +1,30 @@
+<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        :root {
+            --bar-green-transparent-fill: #93AB9E;
+            --stroke: 0;
+        }
+        .pathProps {
+            display: inline;
+            stroke-width: var(--stroke);
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-dasharray: none;
+            stroke-opacity: 1;
+        }
+        .greenTransparentPart {
+            fill-opacity: 0.9;
+            fill: var(--bar-green-transparent-fill);
+        }
+    </style>
+
+    <defs>
+        <pattern id="subTopicLeftSel" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
+          <g>
+            <path class="pathProps greenTransparentPart" d="M 13,0 0,18 h 13 z" />
+          </g>
+        </pattern>
+    </defs>
+    
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#subTopicLeftSel)"></rect>
+</svg>

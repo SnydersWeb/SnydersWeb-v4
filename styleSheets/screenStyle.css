@@ -548,6 +548,10 @@
 		right: 5px;
 	}
 	
+		#selectedBar .selSubTopics {
+			clear: both;
+		}
+
 		#selectedBar .selSubTopics SUB-TOPIC {
 			float: left;
 		}

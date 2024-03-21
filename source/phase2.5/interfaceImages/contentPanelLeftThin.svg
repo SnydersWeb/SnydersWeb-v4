@@ -1,0 +1,37 @@
+<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        :root {
+            --bar-grey-transparent-fill: #333333;
+            --bar-solid-dark-grey: #536170; 
+            --bar-solid-light-grey: #696e76;
+            --stroke: 0;
+        }
+        .pathProps {
+            display: inline;
+            stroke-width: var(--stroke);
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-dasharray: none;
+            stroke-opacity: 1;
+        }
+        .greyTransparentPart {
+            fill-opacity: 0.5;
+            fill: var(--bar-grey-transparent-fill);
+        }
+        .darkGreyPart {
+            fill-opacity: 1;
+            fill: var(--bar-solid-dark-grey);
+        }
+    </style>
+
+    <defs>
+        <pattern id="contentPanelLeftThin" x="0" y="0" width="19" height="8" patternUnits="userSpaceOnUse">
+          <g>
+            <path class="pathProps darkGreyPart" d="m 12,8 h 6 V 0 h -6 z" />
+            <path class="pathProps greyTransparentPart" d="M 19,0 V 8 H 18 V 0 Z" />
+          </g>
+        </pattern>
+    </defs>
+    
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#contentPanelLeftThin)"></rect>
+</svg>

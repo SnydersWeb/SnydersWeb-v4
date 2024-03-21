@@ -26,9 +26,12 @@ class Maestro {
 
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
-        this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
 
-        this.handlePageChanges();        
+        //SnyderD - Temp code for testing
+        window.location.href = pageURL;
+
+        //this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
+        //this.handlePageChanges();        
     }
 
     handlePageChanges() {

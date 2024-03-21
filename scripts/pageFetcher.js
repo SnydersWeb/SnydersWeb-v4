@@ -52,16 +52,18 @@ class PageFetcher {
                href: bar.getAttribute(`href`),
             });
         });
-        const subMenuArea = selectedTopicBar.querySelector(`MENU[role="navigation"]`);
-        const subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
         const subTopics = [];
-        subTopicBars.forEach(bar => {
-            subTopics.push({
-               id: bar.getAttribute(`data-id`),
-               href: bar.getAttribute(`href`),
-               selected: bar.getAttribute(`selected`) || "false",
+        const subMenuArea = selectedTopicBar.querySelector(`MENU[role="navigation"]`);
+        if (subMenuArea !== null) {
+            const subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
+            subTopicBars.forEach(bar => {
+                subTopics.push({
+                id: bar.getAttribute(`data-id`),
+                href: bar.getAttribute(`href`),
+                selected: bar.getAttribute(`selected`) || "false",
+                });
             });
-        });
+        }
         const contentArea = docObj.querySelector(`#content`);
         const pageContent = contentArea.innerHTML;
         
