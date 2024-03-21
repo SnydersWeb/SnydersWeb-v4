@@ -14,22 +14,26 @@ class Maestro {
 
         this.pageFetcher = new PageFetcher();
 
+        //Get information about where we're starting
+        this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
         this.requestedPageInfo = {};
     }
 
     //Methods
     init() {
-        this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });
-        
+        this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });        
     }
 
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
-        console.log(`fetchPage called - get: ${pageURL}`);
+        this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
 
-        console.dir(this);
-        const pageContent = await this.pageFetcher.getPage(pageURL);
-        console.dir(pageContent);
+        this.handlePageChanges();        
+    }
+
+    handlePageChanges() {
+        console.dir(this.currentPageInfo);
+        console.dir(this.requestedPageInfo);
     }
 }
 

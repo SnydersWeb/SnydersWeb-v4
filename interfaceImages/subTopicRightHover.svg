@@ -26,7 +26,7 @@
     <defs>
         <pattern id="subTopicRightSel" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps greenTransparentPart" d="M 13,0 H 0 v 18 z" />
+            <path class="pathProps purpleTransparentPart" d="M 13,0 H 0 v 18 z" />
           </g>
         </pattern>
     </defs>

@@ -19,6 +19,7 @@
             display: inline;
             fill-opacity: 1;
             stroke-width: var(--stroke2);
+            filter: url(#shadow);
         }
         rect.bgFtGoldChip {
             fill: var(--yellow-fill-color);
@@ -33,6 +34,7 @@
             stroke-linejoin: miter;
             stroke-dasharray: none;
             stroke-opacity: 1;
+            filter: url(#shadow);
         }
         path.bgFtGreyLine {
             stroke: var(--grey-line-color);
@@ -82,6 +84,10 @@
     </style>
 
     <defs>
+        <filter id="shadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.5">
+            </feDropShadow>
+        </filter>    
         <pattern id="backgroundFrontLayerPat" x="0" y="0" width="118" height="118" patternUnits="userSpaceOnUse">
             <g id="bgFt">
                 <path class="lineProps bgFtGreyLine" d="M 97.639312,68.737705 V 62.432996 H 15.621576 V 0" />

@@ -138,11 +138,25 @@ I might at least for now focus on just 2 pages.. having 1 on home and the other 
 
 One downside to the custom web components - that might well have HAMMERED accessibility goals.  Not good, it's something those are notorious for - but it's a matter of choices there for now.
 
-I was trying to get a React style import x from 'y' type thing - but it didn't like it.  So at least for now I'm sticking with the old fasioned way since I don't have a package.json here.  Might revisit that.
+I was trying to get a React style import 'x' from 'y' type thing - but it didn't like it.  So at least for now I'm sticking with the old fasioned way since I don't have a package.json here.  Might revisit that.
 
 OK - I've also gotten the main function working along with the pageFetcher.   The pageFetcher needs a bit of work to "digest" the page though.
 
 Also of note - need to figure out how to make the web components a bit more.. page agnostic. The shadow-DOM style sheet's references to images seems to be a bit "fragile".
+
+3/21
+Fixed the image pathing issue - it's somewhat of a crude hack but will work for correcting the path on my site for images.
+
+I also spent a little time cleaning up and clarifying the file naming for the images.
+
+Put in some changes on subMenu rendering - I figured I'd leave items where a given user could slide "laterally" betwen subtopics - but if the subtopic has subtopics then we'll change things.
+
+So put in some minor "candy" work on the background and logo - I like the  background better with that drop shadow on the first layer.
+
+Also got the parser working where it can identify differences between where we're at.  Data attributes will help with easy idenification there.
+
+Next up - maybe frame out a few more pages and then start delving into animation.  I think for some of that I will maybe need to do some trickery there where I first get the pageX/Y location, switch it to absolute at the same location, animate it, then "set" it where it needs to go.
+
 
 
 

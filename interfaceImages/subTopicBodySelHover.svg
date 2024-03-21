@@ -1,8 +1,7 @@
 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
     <style>
         :root {
-            --bar-purple-transparent-fill: #7e758d;
-            --bar-green-transparent-fill: #486053;
+            --bar-green-transparent-fill: #93AB9E;
             --stroke: 0;
         }
         .pathProps {
@@ -13,10 +12,6 @@
             stroke-dasharray: none;
             stroke-opacity: 1;
         }
-        .purpleTransparentPart {
-            fill-opacity: 0.9;
-            fill: var(--bar-purple-transparent-fill);
-        }
         .greenTransparentPart {
             fill-opacity: 0.9;
             fill: var(--bar-green-transparent-fill);
@@ -24,12 +19,12 @@
     </style>
 
     <defs>
-        <pattern id="subTopicRightSel" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
+        <pattern id="subTopicBodySel" x="0" y="0" width="13" height="18" patternUnits="userSpaceOnUse">
           <g>
-            <path class="pathProps greenTransparentPart" d="M 13,0 H 0 v 18 z" />
+            <path class="pathProps greenTransparentPart" d="M 13,0 H 0 v 18 h 13 z" />
           </g>
         </pattern>
     </defs>
     
-    <rect x="0" y="0" width="100%" height="100%" fill="url(#subTopicRightSel)"></rect>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#subTopicBodySel)"></rect>
 </svg>

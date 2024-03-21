@@ -283,7 +283,7 @@
 					background-repeat: repeat-y;
 				}
 	
-				#contentPanel .contentBody .contentBodyRight #rightBottom {
+				#contentPanel .contentBody .contentBodyRight .rightBottom {
 					position: relative;
 					width: 18px;
 					height: 13px;
@@ -651,7 +651,7 @@
 	.breadCrumbHist A:active, .breadCrumbHist A:hover {
 		color: #FFFF33; /* B22222; */
 		text-decoration: none;
-	}s
+	}
 	
 	/* End content formatting selectors */
 }

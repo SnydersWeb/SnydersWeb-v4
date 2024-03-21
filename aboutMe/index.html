@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="english">
 <head>
 	<title>SnydersWeb.com</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="icon" href="favicon.ico" type="image/x-icon" />
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="../styleSheets/baseStyle.css" />
+	<script type="text/javascript" src="../componentTemplates/topicBarComponent.js" defer></script>
+	<script type="text/javascript" src="../componentTemplates/subTopicComponent.js" defer></script>
 	<script type="text/javascript" src="../scripts/topicBarComponent.js" defer></script>
 	<script type="text/javascript" src="../scripts/subTopicComponent.js" defer></script>
 	<script type="text/javascript" src="../scripts/pageFetcher.js" defer></script>
@@ -32,26 +34,26 @@
 	
 	<!-- Begin Selected Topic Bar Area -->
 	<header id="selectedBar">
-		<topic-bar href="../index.html">
-			<div class="barTextSlot">Home</div>
+		<topic-bar data-id="aboutMe" href="./index.html">
+			<div class="barTextSlot">About Me</div>
 			<div name="selectedSubTopic" class="selSubTopics">				
-				<sub-topic href="whatsNew.html" isHeader="true">What's New (Blog)</sub-topic>
-				<sub-topic href="whatsNew2023.html" isHeader="true">2023</sub-topic>									
+				<sub-topic data-id="whatsNew" href="whatsNew.html" isHeader="true">What's New (Blog)</sub-topic>
+				<sub-topic data-id="whatsNew2023" href="whatsNew2023.html" isHeader="true">2023</sub-topic>									
 			</div>
 			<div name="subTopics" class="subTopics">
 				<!-- Begin Submenu Items -->
 				<menu role="navigation" aria-label="Sub Navigation">
-					<li><sub-topic href="whatsNew122023.html">December 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew102023.html">October 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew092023.html">September 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew082023.html">August 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew072023.html">July 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew062023.html">June 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew052023.html">May 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew042023.html">April 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew032023.html">March 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew022023.html">February 2023</sub-topic></li>
-					<li><sub-topic href="whatsNew012023.html">January 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew122023" selected="true" href="whatsNew122023.html">December 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew102023" href="whatsNew102023.html">October 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew092023" href="whatsNew092023.html">September 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew082023" href="whatsNew082023.html">August 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew072023" href="whatsNew072023.html">July 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew062023" href="whatsNew062023.html">June 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew052023" href="whatsNew052023.html">May 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew042023" href="whatsNew042023.html">April 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew032023" href="whatsNew032023.html">March 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew022023" href="whatsNew022023.html">February 2023</sub-topic></li>
+					<li><sub-topic data-id="whatsNew012023" href="whatsNew012023.html">January 2023</sub-topic></li>
 				</menu>
 			</div>
 		</topic-bar>
@@ -62,12 +64,12 @@
 	<!-- End UnSelected Topic Bar Area -->
 	<nav id="unSelectedBarArea">
 		<menu role="navigation" aria-label="Main Navigation">
-			<li class="topicBarParking"><topic-bar href="../index.html"><div class="barTextSlot">Home</div></topic-bar></li>
-			<li class="topicBarParking"><topic-bar href="../aboutMe/index.html"><div class="barTextSlot">About Me</div></topic-bar></li>
-			<li class="topicBarParking"><topic-bar href="../webSites/index.html"><div class="barTextSlot">Web Sites</div></topic-bar></li>
-			<li class="topicBarParking"><topic-bar href="../portfolio/index.html"><div class="barTextSlot">Art Portfolio</div></topic-bar></li>
-			<li class="topicBarParking"><topic-bar href="../destinations/index.html"><div class="barTextSlot">Destinations</div></topic-bar></li>
-			<li class="topicBarParking"><topic-bar href="../contact/index.html"><div class="barTextSlot">Contact Me</div></topic-bar></li>
+			<li data-id="home" class="topicBarParking"><topic-bar data-id="home" href="index.html"><div class="barTextSlot">Home</div></topic-bar></li>
+			<li data-id="aboutMe" class="topicBarParking"><topic-bar data-id="aboutMe" href="aboutMe/index.html"><div class="barTextSlot">About Me</div></topic-bar></li>
+			<li data-id="webSites" class="topicBarParking"><topic-bar data-id="webSites" href="webSites/index.html"><div class="barTextSlot">Web Sites</div></topic-bar></li>
+			<li data-id="portfolio" class="topicBarParking"><topic-bar data-id="portfolio" href="portfolio/index.html"><div class="barTextSlot">Art Portfolio</div></topic-bar></li>
+			<li data-id="destinations" class="topicBarParking"><topic-bar data-id="destinations" href="../destinations/index.html"><div class="barTextSlot">Destinations</div></topic-bar></li>
+			<li data-id="contact" class="topicBarParking"><topic-bar data-id="contact" href="contact/index.html"><div class="barTextSlot">Contact Me</div></topic-bar></li>
 		</menu>
 	</nav>
 	<!-- End UnSelected Topic Bar Area -->

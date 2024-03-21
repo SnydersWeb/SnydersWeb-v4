@@ -31,11 +31,50 @@ class PageFetcher {
     }
 
     parsePageObject(rawHtml) {
-        const xmlDoc = new DOMParser().parseFromString(rawHtml, 'application/xml');
+        const xmlDoc = new DOMParser().parseFromString(rawHtml, 'text/html');
 
-        //SnyderD - use some XPath magic and break this up into what we need
+        return this.extractPageInfo(xmlDoc);
+    }
 
-        return xmlDoc;
-
+    extractPageInfo(docObj) {
+        //SnyderD - use some querySelector magic to get the parts
+        //We care about what bar is selected, subtopics that are selected, and available sub topics - oh, and page content
+        const headerArea = docObj.querySelector(`#selectedBar`);
+        const selectedTopicBar = headerArea.querySelector(`TOPIC-BAR`);
+        const selectedTopicId = selectedTopicBar.getAttribute(`data-id`);
+        const selectedTopicLink = selectedTopicBar.getAttribute(`href`);        
+        const selectedSubTopicArea = selectedTopicBar.querySelector(`DIV.selSubTopics`);
+        const selectedSubTopicBars = selectedSubTopicArea.querySelectorAll(`SUB-TOPIC`);
+        const selectedSubTopics = [];
+        selectedSubTopicBars.forEach(bar => { //can't seem to use map here
+            selectedSubTopics.push({
+               id: bar.getAttribute(`data-id`),
+               href: bar.getAttribute(`href`),
+            });
+        });
+        const subMenuArea = selectedTopicBar.querySelector(`MENU[role="navigation"]`);
+        const subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
+        const subTopics = [];
+        subTopicBars.forEach(bar => {
+            subTopics.push({
+               id: bar.getAttribute(`data-id`),
+               href: bar.getAttribute(`href`),
+               selected: bar.getAttribute(`selected`) || "false",
+            });
+        });
+        const contentArea = docObj.querySelector(`#content`);
+        const pageContent = contentArea.innerHTML;
+        
+        const pageInfo = {
+            headerInfo: {
+                id: selectedTopicId,
+                href: selectedTopicLink,
+                selectedSubTopicInfo: selectedSubTopics,
+                subTopics: subTopics
+            },
+            content: pageContent,
+        };
+        
+        return pageInfo;
     }
 }

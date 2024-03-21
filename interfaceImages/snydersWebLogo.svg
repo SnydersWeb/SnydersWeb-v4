@@ -22,7 +22,7 @@
     </style>
     <defs>
         <filter id="shadow">
-            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000">
+            <feDropShadow dx="4" dy="4" stdDeviation="2" flood-color="#000">
             </feDropShadow>
         </filter>
     </defs>
