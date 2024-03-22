@@ -28,10 +28,10 @@ class Maestro {
         const { pageURL } = fetchInfo.detail;
 
         //SnyderD - Temp code for testing
-        window.location.href = pageURL;
+        // window.location.href = pageURL;
 
-        //this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
-        //this.handlePageChanges();        
+        this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
+        this.handlePageChanges();        
     }
 
     handlePageChanges() {

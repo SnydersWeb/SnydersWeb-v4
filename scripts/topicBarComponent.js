@@ -44,12 +44,12 @@ class TopicBar extends HTMLElement {
     };
 
     mouseOver = (evt) => {
-        evt.currentTarget.className = `${evt.currentTarget.className} hover`;
+        evt.currentTarget.classList.toggle(`hover`);
         evt.cancelBubble = true; 
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.className = evt.currentTarget.className.replace(" hover", "");
+        evt.currentTarget.classList.toggle(`hover`);
         evt.cancelBubble = true; 
     };
 

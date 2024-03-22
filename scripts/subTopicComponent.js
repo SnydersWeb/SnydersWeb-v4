@@ -30,11 +30,11 @@ class SubTopic extends HTMLElement {
         this.selected = this.getAttribute("selected");
                 
         if (/true/i.test(this.isHeader)) {
-            this.bar.className = `${this.bar.className} header`;
+            this.bar.classList.toggle(`header`);
         }
 
         if (/true/i.test(this.selected)) {
-            this.bar.className = `${this.bar.className} selected`;
+            this.bar.classList.toggle(`selected`);
         }
         
         this.event = new CustomEvent(
@@ -55,12 +55,12 @@ class SubTopic extends HTMLElement {
     };
 
     mouseOver = (evt) => {
-        evt.currentTarget.className = `${(evt.currentTarget.className).trim()} hover`;
+        evt.currentTarget.classList.toggle(`hover`);
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.className = evt.currentTarget.className.replace(" hover", "");
+        evt.currentTarget.classList.toggle(`hover`);
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
