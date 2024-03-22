@@ -151,7 +151,7 @@ I also spent a little time cleaning up and clarifying the file naming for the im
 
 Put in some changes on subMenu rendering - I figured I'd leave items where a given user could slide "laterally" betwen subtopics - but if the subtopic has subtopics then we'll change things.
 
-So put in some minor "candy" work on the background and logo - I like the  background better with that drop shadow on the first layer.
+So put in some minor "candy" work on the background and logo - I like the background better with that drop shadow on the first layer.
 
 Also got the parser working where it can identify differences between where we're at.  Data attributes will help with easy idenification there.
 
@@ -167,6 +167,14 @@ I need to fix destinations/arizona.html - something is going on with the SubMenu
 
 After that - I can at least see if I can get the new code where it will progress the site from page to page.
 
+3/22
+Fixed CSS issues with the top topic bar under some circumstances (destinations/arizona.html)
+
+Also polished up the lighter grey and customized the scrollbar in the content panel.
+
+Think now I'm fully ready to begin with page swaps and bar changes.  Was thinking last night I could even "Hash" it at the top to allow bookmarking and relods and foward/back behaviors.
+
+As far as animations go.. think .animate is definitely teh way to go.  Research has shown how that will be dead simple compared to the old school way I had to do it before.
 
 
 
