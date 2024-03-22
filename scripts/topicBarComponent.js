@@ -1,11 +1,10 @@
 // Create a class for the element
 class TopicBar extends HTMLElement {
-    static observedAttributes = ["href", "isHeader"]; //this will change as I figure things out!
+    static observedAttributes = ["isHeader"]; 
     
     constructor() {
         // Always call super first in constructor
         self = super();
-        //this._internals = this.attachInternals();
         
         this._shadow = this.attachShadow({mode: "open"});
 
@@ -45,33 +44,23 @@ class TopicBar extends HTMLElement {
 
     mouseOver = (evt) => {
         evt.currentTarget.classList.toggle(`hover`);
-        evt.cancelBubble = true; 
+        evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
     mouseOut = (evt) => {
         evt.currentTarget.classList.toggle(`hover`);
-        evt.cancelBubble = true; 
+        evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
-    connectedCallback = () => {
-        console.log("Custom element added to page.");
-    };
-  
     disconnectedCallback = () => {
         console.log("Custom element removed from page.");
-    }
-  
-    adoptedCallback = () => {
-        console.log("Custom element moved to new page.");
-    }
-  
-    attributeChangedCallback = (name, oldValue, newValue) => {
-        console.log(`Attribute ${name} has changed.`);
-        if (oldValue === newValue) { 
-            return;
-        }
-        this[property] = newValue;
-    }
+    };
+    
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(
+            `TopicBar Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
+        );
+    };
   }
   
   customElements.define("topic-bar", TopicBar);

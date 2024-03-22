@@ -174,8 +174,14 @@ Also polished up the lighter grey and customized the scrollbar in the content pa
 
 Think now I'm fully ready to begin with page swaps and bar changes.  Was thinking last night I could even "Hash" it at the top to allow bookmarking and relods and foward/back behaviors.
 
-As far as animations go.. think .animate is definitely teh way to go.  Research has shown how that will be dead simple compared to the old school way I had to do it before.
+As far as animations go.. think .animate is definitely the way to go.  Research has shown how that will be dead simple compared to the old school way I had to do it before.
 
+Later update:
+Got the content panel changes in.. Also submenu buttons animate!  Animations are dead simple when compared to the past.
+
+Need to get something going akin to "FixLink" from my old v3 version of the site.  I think for now I'll just focus on the bar changes since sorting out the body link stuff could be a major pain.
+
+Plus I need to figure out event firing on it.
 
 
 

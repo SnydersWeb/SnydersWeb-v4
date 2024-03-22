@@ -424,6 +424,7 @@
 
 		#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC { 
 			float: left;
+			position: relative;
 		}
 
 		#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC + SUB-TOPIC {

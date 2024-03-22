@@ -48,7 +48,7 @@ class PageFetcher {
         const selectedSubTopics = [];
         selectedSubTopicBars.forEach(bar => { //can't seem to use map here
             selectedSubTopics.push({
-               id: bar.getAttribute(`data-id`),
+               id: bar.dataset.id,
                href: bar.getAttribute(`href`),
             });
         });
@@ -58,14 +58,14 @@ class PageFetcher {
             const subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
             subTopicBars.forEach(bar => {
                 subTopics.push({
-                id: bar.getAttribute(`data-id`),
+                id: bar.dataset.id,
                 href: bar.getAttribute(`href`),
                 selected: bar.getAttribute(`selected`) || "false",
                 });
             });
         }
         const contentArea = docObj.querySelector(`#content`);
-        const pageContent = contentArea.innerHTML;
+        //const pageContent = contentArea.innerHTML;
         
         const pageInfo = {
             headerInfo: {
@@ -74,7 +74,7 @@ class PageFetcher {
                 selectedSubTopicInfo: selectedSubTopics,
                 subTopics: subTopics
             },
-            content: pageContent,
+            content: contentArea,
         };
         
         return pageInfo;

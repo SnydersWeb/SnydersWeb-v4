@@ -1,11 +1,10 @@
 // Create a class for the element
 class SubTopic extends HTMLElement {
-    static observedAttributes = ["href", "isHeader", "selected"]; //this will change as I figure things out!
+    static observedAttributes = ["isHeader", "selected"]; 
     
     constructor() {
         // Always call super first in constructor
         self = super();
-        //this._internals = this.attachInternals();
         
         this._shadow = this.attachShadow({mode: "open"});
         
@@ -27,7 +26,7 @@ class SubTopic extends HTMLElement {
 
         this.href = this.getAttribute("href");   
         this.isHeader = this.getAttribute("isHeader");
-        this.selected = this.getAttribute("selected");
+        this.selected = this.getAttribute("selected") || "false";
                 
         if (/true/i.test(this.isHeader)) {
             this.bar.classList.toggle(`header`);
@@ -37,7 +36,7 @@ class SubTopic extends HTMLElement {
             this.bar.classList.toggle(`selected`);
         }
         
-        this.event = new CustomEvent(
+        this.clickEvent = new CustomEvent(
             "fetchPage", 
             {
                 detail: {
@@ -51,7 +50,7 @@ class SubTopic extends HTMLElement {
 
     handleClick = (evt) => {
         evt.cancelBubble = true; //Block this from going to the title bar!
-        document.querySelector("#mainContainer").dispatchEvent(this.event);
+        document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
     };
 
     mouseOver = (evt) => {
@@ -64,25 +63,64 @@ class SubTopic extends HTMLElement {
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
-    connectedCallback = () => {
-        console.log("Custom element added to page.");
-    };
-  
     disconnectedCallback = () => {
         console.log("Custom element removed from page.");
-    }
-  
-    adoptedCallback = () => {
-        console.log("Custom element moved to new page.");
-    }
-  
-    attributeChangedCallback = (name, oldValue, newValue) => {
-        console.log(`Attribute ${name} has changed.`);
-        if (oldValue === newValue) { 
-            return;
+    };
+    
+    selectBar(select) {
+        if (/true/i.test(select)) { //Select && /false/.test(oldValue)
+            const animate = this.bar.animate([
+                {
+                    transform: "scale(1)",
+                    opacity: 1,
+                },
+                {
+                    transform: "scale(1.5)",
+                    opacity: 0.5,
+                },
+                {
+                    transform: "scale(1)",
+                    opacity: 1,
+                }
+            ], {
+                duration: 500,
+                easing: "ease-in-out",
+            });
+            animate.addEventListener("finish", () => { 
+                this.bar.classList.add(`selected`);
+                this.bar.setAttribute("selected", "true");
+            })
         }
-        this[property] = newValue;
-    }
+        if (/false/i.test(select)) { //De-select
+            const animate = this.bar.animate([
+                {
+                    transform: "scale(1)",
+                    opacity: 1,
+                },
+                {
+                    transform: "scale(.5)",
+                    opacity: 0.5,
+                },
+                {
+                    transform: "scale(1)",
+                    opacity: 1,
+                }
+            ], {
+                duration: 500,
+                easing: "ease-in-out",
+            });                
+            animate.addEventListener("finish", () => { 
+                this.bar.classList.remove(`selected`);
+                this.bar.setAttribute("selected", "false");
+            })
+        }
+    };
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (/selected/i.test(name)) {
+            this.selectBar(newValue);
+        }
+    };
   }
   
   customElements.define("sub-topic", SubTopic);
