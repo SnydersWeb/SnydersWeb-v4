@@ -11,103 +11,105 @@
 	--color-bar-color: #51606E;
 	--color-sel-bar-color: #6E5F51;
 	--color-sub-bar-link-white: #FFFFFF;
+	--content-panel-scroll-base: #7E848F;
+	--content-panel-scroll-bar: #536170;
 }
 
 /* Begin Tag Level Selctors */
 BODY {
-	border : none;
-	margin : 0px 0px 0px 0px;
-	padding : 0px 0px 0px 0px;
+	border: none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 DIV {
-	border : 0px none;
-	margin : 0px 0px 0px 0px;
-	padding : 0px 0px 0px 0px;
+	border: 0px none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 HR {
-	color : #333333;
+	color: #333333;
 }
 
 IMG, IMG.A {
-	border-spacing : 0px;
-	border : 0px none;
-	margin : 0px 0px 0px 0px;
-	padding : 0px 0px 0px 0px;
+	border-spacing: 0px;
+	border: 0px none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 FORM {
-	border-collapse : collapse;
-	border-spacing : 0px;
-	border : 0px none;
-	margin : 0px 0px 0px 0px;
-	padding : 0px 0px 0px 0px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: 0px none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 FIELDSET {
-	margin : 10px 10px 10px 10px;
-	padding : 10px 10px 10px 10px;
-	border : 1px solid #AAAAAA;
-	width : auto;
-	height : auto;
+	margin: 10px 10px 10px 10px;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #AAAAAA;
+	width: auto;
+	height: auto;
 }
 
 LEGEND {
-	font-family : var(--fonts);
-	color : #FFFFFF; 
-	font-size : 120%;
-	font-style : normal;
-	font-variant : normal;
-	font-weight : bold;
+	font-family: var(--fonts);
+	color: #FFFFFF; 
+	font-size: 120%;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
 }
 
 LABEL {
-	position : relative;
-	float : left;
-	width : 10em;
-	height : 2em;
-	text-align : right;
+	position: relative;
+	float: left;
+	width: 10em;
+	height: 2em;
+	text-align: right;
 }
 
 INPUT, TEXTAREA, SELECT {
-	font-family : var(--fonts);
-	font-size : 100%;
-	color : #FFFFFF;
-	background-color : transparent;
-	padding : 0px 0px 0px 0px;
-	border-collapse : collapse;
-	border : 1px solid #FFFFFF;
+	font-family: var(--fonts);
+	font-size: 100%;
+	color: #FFFFFF;
+	background-color: transparent;
+	padding: 0px 0px 0px 0px;
+	border-collapse: collapse;
+	border: 1px solid #FFFFFF;
 }
 
 INPUT.radioButton, INPUT.checkBox {
-	background-color : transparent;
-	border : 0px none;
+	background-color: transparent;
+	border: 0px none;
 }
 	
 H1 {
-	font-family : var(--fonts);
-	text-align : left;
+	font-family: var(--fonts);
+	text-align: left;
 }
 
 H2 {
-	font-family : var(--fonts);
-	text-align : left;
+	font-family: var(--fonts);
+	text-align: left;
 }
 
 H3 {
-	font-family : var(--fonts);
-	text-align : left;
+	font-family: var(--fonts);
+	text-align: left;
 }
 
 H4 {
-	font-family : var(--fonts);
-	text-align : left;
+	font-family: var(--fonts);
+	text-align: left;
 }
 
 H5 {
-	font-family : var(--fonts);
-	text-align : left;
+	font-family: var(--fonts);
+	text-align: left;
 }
 
 MENU {
@@ -125,112 +127,112 @@ MENU {
 	
 /* Begin content formatting selectors */
 .bodyText {
-	font-family : var(--fonts);
-	font-style : normal;
-	font-variant : normal;
-	font-weight : normal;
+	font-family: var(--fonts);
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
 }
 
 .bodyText A:link, .bodyText A:visited {
-	color : var(--color-link-green);
-	text-decoration : underline;
+	color: var(--color-link-green);
+	text-decoration: underline;
 }
 
 .bodyText A:active, .bodyText A:hover {
-	color : var(--color-link-hover);
+	color: var(--color-link-hover);
 }
 
 .clearAll {
-	clear : both;
+	clear: both;
 }
 
 .important {
-  color : #FF0000;
+  color: #FF0000;
 }
 
 .photoRight {
-	position : relative;
-	float : right;
-	width : auto;
-	height : auto;
-	padding : 3px 3px 3px 3px;
-	margin : 3px 3px 3px 3px;
-	text-align : center;
+	position: relative;
+	float: right;
+	width: auto;
+	height: auto;
+	padding: 3px 3px 3px 3px;
+	margin: 3px 3px 3px 3px;
+	text-align: center;
 }
 
 .photoLeft {
-	position : relative;
-	float : left;
-	width : auto;
-	height : auto;
-	border : 1px solid #FFFFFF;
-	padding : 3px 3px 3px 3px;
-	margin : 3px 3px 3px 3px;
-	text-align : center;
+	position: relative;
+	float: left;
+	width: auto;
+	height: auto;
+	border: 1px solid #FFFFFF;
+	padding: 3px 3px 3px 3px;
+	margin: 3px 3px 3px 3px;
+	text-align: center;
 }
 
 .bodyText TABLE {
-	border-collapse : collapse;
-	border-spacing : 0px;
-	empty-cells : show;
-	table-layout : auto;
-	margin : 0px 0px 0px 0px;
-	padding : 0px 0px 0px 0px;
-	border : 0px none;
-	width : 95.25%;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	empty-cells: show;
+	table-layout: auto;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	border: 0px none;
+	width: 95.25%;
 	/* Begin Cute Hack to Get IE to not treat tables as font-size insulator */
-	font-family : var(--fonts);
-	font-size : 100%;
+	font-family: var(--fonts);
+	font-size: 100%;
 	/* End Cute Hack to Get IE to not treat tables as font-size insulator */
 }
 
 .bodyText TABLE TH {
-	background-color : transparent;
+	background-color: transparent;
 }
 
 .bodyText TABLE .altRow {
-	background-color : #CCCCCC;
+	background-color: #CCCCCC;
 }
 
 /* Begin form related selectors */
 .formLine {
-	position : relative;
-	width : auto;
-	height : auto;
-	clear : both;
-	display : block;
-	padding : .05em 0em 0em 0em;
+	position: relative;
+	width: auto;
+	height: auto;
+	clear: both;
+	display: block;
+	padding: .05em 0em 0em 0em;
 }
 	.formLine .fieldLabel {
-		position : relative;
-		float : left;
-		width : 10em;
-		height : auto;
-		padding-right : .25em;
-		text-align : right;
+		position: relative;
+		float: left;
+		width: 10em;
+		height: auto;
+		padding-right: .25em;
+		text-align: right;
 	}
 	
 	.formLine .fieldBox {
-		position : relative;
-		float : left;
-		width : auto;
-		height : auto;
-		text-align : left;
+		position: relative;
+		float: left;
+		width: auto;
+		height: auto;
+		text-align: left;
 	}
 	
 	.formLine .err {
-		background-color : #FF1111;
+		background-color: #FF1111;
 	}
 	
 	.formLine .errMsg {
-		position : relative;
-		float : left;
-		width : auto;
-		height : auto;
-		text-align : left;
-		color : #FF0000;
-		font-weight : bold;
-		padding-left : .25em;
+		position: relative;
+		float: left;
+		width: auto;
+		height: auto;
+		text-align: left;
+		color: #FF0000;
+		font-weight: bold;
+		padding-left: .25em;
 	}
 /* End form related selectors */
 

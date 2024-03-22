@@ -3,7 +3,7 @@
         :root {
             --bar-blue-transparent-fill: #2c418e;
             --bar-solid-dark-grey: #536170; 
-            --bar-solid-light-grey: #696e76;
+            --bar-solid-light-grey: #7E848F;
             --stroke: 0;
         }
         .pathProps {

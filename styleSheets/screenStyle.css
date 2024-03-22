@@ -221,6 +221,9 @@
 					height: 100%;
 					width: 100%;
 					overflow: auto;
+					box-shadow: inset 0 0 5px var(--content-panel-scroll-base); 
+  					scrollbar-color: var(--content-panel-scroll-bar) var(--content-panel-scroll-base);
+					scrollbar-width: thin;
 				}
 			
 			#contentPanel .contentBody .contentBodyRight {
@@ -353,142 +356,6 @@
 				background-repeat: no-repeat;
 			}
 	
-	/* Begin "hot" selectors - used in animations */
-	#contentPanel.hot {
-	}
-		
-		#contentPanel.hot .contentTop {
-		}
-				
-			#contentPanel.hot .contentTop .contentTopLeft {
-				background-image: url('../interfaceImages/contentPanelTopLeftHot.svg');
-				background-repeat: no-repeat;
-			}
-			
-			#contentPanel.hot .contentTop .contentTopLeftInner {
-				background-image: url('../interfaceImages/contentPanelTopLeftInnerHot.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel.hot .contentTop .contentTopMiddle {
-				background-image: url('../interfaceImages/contentPanelTopHot.svg');
-				background-repeat: repeat-x;
-			}
-	
-			#contentPanel.hot .contentTop .contentTopRightInner {
-				background-image: url('../interfaceImages/contentPanelTopRightInnerHot.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel.hot .contentTop .contentTopRight {
-				background-image: url('../interfaceImages/contentPanelTopRightHot.svg');
-				background-repeat: no-repeat;
-			}
-			
-		#contentPanel.hot .contentBody {
-		}
-	
-			#contentPanel.hot .contentBody .contentBodyLeft {
-				background-image: url('../interfaceImages/contentPanelLeftThinHot.svg');
-				background-repeat: repeat-y;
-			}
-			
-				#contentPanel.hot .contentBody .contentBodyLeft .leftTop {
-					background-image: url('../interfaceImages/contentPanelLeftTopHot.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyLeft .leftThick {
-					background-image: url('../interfaceImages/contentPanelLeftThickHot.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyLeft .leftTrans {
-					background-image: url('../interfaceImages/contentPanelLeftTransHot.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyLeft .leftDouble {
-					background-image: url('../interfaceImages/contentPanelLeftDoubleHot.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyLeft .leftDoubleEnd {
-					background-image: url('../interfaceImages/contentPanelLeftDoubleEndHot.svg');
-					background-repeat: no-repeat;
-				}
-	
-			#contentPanel.hot .contentBody .contentArea {
-				background-image: url('../interfaceImages/contentPanelBodyHot.svg');
-			}
-			
-				#contentPanel.hot .contentBody .contentArea #content {
-				}
-			
-			#contentPanel.hot .contentBody .contentBodyRight {
-				background-image: url('../interfaceImages/contentPanelRightThinHot.svg');
-				background-repeat: repeat-y;
-			}
-		
-				#contentPanel.hot .contentBody .contentBodyRight .rightThin {
-					background-image: url('../interfaceImages/contentPanelRightThinHot.svg');
-					background-repeat: repeat-y;
-				}
-				
-				#contentPanel.hot .contentBody .contentBodyRight .rightDoubleEnd {
-					background-image: url('../interfaceImages/contentPanelRightDoubleEndHot.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyRight .rightDouble {
-					background-image: url('../interfaceImages/contentPanelRightDoubleHot.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyRight .rightTrans {
-					background-image: url('../interfaceImages/contentPanelRightTransHot.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyRight .rightThick {
-					background-image: url('../interfaceImages/contentPanelRightThickHot.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel.hot .contentBody .contentBodyRight #rightBottom {
-					background-image: url('../interfaceImages/contentPanelRightBotHot.svg');
-					background-repeat: no-repeat;
-				}
-	
-		#contentPanel.hot .contentBottom {
-		}
-		
-			#contentPanel.hot .contentBottom .contentBotLeft {
-				background-image: url('../interfaceImages/contentPanelBotLeftHot.svg');
-				background-repeat: no-repeat;
-			}
-			
-			#contentPanel.hot .contentBottom .contentBotLeftInner {
-				background-image: url('../interfaceImages/contentPanelBotLeftInnerHot.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel.hot .contentBottom .contentBotMiddle {
-				background-image: url('../interfaceImages/contentPanelBotHot.svg');
-				background-repeat: repeat-x;
-			}
-	
-			#contentPanel.hot .contentBottom .contentBotRightInner {
-				background-image: url('../interfaceImages/contentPanelBotRightInnerHot.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel.hot .contentBottom .contentBotRight {
-				background-image: url('../interfaceImages/contentPanelBotRightHot.svg');
-				background-repeat: no-repeat;
-			}
-			
-	/* End "hot" selectors - used in animations */
 	/* End Content Area Selctors */
 			
 	/* Begin Logo Selctor */
@@ -547,17 +414,19 @@
 		left: 185px;
 		right: 5px;
 	}
-	
-		#selectedBar .selSubTopics {
-			clear: both;
-		}
-
-		#selectedBar .selSubTopics SUB-TOPIC {
+		#selectedBar TOPIC-BAR .barTextSlot { 
 			float: left;
 		}
 
-		#selectedBar .selSubTopics SUB-TOPIC + SUB-TOPIC {
+		#selectedBar TOPIC-BAR .selSubTopics { 
 			float: left;
+		}
+
+		#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC { 
+			float: left;
+		}
+
+		#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC + SUB-TOPIC {
 			margin: 0px 0px 0px -9px;
 		}
 
