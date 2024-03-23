@@ -53,9 +53,10 @@ class PageFetcher {
             });
         });
         const subTopics = [];
+        let subTopicBars = [];
         const subMenuArea = selectedTopicBar.querySelector(`MENU[role="navigation"]`);
         if (subMenuArea !== null) {
-            const subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
+            subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
             subTopicBars.forEach(bar => {
                 subTopics.push({
                 id: bar.dataset.id,
@@ -64,17 +65,18 @@ class PageFetcher {
                 });
             });
         }
-        const contentArea = docObj.querySelector(`#content`);
-        //const pageContent = contentArea.innerHTML;
+        const content = docObj.querySelector(`#content`);
         
         const pageInfo = {
             headerInfo: {
                 id: selectedTopicId,
                 href: selectedTopicLink,
                 selectedSubTopicInfo: selectedSubTopics,
-                subTopics: subTopics
+                subTopics,
+                selectedSubTopicBars,
+                subTopicBars,
             },
-            content: contentArea,
+            content,
         };
         
         return pageInfo;

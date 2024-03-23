@@ -183,6 +183,26 @@ Need to get something going akin to "FixLink" from my old v3 version of the site
 
 Plus I need to figure out event firing on it.
 
+Late night.... oof.. I now remember the hell that was getting link contexting working.  Not sure if it's great - and if I bump into a desire to do deeper directory structures I'll slam headlong into this thing!
+
+So I've got the link adjuster working from both a sub directory:
+file:///E:/Site%20Work/SnydersWeb-v4/destinations/starWarsC3Day3.html
+
+and from root:
+file:///E:/Site%20Work/SnydersWeb-v4/index.html
+
+However! - I also need to fix the image paths as well it seems.. so when hitting it from root - the images drop context so I'll need to fix that.
+
+I've also been committing some thought into more fun things - the bar movements/animations/et al.
+
+So - on that - next up is the selSubTopic dismissal and going back "up" which means also replacing the child sub menu.
+
+For that - I want to play with setting attributes on the subTopics to "dismiss" where they zoom off and destroy themselves (can they?).  The thing is they'll also need to clear the parent LI that contains them.
+
+So there might be some... "temporary" attributes that are used to fire an event on it, complete, then remove the attribute.
+
+
+
 
 
 

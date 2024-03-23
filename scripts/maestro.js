@@ -17,16 +17,27 @@ class Maestro {
         //Get information about where we're starting
         this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
         this.requestedPageInfo = {};
+
+        //Convert hyperlinks in page body
+        const { pathname } = window.location;
+        this.subDirectoryRegEx = /aboutme|websites|portfolio|destinations|contact/gi;
+        this.isInRoot = this.subDirectoryRegEx.test(pathname) === false;        
+        const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/"));
+        const rawPathParts = rawPath.split('/');
+        this.startingDirectory = `${rawPathParts[rawPathParts.length - 1]}/`;
+        this.currentDirectory = `${this.startingDirectory}`;
+        this.fixLinks();
     }
 
     //Methods
     init() {
-        this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });        
+        this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
+        this.mainContainer.addEventListener('showShot', (evt) => { this.showShot(evt) });       
     }
 
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
-
+        
         //SnyderD - Temp code for testing
         // window.location.href = pageURL;
         
@@ -34,10 +45,43 @@ class Maestro {
             return; //nothing to do.
         }
 
+        //update our currentDirectory
+        const pathParts = pageURL.split("/");
+        const isSdIdx = (el) => { 
+            return el === this.startingDirectory.replace('/', '');
+        };
+        const partIdx = pathParts.findIndex(isSdIdx);            
+        if (partIdx > 0) {
+            const currDir = pathParts[partIdx + 1];
+            if (currDir !== this.startingDirectory) {
+                this.currentDirectory = currDir;
+            }
+        }
+        
         this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
         window.location.hash = pageURL;
         
         this.handlePageChanges();        
+    }
+    
+    showShot(fetchInfo) {
+        const { detail } = fetchInfo;
+        let { resize } = detail;
+        let { width } = detail;
+        let { height } = detail;
+        
+        if (/true/i.test(resize)) {
+            resize = "resizable,";
+        } else {
+            resize = "";
+        }
+        if (width === "auto") {
+            width = window.innerWidth/2;
+        }
+        if (height === "auto") {
+            height = window.innerHeight/2;
+        }
+        window.open(detail.pageURL, detail.name, "scrollbars=yes,menubar=no," + resize + "width=" + width + ",height=" + height);
     }
 
     collectBarChanges(currHeaderInfo, reqHeaderInfo) {
@@ -104,52 +148,73 @@ class Maestro {
             subTopicListChange,
         };
     }
-    /*
-    function FixLink(hyperLink) {
-        try {
-            //alert(window.location.host + "\nhref:" + hyperLink.getAttribute("href") + "\nhttp:" + hyperLink.getAttribute("href").search(/http/i) + "\nJS:" + hyperLink.getAttribute("href").search(/JavaScript\:/i) + "\nJPG:" + hyperLink.getAttribute("href").search(/\.jpg/i) + "\nGIF:" + hyperLink.getAttribute("href").search(/\.gif/i));
-            if(hyperLink.getAttribute("href").search(/http/i) < 0 && hyperLink.getAttribute("href").search(/JavaScript\:/i) < 0 && hyperLink.getAttribute("href").search(/\.jpg/i) < 0 && hyperLink.getAttribute("href").search(/\.mpg/i) < 0 && hyperLink.getAttribute("href").search(/\.gif/i) < 0 && hyperLink.getAttribute("href").search(/mailto/i) < 0) {
-                if(dirContext != startDirContext) {
-                    hyperLink.setAttribute("href","JavaScript:FetchContent('" + dirContext + hyperLink.getAttribute("href") + "')");
-                } else {
-                    hyperLink.setAttribute("href","JavaScript:FetchContent('" + hyperLink.getAttribute("href") + "')");
-                }
-            } else if(hyperLink.getAttribute("href").search(/\.jpg/i) > -1 || hyperLink.getAttribute("href").search(/\.gif/i) > -1 || hyperLink.getAttribute("href").search(/\.mpg/i) > -1) {
-                if(dirContext != startDirContext) {
-                    hyperLink.setAttribute("href", "JavaScript:ShowShot('" + dirContext + hyperLink.getAttribute("href") + "', 'screen_shot', true, 'auto', 'auto')");
-                } else {
-                    hyperLink.setAttribute("href", "JavaScript:ShowShot('" + hyperLink.getAttribute("href") + "', 'screen_shot', true, 'auto', 'auto')");
-                }
-            } else if(hyperLink.getAttribute("href").search(window.location.host) > 0 && hyperLink.getAttribute("href").search(/w3\.org/i) == -1) {
-                //Quick hack because IE likes reading more into a hyperlink than what's actually there - only happens on home... GRUMBLE!
-                hyperLink.setAttribute("href","JavaScript:FetchContent('" + hyperLink.getAttribute("href") + "')");
-            } else if(hyperLink.getAttribute("href").search(/http/i) > -1) {
-                hyperLink.setAttribute("target", "_blank");
-            }
-        } catch(e) {
-            //alert(e + "\n" + e.description);
-        }
-    
-        return hyperLink;
-    }
-    */
-    swapContent(content) {
-        //content comes in with "raw" links that doesn't play nicely with the fetch system.. So let's convert them
-        let fixedContent = content.innerHTML;
-        let contentLinks = content.querySelectorAll("A");
+        
+    fixLinks() {
+        const contentLinks = this.pageContent.querySelectorAll("A");
+        const imgRegEx = new RegExp(/\.gif|\.jpg|\.png|\.svg/i);
         contentLinks.forEach((link) => {
-            if (/http:/i.test(link.href) === false) { //NOT Link to external
-                let newLink = link.cloneNode(true);
-                const newHref = `() => {this.fetchPage({detail:{ pageURL:${link.href} }})}`;
-                newLink.removeAttribute('href');
-                newLink.setAttribute("onclick", newHref)
-                console.log(`link:${link.outerHTML} rep:${newLink.outerHTML}`);
-                let testMe = fixedContent.indexOf(link.outerHTML);
-                fixedContent.replace(link.outerHTML, newLink.outerHTML);
+            const { href } = link;
+            if (/http:/i.test(href) === false && imgRegEx.test(href) === false) { //NOT Link to external
+                let linkHref = href;
+                const fileName = href.substring(href.lastIndexOf("/"), href.length);
+                const rawPath = href.replace(/\\/gi,"/").substring(0, href.replace(/\\/gi,"/").lastIndexOf("/"));
+                const rawPathParts = rawPath.split('/');
+                const linkDirCtx = `${rawPathParts[rawPathParts.length - 1]}/`;
+                const dirMatches = href.match(this.subDirectoryRegEx);
+                
+                if (this.isInRoot === false) { //When going from child to home the pathing gets a tad janked
+                    if (linkDirCtx !== this.startingDirectory || (dirMatches !== null && dirMatches.length > 1)) {
+                        linkHref = href.replace(this.startingDirectory, "");
+                    }                    
+                } else {
+                    if (href.search(this.startingDirectory) < 0) {
+                        rawPathParts.push(this.startingDirectory);
+                        rawPathParts.push(fileName);
+                        linkHref = rawPathParts.join('/');
+                    } else if (href.search(this.currentDirectory) < 0) {
+                        rawPathParts.push(this.currentDirectory);
+                        rawPathParts.push(fileName);
+                        linkHref = rawPathParts.join('/');
+                        console.log(this.currentDirectory);
+                    } 
+                }
+                const linkClickEvent = new CustomEvent(
+                    "fetchPage", 
+                    {
+                        detail: {
+                            pageURL: linkHref
+                        }, 
+                        bubbles: false,
+                        cancelable: true,
+                    }
+                );
+                
+                link.setAttribute('href', "JavaScript:void(0);");
+                link.dataset.link = linkHref;
+                link.addEventListener('click', () => { this.mainContainer.dispatchEvent(linkClickEvent); });
+            } else if (imgRegEx.test(href)) { //special image link
+                const linkClickEvent = new CustomEvent(
+                    "showShot", 
+                    {
+                        detail: {
+                            pageURL: href,
+                            name: 'screen_shot',
+                            resize: true,
+                            width: 'auto',
+                            height: 'auto',
+                        }, 
+                        bubbles: false,
+                        cancelable: true,
+                    }
+                );
+
+                link.setAttribute('href', "JavaScript:void(0);");
+                link.addEventListener('click', () => { this.mainContainer.dispatchEvent(linkClickEvent); });
             }
         });
+    }
 
-
+    swapContent(content) {      
 
         const fadeOut = this.pageContent.animate([
             {
@@ -159,11 +224,12 @@ class Maestro {
                 opacity: 0,
             },
         ], {
-            duration: 250,
-            easing: "ease-in-out",
+            duration: 500,
+            easing: "ease-out",
         });
         fadeOut.addEventListener("finish", () => { 
-            this.pageContent.innerHTML = fixedContent;
+            this.pageContent.innerHTML = content.innerHTML;
+            this.fixLinks();
 
             const fadeIn = this.pageContent.animate([
                 {
@@ -173,8 +239,8 @@ class Maestro {
                     opacity: 1,
                 },
             ], {
-                duration: 250,
-                easing: "ease-in-out",
+                duration: 500,
+                easing: "ease-in",
             });
 
             fadeIn.addEventListener("finish", () => { 
@@ -214,7 +280,9 @@ class Maestro {
                         break;
                     }
                 }
-                subTopicDOM.setAttribute("selected", reqSubTopic.selected);
+                if (subTopicDOM !== null) {
+                    subTopicDOM.setAttribute("selected", reqSubTopic.selected);
+                }
             });
         }
 
