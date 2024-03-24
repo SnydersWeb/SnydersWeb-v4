@@ -132,7 +132,7 @@ class Maestro {
             this.pageContent.innerHTML = content.innerHTML;
             this.currentDirectory = content.dataset.dir;
             this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
-            this.utils.adjustImages(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
+            this.utils.adjustImages(this.pageContent, this.startingDirectory, this.currentDirectory);
 
             const fadeIn = this.pageContent.animate([
                 {

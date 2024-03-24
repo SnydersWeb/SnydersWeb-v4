@@ -217,6 +217,11 @@ So I should be able to use that in combination with the currentDirectory to do s
 3/24
 Getting closer.. Links under where you start seem to be having an issue..  plus need to get the images fixed.
 
+OK.. images fixed.
+
+Think.. one last tangent step - MODULES.  
+
+
 
 
 

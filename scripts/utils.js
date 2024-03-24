@@ -63,34 +63,13 @@ class Utils {
 		});
 	};
 
-	adjustImages(pageContent, mainContainer, startingDirectory, currentDirectory) {
-		const contentImages = pageContent.querySelectorAll("IMG");
-			
-		contentImages.forEach((img) => {
-			const { src } = img;
-			const trueHref = img.getAttribute("src");
-		
-			if (/http:/i.test(href) === false && imgRegEx.test(href) === false) { //NOT Link to external
-				
-				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
-				
-				const linkClickEvent = new CustomEvent(
-					"fetchPage", 
-					{
-						detail: {
-							pageURL: linkHref
-						}, 
-						bubbles: false,
-						cancelable: true,
-					}
-				);
-
-				link.setAttribute('href', "JavaScript:void(0);");
-				link.dataset.link = linkHref;
-				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
-			}
-			
-		});
+	adjustImages(pageContent, startingDirectory, currentDirectory) {
+        const contentImages = pageContent.querySelectorAll("IMG");
+        contentImages.forEach((img) => {
+            const trueHref = img.getAttribute("src");
+			const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+			img.setAttribute("src", linkHref);
+        });
 	};
 
 	showShot(fetchInfo) {
