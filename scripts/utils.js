@@ -21,7 +21,7 @@ class Utils {
 			const { href } = link; //This returns some form of "Reconciled" location.. 
 			const trueHref = link.getAttribute("href");
 			
-			if (/http:/i.test(href) === false && imgRegEx.test(href) === false) { //NOT Link to external
+			if (/http:./i.test(trueHref) === false && imgRegEx.test(trueHref) === false) { //NOT Link to external
 				
 				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
 				
