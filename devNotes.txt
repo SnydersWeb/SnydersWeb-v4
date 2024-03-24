@@ -221,6 +221,13 @@ OK.. images fixed.
 
 Think.. one last tangent step - MODULES.  
 
+Hmm.. ok.. so inside NodeJS modules are great.. outside.. well.. um...💩
+
+Next.. handing selected subtopic changes and animations around those.
+
+
+
+
 
 
 

@@ -92,15 +92,12 @@ class SubTopic extends HTMLElement {
                 },
                 {
                     transform: "scale(1.5)",
-                    opacity: 0.5,
+                    opacity: .50,
                 },
-                {
-                    transform: "scale(1)",
-                    opacity: 1,
-                }
+                
             ], {
                 duration: 500,
-                easing: "ease-in-out",
+                easing: "ease-out",
             });
             animate.addEventListener("finish", () => { 
                 this.bar.classList.add(`selected`);
@@ -108,27 +105,7 @@ class SubTopic extends HTMLElement {
             })
         }
         if (/false/i.test(select)) { //De-select
-            const animate = this.bar.animate([
-                {
-                    transform: "scale(1)",
-                    opacity: 1,
-                },
-                {
-                    transform: "scale(.5)",
-                    opacity: 0.5,
-                },
-                {
-                    transform: "scale(1)",
-                    opacity: 1,
-                }
-            ], {
-                duration: 500,
-                easing: "ease-in-out",
-            });                
-            animate.addEventListener("finish", () => { 
-                this.bar.classList.remove(`selected`);
-                this.bar.setAttribute("selected", "false");
-            })
+           this.bar.classList.remove(`selected`);
         }
     };
 

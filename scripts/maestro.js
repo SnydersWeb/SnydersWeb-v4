@@ -175,16 +175,9 @@ class Maestro {
         if (barChanges.barChange === null && barChanges.selSubTopicsChange.length === 0) {
             barChanges.subTopicListChange.forEach((reqSubTopic) => {
                 //grab our subTopic DOM item.
-                let subTopicDOM = null;
-                //again classic loop to break out of it.
-                for (let i = 0, j = domSubTopics.length; i < j; i += 1) {
-                    if (domSubTopics[i].dataset.id === reqSubTopic.id) {
-                        subTopicDOM = domSubTopics[i];
-                        break;
-                    }
-                }
+                const subTopicDOM = [...domSubTopics].filter(top => top.dataset.id === reqSubTopic.id);
                 if (subTopicDOM !== null) {
-                    subTopicDOM.setAttribute("selected", reqSubTopic.selected);
+                    subTopicDOM[0].setAttribute("selected", reqSubTopic.selected);
                 }
             });
         }
