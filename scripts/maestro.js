@@ -26,7 +26,7 @@ class Maestro {
         this.currentDirectory = this.pageContent.dataset.dir;
         this.startingDirectory = rawPath.replace(this.currentDirectory, "");
             
-        this.utils.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
+        this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
     }
 
     //Methods
@@ -131,7 +131,8 @@ class Maestro {
         fadeOut.addEventListener("finish", () => { 
             this.pageContent.innerHTML = content.innerHTML;
             this.currentDirectory = content.dataset.dir;
-            this.utils.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
+            this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
+            this.utils.adjustImages(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
 
             const fadeIn = this.pageContent.animate([
                 {

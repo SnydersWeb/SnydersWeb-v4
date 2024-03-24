@@ -3,30 +3,27 @@ class Utils {
         
     }
 	
-	adjustLinks(pageContent, mainContainer, currentDirectory, startingDirectory) {
+	linkAdjustor(linkLoc, startingDirectory, currentDirectory) {
+		const fileName = linkLoc.substring(linkLoc.lastIndexOf("/"), linkLoc.length);				
+		const linkLocParts = linkLoc.replace(fileName, "").split("/").filter(item => item === "..");
+		const cdParts = currentDirectory.slice(0, -1).split("/");
+		const chopFactor = cdParts.length - linkLocParts.length;
+		const linkPath = cdParts.slice(0, 0 + (chopFactor)).join("/");
+		
+		return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll("../", "")}`).replaceAll("//", "/");				
+	}
+
+	adjustLinks(pageContent, mainContainer, startingDirectory, currentDirectory) {
 		const contentLinks = pageContent.querySelectorAll("A");
 		const imgRegEx = new RegExp(/\.gif|\.jpg|\.png|\.svg/i);
-		console.log(`SD: ${startingDirectory}`);
-		console.log(`CD: ${currentDirectory}`);
 				
-		contentLinks.forEach((link) => {
+		contentLinks.forEach((link, current) => {
 			const { href } = link; //This returns some form of "Reconciled" location.. 
 			const trueHref = link.getAttribute("href");
+			
 			if (/http:/i.test(href) === false && imgRegEx.test(href) === false) { //NOT Link to external
-				const trueHrefParts = trueHref.split("/").filter(item => item === "..");
-				const cdParts = currentDirectory.split("/");
 				
-				const linkPath = href.substring(href.lastIndexOf(startingDirectory) + startingDirectory.length, href.length); //.replace(startingDirectory, ""); // remove link path from it.
-				console.log(`LinkPath:${linkPath}`);
-				let path = '';
-
-				const linkHref = `${startingDirectory}${linkPath}`;
-				// const rawPath = href.replace(/\\/gi,"/").substring(0, href.replace(/\\/gi,"/").lastIndexOf("/"));
-				console.log(`${link.innerText} href:${href}`);
-				console.log(`${link.innerText} final:${linkHref}`);
-				// const rawPathParts = rawPath.split('/');
-				
-				
+				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
 				
 				const linkClickEvent = new CustomEvent(
 					"fetchPage", 
@@ -43,6 +40,8 @@ class Utils {
 				link.dataset.link = linkHref;
 				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
 			} else if (imgRegEx.test(href)) { //special image link
+
+
 				const linkClickEvent = new CustomEvent(
 					"showShot", 
 					{
@@ -64,10 +63,32 @@ class Utils {
 		});
 	};
 
-	fixImages(pageContent) {
+	adjustImages(pageContent, mainContainer, startingDirectory, currentDirectory) {
 		const contentImages = pageContent.querySelectorAll("IMG");
+			
 		contentImages.forEach((img) => {
 			const { src } = img;
+			const trueHref = img.getAttribute("src");
+		
+			if (/http:/i.test(href) === false && imgRegEx.test(href) === false) { //NOT Link to external
+				
+				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+				
+				const linkClickEvent = new CustomEvent(
+					"fetchPage", 
+					{
+						detail: {
+							pageURL: linkHref
+						}, 
+						bubbles: false,
+						cancelable: true,
+					}
+				);
+
+				link.setAttribute('href', "JavaScript:void(0);");
+				link.dataset.link = linkHref;
+				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+			}
 			
 		});
 	};

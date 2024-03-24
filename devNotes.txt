@@ -214,7 +214,8 @@ Still need to fix the pathing but I'm also learning that link.href property is a
 
 So I should be able to use that in combination with the currentDirectory to do some adjusting with a slice based on the length of the "trueHref" path.
 
-
+3/24
+Getting closer.. Links under where you start seem to be having an issue..  plus need to get the images fixed.
 
 
 
