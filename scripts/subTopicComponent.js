@@ -8,14 +8,13 @@ class SubTopic extends HTMLElement {
         
         this._shadow = this.attachShadow({mode: "open"});
         
-        //bit of a brutal hack here for image pathing
-        let templateContent = subTopicTemplate.innerHTML;
-        const { pathname } = window.location;
-        if (/aboutme|websites|portfolio|destinations|contact/gi.test(pathname) === false) {
-            templateContent = templateContent.replaceAll("../interfaceImages", "interfaceImages");
-            subTopicTemplate.innerHTML = templateContent;
+        //Template is called multiple times - but to ensure it's only changed 1x we set
+        //a data attribute to make sure it's only fixed 1x since it's a GLOBAL
+        if (/false/i.test(subTopicTemplate.dataset.adjusted)) {
+            this.adjustTemplatesForPath();
+            subTopicTemplate.dataset.adjusted = true;
         }
-
+        
         const templateText = subTopicTemplate.content.cloneNode(true);
         this.shadowRoot.append(templateText);
         this.bar = this.shadowRoot.querySelector(".subTopic");
@@ -46,6 +45,23 @@ class SubTopic extends HTMLElement {
                 cancelable: true,
             }
         );
+    }
+
+    adjustTemplatesForPath() {
+        //Fix our templates for current path
+        //bit of a brutal hack here for image pathing
+        const pageContent = document.querySelector("#content");
+        const currentDirectory = pageContent.dataset.dir.slice(0,-1);
+        if (currentDirectory !== "") {
+            const pathPrepend = currentDirectory.split("/").map(() => {
+                return "../";
+            }).join("");
+            
+            //Fix our templates!
+            let templateContent = subTopicTemplate.innerHTML;
+            templateContent = templateContent.replaceAll("interfaceImages", `${pathPrepend}interfaceImages`);
+            subTopicTemplate.innerHTML = templateContent;
+        }
     }
 
     handleClick = (evt) => {

@@ -13,26 +13,26 @@ class Maestro {
         this.pageContent = this.mainContainer.querySelector("#content");
 
         this.pageFetcher = new PageFetcher();
+        this.utils = new Utils();
 
         //Get information about where we're starting
         this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
         this.requestedPageInfo = {};
 
+        
         //Convert hyperlinks in page body
         const { pathname } = window.location;
-        this.subDirectoryRegEx = /aboutme|websites|portfolio|destinations|contact/gi;
-        this.isInRoot = this.subDirectoryRegEx.test(pathname) === false;        
-        const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/"));
-        const rawPathParts = rawPath.split('/');
-        this.startingDirectory = `${rawPathParts[rawPathParts.length - 1]}/`;
-        this.currentDirectory = `${this.startingDirectory}`;
-        this.fixLinks();
+        const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/") + 1);
+        this.currentDirectory = this.pageContent.dataset.dir;
+        this.startingDirectory = rawPath.replace(this.currentDirectory, "");
+            
+        this.utils.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
     }
 
     //Methods
     init() {
         this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
-        this.mainContainer.addEventListener('showShot', (evt) => { this.showShot(evt) });       
+        this.mainContainer.addEventListener('showShot', (evt) => { showShot(evt) });       
     }
 
     async fetchPage(fetchInfo) {
@@ -45,45 +45,12 @@ class Maestro {
             return; //nothing to do.
         }
 
-        //update our currentDirectory
-        const pathParts = pageURL.split("/");
-        const isSdIdx = (el) => { 
-            return el === this.startingDirectory.replace('/', '');
-        };
-        const partIdx = pathParts.findIndex(isSdIdx);            
-        if (partIdx > 0) {
-            const currDir = pathParts[partIdx + 1];
-            if (currDir !== this.startingDirectory) {
-                this.currentDirectory = currDir;
-            }
-        }
-        
         this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
         window.location.hash = pageURL;
         
         this.handlePageChanges();        
     }
     
-    showShot(fetchInfo) {
-        const { detail } = fetchInfo;
-        let { resize } = detail;
-        let { width } = detail;
-        let { height } = detail;
-        
-        if (/true/i.test(resize)) {
-            resize = "resizable,";
-        } else {
-            resize = "";
-        }
-        if (width === "auto") {
-            width = window.innerWidth/2;
-        }
-        if (height === "auto") {
-            height = window.innerHeight/2;
-        }
-        window.open(detail.pageURL, detail.name, "scrollbars=yes,menubar=no," + resize + "width=" + width + ",height=" + height);
-    }
-
     collectBarChanges(currHeaderInfo, reqHeaderInfo) {
         let pageChanged = false;
         let barChange = null;
@@ -149,73 +116,7 @@ class Maestro {
         };
     }
         
-    fixLinks() {
-        const contentLinks = this.pageContent.querySelectorAll("A");
-        const imgRegEx = new RegExp(/\.gif|\.jpg|\.png|\.svg/i);
-        contentLinks.forEach((link) => {
-            const { href } = link;
-            if (/http:/i.test(href) === false && imgRegEx.test(href) === false) { //NOT Link to external
-                let linkHref = href;
-                const fileName = href.substring(href.lastIndexOf("/"), href.length);
-                const rawPath = href.replace(/\\/gi,"/").substring(0, href.replace(/\\/gi,"/").lastIndexOf("/"));
-                const rawPathParts = rawPath.split('/');
-                const linkDirCtx = `${rawPathParts[rawPathParts.length - 1]}/`;
-                const dirMatches = href.match(this.subDirectoryRegEx);
-                
-                if (this.isInRoot === false) { //When going from child to home the pathing gets a tad janked
-                    if (linkDirCtx !== this.startingDirectory || (dirMatches !== null && dirMatches.length > 1)) {
-                        linkHref = href.replace(this.startingDirectory, "");
-                    }                    
-                } else {
-                    if (href.search(this.startingDirectory) < 0) {
-                        rawPathParts.push(this.startingDirectory);
-                        rawPathParts.push(fileName);
-                        linkHref = rawPathParts.join('/');
-                    } else if (href.search(this.currentDirectory) < 0) {
-                        rawPathParts.push(this.currentDirectory);
-                        rawPathParts.push(fileName);
-                        linkHref = rawPathParts.join('/');
-                        console.log(this.currentDirectory);
-                    } 
-                }
-                const linkClickEvent = new CustomEvent(
-                    "fetchPage", 
-                    {
-                        detail: {
-                            pageURL: linkHref
-                        }, 
-                        bubbles: false,
-                        cancelable: true,
-                    }
-                );
-                
-                link.setAttribute('href', "JavaScript:void(0);");
-                link.dataset.link = linkHref;
-                link.addEventListener('click', () => { this.mainContainer.dispatchEvent(linkClickEvent); });
-            } else if (imgRegEx.test(href)) { //special image link
-                const linkClickEvent = new CustomEvent(
-                    "showShot", 
-                    {
-                        detail: {
-                            pageURL: href,
-                            name: 'screen_shot',
-                            resize: true,
-                            width: 'auto',
-                            height: 'auto',
-                        }, 
-                        bubbles: false,
-                        cancelable: true,
-                    }
-                );
-
-                link.setAttribute('href', "JavaScript:void(0);");
-                link.addEventListener('click', () => { this.mainContainer.dispatchEvent(linkClickEvent); });
-            }
-        });
-    }
-
     swapContent(content) {      
-
         const fadeOut = this.pageContent.animate([
             {
                 opacity: 1,
@@ -229,7 +130,8 @@ class Maestro {
         });
         fadeOut.addEventListener("finish", () => { 
             this.pageContent.innerHTML = content.innerHTML;
-            this.fixLinks();
+            this.currentDirectory = content.dataset.dir;
+            this.utils.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
 
             const fadeIn = this.pageContent.animate([
                 {

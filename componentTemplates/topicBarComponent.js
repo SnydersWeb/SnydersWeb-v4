@@ -1,5 +1,6 @@
 const topicBarTemplate = document.createElement('template');
 topicBarTemplate.setAttribute("id", "topicBarTemplate");
+topicBarTemplate.setAttribute("data-adjusted", "false");
 topicBarTemplate.innerHTML = `
     <style>
     :host {
@@ -39,7 +40,7 @@ topicBarTemplate.innerHTML = `
                     width: 13px;
                     left: 0px;
                     top: 0px;
-                    background-image: url('../interfaceImages/barLeftTop.svg');
+                    background-image: url('interfaceImages/barLeftTop.svg');
                     background-repeat: no-repeat;
                 }
             
@@ -59,7 +60,7 @@ topicBarTemplate.innerHTML = `
                     width: 10px;
                     right: 0px;
                     top: 0px;
-                    background-image: url('../interfaceImages/barRightTop.svg');
+                    background-image: url('interfaceImages/barRightTop.svg');
                     background-repeat: no-repeat;
                 }
                         
@@ -75,7 +76,7 @@ topicBarTemplate.innerHTML = `
                     height: .8em;
                     left: 0px;
                     top: 11px;
-                    background-image: url('../interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                     border-left: 2px solid var(--color-bar-color);
                 }
             
@@ -86,7 +87,7 @@ topicBarTemplate.innerHTML = `
                     height: 1.5em;
                     margin-left: 13px;
                     margin-right: 10px;
-                    background-image: url('../interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                 }
         
                     .topicBarBody .topicBarBodyMiddle .barText {
@@ -122,7 +123,7 @@ topicBarTemplate.innerHTML = `
                     height: .50em;
                     right: 0px;
                     top: 8px;
-                    background-image: url('../interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                     border-right: 2px solid var(--color-bar-color);
                 }
                     
@@ -137,7 +138,7 @@ topicBarTemplate.innerHTML = `
                     top: 0px;
                     height: 16px;
                     width: 14px;
-                    background-image: url('../interfaceImages/barLeftBot.svg');
+                    background-image: url('interfaceImages/barLeftBot.svg');
                     background-repeat: no-repeat;
                 }
         
@@ -147,7 +148,7 @@ topicBarTemplate.innerHTML = `
                     top: 0px;
                     height: 14px;
                     width: 60px;
-                    background-image: url('../interfaceImages/barBody.svg');
+                    background-image: url('interfaceImages/barBody.svg');
                 }
                 
                 .topicBarBottom .dropBottom {
@@ -165,7 +166,7 @@ topicBarTemplate.innerHTML = `
                     top: 0px;
                     height: 16px;
                     width: 14px;
-                    background-image: url('../interfaceImages/barBotDropRight.svg');
+                    background-image: url('interfaceImages/barBotDropRight.svg');
                     background-repeat: no-repeat;
                 }
                                     
@@ -198,7 +199,7 @@ topicBarTemplate.innerHTML = `
                     height: 10px;
                     right: 0px;
                     top: -8px;
-                    background-image: url('../interfaceImages/barRightBot.svg');
+                    background-image: url('interfaceImages/barRightBot.svg');
                     background-repeat: no-repeat;
                 }
 
@@ -210,7 +211,7 @@ topicBarTemplate.innerHTML = `
             }
         
                 .topicBar.hover .topicBarTop .topicBarTopLeft {
-                    background-image: url('../interfaceImages/barLeftTopHover.svg');
+                    background-image: url('interfaceImages/barLeftTopHover.svg');
                 }
             
                 .topicBar.hover .topicBarTop .topicBarTopMiddle {
@@ -218,19 +219,19 @@ topicBarTemplate.innerHTML = `
                 }
             
                 .topicBar.hover .topicBarTop .topicBarTopRight {
-                    background-image: url('../interfaceImages/barRightTopHover.svg');
+                    background-image: url('interfaceImages/barRightTopHover.svg');
                 }
                         
             .topicBar.hover .topicBarBody {
             }
         
                 .topicBar.hover .topicBarBody .topicBarBodyLeft {
-                    background-image: url('../interfaceImages/barBodyHover.svg');
+                    background-image: url('interfaceImages/barBodyHover.svg');
                     border-left: 2px solid var(--color-sel-bar-color);
                 }
             
                 .topicBar.hover .topicBarBody .topicBarBodyMiddle {
-                    background-image: url('../interfaceImages/barBodyHover.svg');
+                    background-image: url('interfaceImages/barBodyHover.svg');
                 }
         
                     .topicBar.hover .topicBarBody .topicBarBodyMiddle .barText {
@@ -238,7 +239,7 @@ topicBarTemplate.innerHTML = `
                     }			
                 
                 .topicBar.hover .topicBarBody .topicBarBodyRight {
-                    background-image: url('../interfaceImages/barBodyHover.svg');
+                    background-image: url('interfaceImages/barBodyHover.svg');
                     border-right: 2px solid var(--color-sel-bar-color);;
                 }
                     
@@ -246,11 +247,11 @@ topicBarTemplate.innerHTML = `
             }
             
                 .topicBar.hover .topicBarBottom .topicBarBottomLeft {
-                    background-image: url('../interfaceImages/barLeftBotHover.svg');
+                    background-image: url('interfaceImages/barLeftBotHover.svg');
                 }
         
                 .topicBar.hover .topicBarBottom .drop {
-                    background-image: url('../interfaceImages/barBodyHover.svg');
+                    background-image: url('interfaceImages/barBodyHover.svg');
                 }
                 
                 .topicBar.hover .topicBarBottom .dropBottom {
@@ -258,7 +259,7 @@ topicBarTemplate.innerHTML = `
                 }
         
                 .topicBar.hover .topicBarBottom .dropTrans {
-                    background-image: url('../interfaceImages/barBotDropRightHover.svg');
+                    background-image: url('interfaceImages/barBotDropRightHover.svg');
                 }
                                     
                 .topicBar.hover .topicBarBottom .extender {
@@ -266,7 +267,7 @@ topicBarTemplate.innerHTML = `
                 }
             
                 .topicBar.hover .topicBarBottom .topicBarBottomRight {
-                    background-image: url('../interfaceImages/barRightBotHover.svg');
+                    background-image: url('interfaceImages/barRightBotHover.svg');
                 }			
         /* End hover selectors for topicBar */                
     }    

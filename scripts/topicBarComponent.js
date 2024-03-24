@@ -8,12 +8,11 @@ class TopicBar extends HTMLElement {
         
         this._shadow = this.attachShadow({mode: "open"});
 
-        //bit of a brutal hack here for image pathing
-        let templateContent = topicBarTemplate.innerHTML;
-        const { pathname } = window.location;
-        if (/aboutme|websites|portfolio|destinations|contact/gi.test(pathname) === false) {
-            templateContent = templateContent.replaceAll("../interfaceImages", "interfaceImages");
-            topicBarTemplate.innerHTML = templateContent;
+        //Template is called multiple times - but to ensure it's only changed 1x we set
+        //a data attribute to make sure it's only fixed 1x since it's a GLOBAL
+        if (/false/i.test(topicBarTemplate.dataset.adjusted)) {
+            this.adjustTemplatesForPath();
+            topicBarTemplate.dataset.adjusted = true;
         }
 
         const templateText = topicBarTemplate.content.cloneNode(true);
@@ -35,6 +34,23 @@ class TopicBar extends HTMLElement {
                 cancelable: true,
             }
         );
+    }
+
+    adjustTemplatesForPath() {
+        //Fix our templates for current path
+        //bit of a brutal hack here for image pathing
+        const pageContent = document.querySelector("#content");
+        const currentDirectory = pageContent.dataset.dir.slice(0,-1);
+        if (currentDirectory !== "") {
+            const pathPrepend = currentDirectory.split("/").map(() => {
+                return "../";
+            }).join("");
+            
+            //Fix our templates!
+            let templateContent = topicBarTemplate.innerHTML;
+            templateContent = templateContent.replaceAll("interfaceImages", `${pathPrepend}interfaceImages`);
+            topicBarTemplate.innerHTML = templateContent;
+        }
     }
 
     handleClick = (evt) => {

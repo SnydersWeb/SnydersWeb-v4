@@ -201,6 +201,19 @@ For that - I want to play with setting attributes on the subTopics to "dismiss" 
 
 So there might be some... "temporary" attributes that are used to fire an event on it, complete, then remove the attribute.
 
+3/23
+Inspiration?  or Madness?  Hard to tell...
+
+So I've come up with an idea to do a data-dir attribute on the content body tag to identify the base URL.  Using that, I can hopefully simplify all pathing issues and eliminate virtually all calculation.
+
+This will make for (much) more simplified code!
+
+OK.. after running into some VERY JANKY pathing issues w/the component I'm back on track.. This is going to be a bigger commit than most since I moved a TON of stuff around in a proper directory structure like I ALWAYS wanted to have it.
+
+Still need to fix the pathing but I'm also learning that link.href property is a "Reconciled" link while link.getAttribute("href") shows the true requested address - interesting.
+
+So I should be able to use that in combination with the currentDirectory to do some adjusting with a slice based on the length of the "trueHref" path.
+
 
 
 
