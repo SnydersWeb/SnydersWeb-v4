@@ -1,9 +1,5 @@
-class Utils {
-    constructor() {
-        
-    }
-	
-	linkAdjustor(linkLoc, startingDirectory, currentDirectory) {
+const utils = {
+    linkAdjustor(linkLoc, startingDirectory, currentDirectory) {
 		const fileName = linkLoc.substring(linkLoc.lastIndexOf("/"), linkLoc.length);				
 		const linkLocParts = linkLoc.replace(fileName, "").split("/").filter(item => item === "..");
 		const cdParts = currentDirectory.slice(0, -1).split("/");
@@ -11,7 +7,7 @@ class Utils {
 		const linkPath = cdParts.slice(0, 0 + (chopFactor)).join("/");
 		
 		return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll("../", "")}`).replaceAll("//", "/");				
-	}
+	},
 
 	adjustLinks(pageContent, mainContainer, startingDirectory, currentDirectory) {
 		const contentLinks = pageContent.querySelectorAll("A");
@@ -61,7 +57,7 @@ class Utils {
 				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
 			}
 		});
-	};
+	},
 
 	adjustImages(pageContent, startingDirectory, currentDirectory) {
         const contentImages = pageContent.querySelectorAll("IMG");
@@ -70,7 +66,7 @@ class Utils {
 			const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
 			img.setAttribute("src", linkHref);
         });
-	};
+	},
 
 	showShot(fetchInfo) {
 		const { detail } = fetchInfo;
@@ -90,7 +86,14 @@ class Utils {
 			height = window.innerHeight/2;
 		}
 		window.open(detail.pageURL, detail.name, "scrollbars=yes,menubar=no," + resize + "width=" + width + ",height=" + height);
-	};
+	},
+
+	get(el) {
+		if (typeof el == "string" || typeof el == "number") {
+			el = document.querySelector(el);
+		}
+		return el;
+	},
 
 	createEl(tag, attributes, children, parent, elementInstance) {
 
@@ -110,7 +113,7 @@ class Utils {
 			{
 				if (typeof Events != "undefined") {
 					var elEvents = attributes[i];
-					if (!this.isArray(elEvents)) {
+					if (!Array.isArray(elEvents)) {
 						elEvents = [elEvents]
 					}
 
@@ -140,13 +143,12 @@ class Utils {
 		}
 
 		return (elementInstance) ? new ElementObject(element) : element;
-	};
-
+	},
 
 	appendEl(el, child) {
 		el = this.get(el);
 
-		if (!this.isArray(child)) {
+		if (!Array.isArray(child)) {
 			child = [child]
 		}
 		child.forEach((currChild) => {
@@ -154,20 +156,19 @@ class Utils {
 				el.appendChild(currChild);
 			}
 			else if (typeof currChild == "string" || typeof currChild == "number") {
-				// element.appendChild(document.createTextNode(children));
 				el.innerHTML += currChild;
 			};
 		});
-	};
+	},
 
 	removeEl (el) {
 		el = this.get(el);
 
-		if (!this.isArray(el)) {
+		if (!Array.isArray(el)) {
 			el = [el]
 		}
 		el.forEach((currEl) => {
 			currEl.parentNode.removeChild(currEl);
 		});
-	};
+	},
 }

@@ -96,7 +96,7 @@ class SubTopic extends HTMLElement {
                 },
                 
             ], {
-                duration: 500,
+                duration: 400,
                 easing: "ease-out",
             });
             animate.addEventListener("finish", () => { 

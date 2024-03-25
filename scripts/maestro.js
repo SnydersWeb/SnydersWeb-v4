@@ -12,8 +12,8 @@ class Maestro {
         this.contentPanel = this.mainContainer.querySelector("#contentPanel");
         this.pageContent = this.mainContainer.querySelector("#content");
 
-        this.pageFetcher = new PageFetcher();
-        this.utils = new Utils();
+        this.pageFetcher = pageFetcher;
+        this.utils = utils;
 
         //Get information about where we're starting
         this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
@@ -32,7 +32,7 @@ class Maestro {
     //Methods
     init() {
         this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
-        this.mainContainer.addEventListener('showShot', (evt) => { showShot(evt) });       
+        this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });       
     }
 
     async fetchPage(fetchInfo) {
@@ -125,7 +125,7 @@ class Maestro {
                 opacity: 0,
             },
         ], {
-            duration: 500,
+            duration: 250,
             easing: "ease-out",
         });
         fadeOut.addEventListener("finish", () => { 
@@ -142,7 +142,7 @@ class Maestro {
                     opacity: 1,
                 },
             ], {
-                duration: 500,
+                duration: 250,
                 easing: "ease-in",
             });
 

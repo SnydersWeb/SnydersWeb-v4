@@ -55,7 +55,7 @@ subTopicTemplate.innerHTML = `
                 height: 18px;
                 width: auto;
                 font-family: var(--fonts);
-                font-size: 80%;
+                font-size: 75%;
                 font-weight: bold;
                 color: var(--color-bar-green);
                 line-height: 1.45em;

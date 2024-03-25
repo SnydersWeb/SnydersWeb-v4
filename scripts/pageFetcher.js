@@ -1,8 +1,4 @@
-class PageFetcher {
-    constructor() {
-        
-    }
-   
+const pageFetcher = {
     getPage(url) {
         // Call `fetch()`, passing in the URL.
         return fetch(url)
@@ -28,14 +24,12 @@ class PageFetcher {
             .catch((error) => {
                 console.log(`Could not fetch verse: ${error}`);
             });        
-    }
-
+    },
     parsePageObject(rawHtml) {
         const xmlDoc = new DOMParser().parseFromString(rawHtml, 'text/html');
 
         return this.extractPageInfo(xmlDoc);
-    }
-
+    },
     extractPageInfo(docObj) {
         //SnyderD - use some querySelector magic to get the parts
         //We care about what bar is selected, subtopics that are selected, and available sub topics - oh, and page content
@@ -48,8 +42,8 @@ class PageFetcher {
         const selectedSubTopics = [];
         selectedSubTopicBars.forEach(bar => { //can't seem to use map here
             selectedSubTopics.push({
-               id: bar.dataset.id,
-               href: bar.getAttribute(`href`),
+                id: bar.dataset.id,
+                href: bar.getAttribute(`href`),
             });
         });
         const subTopics = [];
@@ -80,5 +74,6 @@ class PageFetcher {
         };
         
         return pageInfo;
-    }
-}
+    },  
+};
+   

@@ -93,28 +93,16 @@ topicBarTemplate.innerHTML = `
                     .topicBarBody .topicBarBodyMiddle .barText {
                         position: relative;
                         font-family: var(--fonts);
-                        font-size: 100%;
+                        font-size: 120%;
                         font-weight: bold;
                         color: var(--color-bar-green);
-                        line-height: 1.45em;
                         float: left;
                         padding-right: 5px;
-                    }			
+                    }						
                 
                     .topicBarBody .topicBarBodyMiddle .barText A:link, .topicBarBody .topicBarBodyMiddle .barText A:visited {
                         color: var(--color-bar-green);
                         text-decoration: none;
-                    }			
-        
-                    .topicBarBody .topicBarBodyMiddle .barText {
-                        position: relative;
-                        font-family: var(--fonts);
-                        font-size: 100%;
-                        font-weight: bold;
-                        color: var(--color-bar-green);
-                        line-height: 1.45em;
-                        float: left;
-                        padding-right: 5px;
                     }			
                     
                 .topicBarBody .topicBarBodyRight {
