@@ -176,7 +176,7 @@ class Maestro {
             barChanges.subTopicListChange.forEach((reqSubTopic) => {
                 //grab our subTopic DOM item.
                 const subTopicDOM = [...domSubTopics].filter(top => top.dataset.id === reqSubTopic.id);
-                if (subTopicDOM !== null) {
+                if (subTopicDOM !== null && subTopicDOM.length > 0) {
                     subTopicDOM[0].setAttribute("selected", reqSubTopic.selected);
                 }
             });
