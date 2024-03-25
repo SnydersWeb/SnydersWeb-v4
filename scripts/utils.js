@@ -87,6 +87,10 @@ const utils = {
 		}
 		window.open(detail.pageURL, detail.name, "scrollbars=yes,menubar=no," + resize + "width=" + width + ",height=" + height);
 	},
+	
+	getRandomInt(min, max, dec) {
+		return Number((Math.random() * (max - min) + min).toFixed(dec));
+	},
 
 	get(el) {
 		if (typeof el == "string" || typeof el == "number") {

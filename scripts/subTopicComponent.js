@@ -1,6 +1,6 @@
 // Create a class for the element
 class SubTopic extends HTMLElement {
-    static observedAttributes = ["isHeader", "selected"]; 
+    static observedAttributes = ["isHeader", "selected", "dismissed"]; 
     
     constructor() {
         // Always call super first in constructor
@@ -45,6 +45,28 @@ class SubTopic extends HTMLElement {
                 cancelable: true,
             }
         );
+
+        this.removeEvent = new CustomEvent(
+            "removeSubTopic", 
+            {
+                detail: {
+                    item: this
+                }, 
+                bubbles: false,
+                cancelable: true,
+            }
+        );
+
+        this.addEvent = new CustomEvent(
+            "addSubTopic", 
+            {
+                detail: {
+                    item: this
+                }, 
+                bubbles: false,
+                cancelable: true,
+            }
+        );
     }
 
     adjustTemplatesForPath() {
@@ -64,6 +86,24 @@ class SubTopic extends HTMLElement {
         }
     }
 
+    disconnectedCallback() {
+        console.log("Custom element removed from page.");
+        this.bar.removeEventListener('click', this.handleClick);
+        this.bar.removeEventListener('mouseover', this.mouseOver);
+        this.bar.removeEventListener('mouseout', this.mouseOut);
+    };
+    
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`attribute: ${name} ${oldValue} ${newValue}`);
+        if (/selected/i.test(name)) {
+            this.selectBar(newValue);
+        } else if (/dismissed/.test(name)) {
+            if (/true/i.test(newValue)) {
+                this.dismiss();
+            }
+        }
+    };
+    
     handleClick = (evt) => {
         evt.cancelBubble = true; //Block this from going to the title bar!
         document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
@@ -79,12 +119,11 @@ class SubTopic extends HTMLElement {
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
-    disconnectedCallback = () => {
-        console.log("Custom element removed from page.");
-    };
-    
     selectBar(select) {
         if (/true/i.test(select)) { //Select && /false/.test(oldValue)
+            this.bar.classList.add(`selected`);
+            this.bar.setAttribute("selected", "true");
+
             const animate = this.bar.animate([
                 {
                     transform: "scale(1)",
@@ -96,24 +135,55 @@ class SubTopic extends HTMLElement {
                 },
                 
             ], {
-                duration: 400,
+                duration: 300,
                 easing: "ease-out",
             });
-            animate.addEventListener("finish", () => { 
-                this.bar.classList.add(`selected`);
-                this.bar.setAttribute("selected", "true");
-            })
-        }
-        if (/false/i.test(select)) { //De-select
+        } else if (/false/i.test(select)) { //De-select
            this.bar.classList.remove(`selected`);
         }
     };
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (/selected/i.test(name)) {
-            this.selectBar(newValue);
+    dismiss() {
+        let animate = {};
+        let mainContainer = document.querySelector("#mainContainer");
+        let { offsetWidth, offsetHeight } = mainContainer;
+        if (this.bar.classList.contains('header')) {
+            animate = this.bar.animate([
+                {
+                    transform: `translateX(0px)`,
+                    opacity: 1,
+                },
+                {
+                    transform: `translateX(${offsetWidth + (offsetWidth / 4)}px`,
+                    opacity: .50,
+                },
+                
+            ], {
+                duration: 1000,
+                easing: "ease-out",
+            });
+        } else {
+            animate = this.bar.animate([
+                {
+                    transform: `translateY(0px)`,
+                    opacity: 1,
+                },
+                {
+                    transform: `translateY(${offsetHeight/2}px) rotate(${utils.getRandomInt(-.75, .75, 2)}turn)`,
+                    opacity: 0,
+                },
+                
+            ], {
+                duration: 1000,
+                easing: "ease-out",
+            });
         }
+        
+        animate.addEventListener("finish", () => { 
+            document.querySelector("#selectedBar").dispatchEvent(this.removeEvent);
+        });
     };
+
   }
   
   customElements.define("sub-topic", SubTopic);

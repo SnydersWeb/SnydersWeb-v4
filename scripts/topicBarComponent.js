@@ -24,7 +24,7 @@ class TopicBar extends HTMLElement {
         this.bar.addEventListener('mouseout', this.mouseOut);
 
         this.href = this.getAttribute("href");
-        this.event = new CustomEvent(
+        this.clickEvent = new CustomEvent(
             "fetchPage", 
             {
                 detail: {
@@ -53,9 +53,23 @@ class TopicBar extends HTMLElement {
         }
     }
 
+    disconnectedCallback() {
+        console.log("Custom element removed from page.");
+        this.bar.removeEventListener('click', this.handleClick);
+        this.bar.removeEventListener('mouseover', this.mouseOver);
+        this.bar.removeEventListener('mouseout', this.mouseOut);
+    };
+    
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(
+            `TopicBar Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
+        );
+    };    
+
     handleClick = (evt) => {
         evt.cancelBubble = true; 
-        document.querySelector("#mainContainer").dispatchEvent(this.event);
+        console.log(`clickEvent`)
+        document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
     };
 
     mouseOver = (evt) => {
@@ -68,15 +82,6 @@ class TopicBar extends HTMLElement {
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
-    disconnectedCallback = () => {
-        console.log("Custom element removed from page.");
-    };
-    
-    attributeChangedCallback(name, oldValue, newValue) {
-        console.log(
-            `TopicBar Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-        );
-    };
   }
   
   customElements.define("topic-bar", TopicBar);

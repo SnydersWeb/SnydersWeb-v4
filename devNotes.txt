@@ -225,6 +225,43 @@ Hmm.. ok.. so inside NodeJS modules are great.. outside.. well.. um...💩
 
 Next.. handing selected subtopic changes and animations around those.
 
+3/25
+Did some minor rearranging here of code and structures.  pageFetcher and utils both have been very slightly tweaked to be more stand-alone/non-instantiated type objects (no need for that).
+
+Also checked in on my old site - the contact me parser is definitely busted.. so I'll need to fix that - it *did* work at some point...
+
+Biggest thing now is to get on the animations and bar shifts.
+
+TopicBar actions
+* Promote -> Move from garage to header/dock > add selected tabs (if applicable) & add Sub Topic items
+* Return -> Move from header to garage/dock > Dismiss all Sub Topic items
+* Add Selected Sub Topic -> Create and delegate to SubTopic item
+* Dismiss Selected Sub Topic -> Delegate to SubTopic item.
+* Add Sub Topic items -> Create and delegate to SubTopic item
+* Dismiss Sub Topic items -> Delegate to SubTopic item - final removal of LI TBD.
+
+SubTopic actions
+* Dismiss
+** Header -> Race/Fade Right and remove
+** MenuItem -> Drop/Fade down and remove (might rotate random slightly)
+* Add
+** Header -> Race/Fade in and dock
+** MenuItem -> Race/Fade in and dock
+* Select -> Pulse and change (done)
+* Unselect -> change (done)
+
+At first I was wondering about a promote/demote special handling on the SubTopic items.. think at least for now it's simpler to 
+just handle that the "old" way.  There are other fish to fry here as it were.
+
+OK.. so it appears that a given WebComponent can't kill its parent element.  So we'll have to fire a call back to the topicBar to kill it.
+
+Based on the sandboxed nature - Maestro will need to handle TopicBar moves.  TopicBars will need to handle SubTopics - or at least give some assistence there.
+
+I've put in the subItem animations for removal.  Add yet needs to be done.
+
+OK.. later afternoon - on our changes - I need to revisit Maestro on line 77 get get clarity on selectedSubItem handling.  They need to be flagged add/remove so we can handle them correctly in handlePageChanges (Ln170)
+
+
 
 
 
