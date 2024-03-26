@@ -82,6 +82,7 @@ const pageFetcher = {
             selectedSubTopics.push({
                 id: bar.dataset.id,
                 href: bar.getAttribute(`href`),
+                label: bar.innerHTML,
             });
         });
         const subTopics = [];
@@ -94,6 +95,7 @@ const pageFetcher = {
                     id: bar.dataset.id,
                     href: bar.getAttribute(`href`),
                     selected: bar.getAttribute(`selected`) || "false",
+                    label: bar.innerHTML,
                 });
             });
         }

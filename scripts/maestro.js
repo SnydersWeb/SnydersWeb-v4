@@ -39,6 +39,14 @@ class Maestro {
         this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
     }
 
+    getStartingDir() {
+        return this.startingDirectory;
+    }
+
+    getCurrentDir() {
+        return this.currentDirectory;
+    }
+
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
         
@@ -55,6 +63,44 @@ class Maestro {
         
         this.handlePageChanges();        
     }
+
+    processSelectedSubitems(currItems, newItems) {
+        const newSelSubTopics = [];
+        currItems.forEach(currItem => {
+            let foundMatch = false;
+            newItems.forEach(newItem => {
+                if (currItem.id === newItem.id) {
+                    newSelSubTopics.push(currItem);
+                    foundMatch = true;
+                }
+            });
+            if (foundMatch === false) {
+                newSelSubTopics.push({
+                    ...currItem,
+                    status: 'remove',
+                });
+            }
+        });
+
+        if (newItems.length > currItems.length) {
+            newItems.forEach(currItem => {
+                let foundMatch = false;
+                newSelSubTopics.forEach(newItem => {
+                    if (currItem.id === newItem.id) {
+                        foundMatch = true;
+                    }
+                });
+                if (foundMatch === false) {
+                    newSelSubTopics.push({
+                        ...currItem,
+                        status: 'add',
+                    });
+                }
+            });                
+        }
+
+        return newSelSubTopics;
+    }
     
     collectBarChanges(currHeaderInfo, reqHeaderInfo) {
         let pageChanged = false;
@@ -62,32 +108,27 @@ class Maestro {
         let subTopicChange = null;
         let selSubTopicsChange = [];
         let subTopicListChange = [];
+        //First start with our selectedSubTopicInfo
+        const { selectedSubTopicId:curSelectedSubTopicId } = currHeaderInfo;
+        const { selectedSubTopicId:reqSelectedSubTopicId } = reqHeaderInfo;
+        const { selectedSubTopicInfo:curSelectedSubTopicInfo } = currHeaderInfo;
+        const { selectedSubTopicInfo:reqSelectedSubTopicInfo } = reqHeaderInfo;
 
         if (currHeaderInfo.id !== reqHeaderInfo.id) { //Bar change == everything change
             pageChanged = true;
             barChange = reqHeaderInfo.id;
-            selSubTopicsChange = reqHeaderInfo.selectedSubTopicInfo;
+            selSubTopicsChange = this.processSelectedSubitems(curSelectedSubTopicInfo, reqSelectedSubTopicInfo);
             subTopicListChange = reqHeaderInfo.subTopics;
         } else { //Bars are the same - check sub items
-            //First start with our selectedSubTopicInfo
-            const { selectedSubTopicId:curSelectedSubTopicId } = currHeaderInfo;
-            const { selectedSubTopicId:reqSelectedSubTopicId } = reqHeaderInfo;
-            const { selectedSubTopicInfo:curSelectedSubTopicInfo } = currHeaderInfo;
-            const { selectedSubTopicInfo:reqSelectedSubTopicInfo } = reqHeaderInfo;
-
-            //SnyderD - calling it for the night
-            //think the correct approach here is to go through requested and current and if they differ, flag with
-            //an "add" or "remove" flag - this will let us remove some of the flags.
-            
 
             if (curSelectedSubTopicId !== reqSelectedSubTopicId) {
-                //Length change doesn't require a deeper check
+                //SnyderD - this block handles when selected sub topics changes
                 pageChanged = true;
                 subTopicChange = reqSelectedSubTopicId;
-                selSubTopicsChange = reqHeaderInfo.selectedSubTopicInfo;
+                selSubTopicsChange = this.processSelectedSubitems(curSelectedSubTopicInfo, reqSelectedSubTopicInfo);
                 subTopicListChange = reqHeaderInfo.subTopics;
             } else {
-                //.forEach is fun - but you can't break out of those
+                //SnyderD - this block detects subMenu item clicks
                 for (let i = 0, j = curSelectedSubTopicInfo.length; i < j; i += 1) {
                     const topic = curSelectedSubTopicInfo[i];
                     const reqTopic = reqSelectedSubTopicInfo[i];
@@ -103,15 +144,16 @@ class Maestro {
                     const { subTopics:curSubTopicInfo } = currHeaderInfo;
                     const { subTopics:reqSubTopicInfo } = reqHeaderInfo;
                     
-                    //SnyderD - this replaces that lower block.. but...
                     curSubTopicInfo.forEach((subTopic, iter) => {
                         const reqSubTopic = reqSubTopicInfo[iter];
-                        if (subTopic.id !== reqSubTopic.id) {
-                            pageChanged = true;
-                            subTopicListChange = reqSubTopicInfo;
-                        } else if (subTopic.selected !== reqSubTopic.selected) {
-                            pageChanged = true;
-                            subTopicListChange.push(reqSubTopic);
+                        if (reqSubTopic !== undefined) {
+                            if (subTopic.id !== reqSubTopic.id) {
+                                pageChanged = true;
+                                subTopicListChange = reqSubTopicInfo;
+                            } else if (subTopic.selected !== reqSubTopic.selected) {
+                                pageChanged = true;
+                                subTopicListChange.push(reqSubTopic);
+                            }
                         }
                     });
 
@@ -188,6 +230,7 @@ class Maestro {
             //Start with our smallest change - subTopic item only changes
             if (barChanges.selSubTopicsChange.length === 0) {
                 console.log(`Sub Topic Change!`);
+                
                 barChanges.subTopicListChange.forEach((reqSubTopic) => {
                     //grab our subTopic DOM item.
                     const subTopicDOM = [...domSubTopics].filter(top => top.dataset.id === reqSubTopic.id);
@@ -195,15 +238,55 @@ class Maestro {
                         subTopicDOM[0].setAttribute("selected", reqSubTopic.selected);
                     }
                 });
-            } else if (barChanges.subTopicChange !== null || (barChanges.subTopicChange === '' && barChanges.selSubTopicsChange.length === 0)) { //We changed our selected sub topic (going up a menu)
+            } else { //We changed our selected sub topic (going up a menu)
                 console.log(`Selected Sub Topic Change!`);
-                [...domSelectedSubTopics].reverse().forEach((item) => { //reverse it and get rid of anything after our
-                    if (item.dataset.id !== barChanges.subTopicChange) {
-                        item.setAttribute("dismissed", "true");
+                const removeItems = barChanges.selSubTopicsChange.filter(item => /remove/.test(item.status));
+                const addItems = barChanges.selSubTopicsChange.filter(item => /add/.test(item.status));
+                const removeDOMSelSubItems = removeItems.map(remItem => {
+                    const domItem = [...domSelectedSubTopics].filter(item => item.dataset.id === remItem.id);
+                    if (domItem.length > 0) {
+                        return domItem[0];
                     }
+                });
+                const addDOMSelSubItems = addItems.map(addItem => {
+                    const { selectedSubTopicBars } = reqHeaderInfo;
+                    const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
+                    if (newBar !== null && newBar.length > 0) {
+                        let bar = newBar[0];
+                        bar.setAttribute("href", this.utils.linkAdjustor(`${addItem.href}`));
+                        return bar;
+                    }
+                });
+                //Dismiss the remove items
+                removeDOMSelSubItems.forEach(item => {
+                    item.setAttribute("dismissed", "true");
+                });
+                //Add the add items
+                addDOMSelSubItems.forEach(item => {
+                    item.setAttribute("added", "true");
+                    domSelectedSubTopicArea.appendChild(item);
                 });
 
                 //Next up.. populate our new sub items.
+                //Remove all submenu items
+                domSubTopics.forEach(item => {
+                    item.setAttribute("dismissed", "true");
+                });
+
+                //Add new submenu items
+                const { subTopicBars } = reqHeaderInfo;
+                subTopicBars.forEach(item => {
+                    const newLink = this.utils.linkAdjustor(`${item.getAttribute("href")}`);
+                    item.setAttribute("href", newLink);
+                    item.setAttribute("added", "true");
+                    item.classList.add("staged");
+                    const newLi = document.createElement("li");
+                    newLi.appendChild(item);
+                    domHeaderSubNavArea.appendChild(newLi);
+                });
+                
+
+
             }
         }
 

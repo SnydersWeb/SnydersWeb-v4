@@ -150,6 +150,10 @@ MENU {
   color: #FF0000;
 }
 
+.invisible {
+	visibility: hidden;
+}
+
 .photoRight {
 	position: relative;
 	float: right;

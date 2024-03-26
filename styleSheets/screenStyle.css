@@ -58,7 +58,7 @@
 		position: absolute;
 		height: 100%;
 		width: 100%;
-		z-index: 0;
+		z-index: 1;
 		overflow: hidden;
 	}
 			
@@ -70,7 +70,7 @@
 		right: 5px;
 		bottom: 5px;
 		left: 185px;
-		z-index: 1;
+		z-index: 2;
 	}
 			
 		/* this rule is skipped by IE - this is the PROPER way to draw that div! */
@@ -408,7 +408,7 @@
 		position: absolute;
 		height: 45px;
 		width: auto;
-		z-index: 2;
+		z-index: 1;
 		margin: 0px;
 		top: 5px;
 		left: 185px;
@@ -439,6 +439,8 @@
 
 			#selectedBar .subTopics MENU LI {
 				float: left;
+				position: relative;
+				height: 18px;
 			}
 
 			#selectedBar .subTopics MENU LI + LI {
@@ -446,7 +448,12 @@
 			}
 
 				#selectedBar .subTopics MENU LI SUB-TOPIC {
+					position: relative;
 					float: left;
+				}
+
+				#selectedBar .subTopics MENU LI SUB-TOPIC.staged {
+					opacity: 0;
 				}
 
 	/* End Selected Topic Bar Selctors */

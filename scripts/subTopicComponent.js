@@ -1,6 +1,6 @@
 // Create a class for the element
 class SubTopic extends HTMLElement {
-    static observedAttributes = ["isHeader", "selected", "dismissed"]; 
+    static observedAttributes = ["isHeader", "selected", "dismissed", "added"]; 
     
     constructor() {
         // Always call super first in constructor
@@ -86,6 +86,10 @@ class SubTopic extends HTMLElement {
         }
     }
 
+    connectedCallback() {
+        console.log("Custom element added to page.");
+    };
+
     disconnectedCallback() {
         console.log("Custom element removed from page.");
         this.bar.removeEventListener('click', this.handleClick);
@@ -94,12 +98,16 @@ class SubTopic extends HTMLElement {
     };
     
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`attribute: ${name} ${oldValue} ${newValue}`);
+        //console.log(`attribute: ${name} ${oldValue} ${newValue}`);
         if (/selected/i.test(name)) {
             this.selectBar(newValue);
         } else if (/dismissed/.test(name)) {
             if (/true/i.test(newValue)) {
                 this.dismiss();
+            }
+        } else if (/added/.test(name)) {
+            if (/true/i.test(newValue)) {
+                this.add();
             }
         }
     };
@@ -124,7 +132,7 @@ class SubTopic extends HTMLElement {
             this.bar.classList.add(`selected`);
             this.bar.setAttribute("selected", "true");
 
-            const animate = this.bar.animate([
+            const animate = this.animate([
                 {
                     transform: "scale(1)",
                     opacity: 1,
@@ -148,7 +156,7 @@ class SubTopic extends HTMLElement {
         let mainContainer = document.querySelector("#mainContainer");
         let { offsetWidth, offsetHeight } = mainContainer;
         if (this.bar.classList.contains('header')) {
-            animate = this.bar.animate([
+            animate = this.animate([
                 {
                     transform: `translateX(0px)`,
                     opacity: 1,
@@ -159,28 +167,78 @@ class SubTopic extends HTMLElement {
                 },
                 
             ], {
-                duration: 1000,
+                duration: 500,
                 easing: "ease-out",
             });
         } else {
-            animate = this.bar.animate([
+            animate = this.animate([
                 {
                     transform: `translateY(0px)`,
                     opacity: 1,
+                    zIndex: 1,
                 },
                 {
                     transform: `translateY(${offsetHeight/2}px) rotate(${utils.getRandomInt(-.75, .75, 2)}turn)`,
                     opacity: 0,
+                    zIndex: 1,
                 },
                 
             ], {
-                duration: 1000,
+                duration: 500,
                 easing: "ease-out",
             });
         }
         
         animate.addEventListener("finish", () => { 
             document.querySelector("#selectedBar").dispatchEvent(this.removeEvent);
+        });
+    };
+
+    add() {
+        let animate = {};
+        let mainContainer = document.querySelector("#mainContainer");
+        let { offsetWidth } = mainContainer;
+        if (this.bar.classList.contains('header')) {
+            animate = this.animate([
+                {
+                    transform: `translateX(${offsetWidth + (offsetWidth / 4)}px)`,
+                    opacity: 0,
+                    position: 'absolute',
+                },
+                {
+                    transform: `translateX(0px)`,
+                    opacity: 1,
+                    position: 'absolute',
+                },
+                
+            ], {
+                duration: 500,
+                easing: "ease-in",
+            });
+        } else {
+            console.log(`CL:${this.classList}`);
+            animate = this.animate([
+                {
+                    
+                    transform: `translateX(${offsetWidth + (offsetWidth / 4)}px) translateY(0px)`,
+                    opacity: 0,
+                    position: 'relative',
+                },
+                {
+                    transform: `translateX(0px) translateY(0px)`,
+                    opacity: 1,
+                },
+                
+            ], {
+                duration: 750,
+                easing: "ease-in",
+            });
+        }
+        
+        animate.addEventListener("finish", () => { 
+            this.bar.removeAttribute("added");
+            this.classList.remove("staged");
+            document.querySelector("#selectedBar").dispatchEvent(this.addEvent);
         });
     };
 

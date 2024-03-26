@@ -1,5 +1,5 @@
 const utils = {
-    linkAdjustor(linkLoc, startingDirectory, currentDirectory) {
+    linkAdjustor(linkLoc, startingDirectory = pageMaestro.getStartingDir(), currentDirectory = pageMaestro.getCurrentDir()) {
 		const fileName = linkLoc.substring(linkLoc.lastIndexOf("/"), linkLoc.length);				
 		const linkLocParts = linkLoc.replace(fileName, "").split("/").filter(item => item === "..");
 		const cdParts = currentDirectory.slice(0, -1).split("/");
@@ -92,6 +92,9 @@ const utils = {
 		return Number((Math.random() * (max - min) + min).toFixed(dec));
 	},
 
+
+
+
 	get(el) {
 		if (typeof el == "string" || typeof el == "number") {
 			el = document.querySelector(el);
@@ -103,7 +106,7 @@ const utils = {
 
 		let element = document.createElement(tag);
 
-		attributes.forEach((item) => 
+		[...attributes].forEach((item) => 
 		{
 			if (/className|class/i.test(item))
 			{
