@@ -5,6 +5,10 @@ topicBarTemplate.innerHTML = `
     <style>
     :host {
         display: block;
+        position: absolute;
+        right: 0px;
+        left: 0px;
+        height: 45px;
     }
     :host SLOT {
         display: block;

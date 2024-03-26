@@ -51,13 +51,19 @@ class TopicBar extends HTMLElement {
             templateContent = templateContent.replaceAll("interfaceImages", `${pathPrepend}interfaceImages`);
             topicBarTemplate.innerHTML = templateContent;
         }
-    }
+    }   
+
+    connectedCallback() {
+        // console.log("Custom element added to page.");
+        // this.bar.addEventListener('click', this.handleClick);
+        // this.bar.addEventListener('mouseover', this.mouseOver);
+        // this.bar.addEventListener('mouseout', this.mouseOut);
+    };
 
     disconnectedCallback() {
-        console.log("Custom element removed from page.");
-        this.bar.removeEventListener('click', this.handleClick);
-        this.bar.removeEventListener('mouseover', this.mouseOver);
-        this.bar.removeEventListener('mouseout', this.mouseOut);
+        // this.bar.removeEventListener('click', this.handleClick);
+        // this.bar.removeEventListener('mouseover', this.mouseOver);
+        // this.bar.removeEventListener('mouseout', this.mouseOut);
     };
     
     attributeChangedCallback(name, oldValue, newValue) {
@@ -67,8 +73,8 @@ class TopicBar extends HTMLElement {
     };    
 
     handleClick = (evt) => {
+        console.log(`TopicBarClick`);
         evt.cancelBubble = true; 
-        console.log(`clickEvent`)
         document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
     };
 

@@ -207,12 +207,11 @@ class Maestro {
     handlePageChanges() {
         const { headerInfo:currHeaderInfo } = this.currentPageInfo;
         const { headerInfo:reqHeaderInfo } = this.requestedPageInfo;
-
         //extract the directory before it's inserted since this stuff fires before the content is actually updated
         const { content:newContent } = this.requestedPageInfo;
         const currentDirectory = `${newContent.dataset.dir}`;
-        
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
+
         console.dir(barChanges);
 
         if (!barChanges.pageChanged) { //No page change - do nothing.
@@ -239,7 +238,6 @@ class Maestro {
                     }
                 });
             } else { //We changed our selected sub topic (going up a menu)
-                console.log(`Selected Sub Topic Change!`);
                 const removeItems = barChanges.selSubTopicsChange.filter(item => /remove/.test(item.status));
                 const addItems = barChanges.selSubTopicsChange.filter(item => /add/.test(item.status));
                 const removeDOMSelSubItems = removeItems.map(remItem => {
@@ -284,10 +282,64 @@ class Maestro {
                     newLi.appendChild(item);
                     domHeaderSubNavArea.appendChild(newLi);
                 });
-                
-
-
             }
+        } else { //Topic Bar Change!
+            //this.pageHeader = this.mainContainer.querySelector("#selectedBar");
+            //this.unselectedBarArea = this.mainContainer.querySelector("#unSelectedBarArea");
+            //const domSelHeader = this.pageHeader.querySelector("TOPIC-BAR");
+        
+            //Get our bar to be promoted
+            const promoteBar = this.unselectedBarArea.querySelector(`TOPIC-BAR[data-id="${barChanges.barChange}"]`);
+
+            //Get the "home garage" where the bar is to return to
+            const returnBarHome = this.unselectedBarArea.querySelector(`LI[data-id="${domSelHeader.dataset.id}"]`);
+            
+            //Dismiss all submenu items
+            const oldSubTopicItems = domSelHeader.querySelectorAll(`SUB-TOPIC`);
+            oldSubTopicItems.forEach(subTopic => {
+                subTopic.setAttribute("dismissed", "true");
+            });
+
+
+            //Selected Bar CSS #selectedBar - top:5px left:185px - width: domSelHeader.offsetWidth
+            //bar Garage CSS #unSelectedBarArea - top:160px left:3px width:176
+            //position in garage - offsetTop (180)
+
+            //domSelHeader.setAttribute("return");
+
+
+            //Swap parent nodes - might need to put this after animation completes
+            //Add stuff into promote bar
+            // <div name="selectedSubTopic" class="selSubTopics"></div>
+            // <div name="subTopics" class="subTopics">
+			// 	<!-- Begin Submenu Items -->
+			// 	<menu class="headerSubNav" role="navigation" aria-label="Sub Navigation"></menu>
+            //Quick Check to see if our promote bar has all the slot stuff
+            const hasSelSubMenuArea = promoteBar.querySelector("DIV.selSubTopics") !== null;
+            const hasSubMenuArea = promoteBar.querySelector("DIV.subTopics") !== null;
+            
+            //debugger;
+            const selSubTopicsArea = document.createElement("DIV");
+            selSubTopicsArea.setAttribute("name", "selectedSubTopic");
+            selSubTopicsArea.setAttribute("class", "selSubTopics");
+            const subTopicsArea = document.createElement("DIV");
+            subTopicsArea.setAttribute("name", "subTopics");
+            subTopicsArea.setAttribute("class", "subTopics");
+            const subTopicMenu = document.createElement("MENU");
+            subTopicMenu.setAttribute("class", "headerSubNav");
+            subTopicMenu.setAttribute("role", "navigation");
+            subTopicMenu.setAttribute("aria-label", "Sub Navigation");
+            subTopicsArea.appendChild(subTopicMenu);
+            promoteBar.appendChild(selSubTopicsArea);
+            promoteBar.appendChild(subTopicsArea);
+
+            //Will also need code to remove the slots I think from domSelHeader - probably on animation finish though.
+            
+            const returnBar = this.pageHeader.removeChild(domSelHeader); //Remove from Header element
+            promoteBar.parentNode.removeChild(promoteBar); //Remove from LI "garage"
+            returnBarHome.appendChild(returnBar);
+            this.pageHeader.appendChild(promoteBar);
+
         }
 
         //Unconditional stuff (content change)

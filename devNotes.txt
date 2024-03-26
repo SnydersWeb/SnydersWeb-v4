@@ -275,7 +275,11 @@ On the MENU tag level.  But for now it seems the easiest route here is to simply
 
 Next up.. we animate our topic bars..
 
+OK.. on topic Bars.. 
 
+Trying to figure out what works better.. to re-dock it and then use aniamtion to send it home or to move it and then dock it.
+
+one way to find out I guess....
 
 
 
