@@ -74,7 +74,7 @@ const pageFetcher = {
         const headerArea = docObj.querySelector(`#selectedBar`);
         const selectedTopicBar = headerArea.querySelector(`TOPIC-BAR`);
         const selectedTopicId = selectedTopicBar.dataset.id;
-        const selectedTopicLink = selectedTopicBar.getAttribute(`href`);        
+        let selectedTopicLink = selectedTopicBar.getAttribute(`href`);
         const selectedSubTopicArea = selectedTopicBar.querySelector(`DIV.selSubTopics`);
         const selectedSubTopicBars = selectedSubTopicArea.querySelectorAll(`SUB-TOPIC`);
         const selectedSubTopics = [];
@@ -85,6 +85,9 @@ const pageFetcher = {
                 label: bar.innerHTML,
             });
         });
+        if (selectedSubTopics.length > 0) {
+            selectedTopicLink = selectedSubTopics[selectedSubTopics.length - 1].href;
+        }
         const subTopics = [];
         let subTopicBars = [];
         const subMenuArea = selectedTopicBar.querySelector(`MENU[role="navigation"]`);

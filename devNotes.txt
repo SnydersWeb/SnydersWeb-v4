@@ -261,6 +261,20 @@ I've put in the subItem animations for removal.  Add yet needs to be done.
 
 OK.. later afternoon - on our changes - I need to revisit Maestro on line 77 get get clarity on selectedSubItem handling.  They need to be flagged add/remove so we can handle them correctly in handlePageChanges (Ln170)
 
+3/26
+SelectedSubTopics, SubTopics and so are are now FULLY WORKING!!!!!
+
+Some of the challenges on animations on our SubTopics menu is that the animations tend to collide a bit.  Normally the getAnimations (https://developer.mozilla.org/en-US/docs/Web/API/Element/getAnimations) could be used to prevent things like this but since our animations are instanced, it really can't detect other changes that might be effecting the MENU under it.
+
+There might be a way to do that 
+Promise.all(
+  elem.getAnimations({ subtree: true }).map((animation) => animation.finished),
+).then(() => elem.remove());
+
+On the MENU tag level.  But for now it seems the easiest route here is to simply speed up the dismiss animation (which is fine)
+
+Next up.. we animate our topic bars..
+
 
 
 

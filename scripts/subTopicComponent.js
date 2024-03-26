@@ -118,12 +118,12 @@ class SubTopic extends HTMLElement {
     };
 
     mouseOver = (evt) => {
-        evt.currentTarget.classList.toggle(`hover`);
+        evt.currentTarget.classList.add(`hover`);
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.classList.toggle(`hover`);
+        evt.currentTarget.classList.remove(`hover`);
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
@@ -143,7 +143,7 @@ class SubTopic extends HTMLElement {
                 },
                 
             ], {
-                duration: 300,
+                duration: 250,
                 easing: "ease-out",
             });
         } else if (/false/i.test(select)) { //De-select

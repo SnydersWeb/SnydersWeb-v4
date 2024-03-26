@@ -37,12 +37,13 @@ const utils = {
 				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
 			} else if (imgRegEx.test(href)) { //special image link
 
-
+				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+				
 				const linkClickEvent = new CustomEvent(
 					"showShot", 
 					{
 						detail: {
-							pageURL: href,
+							pageURL: linkHref,
 							name: 'screen_shot',
 							resize: true,
 							width: 'auto',

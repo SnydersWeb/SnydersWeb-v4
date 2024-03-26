@@ -18,12 +18,11 @@ class Maestro {
         //Get information about where we're starting
         this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
         this.requestedPageInfo = {};
-
         
         //Convert hyperlinks in page body
         const { pathname } = window.location;
         const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/") + 1);
-        this.currentDirectory = this.pageContent.dataset.dir;
+        this.currentDirectory = `${this.pageContent.dataset.dir}`;
         this.startingDirectory = rawPath.replace(this.currentDirectory, "");
             
         this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
@@ -50,11 +49,7 @@ class Maestro {
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
         
-        //SnyderD - Temp code for testing
-        // window.location.href = pageURL;
-        
-        //SnyderD - TODO come back to this and get better detection.
-        if (false) { //pageURL === this.currentPageInfo.headerInfo.href) {
+        if (pageURL === this.currentPageInfo.headerInfo.href) {
             return; //nothing to do.
         }
 
@@ -171,7 +166,9 @@ class Maestro {
         };
     }
         
-    swapContent(content) {      
+    swapContent(content) {    
+        this.currentDirectory = `${content.dataset.dir}`;
+              
         const fadeOut = this.pageContent.animate([
             {
                 opacity: 1,
@@ -185,7 +182,6 @@ class Maestro {
         });
         fadeOut.addEventListener("finish", () => { 
             this.pageContent.innerHTML = content.innerHTML;
-            this.currentDirectory = content.dataset.dir;
             this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
             this.utils.adjustImages(this.pageContent, this.startingDirectory, this.currentDirectory);
 
@@ -211,6 +207,10 @@ class Maestro {
     handlePageChanges() {
         const { headerInfo:currHeaderInfo } = this.currentPageInfo;
         const { headerInfo:reqHeaderInfo } = this.requestedPageInfo;
+
+        //extract the directory before it's inserted since this stuff fires before the content is actually updated
+        const { content:newContent } = this.requestedPageInfo;
+        const currentDirectory = `${newContent.dataset.dir}`;
         
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
         console.dir(barChanges);
@@ -253,7 +253,7 @@ class Maestro {
                     const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
                     if (newBar !== null && newBar.length > 0) {
                         let bar = newBar[0];
-                        bar.setAttribute("href", this.utils.linkAdjustor(`${addItem.href}`));
+                        bar.setAttribute("href", this.utils.linkAdjustor(`${addItem.href}`, this.startingDirectory, currentDirectory));
                         return bar;
                     }
                 });
@@ -276,7 +276,7 @@ class Maestro {
                 //Add new submenu items
                 const { subTopicBars } = reqHeaderInfo;
                 subTopicBars.forEach(item => {
-                    const newLink = this.utils.linkAdjustor(`${item.getAttribute("href")}`);
+                    const newLink = this.utils.linkAdjustor(`${item.getAttribute("href")}`, this.startingDirectory, currentDirectory);
                     item.setAttribute("href", newLink);
                     item.setAttribute("added", "true");
                     item.classList.add("staged");
