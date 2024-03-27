@@ -413,7 +413,7 @@ class Maestro {
         frontLayer.style.transform = `translate(${(centerWidth - x)/frontMoveDampener}px, ${(centerHeight - y)/frontMoveDampener}px)`;
     }
 
-    //Hash changes:
+    //Hash changes for forward/backward button support.
     hashChange() {
         const { hash } = window.location;
         let cleanHash = hash.replace("#", "");
@@ -421,6 +421,70 @@ class Maestro {
         if (cleanHash !== this.reqPageURL) { //Prevents a "bounce"
             this.fetchPage({ detail: { pageURL: cleanHash } });
         }
+    }
+
+    checkContactForm(evt) {
+        const { name } = evt;
+        const { email } = evt;
+        const { phone } = evt;
+        const { message } = evt;
+        const nameErr = name.parentNode.parentNode.querySelector("DIV.errMsg");
+        const emailErr = email.parentNode.parentNode.querySelector("DIV.errMsg");
+        const messageErr = message.parentNode.parentNode.querySelector("DIV.errMsg");
+        const { value:nameVal } = name;
+        const { value:emailVal } = email;
+        const { value:phoneVal } = phone;
+        const { value:messageVal } = message;
+        let good = true;
+        
+        if (nameVal.length < 3) {
+            name.classList.add("err");
+            nameErr.innerText = "Please enter your name.";
+            good = false;
+        } else {
+            name.classList.remove("err");
+            nameErr.innerText = "";
+        }
+
+        if (emailVal.length < 5 ) {
+            email.classList.add("err");
+            emailErr.innerText = "Please enter your email address.";
+            good = false;
+        } else if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailVal) === false) {
+            email.classList.add("err");
+            emailErr.innerText = "Please enter a valid email address.";
+            good = false;
+        } else {
+            email.classList.remove("err");
+            emailErr.innerText = "";
+        }
+
+        if (messageVal.length < 5) {
+            message.classList.add("err");
+            messageErr.innerText = "Please enter a message";
+            good = false;
+        } else {
+            message.classList.remove("err");
+            messageErr.innerText = "";
+        }
+
+        if(good === true) {
+            const postData = {
+                name: nameVal,
+                email: emailVal,
+                phone: phoneVal,
+                message: messageVal,
+            };
+            this.submitContactForm(postData);
+        }
+
+    }
+
+    async submitContactForm(postData) {
+            
+        const result = await this.pageFetcher.postData("https://www.snydersweb.com/contact/parser.php", postData);
+        console.log(`result`);
+
     }
 }
 
