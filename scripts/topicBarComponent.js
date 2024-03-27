@@ -114,12 +114,11 @@ class TopicBar extends HTMLElement {
         ];
         
         const animate = this.animate(steps, {
-            duration: 500,
+            duration: 750,
             easing: "ease-in-out",
         });
         
         animate.addEventListener("finish", () => { 
-            //mainContainer.dispatchEvent(this.promoteEvent);
             this.removeAttribute("promote");
         });
     };
@@ -143,7 +142,7 @@ class TopicBar extends HTMLElement {
         ];
         
         const animate = this.animate(steps, {
-            duration: 500,
+            duration: 750,
             easing: "ease-in-out",
         });
 

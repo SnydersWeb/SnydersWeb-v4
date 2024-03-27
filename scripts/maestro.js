@@ -22,9 +22,14 @@ class Maestro {
         
         //Convert hyperlinks in page body
         const { pathname } = window.location;
+        const { href } = window.location;
         const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/") + 1);
+        const fileName = href.substring(href.lastIndexOf("/") + 1, href.length);
         this.currentDirectory = `${this.pageContent.dataset.dir}`;
+        this.currPageURL = `${this.currentDirectory}${fileName}`;
+        this.reqPageURL = "";
         this.startingDirectory = rawPath.replace(this.currentDirectory, "");
+        this.initialized = false;
             
         this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
     }
@@ -38,6 +43,16 @@ class Maestro {
         this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
         this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
         this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
+        window.addEventListener("popstate", () => { this.hashChange() });
+
+        const { hash } = window.location;
+        let cleanHash = hash.replace("#", "");
+        if (this.initialized === false && cleanHash === "") { // no hash means a fresh hit
+            //Call our future Init function here!
+            console.log(`Begin fancy stuffs!!!!`);
+        } else {
+            this.fetchPage({ detail: { pageURL: cleanHash } });
+        }            
     }
 
     getStartingDir() {
@@ -50,16 +65,15 @@ class Maestro {
 
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
-        
-        //SnyderD - TODO Revisit this
-        if (pageURL === this.currentPageInfo.headerInfo.href) {
-            //return; //nothing to do.
-        }
 
-        this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
-        window.location.hash = pageURL;
+        if (/undefined/i.test(pageURL) || pageURL === this.currPageURL) {
+            return;
+        }
         
-        this.handlePageChanges();        
+        this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
+        this.reqPageURL = pageURL;
+
+        this.handlePageChanges(pageURL);        
     }
 
     processSelectedSubitems(currItems, newItems) {
@@ -234,7 +248,7 @@ class Maestro {
         });
     }
 
-    handlePageChanges() {
+    handlePageChanges(pageURL) {
         const { headerInfo:currHeaderInfo } = this.currentPageInfo;
         const { headerInfo:reqHeaderInfo } = this.requestedPageInfo;
         //extract the directory before it's inserted since this stuff fires before the content is actually updated
@@ -355,6 +369,9 @@ class Maestro {
 
         //Unconditional stuff (content change)
         this.swapContent(this.requestedPageInfo.content);
+
+        window.location.hash = pageURL;
+        this.currPageURL = pageURL;
     }
 
     finishPageChanges() {
@@ -394,6 +411,16 @@ class Maestro {
         //shift our backgrounds depending on where our mouse is.
         backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
         frontLayer.style.transform = `translate(${(centerWidth - x)/frontMoveDampener}px, ${(centerHeight - y)/frontMoveDampener}px)`;
+    }
+
+    //Hash changes:
+    hashChange() {
+        const { hash } = window.location;
+        let cleanHash = hash.replace("#", "");
+            
+        if (cleanHash !== this.reqPageURL) { //Prevents a "bounce"
+            this.fetchPage({ detail: { pageURL: cleanHash } });
+        }
     }
 }
 

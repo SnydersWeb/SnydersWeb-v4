@@ -288,10 +288,13 @@ GOT OUR BARS MOVING!  PRIMARY UI DEVELOPMENT IS COMPLETE!  There are just a few 
 * Background effects on mouseMove
 * Forward/Backwards stuff.
 * Boot Sequence
-* "Sparky"?
+* Fix Contact Form
 * Content Updates
+* "Sparky"?
 
 OK.. I got the background effect moving.. sooo funky!  Pretty nuts.
+OK - Got forward/back working!
+Think next I will try working on my contact form...
 
 
 
