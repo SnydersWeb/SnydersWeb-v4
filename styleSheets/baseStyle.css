@@ -142,16 +142,14 @@ MENU {
 	color: var(--color-link-hover);
 }
 
+
+
 .clearAll {
 	clear: both;
 }
 
 .important {
   color: #FF0000;
-}
-
-.invisible {
-	visibility: hidden;
 }
 
 .photoRight {

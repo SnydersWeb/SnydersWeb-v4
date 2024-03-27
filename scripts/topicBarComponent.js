@@ -1,6 +1,6 @@
 // Create a class for the element
 class TopicBar extends HTMLElement {
-    static observedAttributes = ["isHeader"]; 
+    static observedAttributes = ["isHeader", "promote", "return"]; 
     
     constructor() {
         // Always call super first in constructor
@@ -18,10 +18,6 @@ class TopicBar extends HTMLElement {
         const templateText = topicBarTemplate.content.cloneNode(true);
         this.shadowRoot.append(templateText);
         this.bar = this.shadowRoot.querySelector(".topicBar");
-
-        this.bar.addEventListener('click', this.handleClick);
-        this.bar.addEventListener('mouseover', this.mouseOver);
-        this.bar.addEventListener('mouseout', this.mouseOut);
 
         this.href = this.getAttribute("href");
         this.clickEvent = new CustomEvent(
@@ -55,25 +51,32 @@ class TopicBar extends HTMLElement {
 
     connectedCallback() {
         // console.log("Custom element added to page.");
-        // this.bar.addEventListener('click', this.handleClick);
-        // this.bar.addEventListener('mouseover', this.mouseOver);
-        // this.bar.addEventListener('mouseout', this.mouseOut);
+        this.bar.classList.remove(`hover`);
+        this.bar.addEventListener('click', this.handleClick);
+        this.bar.addEventListener('mouseover', this.mouseOver);
+        this.bar.addEventListener('mouseout', this.mouseOut);
     };
 
     disconnectedCallback() {
-        // this.bar.removeEventListener('click', this.handleClick);
-        // this.bar.removeEventListener('mouseover', this.mouseOver);
-        // this.bar.removeEventListener('mouseout', this.mouseOut);
+        this.bar.removeEventListener('click', this.handleClick);
+        this.bar.removeEventListener('mouseover', this.mouseOver);
+        this.bar.removeEventListener('mouseout', this.mouseOut);
     };
     
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(
-            `TopicBar Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-        );
-    };    
+        //console.log(`attribute: ${name} ${oldValue} ${newValue}`);
+        if (/promote/.test(name)) {
+            if (/null/i.test(newValue) === false) {
+                this.promote(newValue);
+            }
+        } else if (/return/.test(name)) {
+            if (/null/i.test(newValue) === false) {
+                this.return(newValue);
+            }
+        }
+    };
 
     handleClick = (evt) => {
-        console.log(`TopicBarClick`);
         evt.cancelBubble = true; 
         document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
     };
@@ -88,6 +91,66 @@ class TopicBar extends HTMLElement {
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
+    promote = (rawLocData) => {
+        const locData = JSON.parse(rawLocData);
+        const steps = [
+            {
+                transform: `translateX(-${locData.promoted.x}px) translateY(${locData.home.y}px)`,
+                width: `${locData.home.width}px`,
+                position: 'absolute',
+                zIndex: 5,
+            },
+            {
+                transform: `translateX(-${locData.promoted.x}px) translateY(${0}px)`,
+                width: `${locData.promoted.width/2}px`,
+            },
+            {
+                transform: `translateX(0px) translateY(0px)`,
+                width: `${locData.promoted.width}px`,
+                position: 'relative',
+                zIndex: 1,
+            },
+            
+        ];
+        
+        const animate = this.animate(steps, {
+            duration: 500,
+            easing: "ease-in-out",
+        });
+        
+        animate.addEventListener("finish", () => { 
+            //mainContainer.dispatchEvent(this.promoteEvent);
+            this.removeAttribute("promote");
+        });
+    };
+
+    return = (rawLocData) => {
+        const locData = JSON.parse(rawLocData);
+        const steps = [
+            {
+                transform: `translateX(${locData.promoted.x}px) translateY(-${locData.home.y}px)`,
+                width: `${locData.promoted.width}px`,
+            },
+            {
+                transform: `translateX(${locData.promoted.x}px) translateY(${0}px)`,
+                width: `${locData.promoted.width/2}px`,
+            },
+            {
+                transform: `translateX(0px) translateY(0px)`,
+                width: `${locData.home.width}px`,
+            },
+            
+        ];
+        
+        const animate = this.animate(steps, {
+            duration: 500,
+            easing: "ease-in-out",
+        });
+
+        animate.addEventListener("finish", () => { 
+            this.removeAttribute("return");
+        });
+    };
   }
   
   customElements.define("topic-bar", TopicBar);

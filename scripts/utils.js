@@ -92,10 +92,7 @@ const utils = {
 	getRandomInt(min, max, dec) {
 		return Number((Math.random() * (max - min) + min).toFixed(dec));
 	},
-
-
-
-
+	
 	get(el) {
 		if (typeof el == "string" || typeof el == "number") {
 			el = document.querySelector(el);
@@ -107,7 +104,7 @@ const utils = {
 
 		let element = document.createElement(tag);
 
-		[...attributes].forEach((item) => 
+		for (let item in attributes)
 		{
 			if (/className|class/i.test(item))
 			{
@@ -120,7 +117,7 @@ const utils = {
 			else if (/Events/i.test(item))
 			{
 				if (typeof Events != "undefined") {
-					var elEvents = attributes[i];
+					const elEvents = attributes[i];
 					if (!Array.isArray(elEvents)) {
 						elEvents = [elEvents]
 					}
@@ -133,9 +130,9 @@ const utils = {
 			}
 			else
 			{
-				element.setAttribute(i, attributes[i]);
+				element.setAttribute(item, attributes[item]);
 			};
-		});
+		};
 
 		// <map> also needs an ID to work correctly
 		if (tag.match(/^map$/i) && attributes && attributes.name && !attributes.id) {
@@ -169,14 +166,15 @@ const utils = {
 		});
 	},
 
-	removeEl (el) {
-		el = this.get(el);
-
-		if (!Array.isArray(el)) {
-			el = [el]
+	removeEl(el) {
+		let elItem = this.get(el);
+		let retVal = elItem;
+		if (!Array.isArray(elItem)) {
+			elItem = [elItem]
 		}
-		el.forEach((currEl) => {
-			currEl.parentNode.removeChild(currEl);
+		elItem.forEach((currEl) => {
+			retVal = currEl.parentNode.removeChild(currEl);
 		});
+		return retVal;
 	},
 }

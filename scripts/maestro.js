@@ -6,6 +6,7 @@ class Maestro {
 
         //Set up bindings to important areas of the page
         this.mainContainer = document.querySelector("#mainContainer");
+        this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
         this.logo = this.mainContainer.querySelector("#logo");
         this.pageHeader = this.mainContainer.querySelector("#selectedBar");
         this.unselectedBarArea = this.mainContainer.querySelector("#unSelectedBarArea");
@@ -36,6 +37,7 @@ class Maestro {
         //Content Panel events
         this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
         this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
+        this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
     }
 
     getStartingDir() {
@@ -49,8 +51,9 @@ class Maestro {
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
         
+        //SnyderD - TODO Revisit this
         if (pageURL === this.currentPageInfo.headerInfo.href) {
-            return; //nothing to do.
+            //return; //nothing to do.
         }
 
         this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
@@ -151,9 +154,7 @@ class Maestro {
                             }
                         }
                     });
-
-                }
-                
+                }                
             }
         }
 
@@ -204,15 +205,44 @@ class Maestro {
         })
     }
 
+    addSelectedSubTopicItems(barChanges, reqHeaderInfo, domSelectedSubTopicArea, currentDirectory) {
+        const addItems = barChanges.selSubTopicsChange.filter(item => /add/.test(item.status));
+        const addDOMSelSubItems = addItems.map(addItem => {
+            const { selectedSubTopicBars } = reqHeaderInfo;
+            const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
+            if (newBar !== null && newBar.length > 0) {
+                let bar = newBar[0];
+                bar.setAttribute("href", this.utils.linkAdjustor(`${addItem.href}`, this.startingDirectory, currentDirectory));
+                return bar;
+            }
+        });
+        addDOMSelSubItems.forEach(item => {
+            item.setAttribute("added", "true");
+            this.utils.appendEl(domSelectedSubTopicArea, item);
+        });
+    }
+
+    addSubTopicItems(reqHeaderInfo, domHeaderSubNavArea, currentDirectory) {
+        //Add new submenu items
+        const { subTopicBars } = reqHeaderInfo;
+        subTopicBars.forEach(item => {
+            const newLink = this.utils.linkAdjustor(`${item.getAttribute("href")}`, this.startingDirectory, currentDirectory);
+            item.setAttribute("href", newLink);
+            item.setAttribute("added", "true");
+            item.classList.add("staged");
+            this.utils.createEl("LI", {}, [ item ], domHeaderSubNavArea);
+        });
+    }
+
     handlePageChanges() {
         const { headerInfo:currHeaderInfo } = this.currentPageInfo;
         const { headerInfo:reqHeaderInfo } = this.requestedPageInfo;
         //extract the directory before it's inserted since this stuff fires before the content is actually updated
         const { content:newContent } = this.requestedPageInfo;
         const currentDirectory = `${newContent.dataset.dir}`;
+        
+        //Find out what changed on our UI
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
-
-        console.dir(barChanges);
 
         if (!barChanges.pageChanged) { //No page change - do nothing.
             return; 
@@ -220,16 +250,14 @@ class Maestro {
 
         //make some DOM pointers
         const domSelHeader = this.pageHeader.querySelector("TOPIC-BAR");
-        const domSelectedSubTopicArea = domSelHeader.querySelector("DIV.selSubTopics");
+        let domSelectedSubTopicArea = domSelHeader.querySelector("DIV.selSubTopics");
         const domSelectedSubTopics = domSelectedSubTopicArea.querySelectorAll("SUB-TOPIC");
-        const domHeaderSubNavArea = domSelHeader.querySelector("MENU.headerSubNav");
+        let domHeaderSubNavArea = domSelHeader.querySelector("MENU.headerSubNav");
         const domSubTopics = domHeaderSubNavArea.querySelectorAll("SUB-TOPIC");
 
         if (barChanges.barChange === null) {
             //Start with our smallest change - subTopic item only changes
             if (barChanges.selSubTopicsChange.length === 0) {
-                console.log(`Sub Topic Change!`);
-                
                 barChanges.subTopicListChange.forEach((reqSubTopic) => {
                     //grab our subTopic DOM item.
                     const subTopicDOM = [...domSubTopics].filter(top => top.dataset.id === reqSubTopic.id);
@@ -239,55 +267,29 @@ class Maestro {
                 });
             } else { //We changed our selected sub topic (going up a menu)
                 const removeItems = barChanges.selSubTopicsChange.filter(item => /remove/.test(item.status));
-                const addItems = barChanges.selSubTopicsChange.filter(item => /add/.test(item.status));
                 const removeDOMSelSubItems = removeItems.map(remItem => {
                     const domItem = [...domSelectedSubTopics].filter(item => item.dataset.id === remItem.id);
                     if (domItem.length > 0) {
                         return domItem[0];
                     }
                 });
-                const addDOMSelSubItems = addItems.map(addItem => {
-                    const { selectedSubTopicBars } = reqHeaderInfo;
-                    const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
-                    if (newBar !== null && newBar.length > 0) {
-                        let bar = newBar[0];
-                        bar.setAttribute("href", this.utils.linkAdjustor(`${addItem.href}`, this.startingDirectory, currentDirectory));
-                        return bar;
-                    }
-                });
+
                 //Dismiss the remove items
                 removeDOMSelSubItems.forEach(item => {
                     item.setAttribute("dismissed", "true");
-                });
-                //Add the add items
-                addDOMSelSubItems.forEach(item => {
-                    item.setAttribute("added", "true");
-                    domSelectedSubTopicArea.appendChild(item);
-                });
-
-                //Next up.. populate our new sub items.
+                });                
                 //Remove all submenu items
                 domSubTopics.forEach(item => {
                     item.setAttribute("dismissed", "true");
                 });
-
+                
+                //Next up.. populate our new sub items.
+                //Add new selected SubTopic items
+                this.addSelectedSubTopicItems(barChanges, reqHeaderInfo, domSelectedSubTopicArea, currentDirectory);
                 //Add new submenu items
-                const { subTopicBars } = reqHeaderInfo;
-                subTopicBars.forEach(item => {
-                    const newLink = this.utils.linkAdjustor(`${item.getAttribute("href")}`, this.startingDirectory, currentDirectory);
-                    item.setAttribute("href", newLink);
-                    item.setAttribute("added", "true");
-                    item.classList.add("staged");
-                    const newLi = document.createElement("li");
-                    newLi.appendChild(item);
-                    domHeaderSubNavArea.appendChild(newLi);
-                });
+                this.addSubTopicItems(reqHeaderInfo, domHeaderSubNavArea, currentDirectory);
             }
         } else { //Topic Bar Change!
-            //this.pageHeader = this.mainContainer.querySelector("#selectedBar");
-            //this.unselectedBarArea = this.mainContainer.querySelector("#unSelectedBarArea");
-            //const domSelHeader = this.pageHeader.querySelector("TOPIC-BAR");
-        
             //Get our bar to be promoted
             const promoteBar = this.unselectedBarArea.querySelector(`TOPIC-BAR[data-id="${barChanges.barChange}"]`);
 
@@ -300,46 +302,55 @@ class Maestro {
                 subTopic.setAttribute("dismissed", "true");
             });
 
-
-            //Selected Bar CSS #selectedBar - top:5px left:185px - width: domSelHeader.offsetWidth
-            //bar Garage CSS #unSelectedBarArea - top:160px left:3px width:176
-            //position in garage - offsetTop (180)
-
-            //domSelHeader.setAttribute("return");
-
-
-            //Swap parent nodes - might need to put this after animation completes
-            //Add stuff into promote bar
-            // <div name="selectedSubTopic" class="selSubTopics"></div>
-            // <div name="subTopics" class="subTopics">
-			// 	<!-- Begin Submenu Items -->
-			// 	<menu class="headerSubNav" role="navigation" aria-label="Sub Navigation"></menu>
+            //Grab some coordinates of where our bars are and need to go
+            const rawPromoteBarPosData = domSelHeader.getBoundingClientRect();
+            const rawReturnBarHomePosData = returnBarHome.getBoundingClientRect();
+            const topicBarMoveData = {
+                home: {
+                    x: rawReturnBarHomePosData.x,
+                    y: rawReturnBarHomePosData.y,
+                    width: rawReturnBarHomePosData.width,
+                },
+                promoted: {
+                    x: rawPromoteBarPosData.x,
+                    y: rawPromoteBarPosData.y,
+                    width: rawPromoteBarPosData.width,
+                }
+            };
+            
             //Quick Check to see if our promote bar has all the slot stuff
             const hasSelSubMenuArea = promoteBar.querySelector("DIV.selSubTopics") !== null;
             const hasSubMenuArea = promoteBar.querySelector("DIV.subTopics") !== null;
             
-            //debugger;
-            const selSubTopicsArea = document.createElement("DIV");
-            selSubTopicsArea.setAttribute("name", "selectedSubTopic");
-            selSubTopicsArea.setAttribute("class", "selSubTopics");
-            const subTopicsArea = document.createElement("DIV");
-            subTopicsArea.setAttribute("name", "subTopics");
-            subTopicsArea.setAttribute("class", "subTopics");
-            const subTopicMenu = document.createElement("MENU");
-            subTopicMenu.setAttribute("class", "headerSubNav");
-            subTopicMenu.setAttribute("role", "navigation");
-            subTopicMenu.setAttribute("aria-label", "Sub Navigation");
-            subTopicsArea.appendChild(subTopicMenu);
-            promoteBar.appendChild(selSubTopicsArea);
-            promoteBar.appendChild(subTopicsArea);
+            //Create and append our new DOM stuff if needed.
+            if (hasSelSubMenuArea === false) {
+                //remap domSelectedSubTopicArea to our new bar
+                domSelectedSubTopicArea = this.utils.createEl("DIV", { "class": "selSubTopics", "name": "selectedSubTopic" }, [], promoteBar);
+            } else {
+                domSelectedSubTopicArea = promoteBar.querySelector("DIV.selSubTopics");
+            }
+            if (hasSubMenuArea === false) {
+                //remap domHeaderSubNavArea to our new bar
+                domHeaderSubNavArea = this.utils.createEl("MENU", { "class": "headerSubNav", "role": "navigation", "aria-label": "Sub Navigation" })
+                this.utils.createEl("DIV", { "class": "subTopics", "name": "subTopics" }, [ domHeaderSubNavArea ], promoteBar);
+            } else {
+                domHeaderSubNavArea = promoteBar.querySelector("MENU.headerSubNav");
+            }
 
             //Will also need code to remove the slots I think from domSelHeader - probably on animation finish though.
-            
-            const returnBar = this.pageHeader.removeChild(domSelHeader); //Remove from Header element
-            promoteBar.parentNode.removeChild(promoteBar); //Remove from LI "garage"
-            returnBarHome.appendChild(returnBar);
-            this.pageHeader.appendChild(promoteBar);
+            const returnBar = this.utils.removeEl(domSelHeader); //Remove from Header element
+            this.utils.removeEl(promoteBar); //Remove from LI "garage"
+            this.utils.appendEl(returnBarHome, returnBar);
+            this.utils.appendEl(this.pageHeader, promoteBar);
 
+            //Set our attributes which will trigger bar animations
+            promoteBar.setAttribute("promote", JSON.stringify(topicBarMoveData));
+            returnBar.setAttribute("return", JSON.stringify(topicBarMoveData));
+
+            //Add new selected SubTopic items
+            this.addSelectedSubTopicItems(barChanges, reqHeaderInfo, domSelectedSubTopicArea, currentDirectory);
+            //Add new submenu items
+            this.addSubTopicItems(reqHeaderInfo, domHeaderSubNavArea, currentDirectory);                
         }
 
         //Unconditional stuff (content change)
@@ -348,7 +359,6 @@ class Maestro {
 
     finishPageChanges() {
         //update our page info
-        console.log(`setting this.currentPageInfo`);
         this.currentPageInfo = {...this.requestedPageInfo};
         this.requestedPageInfo = {};
     }
@@ -364,6 +374,26 @@ class Maestro {
         } else if (pn.classList.contains("selSubTopics")) {
             pn.removeChild(item); 
         }
+    }
+
+    //Special effect events
+    moveBackground(evt) {
+        const x = evt.clientX;
+        const y = evt.clientY;
+
+        const { height, width } = this.mainContainerInfo;
+        const centerHeight = height / 2;
+        const centerWidth = width / 2;
+        
+        const backLayer = document.querySelector("#backgroundBackLayer");
+        const frontLayer = document.querySelector("#backgroundFrontLayer");
+
+        const backMoveDampener = 25;
+        const frontMoveDampener = 50;
+
+        //shift our backgrounds depending on where our mouse is.
+        backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
+        frontLayer.style.transform = `translate(${(centerWidth - x)/frontMoveDampener}px, ${(centerHeight - y)/frontMoveDampener}px)`;
     }
 }
 

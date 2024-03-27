@@ -281,6 +281,20 @@ Trying to figure out what works better.. to re-dock it and then use aniamtion to
 
 one way to find out I guess....
 
+3/27
+Spent a bit of time extracting repeated code out to a couple of functions (keeping it "pretty")
+
+GOT OUR BARS MOVING!  PRIMARY UI DEVELOPMENT IS COMPLETE!  There are just a few things here and there next:
+* Background effects on mouseMove
+* Forward/Backwards stuff.
+* Boot Sequence
+* "Sparky"?
+* Content Updates
+
+OK.. I got the background effect moving.. sooo funky!  Pretty nuts.
+
+
+
 
 
 

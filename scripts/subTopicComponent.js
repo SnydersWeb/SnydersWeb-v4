@@ -19,10 +19,6 @@ class SubTopic extends HTMLElement {
         this.shadowRoot.append(templateText);
         this.bar = this.shadowRoot.querySelector(".subTopic");
 
-        this.bar.addEventListener('click', this.handleClick);
-        this.bar.addEventListener('mouseover', this.mouseOver);
-        this.bar.addEventListener('mouseout', this.mouseOut);
-
         this.href = this.getAttribute("href");   
         this.isHeader = this.getAttribute("isHeader");
         this.selected = this.getAttribute("selected") || "false";
@@ -87,18 +83,18 @@ class SubTopic extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log("Custom element added to page.");
+        this.bar.addEventListener('click', this.handleClick);
+        this.bar.addEventListener('mouseover', this.mouseOver);
+        this.bar.addEventListener('mouseout', this.mouseOut);
     };
 
     disconnectedCallback() {
-        console.log("Custom element removed from page.");
         this.bar.removeEventListener('click', this.handleClick);
         this.bar.removeEventListener('mouseover', this.mouseOver);
         this.bar.removeEventListener('mouseout', this.mouseOut);
     };
     
     attributeChangedCallback(name, oldValue, newValue) {
-        //console.log(`attribute: ${name} ${oldValue} ${newValue}`);
         if (/selected/i.test(name)) {
             this.selectBar(newValue);
         } else if (/dismissed/.test(name)) {
@@ -132,7 +128,7 @@ class SubTopic extends HTMLElement {
             this.bar.classList.add(`selected`);
             this.bar.setAttribute("selected", "true");
 
-            const animate = this.animate([
+            this.animate([
                 {
                     transform: "scale(1)",
                     opacity: 1,
@@ -216,7 +212,6 @@ class SubTopic extends HTMLElement {
                 easing: "ease-in",
             });
         } else {
-            console.log(`CL:${this.classList}`);
             animate = this.animate([
                 {
                     
