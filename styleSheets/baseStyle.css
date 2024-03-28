@@ -162,7 +162,11 @@ MENU {
 }
 
 .important {
-  color: #FF0000;
+  	color: #FF0000;
+}
+
+.center {
+	text-align: center;
 }
 
 .photoRight {

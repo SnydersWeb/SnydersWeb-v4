@@ -19,7 +19,7 @@ const utils = {
 			const { nofetch:rawNoFetch } = link.dataset;
 			const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
 			
-			if (/http:./i.test(trueHref) === false && imgRegEx.test(trueHref) === false && noFetch === false) { //NOT Link to external
+			if (/http:./i.test(trueHref) === false && /mailto:./i.test(trueHref) === false && imgRegEx.test(trueHref) === false && noFetch === false) { //NOT Link to external
 				
 				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
 				

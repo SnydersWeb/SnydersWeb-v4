@@ -276,7 +276,7 @@ class Maestro {
         
         //Find out what changed on our UI
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
-        console.dir(barChanges);
+        
         if (!barChanges.pageChanged) { //No page change - do nothing.
             return; 
         }
