@@ -405,8 +405,8 @@ class Maestro {
         const backLayer = document.querySelector("#backgroundBackLayer");
         const frontLayer = document.querySelector("#backgroundFrontLayer");
 
-        const backMoveDampener = 10;
-        const frontMoveDampener = 20;
+        const backMoveDampener = 25;
+        const frontMoveDampener = 50;
 
         //shift our backgrounds depending on where our mouse is.
         backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
@@ -424,64 +424,31 @@ class Maestro {
     }
 
     checkContactForm(evt) {
-        const { name } = evt;
-        const { email } = evt;
-        const { message } = evt;
-        const nameErr = name.parentNode.parentNode.querySelector("DIV.errMsg");
-        const emailErr = email.parentNode.parentNode.querySelector("DIV.errMsg");
-        const messageErr = message.parentNode.parentNode.querySelector("DIV.errMsg");
-        const { value:nameVal } = name;
-        const { value:emailVal } = email;
-        const { value:messageVal } = message;
-        let good = true;
-        
-        if (nameVal.length < 3) {
-            name.classList.add("err");
-            nameErr.innerText = "Please enter your name.";
-            good = false;
-        } else {
-            name.classList.remove("err");
-            nameErr.innerText = "";
-        }
+        const postData = this.utils.checkContactForm(evt);
 
-        if (emailVal.length < 5 ) {
-            email.classList.add("err");
-            emailErr.innerText = "Please enter your email address.";
-            good = false;
-        } else if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailVal) === false) {
-            email.classList.add("err");
-            emailErr.innerText = "Please enter a valid email address.";
-            good = false;
-        } else {
-            email.classList.remove("err");
-            emailErr.innerText = "";
+        if (postData !== null) {
+            this.submitContactForm(postData);
         }
-
-        if (messageVal.length < 5) {
-            message.classList.add("err");
-            messageErr.innerText = "Please enter a message";
-            good = false;
-        } else {
-            message.classList.remove("err");
-            messageErr.innerText = "";
-        }
-
-        if(good === true) {
-            const data = new URLSearchParams();
-            data.append("name", nameVal);
-            data.append("email", emailVal);
-            data.append("message", messageVal);
-            
-            this.submitContactForm(data);
-        }
-
     }
 
     async submitContactForm(postData) {
-            
-        const result = await this.pageFetcher.postData("https://www.snydersweb.com/contact/parser.php", postData);
-        console.log(`result`);
-        console.dir(result);
+        let postURL = this.utils.linkAdjustor('parser.php'); 
+        const { protocol } = window.location;
+        //Local dev testing
+        if (/file/.test(protocol)) {
+            postURL = this.utils.linkAdjustor('dummyParser.html');
+        }
+        const rawResult = await this.pageFetcher.postData(postURL, postData) || "";
+        const result = JSON.parse(rawResult.replaceAll(`'`, `"`));
+        const resultDisplay = this.contentPanel.querySelector("DIV.contactResult");
+        const submitButton = this.contentPanel.querySelector("INPUT[type='submit']");
+        
+        resultDisplay.innerHTML = `${result.status}`
+        resultDisplay.classList.remove("hide");
+
+        if (Number(result.result) === 1) {
+            submitButton.setAttribute("disabled", "disabled");
+        }
 
     }
 }

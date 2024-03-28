@@ -82,9 +82,9 @@ INPUT, TEXTAREA, SELECT {
 	border: 1px solid #FFFFFF;
 }
 
-INPUT.radioButton, INPUT.checkBox {
-	background-color: transparent;
-	border: 0px none;
+INPUT:disabled {
+	background-color: #999999; 
+	color: #AAAAAA;
 }
 	
 H1 {
@@ -142,7 +142,20 @@ MENU {
 	color: var(--color-link-hover);
 }
 
-
+.bodyText .contactResult {
+	position: absolute;
+	border: #FFFFFF solid 2px;
+	font-weight: bolder;
+	height: 50px;
+	width: 250px;
+	left: 30%;
+    padding: 10px;
+    background-color: #000;
+    z-index: 1;
+}
+	.bodyText .contactResult.hide {
+		display: none;
+	}
 
 .clearAll {
 	clear: both;

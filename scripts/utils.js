@@ -16,8 +16,10 @@ const utils = {
 		contentLinks.forEach((link, current) => {
 			const { href } = link; //This returns some form of "Reconciled" location.. 
 			const trueHref = link.getAttribute("href");
+			const { nofetch:rawNoFetch } = link.dataset;
+			const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
 			
-			if (/http:./i.test(trueHref) === false && imgRegEx.test(trueHref) === false) { //NOT Link to external
+			if (/http:./i.test(trueHref) === false && imgRegEx.test(trueHref) === false && noFetch === false) { //NOT Link to external
 				
 				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
 				
@@ -56,6 +58,10 @@ const utils = {
 
 				link.setAttribute('href', "JavaScript:void(0);");
 				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+			} else if (noFetch === true) {
+				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+				link.setAttribute('href', linkHref);
+				
 			}
 		});
 	},
@@ -92,7 +98,7 @@ const utils = {
 	getRandomInt(min, max, dec) {
 		return Number((Math.random() * (max - min) + min).toFixed(dec));
 	},
-	
+
 	get(el) {
 		if (typeof el == "string" || typeof el == "number") {
 			el = document.querySelector(el);
@@ -177,4 +183,59 @@ const utils = {
 		});
 		return retVal;
 	},
+
+	checkContactForm(evt) {
+        const { name } = evt;
+        const { email } = evt;
+        const { message } = evt;
+        const nameErr = name.parentNode.parentNode.querySelector("DIV.errMsg");
+        const emailErr = email.parentNode.parentNode.querySelector("DIV.errMsg");
+        const messageErr = message.parentNode.parentNode.querySelector("DIV.errMsg");
+        const { value:nameVal } = name;
+        const { value:emailVal } = email;
+        const { value:messageVal } = message;
+        let good = true;
+        
+        if (nameVal.length < 3) {
+            name.classList.add("err");
+            nameErr.innerText = "Please enter your name.";
+            good = false;
+        } else {
+            name.classList.remove("err");
+            nameErr.innerText = "";
+        }
+
+        if (emailVal.length < 5 ) {
+            email.classList.add("err");
+            emailErr.innerText = "Please enter your email address.";
+            good = false;
+        } else if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailVal) === false) {
+            email.classList.add("err");
+            emailErr.innerText = "Please enter a valid email address.";
+            good = false;
+        } else {
+            email.classList.remove("err");
+            emailErr.innerText = "";
+        }
+
+        if (messageVal.length < 5) {
+            message.classList.add("err");
+            messageErr.innerText = "Please enter a message";
+            good = false;
+        } else {
+            message.classList.remove("err");
+            messageErr.innerText = "";
+        }
+
+		let data = null;
+        if(good === true) {
+            data = new URLSearchParams();
+            data.append("name", nameVal);
+            data.append("email", emailVal);
+            data.append("message", messageVal);
+        }
+
+		return data;
+
+    },
 }

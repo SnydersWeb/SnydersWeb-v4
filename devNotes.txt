@@ -305,6 +305,20 @@ Next I need to take the pay load back and display confirmation - this likely mea
 
 This leaves just our boot sequence.  I may need to add another file to handle that.
 
+3/28
+Some bedtime research - no-cors causes blank bodies on the response... oof.. a reminder that security and convenience are often on opposite ends of the spectrum...
+
+Waking up, I've got some ideas on mobile support (improved).  The UI is functional under mobile, but the UI components are definitely a bit small.  This makes for a less than steller experience.
+
+Most of the fixes should be doable via mobiel styling though.. 
+
+Another earliy a.m. though was a way to flag links that we do NOT want to go through the fetch system.  These would be a link to Faunix, and Resume PDFs and so on.  So to do this we have data-nofetch="true".
+
+OK.. got some final touches on the contact form and parser and it seems to be working.
+
+
+
+
 
 
 

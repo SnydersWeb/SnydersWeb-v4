@@ -5,7 +5,7 @@
 		overflow: hidden;
 	}
 
-	INPUT:focus, TEXTAREA:focus, SELECT:focus, INPUT.iefocus, TEXTAREA.iefocus, SELECT.iefocus {
+	INPUT:focus, TEXTAREA:focus, SELECT:focus, INPUT.iefocus {
 		background-color: #999999; 
 		border: 1px solid #666666;
 	}
