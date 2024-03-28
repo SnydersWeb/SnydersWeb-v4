@@ -3,16 +3,16 @@ const pageFetcher = {
         // Default options are marked with *
         return fetch(url, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
-                mode: "cors", // no-cors, *cors, same-origin
+                mode: "no-cors", // no-cors, *cors, same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: "same-origin", // include, *same-origin, omit
+                //credentials: "same-origin", // include, *same-origin, omit
                 headers: {
                 "Content-Type": "application/json",
                 // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 redirect: "follow", // manual, *follow, error
                 referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify(data), // body data type must match "Content-Type" header
+                body: data,
             })
             // fetch() returns a promise. When we have received a response from the server,
             // the promise's `then()` handler is called with the response.
@@ -29,7 +29,7 @@ const pageFetcher = {
             // When response.text() has succeeded, the `then()` handler is called with
             // the text, and we copy it into the `poemDisplay` box.
             .then((rawHtml) => {
-                return this.parsePageObject(rawHtml);
+                return rawHtml;
             })
             // Catch any errors that might happen, and display a message
             // in the `poemDisplay` box.

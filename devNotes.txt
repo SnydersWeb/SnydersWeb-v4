@@ -1,4 +1,5 @@
-chrome --allow-file-access-from-files file:///E:/Site%20Work/SnydersWeb-v4/index.html
+Chrome Startup
+chrome --allow-file-access-from-files --disable-web-security file:///E:/Site%20Work/SnydersWeb-v4/index.html
 
 
 3/12/2024 - Investigation day
@@ -296,8 +297,13 @@ OK.. I got the background effect moving.. sooo funky!  Pretty nuts.
 OK - Got forward/back working!
 Think next I will try working on my contact form...
 
+Need a way to get CORS to stop blocking me here so I can test my form parser out.  Or, at the least, post directly to my parser to see if it even works!
 
+OK.. late night update.. got the stoopid parser working.  For some oddball reason it didn't like the phone part and was rejecting.  
 
+Next I need to take the pay load back and display confirmation - this likely means further tweaks to the Fetch Post thing.
+
+This leaves just our boot sequence.  I may need to add another file to handle that.
 
 
 

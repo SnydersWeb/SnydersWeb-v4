@@ -405,8 +405,8 @@ class Maestro {
         const backLayer = document.querySelector("#backgroundBackLayer");
         const frontLayer = document.querySelector("#backgroundFrontLayer");
 
-        const backMoveDampener = 25;
-        const frontMoveDampener = 50;
+        const backMoveDampener = 10;
+        const frontMoveDampener = 20;
 
         //shift our backgrounds depending on where our mouse is.
         backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
@@ -426,14 +426,12 @@ class Maestro {
     checkContactForm(evt) {
         const { name } = evt;
         const { email } = evt;
-        const { phone } = evt;
         const { message } = evt;
         const nameErr = name.parentNode.parentNode.querySelector("DIV.errMsg");
         const emailErr = email.parentNode.parentNode.querySelector("DIV.errMsg");
         const messageErr = message.parentNode.parentNode.querySelector("DIV.errMsg");
         const { value:nameVal } = name;
         const { value:emailVal } = email;
-        const { value:phoneVal } = phone;
         const { value:messageVal } = message;
         let good = true;
         
@@ -469,13 +467,12 @@ class Maestro {
         }
 
         if(good === true) {
-            const postData = {
-                name: nameVal,
-                email: emailVal,
-                phone: phoneVal,
-                message: messageVal,
-            };
-            this.submitContactForm(postData);
+            const data = new URLSearchParams();
+            data.append("name", nameVal);
+            data.append("email", emailVal);
+            data.append("message", messageVal);
+            
+            this.submitContactForm(data);
         }
 
     }
@@ -484,6 +481,7 @@ class Maestro {
             
         const result = await this.pageFetcher.postData("https://www.snydersweb.com/contact/parser.php", postData);
         console.log(`result`);
+        console.dir(result);
 
     }
 }
