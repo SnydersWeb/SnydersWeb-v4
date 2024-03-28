@@ -1,5 +1,12 @@
 class Maestro {
     constructor() {
+        //Grab our utils
+        this.pageFetcher = pageFetcher;
+        this.utils = utils;
+
+        //Special element used for animation - it is cleared almost immediately.
+        this.stageCover = this.utils.createEl("DIV", { "id": "stageCover" }, [ ], document.querySelector("BODY"));
+
         //Not doing anything with the background stuff for now
         this.backgroundBackLayer = document.querySelector("#backgroundBackLayer");
         this.backgroundFrontLayer = document.querySelector("#backgroundFrontLayer");
@@ -12,10 +19,9 @@ class Maestro {
         this.unselectedBarArea = this.mainContainer.querySelector("#unSelectedBarArea");
         this.contentPanel = this.mainContainer.querySelector("#contentPanel");
         this.pageContent = this.mainContainer.querySelector("#content");
-
-        this.pageFetcher = pageFetcher;
-        this.utils = utils;
-
+        const printBanner = document.querySelector("#printBanner");
+        this.printTitle = printBanner.querySelector("DIV.printTitle");
+        
         //Get information about where we're starting
         this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
         this.requestedPageInfo = {};
@@ -42,16 +48,30 @@ class Maestro {
         //Content Panel events
         this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
         this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
-        this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
         window.addEventListener("popstate", () => { this.hashChange() });
 
         const { hash } = window.location;
         let cleanHash = hash.replace("#", "");
         if (this.initialized === false && cleanHash === "") { // no hash means a fresh hit
-            //Call our future Init function here!
-            console.log(`Begin fancy stuffs!!!!`);
+            this.mainContainer.addEventListener('finalizeBoot', (evt) => { this.finalizeBoot(evt) });   
+            const itemHandles = {
+                backgroundBackLayer: this.backgroundBackLayer,
+                backgroundFrontLayer: this.backgroundFrontLayer,
+                mainContainer: this.mainContainer,
+                logo: this.logo,
+                pageHeader: this.pageHeader,
+                unselectedBarArea: this.unselectedBarArea,
+                contentPanel: this.contentPanel,
+            };
+
+            //Adding a temporary "cover" to hide everything
+            this.bootSequence = bootSequence;
+            this.bootSequence.setHandles(itemHandles);
+            this.bootSequence.start(this.stageCover);        
         } else {
+            this.utils.removeEl(this.stageCover);
             this.fetchPage({ detail: { pageURL: cleanHash } });
+            this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
         }            
     }
 
@@ -94,23 +114,22 @@ class Maestro {
             }
         });
 
-        if (newItems.length > currItems.length) {
-            newItems.forEach(currItem => {
-                let foundMatch = false;
-                newSelSubTopics.forEach(newItem => {
-                    if (currItem.id === newItem.id) {
-                        foundMatch = true;
-                    }
-                });
-                if (foundMatch === false) {
-                    newSelSubTopics.push({
-                        ...currItem,
-                        status: 'add',
-                    });
+        //Next iterate over new items to ensure we have it all.
+        newItems.forEach(currItem => {
+            let foundMatch = false;
+            newSelSubTopics.forEach(newItem => {
+                if (currItem.id === newItem.id) {
+                    foundMatch = true;
                 }
-            });                
-        }
-
+            });
+            if (foundMatch === false) {
+                newSelSubTopics.push({
+                    ...currItem,
+                    status: 'add',
+                });
+            }
+        });                
+        
         return newSelSubTopics;
     }
     
@@ -257,7 +276,7 @@ class Maestro {
         
         //Find out what changed on our UI
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
-
+        console.dir(barChanges);
         if (!barChanges.pageChanged) { //No page change - do nothing.
             return; 
         }
@@ -370,6 +389,11 @@ class Maestro {
         //Unconditional stuff (content change)
         this.swapContent(this.requestedPageInfo.content);
 
+        //Update our print thing
+        const baseTitle = `${this.pageHeader.querySelector("DIV.barTextSlot").innerText}`;
+        const subTopicTitle = [...domSelectedSubTopicArea.querySelectorAll("SUB-TOPIC")].map(topic => { return ` - ${topic.innerText}` });
+        this.printTitle.innerHTML = `${baseTitle}${subTopicTitle}`;
+
         window.location.hash = pageURL;
         this.currPageURL = pageURL;
     }
@@ -422,7 +446,13 @@ class Maestro {
             this.fetchPage({ detail: { pageURL: cleanHash } });
         }
     }
+    
+    finalizeBoot(evt) {
+        //add our background effect hook back in.
+        this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
+    }
 
+    //Form stuffs
     checkContactForm(evt) {
         const postData = this.utils.checkContactForm(evt);
 

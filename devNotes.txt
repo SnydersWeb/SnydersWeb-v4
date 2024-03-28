@@ -316,6 +316,24 @@ Another earliy a.m. though was a way to flag links that we do NOT want to go thr
 
 OK.. got some final touches on the contact form and parser and it seems to be working.
 
+mobileScreenStyleWork is the start of some of my experiments to make the UI more mobile friendly.  Results encouraging.
+
+OK.. more trim and final - Boot Sequence is in a good spot.. short and sweet but with flair.   Also spent some time polishing up the print system.
+
+On printing.. well.. this is annoying.  So it seems that while you could embed a print stylesheet for a given web componenet - the web component likes to ignore that, yet it pays full attention to the screen one.  
+
+I can only imagine that this is some form of a bug - A wierd one at that.  Likely also the antithesis of a priority. 
+
+Think right now the site is definitely extremely close to launch! 
+
+TO DO:
+* Content Updates
+
+As far as the spark thing.. eh.. I might.  More than anything getting better handling on mobile is a better use of my time there.  But for now I think getting it out the door first is teh better idea.
+
+
+
+
 
 
 

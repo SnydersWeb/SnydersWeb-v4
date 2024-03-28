@@ -263,51 +263,6 @@ topicBarTemplate.innerHTML = `
                 }			
         /* End hover selectors for topicBar */                
     }    
-        
-    @media print {         
-        /* Begin Topic Bar Class Selctors */
-        .topicBar {
-            position : relative;
-            float : left;
-            top : 45px;
-        }
-        
-            .topicBarTop {
-                display : none;
-                visibility : hidden;
-            }
-                        
-            .topicBarBody .topicBarBodyLeft {
-                display : none;
-                visibility : hidden;
-            }
-
-            .topicBarBody .topicBarBodyMiddle {
-                position : relative;
-                float : left;
-            }		
-
-            .topicBarBody .topicBarBodyMiddle .barText {
-                position : relative;
-                float: left;
-                font-family : var(--fonts);
-                font-weight : bold;
-                font-size : 12pt;
-                color : #000000;
-                float : left;
-            }		
-
-            .topicBarBody .topicBarBodyRight {
-                display : none;
-                visibility : hidden;
-            }
-                
-        .topicBarBottom {
-            display : none;
-            visibility : hidden;
-        }
-    }
-    /* End Topic Bar Class Selctors */
     </style>
     
     <div class="topicBar">

@@ -1,4 +1,5 @@
-@media screen {
+
+@media only screen {
 	/* Begin Tag Level Selctors */
 	BODY {
 		background-color: #333333;
@@ -15,56 +16,44 @@
 		color: #FFFFFF;
 		font-size: 130%;
 	}
-	
+
 	H2 {
 		color: #FFFFFF;
 		font-size: 120%;
 	}
-	
+
 	H3 {
 		color: #FFFFFF;
 		font-size: 110%;
 	}
-	
+
 	H4 {
 		color: #FFFFFF;
 		font-size: 105%;
 	}
-	
+
 	H5 {
 		color: #FFFFFF;
 		font-size: 100%;
 	}
 	/* End Tag Level Selctors */
-	
-	#stageCover {
+
+
+	#backgroundBackLayer, #backgroundFrontLayer {
 		position: absolute;
-        height: 100%;
-        width: 100%;
-        z-index: 50;
-        overflow: hidden;
-		left: 0px;
-		top: 0px;
-		background-color: #333333;
+		height: 100%;
+		width: 100%;
+		z-index: 0;
+		overflow: hidden;
 	}
-	
-    #backgroundBackLayer, #backgroundFrontLayer {
-        position: absolute;
-        height: 130%;
-        width: 130%;
-        z-index: 0;
-        overflow: hidden;
-		left: -15%;
-		top: -15%;
-    }
 
-    #backgroundFrontLayer {
-        background-image: url('../interfaceImages/backgroundFrontLayer.svg'); 
-    }
+	#backgroundFrontLayer {
+		background-image: url('../interfaceImages/backgroundFrontLayer.svg'); 
+	}
 
-    #backgroundBackLayer {
-        background-image: url('../interfaceImages/backgroundBackLayer.svg'); 
-    }
+	#backgroundBackLayer {
+		background-image: url('../interfaceImages/backgroundBackLayer.svg'); 
+	}
 
 	#mainContainer {
 		position: absolute;
@@ -78,10 +67,10 @@
 	#contentPanel {
 		position: absolute;
 		height: auto;
-		top: 75px;
+		top: 175px;
 		right: 5px;
 		bottom: 5px;
-		left: 185px;
+		left: 3px;
 		z-index: 2;
 	}
 			
@@ -114,7 +103,7 @@
 				background-image: url('../interfaceImages/contentPanelTopLeftInner.svg');
 				background-repeat: no-repeat;
 			}
-	
+
 			#contentPanel .contentTop .contentTopMiddle {
 				position: relative;
 				left: 0px;
@@ -125,7 +114,7 @@
 				background-image: url('../interfaceImages/contentPanelTop.svg');
 				background-repeat: repeat-x;
 			}
-	
+
 			#contentPanel .contentTop .contentTopRightInner {
 				position: absolute;
 				top: 0px;
@@ -135,7 +124,7 @@
 				background-image: url('../interfaceImages/contentPanelTopRightInner.svg');
 				background-repeat: no-repeat;
 			}
-	
+
 			#contentPanel .contentTop .contentTopRight {
 				position: absolute;
 				top: 0px;
@@ -154,7 +143,7 @@
 			left: 0px;
 			right: 0px;
 		}
-	
+
 			#contentPanel .contentBody .contentBodyLeft {
 				position: absolute;
 				width: 19px;
@@ -175,7 +164,7 @@
 					background-image: url('../interfaceImages/contentPanelLeftTop.svg');
 					background-repeat: no-repeat;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyLeft .leftThick {
 					position: relative;
 					width: 19px;
@@ -185,7 +174,7 @@
 					background-image: url('../interfaceImages/contentPanelLeftThick.svg');
 					background-repeat: repeat-y;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyLeft .leftTrans {
 					position: relative;
 					width: 19px;
@@ -195,7 +184,7 @@
 					background-image: url('../interfaceImages/contentPanelLeftTrans.svg');
 					background-repeat: no-repeat;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyLeft .leftDouble {
 					position: relative;
 					width: 19px;
@@ -205,7 +194,7 @@
 					background-image: url('../interfaceImages/contentPanelLeftDouble.svg');
 					background-repeat: repeat-y;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyLeft .leftDoubleEnd {
 					position: relative;
 					width: 19px;
@@ -215,7 +204,7 @@
 					background-image: url('../interfaceImages/contentPanelLeftDoubleEnd.svg');
 					background-repeat: no-repeat;
 				}
-	
+
 			#contentPanel .contentBody .contentArea {
 				position: absolute;
 				width: auto;
@@ -234,7 +223,7 @@
 					width: 100%;
 					overflow: auto;
 					box-shadow: inset 0 0 5px var(--content-panel-scroll-base); 
-  					scrollbar-color: var(--content-panel-scroll-bar) var(--content-panel-scroll-base);
+					scrollbar-color: var(--content-panel-scroll-bar) var(--content-panel-scroll-base);
 					scrollbar-width: thin;
 				}
 			
@@ -267,7 +256,7 @@
 					background-image: url('../interfaceImages/contentPanelRightDoubleEnd.svg');
 					background-repeat: no-repeat;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyRight .rightDouble {
 					position: relative;
 					width: 18px;
@@ -277,7 +266,7 @@
 					background-image: url('../interfaceImages/contentPanelRightDouble.svg');
 					background-repeat: repeat-y;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyRight .rightTrans {
 					position: relative;
 					width: 18px;
@@ -287,7 +276,7 @@
 					background-image: url('../interfaceImages/contentPanelRightTrans.svg');
 					background-repeat: no-repeat;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyRight .rightThick {
 					position: relative;
 					width: 18px;
@@ -297,7 +286,7 @@
 					background-image: url('../interfaceImages/contentPanelRightThick.svg');
 					background-repeat: repeat-y;
 				}
-	
+
 				#contentPanel .contentBody .contentBodyRight .rightBottom {
 					position: relative;
 					width: 18px;
@@ -307,7 +296,7 @@
 					background-image: url('../interfaceImages/contentPanelRightBot.svg');
 					background-repeat: no-repeat;
 				}
-	
+
 		#contentPanel .contentBottom {
 			position: absolute;
 			top: auto;
@@ -336,7 +325,7 @@
 				background-image: url('../interfaceImages/contentPanelBotLeftInner.svg');
 				background-repeat: no-repeat;
 			}
-	
+
 			#contentPanel .contentBottom .contentBotMiddle {
 				position: relative;
 				left: 0px;
@@ -347,7 +336,7 @@
 				background-image: url('../interfaceImages/contentPanelBot.svg');
 				background-repeat: repeat-x;
 			}
-	
+
 			#contentPanel .contentBottom .contentBotRightInner {
 				position: absolute;
 				top: 0px;
@@ -357,7 +346,7 @@
 				background-image: url('../interfaceImages/contentPanelBotRightInner.svg');
 				background-repeat: no-repeat;
 			}
-	
+
 			#contentPanel .contentBottom .contentBotRight {
 				position: absolute;
 				top: 0px;
@@ -367,7 +356,7 @@
 				background-image: url('../interfaceImages/contentPanelBotRight.svg');
 				background-repeat: no-repeat;
 			}
-	
+
 	/* End Content Area Selctors */
 			
 	/* Begin Logo Selctor */
@@ -379,7 +368,7 @@
 		width: 169px;
 		z-index: 1
 	}
-	
+
 	#printLogo {
 		position: absolute;
 		top: 5px;
@@ -388,7 +377,7 @@
 		width: 169px;
 		z-index: -1;
 	}
-	
+
 	#printBanner {
 		position: absolute;
 		font-family: var(--fonts);
@@ -403,7 +392,7 @@
 		width: 10em;
 		z-index: -1;
 	}
-	
+
 	#printLogoCover {
 		position: absolute;
 		top: 5px;
@@ -422,7 +411,7 @@
 		width: auto;
 		z-index: 1;
 		margin: 0px;
-		top: 5px;
+		top: 95px;
 		left: 185px;
 		right: 5px;
 	}
@@ -469,39 +458,44 @@
 				}
 
 	/* End Selected Topic Bar Selctors */
-	
+
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		position: absolute;
-		top: 160px;
-		left: 3px;
-		height: auto;
-		width: 176px;
+		top: 3px;
+		left: 185px;
+		bottom: 90px;
+		right: 3px;
 	}
-	
+
 		#unSelectedBarArea MENU LI {
 			height: 45px;
+			width: 150px;
+			float: left;
 		}
-					
+			#unSelectedBarArea MENU LI TOPIC-BAR {
+				width: 150px;
+				float: left;
+			}		
 	/* End UnSelected Topic Bar Selctors */
 		
 		
 	.bodyText {
 		color: #FFFFFF;
 	}
-	
+
 	.photoRight {
 		border: 1px solid #FFFFFF;
 	}
-	
+
 	.photoLeft {
 		border: 1px solid #FFFFFF;
 	}
-	
+
 	.bodyText TABLE {
 		color: #FFFFFF;
 	}
-	
+
 	.bodyText TABLE .altRow {
 		background-color: #CCCCCC;
 	}
@@ -542,4 +536,82 @@
 			text-decoration: none;
 		}
 	/* End content formatting selectors */
+}
+
+
+@media only screen and (min-width: 600px) and (min-height: 450px) {
+	/* Begin Tag Level Selctors */
+	BODY {
+		background-color: #333333;
+		overflow: hidden;
+	}
+
+    #backgroundBackLayer, #backgroundFrontLayer {
+        position: absolute;
+        height: 130%;
+        width: 130%;
+        z-index: 0;
+        overflow: hidden;
+		left: -15%;
+		top: -15%;
+    }
+
+	#mainContainer {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: 1;
+		overflow: hidden;
+	}
+			
+	/* Begin Content Area Selctors */
+	#contentPanel {
+		position: absolute;
+		height: auto;
+		top: 75px;
+		right: 5px;
+		bottom: 5px;
+		left: 185px;
+		z-index: 2;
+	}
+		
+	/* End Content Area Selctors */
+			
+	/* Begin Logo Selctor */
+	#logo {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		height: 145px;
+		width: 169px;
+		z-index: 1
+	}
+	
+	/* End Logo Selctors */
+		
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		position: absolute;
+		height: 45px;
+		width: auto;
+		z-index: 1;
+		margin: 0px;
+		top: 5px;
+		left: 185px;
+		right: 5px;
+	}
+	/* End Selected Topic Bar Selctors */
+	
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		position: absolute;
+		top: 160px;
+		left: 3px;
+		height: auto;
+		width: 176px;
+	}
+	
+	/* End UnSelected Topic Bar Selctors */
+		
+		
 }

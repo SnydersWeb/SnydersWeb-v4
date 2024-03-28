@@ -61,12 +61,10 @@
 	
 	#contentPanel #contentTop {
 		display: none;
-		visibility: hidden;
 	}
 
 	#contentPanel #contentBody #contentBodyLeft {
 		display: none;
-		visibility: hidden;
 	}
 	
 	#contentArea {
@@ -85,19 +83,16 @@
 	
 	#contentPanel #contentBody #contentBodyRight {
 		display: none;
-		visibility: hidden;
 	}
 
 	#contentPanel #contentBottom {
 		display: none;
-		visibility: hidden;
 	}
 	/* End Content Area Selctors */
 			
 	/* Begin Logo Selctors */
 	#logo {
 		display: none;
-		visibility: hidden;
 	}
 
 	#printLogo {
@@ -119,119 +114,45 @@
 		font-size: 16pt;
 		font-weight: bold;
 	}
+		#printBanner .printTitle {
+			font-size: 14pt;
+		}
 
 	#printLogoCover {
 		display: none;
-		visibility: hidden;
 	}
 	/* End Logo Selctors */
 
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		display: none;
-		visibility: hidden;
 	}
 	
 	.unSelectedBar {
 		display: none;
-		visibility: hidden;
 	}
 	/* End UnSelected Topic Bar Selctors */
 
 	/* Begin SubMenu Selctors */
 	#subMenu {
 		display: none;
-		visibility: hidden;
 	}
 	/* End SubMenu Selctors */
 
 	/* Begin Topic Bar Class Selctors */
-	.topicBar {
-		position: relative;
-		float: left;
-		top: 45px;
-	}
-	
-		.topicBarTop {
-			display: none;
-			visibility: hidden;
-		}
-					
-		.topicBarBody .topicBarBodyLeft {
-			display: none;
-			visibility: hidden;
-		}
-
-		.topicBarBody .topicBarBodyMiddle {
-			position: relative;
-			float: left;
-		}		
-
-		.topicBarBody .topicBarBodyMiddle .barText {
-			position: relative;
-			font-family: var(--fonts);
-			font-weight: bold;
-			font-size: 12pt;
-			color: #000000;
-			float: left;
-		}		
-
-		.topicBarBody .topicBarBodyRight {
-			display: none;
-			visibility: hidden;
-		}
-			
-	.topicBarBottom {
+	TOPIC-BAR {
 		display: none;
-		visibility: hidden;
 	}
 	/* End Topic Bar Class Selctors */
 	
 	/* Begin SubTopic Class Selectors */
-	.subTopic {
-		position: relative;
-		float: left;
-		margin: 0px 5px 0px 5px;
+	SUB-TOPIC {
+		display: none;
 	}
 	
-		.subTopicLeft {
-			display: none;
-			visibility: hidden;
-		}
-	
-		.subTopicBody {
-			position: relative;
-			top: 45px;
-			white-space: nowrap;
-			font-family: var(--fonts);
-			font-weight: bold;
-			font-size: 12pt;
-			color: #000000;
-		}
-		
-		.subTopicBody A:link, .subTopicBody A:visited {
-			color: #000000;
-			text-decoration: none;
-		}			
-		
-		.subTopicBody A:hover, .subTopicBody A:active {
-			color: #000000;
-			text-decoration: none;
-		}		
-	
-		.subTopicRight {
-			display: none;
-			visibility: hidden;
-		}
-
 	/* End SubTopic Class Selectors */
 	
 	/* Begin content formatting selectors */
-	#subMenuGapper {
-		display: none;
-		visibility: hidden;
-	}
-	
 	.bodyText {
 		font-size: 10pt;
 		color: #000000;
@@ -260,7 +181,6 @@
 	
 	.breadCrumbHist {
 		display: none;
-		visibility: hidden;
 	}
 	/* End content formatting selectors */
 	

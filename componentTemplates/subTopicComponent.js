@@ -150,48 +150,6 @@ subTopicTemplate.innerHTML = `
                 background-image: url('interfaceImages/selSubTopicRightHover.svg');
             }
         
-            
-        /* End SubItem Class Selectors */		            
-    }    
-        
-    @media print {         
-        /* Begin SubTopic Class Selectors */
-        .subTopic {
-            position : relative;
-            float : left;
-            margin : 0px 5px 0px 5px;
-        }
-        
-            .subTopicLeft {
-                display : none;
-                visibility : hidden;
-            }
-        
-            .subTopicBody {
-                position : relative;
-                top : 45px;
-                white-space : nowrap;
-                font-family : var(--fonts);
-                font-weight : bold;
-                font-size : 12pt;
-                color : #000000;
-            }
-            
-            .subTopicBody A:link, .subTopicBody A:visited {
-                color : #000000;
-                text-decoration : none;
-            }			
-            
-            .subTopicBody A:hover, .subTopicBody A:active {
-                color : #000000;
-                text-decoration : none;
-            }		
-        
-            .subTopicRight {
-                display : none;
-                visibility : hidden;
-            }
-
         /* End SubTopic Class Selectors */
     }   
 
