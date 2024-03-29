@@ -93,10 +93,15 @@ class TopicBar extends HTMLElement {
 
     promote = (rawLocData) => {
         const locData = JSON.parse(rawLocData);
+        
+        const homeWidth = locData.home.width > 0 ? locData.home.width : 144; //144 is the min-width
+        const homeXPos = locData.home.y < 10 ? locData.promoted.x : 0 - locData.promoted.x;
+        const homeYPos = locData.home.y < 10 ? 10 - locData.promoted.y : locData.home.y;
+        
         const steps = [
             {
-                transform: `translateX(-${locData.promoted.x}px) translateY(${locData.home.y}px)`,
-                width: `${locData.home.width}px`,
+                transform: `translateX(${homeXPos}px) translateY(${homeYPos}px)`,
+                width: `${homeWidth}px`,
                 position: 'absolute',
                 zIndex: 5,
             },
@@ -109,12 +114,16 @@ class TopicBar extends HTMLElement {
                 width: `${locData.promoted.width}px`,
                 position: 'relative',
                 zIndex: 1,
-            },
-            
+            },            
         ];
+
+        //Mobile doesn't get all 3 steps
+        if (locData.home.y < 10) {
+            steps.splice(1, 1);
+        }
         
         const animate = this.animate(steps, {
-            duration: 750,
+            duration: 1000,
             easing: "ease-in-out",
         });
         
@@ -125,9 +134,12 @@ class TopicBar extends HTMLElement {
 
     return = (rawLocData) => {
         const locData = JSON.parse(rawLocData);
+        const homeWidth = locData.home.width > 0 ? locData.home.width : 144; //144 is the min-width
+        const homeYPos = locData.home.y < 10 ? locData.promoted.y : 0 - locData.home.y;
+        
         const steps = [
             {
-                transform: `translateX(${locData.promoted.x}px) translateY(-${locData.home.y}px)`,
+                transform: `translateX(${locData.promoted.x}px) translateY(${homeYPos}px)`,
                 width: `${locData.promoted.width}px`,
             },
             {
@@ -136,13 +148,18 @@ class TopicBar extends HTMLElement {
             },
             {
                 transform: `translateX(0px) translateY(0px)`,
-                width: `${locData.home.width}px`,
+                width: `${homeWidth}px`,
             },
             
         ];
+
+        //Mobile doesn't get all 3 steps
+        if (locData.home.y < 10) {
+            steps.splice(1, 1);
+        }
         
         const animate = this.animate(steps, {
-            duration: 750,
+            duration: 1000,
             easing: "ease-in-out",
         });
 

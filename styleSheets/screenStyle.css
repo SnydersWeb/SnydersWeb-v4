@@ -84,12 +84,6 @@
 			
 	/* Begin Content Area Selctors */
 	#contentPanel {
-		position: absolute;
-		height: auto;
-		top: 75px;
-		right: 5px;
-		bottom: 5px;
-		left: 185px;
 		z-index: 2;
 	}
 			
@@ -155,12 +149,9 @@
 			}
 			
 		#contentPanel .contentBody {
-			position: absolute;
-			top: 15px;
-			bottom: 13px;
-			height: auto;
 			left: 0px;
 			right: 0px;
+			bottom: 13px;
 		}
 	
 			#contentPanel .contentBody .contentBodyLeft {
@@ -317,10 +308,7 @@
 				}
 	
 		#contentPanel .contentBottom {
-			position: absolute;
-			top: auto;
 			bottom: 2px;
-			width: auto;
 			left: 0px;
 			right: 0px;
 		}
@@ -426,14 +414,11 @@
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
 		position: absolute;
-		height: 45px;
 		width: auto;
 		z-index: 1;
 		margin: 0px;
-		top: 5px;
-		left: 185px;
-		right: 5px;
 	}
+
 		#selectedBar TOPIC-BAR .barTextSlot { 
 			float: left;
 		}
@@ -481,10 +466,6 @@
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		position: absolute;
-		top: 160px;
-		left: 3px;
-		height: auto;
-		width: 176px;
 	}
 	
 		#unSelectedBarArea MENU LI {
@@ -550,4 +531,123 @@
 			text-decoration: none;
 		}
 	/* End content formatting selectors */
+}
+
+/* Mobile Devices */
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 799px) {
+
+	#mainContainer {
+		overflow: auto;
+	}
+
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		height: 45px;
+		top: 90px;
+		left: 185px;
+		right: 5px;
+	}
+		#selectedBar TOPIC-BAR .barTextSlot {
+			font-size: 125%;
+		}
+
+		#selectedBar .subTopics MENU LI + LI {
+			margin: 0px 0px 5px -7px
+		}
+
+		#selectedBar MENU LI SUB-TOPIC {
+			font-size: 125%;
+		}
+
+		#selectedBar MENU LI SUB-TOPIC {
+			height: fit-content;
+		}
+
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		top: 3px;
+		left: 185px;
+		bottom: 90px;
+		right: 3px;
+	}
+		#unSelectedBarArea MENU LI {
+			float: left;
+			position: relative;
+			height: 18px;
+		}
+
+		#unSelectedBarArea MENU LI TOPIC-BAR {
+			float: left;
+			position: relative;
+			height: 18px;
+			width: fit-content;
+			min-width: 144px;
+			margin: 0px 5px 5px 0px;
+		}
+
+		#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
+			font-size: 125%;
+		}
+
+	/* Begin Content Area Selctors */
+	#contentPanel {
+		position: fixed;
+		top: 175px;
+		width: 100%;
+		height: auto;	
+	}
+		
+		#contentPanel .contentBody {
+			position: fixed;
+			top: 185px;
+		}
+
+		#contentPanel .contentBottom {
+			position: fixed;
+		}
+}
+
+/* Other Devices */
+@media only screen 
+	and (min-device-width: 800px) {
+
+	BODY {
+		overflow: hidden;
+	}
+
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		height: 45px;
+		top: 5px;
+		left: 185px;
+		right: 5px;
+	}
+	
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		top: 160px;
+		left: 3px;
+		width: 176px;
+	}
+
+	/* Begin Content Area Selctors */
+	#contentPanel {
+		position: absolute;
+		height: auto;
+		top: 75px;
+		right: 5px;
+		bottom: 5px;
+		left: 185px;
+	}
+
+		#contentPanel .contentBody {
+			position: absolute;
+			top: 15px;
+		}
+
+		#contentPanel .contentBottom {
+			position: absolute;
+		}
 }

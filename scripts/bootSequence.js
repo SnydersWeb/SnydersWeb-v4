@@ -8,15 +8,29 @@ const bootSequence = {
             this[item] = handles[item];
         }
         this.logoSVG = this.logo.querySelector("IMG");
+        this.isMobile = false;
+
+        const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
+
+        let pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight + 20}px)`;
+        let unselectedBarStart = `translateX(-${this.unselectedBarArea.offsetWidth}px)`;
+        let contentPanelStart = `translateY(${this.contentPanel.offsetHeight + 20}px)`;
+
+        if (unselectedBarArea.y < 10) { //Likely mobile view so our transforms are a bit differnt
+            this.isMobile = true;
+            pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 3}px)`;
+            unselectedBarStart = `translateX(-${this.unselectedBarArea.offsetHeight}px)`;
+            contentPanelStart = `translateX(${this.contentPanel.offsetWidth + 20}px)`;
+        }
 
         //setup our intitial states
         this.backgroundBackLayerXformStart = `translateX(-${innerWidth + innerWidth/3}px) translateY(0px)`;
         this.backgroundFrontLayerXformStart = `translateX(${innerWidth + innerWidth/3}px) translateY(0px)`;
-        this.logoXformStart = `translateX(${(innerWidth/2) - (this.logo.offsetWidth/2)}px) translateY(${(innerHeight/2) - (this.logo.offsetHeight/2)}px) rotate(.5turn)`;
+        this.logoXformStart = `translateX(${(innerWidth/2) - (this.logo.offsetWidth/2)}px) translateY(${(innerHeight/2) - (this.logo.offsetHeight/2)}px) rotate(1turn)`;
         this.logoSVGXformStart = `scale(50)`;
-        this.pageHeaderXformStart = `translateY(-${this.pageHeader.offsetHeight + 20}px)`;
-        this.unselectedBarAreaXformStart = `translateX(-${this.unselectedBarArea.offsetWidth}px)`;
-        this.contentPanelXformStart = `translateY(${this.contentPanel.offsetHeight + 20}px)`;
+        this.pageHeaderXformStart = pageHeaderStart;
+        this.unselectedBarAreaXformStart = unselectedBarStart;
+        this.contentPanelXformStart = contentPanelStart;
 
         this.animations = 0;
         this.finalizeBoot = new CustomEvent(
@@ -55,7 +69,6 @@ const bootSequence = {
 
         //Slide contentPanel down
         this.contentPanel.style.transform = this.contentPanelXformStart;
-
     },
     fadeBackgroundsIn(stageCover) {
         //Remove our cover
@@ -102,7 +115,6 @@ const bootSequence = {
             this.backgroundBackLayer.style.transform = null;
             this.backgroundBackLayer.style.opacity = 1;
         });
-
         
         fgAnim.addEventListener("finish", () => { 
             this.backgroundFrontLayer.style.transform = null;
@@ -112,7 +124,7 @@ const bootSequence = {
         });
     },
     flyLogoIn() {
-        const logoFinish = `translateX(${(innerWidth/2) - (this.logo.offsetWidth/2)}px) translateY(${(innerHeight/2) - (this.logo.offsetHeight/2)}px) rotate(0turn)`;
+        const logoFinish = this.logoXformStart.replace(`rotate(1turn)`, `rotate(0turn)`)
         const logoAnim = this.logo.animate([
             {
                 transform: this.logoXformStart,

@@ -58,7 +58,6 @@ subTopicTemplate.innerHTML = `
                 font-size: 75%;
                 font-weight: bold;
                 color: var(--color-bar-green);
-                line-height: 1.45em;
                 padding: 0px 0px 0px 0px;
                 background-image: url('interfaceImages/subTopicBody.svg');		
             }
@@ -152,7 +151,6 @@ subTopicTemplate.innerHTML = `
         
         /* End SubTopic Class Selectors */
     }   
-
     </style>
     <div class="subTopic">
         <div class="subTopicLeft"></div>
