@@ -340,7 +340,7 @@ Next todos:
 * Launch it!
 * Post-launch polishes
 
-
+OK.. Mobile support is complete!  Now to launch this thing!!!
 
 
 
