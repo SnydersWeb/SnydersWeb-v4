@@ -76,15 +76,8 @@ class Maestro {
         
         if (this.utils.getIsMobile() === false) {
             //oversize our background elements for the scrolly thing
-            this.backgroundBackLayer.style.width = "130%";
-            this.backgroundBackLayer.style.height = "130%";
-            this.backgroundBackLayer.style.top = "-15%";
-            this.backgroundBackLayer.style.left = "-15%";            
-            this.backgroundFrontLayer.style.width = "130%";
-            this.backgroundFrontLayer.style.height = "130%";
-            this.backgroundFrontLayer.style.top = "-15%";
-            this.backgroundFrontLayer.style.left = "-15%";
-
+            this.backgroundBackLayer.classList.add("overSize");
+            this.backgroundFrontLayer.classList.add("overSize");
         }
     }
 
@@ -401,6 +394,9 @@ class Maestro {
 
         //Unconditional stuff (content change)
         this.swapContent(this.requestedPageInfo.content);
+
+        //Scroll content to top
+        this.pageContent.scrollTop = 0;
 
         //Update our print thing
         const baseTitle = `${this.pageHeader.querySelector("DIV.barTextSlot").innerText}`;

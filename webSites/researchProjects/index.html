@@ -97,7 +97,72 @@
 
 <h1>Research Projects</h1>
 
-TODO add content here and talk about <a href="fauxnix/index.html" data-nofetch="true" target="_blank">Fauxnix</a>
+<div class="photoRight">
+	<img src="images/fauxnixTitle.png" width="302" height="400" alt="Fauxnix Title Screen" /></a><br />
+	<caption>Fauxnix Title Screen</caption>
+</div>
+<h2>Fauxnix</h2>
+
+You can see the live version here - <a href="fauxnix/index.html" data-nofetch="true" target="_blank">Fauxnix</a><br /><br />
+
+The source code for this game can be seen here - <a href="https://github.com/SnydersWeb/fauxnix-game" target="_blank">on GitHub</a>.<br /><br />
+
+My primary goals with this project was to:
+<ul>
+	<li>further my knowledge of React</li>
+	<li>provide a sample of my work in GitHub</li>
+	<li>dive deep into experimenting with SVG and manipulating them</li>
+	<li>have some fun doing something I've never done before</li> 
+</ul>
+
+After a bit of brainstorming, I locked into the 1980 hit arcade game Phoenix.<br /><br />
+
+To keep it simple, I changed some of the mechanics of the game and came up with a silly story to explain the premise (seen <a href="https://github.com/SnydersWeb/fauxnix-game" target="_blank">here</a>).  This allowed me to pare the game and mechanics down to something simple and accomplishable in a fairly short time for my portfolio.  I also didn't want to re-create the whole game since that would likely also have gotten me in trouble.<br /><br />
+
+The graphics were created in Inkscape where I later was able to import the SVG into a react component.  To compensate for screen size differences, I created a scaler function that multiplies each coordinate by a value determined by the screen size.  Here the main important thing was to be absolutely certain all graphics were drawn in I used <a href="https://inkscape.org/">Inkscape</a> at the same scale.<br /><br />
+<br class="clearAll"/>
+
+<div class="photoRight">
+	<img src="images/faunixPlay.png" width="302" height="400" alt="Fauxnix Play Screen" /></a><br />
+	<caption>Fauxnix Play Screen</caption>
+</div>
+The React Components in this project are mostly class components - the reason why is that:
+<ol>
+	<li>I wanted constructors that were only called 1x per refresh</li>
+	<li>The components needed to be self-contained and self-managing whenever possible</li>
+</ol>
+
+The game runs on a 10 millisecond clock - which means every 10 milliseconds parts of the screen is being redrawn to reflect the current state of the game.  All parts of the game are aware of this - and what this allowed me to do was to "timestamp" each movement and sub-state in the game.<br /><br />
+
+For example, the birds are the most complex when it comes to sub-movements.  When the birds move their wings, they're doing so in a way that is contained in the bird class, since the game state doesn't need to know and isn't relevent to the action on screen.  Since the bird class is getting refreshed every 10 millisconds I rotate the wings, store the timestamp in the class instance, then wait for a time to pass before I update the rotation again. The same technique was applied to the eyes, and the beaks.  This allowed for a beautiful "hands-off" approach to the coding in them.<br /><br />
+
+<div class="photoLeft">
+	<img src="images/fauxnixShip.png" width="93" height="86" alt="Fauxnix Ship" /></a><br />
+	<caption>Fauxnix Ship</caption>
+</div>
+The ship is handled much the same way - one unique thing about the ship was the "wiggle" it had when you moved it left or right.  I preserved this aspect of the ship in this mini-re-creation of it.  The game state only needs to set the state that it is moving left or right, and when it does the ship will automatically move the pylons in and out.  When the game state changes it back to "none" on movement, the pylons reset back to their default position.<br /><br class="clearAll"/>
+
+One of the trickiest aspects of this game was handling the initial canvas sizing.  This took a bit of trial-and-error to get it "just right".  When the game loads, I grab the browser's height and width.  From there I calculate the aspect ratio where I divide the height by the width.  If the ratio is greater than 1.4 I use the width to set the correct height of the canvas (to keep everything in proper porportion), otherwise I use height to then set the correct width of the game.  It's a simple 15 lines of code to do this, but it took a few hours to get it just right. The result is it plays well not only on desktops, but holds up beautifully on mobile devices as well.<br /><br />
+
+<div class="photoLeft">
+	<img src="images/fauxnixBirds.png" width="247" height="394" alt="Fauxnix Birds" /></a><br />
+	<caption>Fauxnix Birds</caption>
+</div>
+To allow for easy debugging, virtually all aspects of the game are contained in a central configuration file.  How often things move, how long things wait, how far they move, and even how many bullets the ship can fire at a time are all there and can be adjusted quickly and easily.  It also allowed each bird also needed to have their own "personality" when it came to flapping, eye movement, beak movement, and physical left/right position on the screen.  To do this I used a randomizer to pick a value from the minimum and maximum values I can set.  This allowed each birds to not be in total lockstep - creating a more "natural" appearance.<br /><br />
+
+To accomodate mobile, the interface changes slightly where it renders some on-screen buttons to control the game.  After my initial launch, I received some feedback about the size of the buttons so I went back and greatly increased the size.<br /><br />
+
+The hit-boxing was also a rather tricky aspect of the game.  The hitboxes on each bird is complex since you can blow wings off or score hits.  It has 3 detection zones to do this - left, hit, and right.   If a ships bullet is detected on the wing zone, the wing is sent back as a hit and the game engine "blows" the wing off (by scaling it to 0).  Until the wing is back to full size, the hitbox detector keeps the box for that particular wing at 0 x 0.  This makes it so that a bird is easier to score a good hit on until the wing is full size.  Each wing hitbox is generically assigned - it doesn't take into account how high or low each wing is flapped since that would cause a ton of needless and overly complex calculation to determine an actual hit.  Using the central control file, it made it somewhat straight forward to adjust that hitbox since I could slow the flapping and movement speeds down to nearly 0.  Overall I'm happy with how well it's working.<br /><br />
+
+If you have any comments or questions, please use my <a href="../../contact/index.html">Contact Me</a> section as user feedback has already played a valuable role in making this a fun project to play.<br /><br />
+
+
+
+
+
+
+
+
 
 				<br /><br />
 			

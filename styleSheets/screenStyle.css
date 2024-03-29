@@ -57,6 +57,13 @@
 		left: 0px;
 		top: 0px;
     }
+	
+		#backgroundBackLayer.overSize, #backgroundFrontLayer.overSize {
+			height: 130%;
+			width: 130%;
+			left: -15px;
+			top: -15px;
+		}
 
     #backgroundFrontLayer {
         background-image: url('../interfaceImages/backgroundFrontLayer.svg'); 
@@ -65,6 +72,7 @@
     #backgroundBackLayer {
         background-image: url('../interfaceImages/backgroundBackLayer.svg'); 
     }
+
 
 	#mainContainer {
 		position: absolute;

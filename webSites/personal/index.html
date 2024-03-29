@@ -99,15 +99,37 @@
 
 My personal web site has always been a place of learning and exploration for me. It is my personal forum to do whatever I want and explore ideas left untouched or unexplored during my regular work. It's a valuable creative and technical outlet for me.<br /><br />
 
+<div class="photoRight">
+	<img src="images/snydersWeb-2024.png" width="300" height="260" alt="the Snyder's Web 2024" /></a><br />
+	<caption>the Snyder's Web 2024</caption>
+</div>
 <h3>the Snyder's Web - 2024</h3>
-TODO FEED ME CONTENT<br /><br />
+The old site was around for a whopping 19 years!  Still, most of it aged fairly well considering it was written <strong>before AJAX was common</strong> and way done without the debugging tools we have today.  No firebug or anything of the sort.  It even worked in the dreaded time vampire known as IE6.  One of the big reasons why it went so long without updates was also because my work kept me very busy doing web work. (The cobbler's kids always need shoes as the saying goes.)<br /><br />
+
+2024 came with an unexpected.... gift of time and with it an opportunity to update this site to once again showcase what I can do and more.  It was also an opportunity to do some things I've never done before and have fun doing them. <br /><br />
+
+In spite of the fact that most of the interface looks much the same, this site is a completely different animal on the inside!  The build was to be very ambitious - SVG graphics, Custom Web Components, Animations, mobile support, forward and back button support, and ES6 JavaScript would be used.  I also wanted to be sure all the old site's flaws were fixed, such as using the back button. <br /><br />
+
+I used <a href="https://inkscape.org/">Inkscape</a> to re-create all the old raster graphics.  The files it generated were perfect for converting into a web browser SVG file.  Having editable SVG files was a boon as it allowed me to very quickly and easily adjust colors.  SVG can also be infinitely scaled which is also useful.  The only downside is the resulting files are a tad larger than their raster predecessors.<br /><br />
+
+Custom Web Components have been interesting.  This was my first time creating and using them.  The shadow DOM and embedded CSS posed a few challenges.  The biggest challenge was styling and image pathing.  In regular CSS, background images are sourced reactive to the location of the CSS file itself - in the case of components, the style images are based on where the browser is.   I had to add some code to correct that.  Components also don't seem to support a print Style Sheet either.  Accessibility also is a challenge - the shadow DOM seems to be invisible.   On the plus side, they made my regular HTML beautiful.  They saved at least 15 lines of code per topic bar!  They also presented some fun ideas to implement animation by simply changing an attribute - this allowed the SubTopic and Topic bars to prettymuch handle themselves.  I debated componentizing the main content panel but opted against it due to the trade-offs involved.<br /><br />
+
+The new animation capability is very nice.  It allows for some extremely clean and simple code to create and implement.  It took only a few short hours to fully develop the "boot sequence" for this site from scratch.  The animations are great as they can provide simple ways to enhance the user experience. <br /><br />
+
+Mobile devices are for better or worse the way most of us read web pages, including myself!  Having a good mobile experience here is paramount to success.  To implement that I made my CSS to be resolution - sensitive.  The layout changes around to (hopefully) be more accommodating - though I also include redundant links in the content body that does the same thing as the interface components. <br /><br />
+
+For forward and back support I use the URL hash.  With each page change, the hash is updated to your location.  This allows not only the browser navigation buttons to function, but also allows bookmarking and refreshing.  This solves one of the biggest problems of sites that dynamically pull content in via AJAX.<br /><br />
+
+I love ES6.  This latest version of  JavaScript has some very powerful tools baked in.  Map, forEach, spread operators, and deconstruction all played a part in making complex operations elegant.  My old site was ~2500 lines of code and this one is 1000 lines less yet does more and better!  I was able to knock out this entire site in roughly 2 weeks.<br /><br />
+
+Browser development tools have been massively helpful.  Web development is infinitely easier with CSS adjusting, step through debugging, consoles, and network inspection.  Web browser have become an extremely powerful interface renderer with nearly infinite possibilities and they continue to evolve.<br /><br />
 
 
 <h3>the Snyder's Web - 2005</h3>
 <div class="photoRight">
 	<a href="images/lgSnydersWeb-2005.jpg"><img src="images/smSnydersWeb-2005.gif" width="300" height="225" alt="the Snyder's Web 2005" /></a><br />
-	the Snyder's Web 2005, final Photoshop mockup<br />
-	(click to enlarge)
+	<caption>the Snyder's Web 2005, final Photoshop mockup<br />
+	(click to enlarge)</caption>
 </div>
 Shortly after launching the Snyder's Web - 2002 version I became curious about using the browser's native XML functionality to pull in external content instead of using an IFrame.  Since that time I had researched it off and on but I never was quite able to get something I was satisfied with.  I was happy with the 2002 version, but was unsatisfied with a couple of aspects of it - mainly having to maintain 2 different versions for both legacy browsers and regular browsers.  So for every page, there were two that must be maintained.  The other huge downside to the 2002 version is that it wasn't search engine friendly - as a result my LegacyBrowser version got spidered and would appear on search engine results.<br /><br />
 
@@ -128,18 +150,12 @@ As to the future - there is a chance I might investigate XSLT for extracting int
 <h3>the Snyder's Web - 2002</h3>
 <div class="photoLeft">
 	<a href="images/lgSnydersWeb-2002Draft2.gif"><img src="images/smSnydersWeb-2002Draft2.gif" width="300" height="225" alt="the Snyder's Web 2002 - rev2" /></a><br />
-	the Snyder's Web 2002, final Photoshop mockup<br />
-	(click to enlarge)
+	<caption>the Snyder's Web 2002, final Photoshop mockup<br />
+	(click to enlarge)</caption>
 </div>
 Looking to build on the 2001 version of my web site, I started brainstorming shortly after it launched.  The 2001 version of the site worked well enough, but functionality wise it was lacking in a few areas.  The biggest was it could only take two levels of content: Topic &gt; Sub-Topic.  That and browser bugs started showing up.  Mozilla had the biggest/most annoying <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=138120">Bug #138120</a> that caused elements to be incorrectly unhidden.  Internet Explorer 6.0 had a bug that caused the sub menu background not to properly render.<br /><br />
 
 The look of this site is much like the 2001 Snyder's Web site but is a little more polished.  The color saturation was decreased on the topic bars and logo.  The topic bars also had their look tweaked a little bit, and the sub menus got a nice little bevel effect.  The cut-out in the topic bar also exposes more of the sub menu and makes it stand out a little more.  Since the sub menu now changes based on what sub topic is selected, I created a little feature that expands and blinks it to show the user that it had changed.  Printing and bookmarking buttons were moved under the topic bar this time.  As far as the interface, the biggest change was the addition of the sub topic system.  This allowed content to be deeply nested.  I can have Topic &gt; Sub Topic &gt; Sub Topic... ad nauseum.  Implementing this meant that the internal architecture of the site had to be overhauled.<br /><br />
-
-<div class="photoRight">
-	<a href="images/lgSnydersWeb-2002Draft1.gif"><img src="images/smSnydersWeb-2002Draft1.gif" width="300" height="225" alt="the Snyder's Web 2002 - rev2" /></a><br />
-	the Snyder's Web 2002, "Power Crumbs" design<br />
-	(click to enlarge)
-</div>
 
 The internal architecture was something I had thought of when I was toying with the idea of the "Power Crumbs" design pictured left.  The biggest technical problem was that the 2001 Snyder's Web site was that sub menu data for the topic bars was stored in the main script files.  To store what page belongs where would've created a huge amount of JavaScript arrays for data stores.  It also would've made the site very difficult to maintain.  The only solution was to move most of this data to the content files and have those set the interface context that they are supposed to be accessed.  This means the content files state what topic they belong under, what their sub menu is, and what sub topic under the topic bar they belong.  The site in turn determines if an interface change is needed and adjusts accordingly.<br /><br />
 
@@ -152,18 +168,13 @@ Each time I have developed a new version of my personal site, I have always lear
 <h3>the Snyder's Web - 2001</h3>
 <div class="photoLeft">
 	<a href="images/lgSnydersWeb-2001Draft2.gif"><img src="images/smSnydersWeb-2001Draft2.gif" width="300" height="225" alt="the Snyder's Web - rev2" /></a><br />
-	the Snyder's Web, final Photoshop mockup<br />
-	(click to enlarge)
+	<caption>the Snyder's Web, final Photoshop mockup<br />
+	(click to enlarge)</caption>
 </div>
 I have had ideas for a DHTML web site since 1998 when the 4.0 browsers were released. My goal was to write a DHTML web site that used a common code base for both major browsers on the market, Internet Explorer 4.0 and Netscape Communicator 4.0. During my original research and development, it became apparent that it would take much more time than I was willing to invest to develop this web site. I eventually abandoned this project, but I learned a lot from the research and development which I was able to apply to my work. I also held on to the ideas, never forgetting my goals.<br /><br />
 
 At the 1998 C|Net Builder.com web conference in New Orleans, Louisiana, Netscape announced Mozilla, known as "Gecko" at the time. This small, fast new page renderer for the Netscape browser promised an end to Netscape Communicator's numerous bugs. They also announced this browser would be 100% W3C DOM compliant. Three years later, I can say the browser has improved vastly and each release gets better, faster, and more stable. I now use it as my primary web browser. The 1.0 release promises to be everything Netscape 4.0 should've been. Hopefully, the Mozilla browser will gain popularity as time goes on.<br /><br />
 
-<div class="photoRight">
-	<a href="images/lgSnydersWeb-2001Draft1.gif"><img src="images/smSnydersWeb-2001Draft1.jpg" width="300" height="225" alt="the Snyder's Web - rev1" /></a><br />
-	the Snyder's Web, initial Photoshop mockup<br />
-	(click to enlarge)
-</div>
 DOM Scripting is a whole new way of creating and manipulating web pages. The potential is enormous; it gives browser the ability to do virtually anything to web pages. These abilities include changing content on the fly to include new data, filtering records, moving page elements around, and much more. The power of the client's computer is truly unlocked, alleviating the load on both the network and the server.<br /><br />
 
 Work resumed on this site when I felt the Mozilla builds had matured and most of the bugs had been worked out I also had learned a bit more about DOM Scripting techniques the provided new insights.<br /><br />
@@ -174,8 +185,8 @@ This site was written without any aid from WYSIWYG type editors like Dreamweaver
 <h3>the Snyder's Web - 1996</h3>
 <div class="photoLeft">
 	<a href="images/lgSnydersWeb-1996.gif"><img src="images/smSnydersWeb-1996.jpg" width="323" height="225" alt="the Snyder's Web - 1996" /></a><br />
-	the Snyder's Web - 1996<br />
-	(click to enlarge)
+	<caption>the Snyder's Web - 1996<br />
+	(click to enlarge)</caption>
 </div>
 I was fresh out of college when I wrote this. It was a post-graduation project. At the time I made this, I didn't know much JavaScript, so the framed version of this web site used a series of nested frames to change more than one frame panel at a time. It worked, but was difficult to maintain and had a tendency to crash Netscape 2.0. This site featured a non-framed version for legacy browsers.<br /><br />
 
@@ -185,8 +196,8 @@ This web site was a pretty simple one overall. The most time consuming parts wer
 <h3>Inter-Res - 1996</h3>
 <div class="photoRight">
 	<a href="images/lgInterRes-1996.jpg"><img src="images/smInterRes-1996.jpg" width="323" height="225" alt="InterRes - 1996" /></a><br />
-	Inter-Res - 1996<br />
-	(click to enlarge)
+	<caption>Inter-Res - 1996<br />
+	(click to enlarge)</caption>
 </div>
 My second online r&eacute;sum&eacute; created at the same time as the 1996 version of the Snyder's Web.  This site was to showcase my work I had done during college.  It improved on the first Inter-Res in a number of areas, mainly in terms of organization and readability.  <br /><br />
 
@@ -198,8 +209,8 @@ The graphics for this site were created using FreeHand and Photoshop.  The spinn
 <h3>Inter-Res - 1995</h3>
 <div class="photoRight">
 	<a href="images/lgInterRes-1995.jpg"><img src="images/smInterRes-1995.jpg" width="317" height="225" alt="InterRes - 1995" /></a><br />
-	Inter-Res - 1995<br />
-	(click to enlarge)
+	<caption>Inter-Res - 1995<br />
+	(click to enlarge)</caption>
 </div>
 This was my first serious attempt a full web site. I created an online portfolio, and was the first student in Computer Graphics to do so. It turned out fairly well, and it accomplished my goals at a considerable savings.<br /><br />
 
@@ -211,8 +222,8 @@ Design work for these graphics was done in FreeHand and later imported into Phot
 <h3>My First Web Site</h3>
 <div class="photoLeft">
 	<a href="images/lgFirstWebSite.jpg"><img src="images/smFirstWebSite.jpg" width="323" height="225" alt="My First Web site" /></a><br />
-	My First Web Site<br />
-	(click to enlarge)
+	<caption>My First Web Site<br />
+	(click to enlarge)</caption>
 </div>
 This is the last iteration of my first web site. This page represents my first real foray into web pages. Other than Inter-Res, the web site has nothing much more than a modest (and out of date) collection of hyperlinks to other sites I found interesting at the time. Looking back on this site allows me to appreciate the rather modest beginnings.<br /><br />
 
