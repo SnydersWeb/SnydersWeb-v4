@@ -72,7 +72,20 @@ class Maestro {
             this.utils.removeEl(this.stageCover);
             this.fetchPage({ detail: { pageURL: cleanHash } });
             this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
-        }            
+        }       
+        
+        if (this.utils.getIsMobile() === false) {
+            //oversize our background elements for the scrolly thing
+            this.backgroundBackLayer.style.width = "130%";
+            this.backgroundBackLayer.style.height = "130%";
+            this.backgroundBackLayer.style.top = "-15%";
+            this.backgroundBackLayer.style.left = "-15%";            
+            this.backgroundFrontLayer.style.width = "130%";
+            this.backgroundFrontLayer.style.height = "130%";
+            this.backgroundFrontLayer.style.top = "-15%";
+            this.backgroundFrontLayer.style.left = "-15%";
+
+        }
     }
 
     getStartingDir() {

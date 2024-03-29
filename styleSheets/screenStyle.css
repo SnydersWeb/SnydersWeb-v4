@@ -50,12 +50,12 @@
 	
     #backgroundBackLayer, #backgroundFrontLayer {
         position: absolute;
-        height: 130%;
-        width: 130%;
+        height: 100%;
+        width: 100%;
         z-index: 0;
         overflow: hidden;
-		left: -15%;
-		top: -15%;
+		left: 0px;
+		top: 0px;
     }
 
     #backgroundFrontLayer {

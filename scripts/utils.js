@@ -99,6 +99,12 @@ const utils = {
 		return Number((Math.random() * (max - min) + min).toFixed(dec));
 	},
 
+	getIsMobile() {
+		return (('ontouchstart' in window) ||
+		 (navigator.maxTouchPoints > 0) ||
+		 (navigator.msMaxTouchPoints > 0));
+	},
+
 	get(el) {
 		if (typeof el == "string" || typeof el == "number") {
 			el = document.querySelector(el);
