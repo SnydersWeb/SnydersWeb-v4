@@ -8,7 +8,7 @@ topicBarTemplate.innerHTML = `
         position: relative;
         right: 0px;
         left: 0px;
-        height: 45px;
+        height: fit-content;
     }
     :host SLOT {
         display: block;
