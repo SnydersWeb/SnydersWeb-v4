@@ -32,7 +32,8 @@ HR {
 	color: #333333;
 }
 
-IMG, IMG.A {
+IMG,
+IMG.A {
 	border-spacing: 0px;
 	border: 0px none;
 	margin: 0px 0px 0px 0px;
@@ -57,7 +58,7 @@ FIELDSET {
 
 LEGEND {
 	font-family: var(--fonts);
-	color: #FFFFFF; 
+	color: #FFFFFF;
 	font-size: 120%;
 	font-style: normal;
 	font-variant: normal;
@@ -72,7 +73,9 @@ LABEL {
 	text-align: right;
 }
 
-INPUT, TEXTAREA, SELECT {
+INPUT,
+TEXTAREA,
+SELECT {
 	font-family: var(--fonts);
 	font-size: 100%;
 	color: #FFFFFF;
@@ -83,10 +86,10 @@ INPUT, TEXTAREA, SELECT {
 }
 
 INPUT:disabled {
-	background-color: #999999; 
+	background-color: #999999;
 	color: #AAAAAA;
 }
-	
+
 H1 {
 	font-family: var(--fonts);
 	text-align: left;
@@ -118,13 +121,14 @@ MENU {
 	margin: 0px;
 }
 
-	MENU LI {
-		padding: 0px;
-		margin: 0px;
-	}
+MENU LI {
+	padding: 0px;
+	margin: 0px;
+}
+
 /* End Tag Level Selctors */
 
-	
+
 /* Begin content formatting selectors */
 .bodyText {
 	font-family: var(--fonts);
@@ -133,12 +137,14 @@ MENU {
 	font-weight: normal;
 }
 
-.bodyText A:link, .bodyText A:visited {
+.bodyText A:link,
+.bodyText A:visited {
 	color: var(--color-link-green);
 	text-decoration: underline;
 }
 
-.bodyText A:active, .bodyText A:hover {
+.bodyText A:active,
+.bodyText A:hover {
 	color: var(--color-link-hover);
 }
 
@@ -149,20 +155,21 @@ MENU {
 	height: 50px;
 	width: 250px;
 	left: 30%;
-    padding: 10px;
-    background-color: #000;
-    z-index: 1;
+	padding: 10px;
+	background-color: #000;
+	z-index: 1;
 }
-	.bodyText .contactResult.hide {
-		display: none;
-	}
+
+.bodyText .contactResult.hide {
+	display: none;
+}
 
 .clearAll {
 	clear: both;
 }
 
 .important {
-  	color: #FF0000;
+	color: #FF0000;
 }
 
 .center {
@@ -222,37 +229,39 @@ MENU {
 	display: block;
 	padding: .05em 0em 0em 0em;
 }
-	.formLine .fieldLabel {
-		position: relative;
-		float: left;
-		width: 10em;
-		height: auto;
-		padding-right: .25em;
-		text-align: right;
-	}
-	
-	.formLine .fieldBox {
-		position: relative;
-		float: left;
-		width: auto;
-		height: auto;
-		text-align: left;
-	}
-	
-	.formLine .err {
-		background-color: #FF1111;
-	}
-	
-	.formLine .errMsg {
-		position: relative;
-		float: left;
-		width: auto;
-		height: auto;
-		text-align: left;
-		color: #FF0000;
-		font-weight: bold;
-		padding-left: .25em;
-	}
+
+.formLine .fieldLabel {
+	position: relative;
+	float: left;
+	width: 10em;
+	height: auto;
+	padding-right: .25em;
+	text-align: right;
+}
+
+.formLine .fieldBox {
+	position: relative;
+	float: left;
+	width: auto;
+	height: auto;
+	text-align: left;
+}
+
+.formLine .err {
+	background-color: #FF1111;
+}
+
+.formLine .errMsg {
+	position: relative;
+	float: left;
+	width: auto;
+	height: auto;
+	text-align: left;
+	color: #FF0000;
+	font-weight: bold;
+	padding-left: .25em;
+}
+
 /* End form related selectors */
 
 /* End content formatting selectors */

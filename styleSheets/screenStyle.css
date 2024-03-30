@@ -1,12 +1,16 @@
 @media screen {
+
 	/* Begin Tag Level Selctors */
 	BODY {
 		background-color: #333333;
 		overflow: hidden;
 	}
 
-	INPUT:focus, TEXTAREA:focus, SELECT:focus, INPUT.iefocus {
-		background-color: #999999; 
+	INPUT:focus,
+	TEXTAREA:focus,
+	SELECT:focus,
+	INPUT.iefocus {
+		background-color: #999999;
 		border: 1px solid #666666;
 	}
 
@@ -15,63 +19,66 @@
 		color: #FFFFFF;
 		font-size: 130%;
 	}
-	
+
 	H2 {
 		color: #FFFFFF;
 		font-size: 120%;
 	}
-	
+
 	H3 {
 		color: #FFFFFF;
 		font-size: 110%;
 	}
-	
+
 	H4 {
 		color: #FFFFFF;
 		font-size: 105%;
 	}
-	
+
 	H5 {
 		color: #FFFFFF;
 		font-size: 100%;
 	}
+
 	/* End Tag Level Selctors */
-	
+
 	#stageCover {
 		position: absolute;
-        height: 100%;
-        width: 100%;
-        z-index: 50;
-        overflow: hidden;
+		height: 100%;
+		width: 100%;
+		z-index: 50;
+		overflow: hidden;
 		left: 0px;
 		top: 0px;
 		background-color: #333333;
 	}
-	
-    #backgroundBackLayer, #backgroundFrontLayer {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        z-index: 0;
-        overflow: hidden;
+
+	#backgroundBackLayer,
+	#backgroundFrontLayer {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: 0;
+		overflow: hidden;
 		left: 0px;
 		top: 0px;
-    }
-	
-		#backgroundBackLayer.overSize, #backgroundFrontLayer.overSize {
-			height: 130%;
-			width: 130%;
-			left: -15px;
-			top: -15px;
-		}
+	}
 
-    #backgroundFrontLayer {
-        background-image: url('../interfaceImages/backgroundFrontLayer.svg'); 
-    }
+	#backgroundBackLayer.overSize,
+	#backgroundFrontLayer.overSize {
+		height: 130%;
+		width: 130%;
+		left: -15px;
+		top: -15px;
+	}
 
-    #backgroundBackLayer {
-        background-image: url('../interfaceImages/backgroundBackLayer.svg'); 
-    }
+	#backgroundFrontLayer {
+		background-image: url('../interfaceImages/backgroundFrontLayer.svg');
+	}
+
+	#backgroundBackLayer {
+		background-image: url('../interfaceImages/backgroundBackLayer.svg');
+	}
 
 
 	#mainContainer {
@@ -81,291 +88,291 @@
 		z-index: 1;
 		overflow: hidden;
 	}
-			
+
 	/* Begin Content Area Selctors */
 	#contentPanel {
 		z-index: 2;
 	}
-			
-		/* this rule is skipped by IE - this is the PROPER way to draw that div! */
-		#contentPanel .contentTop {
-			position: absolute;
-			top: 0px;
-			height: 15px;
-			width: auto;
-			left: 0px;
-			right: 0px;
-		}
-				
-			#contentPanel .contentTop .contentTopLeft {
-				position: absolute;
-				top: 0px;
-				left: 0px;
-				height: 15px;
-				width: 19px;
-				background-image: url('../interfaceImages/contentPanelTopLeft.svg');
-				background-repeat: no-repeat;
-			}
-			
-			#contentPanel .contentTop .contentTopLeftInner {
-				position: absolute;
-				top: 0px;
-				left: 19px;
-				height: 15px;
-				width: 19px;
-				background-image: url('../interfaceImages/contentPanelTopLeftInner.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel .contentTop .contentTopMiddle {
-				position: relative;
-				left: 0px;
-				width: auto;
-				height: 15px;
-				margin-left: 38px;
-				margin-right: 42px;
-				background-image: url('../interfaceImages/contentPanelTop.svg');
-				background-repeat: repeat-x;
-			}
-	
-			#contentPanel .contentTop .contentTopRightInner {
-				position: absolute;
-				top: 0px;
-				right: 24px;
-				height: 15px;
-				width: 18px;
-				background-image: url('../interfaceImages/contentPanelTopRightInner.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel .contentTop .contentTopRight {
-				position: absolute;
-				top: 0px;
-				right: 6px;
-				height: 15px;
-				width: 18px;
-				background-image: url('../interfaceImages/contentPanelTopRight.svg');
-				background-repeat: no-repeat;
-			}
-			
-		#contentPanel .contentBody {
-			left: 0px;
-			right: 0px;
-			bottom: 13px;
-		}
-	
-			#contentPanel .contentBody .contentBodyLeft {
-				position: absolute;
-				width: 19px;
-				height: auto;
-				left: 0px;
-				top: 0px;
-				bottom: 2px;
-				background-image: url('../interfaceImages/contentPanelLeftThin.svg');
-				background-repeat: repeat-y;
-			}
-								
-				#contentPanel .contentBody .contentBodyLeft .leftTop {
-					position: relative;
-					width: 19px;
-					height: 11px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelLeftTop.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel .contentBody .contentBodyLeft .leftThick {
-					position: relative;
-					width: 19px;
-					height: 33%;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelLeftThick.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel .contentBody .contentBodyLeft .leftTrans {
-					position: relative;
-					width: 19px;
-					height: 15px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelLeftTrans.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel .contentBody .contentBodyLeft .leftDouble {
-					position: relative;
-					width: 19px;
-					height: 33%;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelLeftDouble.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel .contentBody .contentBodyLeft .leftDoubleEnd {
-					position: relative;
-					width: 19px;
-					height: 8px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelLeftDoubleEnd.svg');
-					background-repeat: no-repeat;
-				}
-	
-			#contentPanel .contentBody .contentArea {
-				position: absolute;
-				width: auto;
-				height: auto;
-				margin: 0px;
-				top: 0px;
-				bottom: 2px;
-				left: 19px;
-				right: 18px;
-				background-image: url('../interfaceImages/contentPanelBody.svg');
-			}
-				
-				#contentPanel .contentBody .contentArea #content {
-					position: absolute;
-					height: 100%;
-					width: 100%;
-					overflow: auto;
-					box-shadow: inset 0 0 5px var(--content-panel-scroll-base); 
-  					scrollbar-color: var(--content-panel-scroll-bar) var(--content-panel-scroll-base);
-					scrollbar-width: thin;
-				}
-			
-			#contentPanel .contentBody .contentBodyRight {
-				position: absolute;
-				width: 18px;
-				height: 100%;
-				right: 0px;
-				top: 0px;
-				background-image: url('../interfaceImages/contentPanelRightThin.svg');
-				background-repeat: repeat-y;
-			}
-		
-				#contentPanel .contentBody .contentBodyRight .rightThin {
-					position: relative;
-					width: 18px;
-					height: 20%;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelRightThin.svg');
-					background-repeat: repeat-y;
-				}
-				
-				#contentPanel .contentBody .contentBodyRight .rightDoubleEnd {
-					position: relative;
-					width: 18px;
-					height: 7px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelRightDoubleEnd.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel .contentBody .contentBodyRight .rightDouble {
-					position: relative;
-					width: 18px;
-					height: 40%;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelRightDouble.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel .contentBody .contentBodyRight .rightTrans {
-					position: relative;
-					width: 18px;
-					height: 16px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelRightTrans.svg');
-					background-repeat: no-repeat;
-				}
-	
-				#contentPanel .contentBody .contentBodyRight .rightThick {
-					position: relative;
-					width: 18px;
-					height: 32%;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelRightThick.svg');
-					background-repeat: repeat-y;
-				}
-	
-				#contentPanel .contentBody .contentBodyRight .rightBottom {
-					position: relative;
-					width: 18px;
-					height: 13px;
-					left: 0px;
-					top: 0px;
-					background-image: url('../interfaceImages/contentPanelRightBot.svg');
-					background-repeat: no-repeat;
-				}
-	
-		#contentPanel .contentBottom {
-			bottom: 2px;
-			left: 0px;
-			right: 0px;
-		}
-		
-			#contentPanel .contentBottom .contentBotLeft {
-				position: absolute;
-				top: 0px;
-				left: 0px;
-				height: 13px;
-				width: 19px;
-				background-image: url('../interfaceImages/contentPanelBotLeft.svg');
-				background-repeat: no-repeat;
-			}
-			
-			#contentPanel .contentBottom .contentBotLeftInner {
-				position: absolute;
-				top: 0px;
-				left: 19px;
-				height: 13px;
-				width: 19px;
-				background-image: url('../interfaceImages/contentPanelBotLeftInner.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel .contentBottom .contentBotMiddle {
-				position: relative;
-				left: 0px;
-				width: auto;
-				height: 13px;
-				margin-left: 38px;
-				margin-right: 37px;
-				background-image: url('../interfaceImages/contentPanelBot.svg');
-				background-repeat: repeat-x;
-			}
-	
-			#contentPanel .contentBottom .contentBotRightInner {
-				position: absolute;
-				top: 0px;
-				right: 18px;
-				height: 13px;
-				width: 19px;
-				background-image: url('../interfaceImages/contentPanelBotRightInner.svg');
-				background-repeat: no-repeat;
-			}
-	
-			#contentPanel .contentBottom .contentBotRight {
-				position: absolute;
-				top: 0px;
-				right: 0px;
-				height: 13px;
-				width: 18px;
-				background-image: url('../interfaceImages/contentPanelBotRight.svg');
-				background-repeat: no-repeat;
-			}
-	
+
+	/* this rule is skipped by IE - this is the PROPER way to draw that div! */
+	#contentPanel .contentTop {
+		position: absolute;
+		top: 0px;
+		height: 15px;
+		width: auto;
+		left: 0px;
+		right: 0px;
+	}
+
+	#contentPanel .contentTop .contentTopLeft {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: 15px;
+		width: 19px;
+		background-image: url('../interfaceImages/contentPanelTopLeft.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentTop .contentTopLeftInner {
+		position: absolute;
+		top: 0px;
+		left: 19px;
+		height: 15px;
+		width: 19px;
+		background-image: url('../interfaceImages/contentPanelTopLeftInner.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentTop .contentTopMiddle {
+		position: relative;
+		left: 0px;
+		width: auto;
+		height: 15px;
+		margin-left: 38px;
+		margin-right: 42px;
+		background-image: url('../interfaceImages/contentPanelTop.svg');
+		background-repeat: repeat-x;
+	}
+
+	#contentPanel .contentTop .contentTopRightInner {
+		position: absolute;
+		top: 0px;
+		right: 24px;
+		height: 15px;
+		width: 18px;
+		background-image: url('../interfaceImages/contentPanelTopRightInner.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentTop .contentTopRight {
+		position: absolute;
+		top: 0px;
+		right: 6px;
+		height: 15px;
+		width: 18px;
+		background-image: url('../interfaceImages/contentPanelTopRight.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBody {
+		left: 0px;
+		right: 0px;
+		bottom: 13px;
+	}
+
+	#contentPanel .contentBody .contentBodyLeft {
+		position: absolute;
+		width: 19px;
+		height: auto;
+		left: 0px;
+		top: 0px;
+		bottom: 2px;
+		background-image: url('../interfaceImages/contentPanelLeftThin.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyLeft .leftTop {
+		position: relative;
+		width: 19px;
+		height: 11px;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelLeftTop.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBody .contentBodyLeft .leftThick {
+		position: relative;
+		width: 19px;
+		height: 33%;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelLeftThick.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyLeft .leftTrans {
+		position: relative;
+		width: 19px;
+		height: 15px;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelLeftTrans.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBody .contentBodyLeft .leftDouble {
+		position: relative;
+		width: 19px;
+		height: 33%;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelLeftDouble.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyLeft .leftDoubleEnd {
+		position: relative;
+		width: 19px;
+		height: 8px;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelLeftDoubleEnd.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBody .contentArea {
+		position: absolute;
+		width: auto;
+		height: auto;
+		margin: 0px;
+		top: 0px;
+		bottom: 2px;
+		left: 19px;
+		right: 18px;
+		background-image: url('../interfaceImages/contentPanelBody.svg');
+	}
+
+	#contentPanel .contentBody .contentArea #content {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		overflow: auto;
+		box-shadow: inset 0 0 5px var(--content-panel-scroll-base);
+		scrollbar-color: var(--content-panel-scroll-bar) var(--content-panel-scroll-base);
+		scrollbar-width: thin;
+	}
+
+	#contentPanel .contentBody .contentBodyRight {
+		position: absolute;
+		width: 18px;
+		height: 100%;
+		right: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightThin.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyRight .rightThin {
+		position: relative;
+		width: 18px;
+		height: 20%;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightThin.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyRight .rightDoubleEnd {
+		position: relative;
+		width: 18px;
+		height: 7px;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightDoubleEnd.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBody .contentBodyRight .rightDouble {
+		position: relative;
+		width: 18px;
+		height: 40%;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightDouble.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyRight .rightTrans {
+		position: relative;
+		width: 18px;
+		height: 16px;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightTrans.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBody .contentBodyRight .rightThick {
+		position: relative;
+		width: 18px;
+		height: 32%;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightThick.svg');
+		background-repeat: repeat-y;
+	}
+
+	#contentPanel .contentBody .contentBodyRight .rightBottom {
+		position: relative;
+		width: 18px;
+		height: 13px;
+		left: 0px;
+		top: 0px;
+		background-image: url('../interfaceImages/contentPanelRightBot.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBottom {
+		bottom: 2px;
+		left: 0px;
+		right: 0px;
+	}
+
+	#contentPanel .contentBottom .contentBotLeft {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: 13px;
+		width: 19px;
+		background-image: url('../interfaceImages/contentPanelBotLeft.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBottom .contentBotLeftInner {
+		position: absolute;
+		top: 0px;
+		left: 19px;
+		height: 13px;
+		width: 19px;
+		background-image: url('../interfaceImages/contentPanelBotLeftInner.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBottom .contentBotMiddle {
+		position: relative;
+		left: 0px;
+		width: auto;
+		height: 13px;
+		margin-left: 38px;
+		margin-right: 37px;
+		background-image: url('../interfaceImages/contentPanelBot.svg');
+		background-repeat: repeat-x;
+	}
+
+	#contentPanel .contentBottom .contentBotRightInner {
+		position: absolute;
+		top: 0px;
+		right: 18px;
+		height: 13px;
+		width: 19px;
+		background-image: url('../interfaceImages/contentPanelBotRightInner.svg');
+		background-repeat: no-repeat;
+	}
+
+	#contentPanel .contentBottom .contentBotRight {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		height: 13px;
+		width: 18px;
+		background-image: url('../interfaceImages/contentPanelBotRight.svg');
+		background-repeat: no-repeat;
+	}
+
 	/* End Content Area Selctors */
-			
+
 	/* Begin Logo Selctor */
 	#logo {
 		position: absolute;
@@ -375,7 +382,7 @@
 		width: 169px;
 		z-index: 1
 	}
-	
+
 	#printLogo {
 		position: absolute;
 		top: 5px;
@@ -384,7 +391,7 @@
 		width: 169px;
 		z-index: -1;
 	}
-	
+
 	#printBanner {
 		position: absolute;
 		font-family: var(--fonts);
@@ -399,7 +406,7 @@
 		width: 10em;
 		z-index: -1;
 	}
-	
+
 	#printLogoCover {
 		position: absolute;
 		top: 5px;
@@ -409,8 +416,9 @@
 		background-color: #333333;
 		z-index: 0;
 	}
+
 	/* End Logo Selctors */
-		
+
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
 		position: absolute;
@@ -419,78 +427,78 @@
 		margin: 0px;
 	}
 
-		#selectedBar TOPIC-BAR .barTextSlot { 
-			float: left;
-		}
+	#selectedBar TOPIC-BAR .barTextSlot {
+		float: left;
+	}
 
-		#selectedBar TOPIC-BAR .selSubTopics { 
-			float: left;
-		}
+	#selectedBar TOPIC-BAR .selSubTopics {
+		float: left;
+	}
 
-		#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC { 
-			float: left;
-			position: relative;
-		}
+	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC {
+		float: left;
+		position: relative;
+	}
 
-		#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC + SUB-TOPIC {
-			margin: 0px 0px 0px -9px;
-		}
+	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC+SUB-TOPIC {
+		margin: 0px 0px 0px -9px;
+	}
 
-		#selectedBar .subTopics MENU {
-			float: left;
-			padding: 0px 55px 0px 0px;
-			margin: 2px 0px 0px 0px;
-		}
+	#selectedBar .subTopics MENU {
+		float: left;
+		padding: 0px 55px 0px 0px;
+		margin: 2px 0px 0px 0px;
+	}
 
-			#selectedBar .subTopics MENU LI {
-				float: left;
-				position: relative;
-				height: 18px;
-			}
+	#selectedBar .subTopics MENU LI {
+		float: left;
+		position: relative;
+		height: 18px;
+	}
 
-			#selectedBar .subTopics MENU LI + LI {
-				margin: 0px 0px 0px -7px;
-			}
+	#selectedBar .subTopics MENU LI+LI {
+		margin: 0px 0px 0px -7px;
+	}
 
-				#selectedBar .subTopics MENU LI SUB-TOPIC {
-					position: relative;
-					float: left;
-				}
+	#selectedBar .subTopics MENU LI SUB-TOPIC {
+		position: relative;
+		float: left;
+	}
 
-				#selectedBar .subTopics MENU LI SUB-TOPIC.staged {
-					opacity: 0;
-				}
+	#selectedBar .subTopics MENU LI SUB-TOPIC.staged {
+		opacity: 0;
+	}
 
 	/* End Selected Topic Bar Selctors */
-	
+
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		position: absolute;
 	}
-	
-		#unSelectedBarArea MENU LI {
-			height: 45px;
-		}
-					
+
+	#unSelectedBarArea MENU LI {
+		height: 45px;
+	}
+
 	/* End UnSelected Topic Bar Selctors */
-		
-		
+
+
 	.bodyText {
 		color: #FFFFFF;
 	}
-	
+
 	.photoRight {
 		border: 1px solid #FFFFFF;
 	}
-	
+
 	.photoLeft {
 		border: 1px solid #FFFFFF;
 	}
-	
+
 	.bodyText TABLE {
 		color: #FFFFFF;
 	}
-	
+
 	.bodyText TABLE .altRow {
 		background-color: #CCCCCC;
 	}
@@ -503,15 +511,18 @@
 		text-decoration: none;
 	}
 
-		.bodyText .breadCrumbCurrent A:link, .bodyText .breadCrumbCurrent A:visited {
-			color: #FFFFFF;
-			text-decoration: none;
-		}
+	.bodyText .breadCrumbCurrent A:link,
+	.bodyText .breadCrumbCurrent A:visited {
+		color: #FFFFFF;
+		text-decoration: none;
+	}
 
-		.bodyText .breadCrumbCurrent A:active, .bodyText .breadCrumbCurrent A:hover {
-			color: #FFFF33; /* B22222; */
-			text-decoration: none;
-		}
+	.bodyText .breadCrumbCurrent A:active,
+	.bodyText .breadCrumbCurrent A:hover {
+		color: #FFFF33;
+		/* B22222; */
+		text-decoration: none;
+	}
 
 	.bodyText .breadCrumbHist {
 		color: #CCCCCC;
@@ -521,22 +532,24 @@
 		text-decoration: none;
 	}
 
-		.bodyText .breadCrumbHist A:link, .bodyText .breadCrumbHist A:visited {
-			color: #CCCCCC;
-			text-decoration: none;
-		}
+	.bodyText .breadCrumbHist A:link,
+	.bodyText .breadCrumbHist A:visited {
+		color: #CCCCCC;
+		text-decoration: none;
+	}
 
-		.bodyText .breadCrumbHist A:active, .bodyText .breadCrumbHist A:hover {
-			color: #FFFF33; /* B22222; */
-			text-decoration: none;
-		}
+	.bodyText .breadCrumbHist A:active,
+	.bodyText .breadCrumbHist A:hover {
+		color: #FFFF33;
+		/* B22222; */
+		text-decoration: none;
+	}
+
 	/* End content formatting selectors */
 }
 
 /* Mobile Devices */
-@media only screen 
-	and (min-device-width: 120px) 
-	and (max-device-width: 699px) {
+@media only screen and (min-device-width: 120px) and (max-device-width: 699px) {
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
@@ -545,21 +558,22 @@
 		left: 185px;
 		right: 5px;
 	}
-		#selectedBar TOPIC-BAR .barTextSlot {
-			font-size: 125%;
-		}
 
-		#selectedBar .subTopics MENU LI + LI {
-			margin: 0px 0px 5px -7px
-		}
+	#selectedBar TOPIC-BAR .barTextSlot {
+		font-size: 125%;
+	}
 
-		#selectedBar MENU LI SUB-TOPIC {
-			font-size: 125%;
-		}
+	#selectedBar .subTopics MENU LI+LI {
+		margin: 0px 0px 5px -7px
+	}
 
-		#selectedBar MENU LI SUB-TOPIC {
-			height: fit-content;
-		}
+	#selectedBar MENU LI SUB-TOPIC {
+		font-size: 125%;
+	}
+
+	#selectedBar MENU LI SUB-TOPIC {
+		height: fit-content;
+	}
 
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
@@ -568,27 +582,27 @@
 		bottom: 90px;
 		right: 3px;
 	}
-	
-		#unSelectedBarArea MENU LI {
-			float: left;
-			position: relative;
-			height: 43px;
-			width: 180px;
-			margin: 0px 5px 0px 0px;
-		}
 
-		#unSelectedBarArea MENU LI TOPIC-BAR {
-			float: left;
-			position: relative;
-			height: 43px;
-			width: fit-content;
-			min-width: 180px;
-			margin: 0px 5px 5px 0px;
-		}
+	#unSelectedBarArea MENU LI {
+		float: left;
+		position: relative;
+		height: 43px;
+		width: 180px;
+		margin: 0px 5px 0px 0px;
+	}
 
-		#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
-			font-size: 125%;
-		}
+	#unSelectedBarArea MENU LI TOPIC-BAR {
+		float: left;
+		position: relative;
+		height: 43px;
+		width: fit-content;
+		min-width: 180px;
+		margin: 0px 5px 5px 0px;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
+		font-size: 125%;
+	}
 
 	/* Begin Content Area Selctors */
 	#contentPanel {
@@ -600,21 +614,19 @@
 		left: 5px;
 	}
 
-		#contentPanel .contentBody {
-			position: absolute;
-			top: 15px;
-		}
+	#contentPanel .contentBody {
+		position: absolute;
+		top: 15px;
+	}
 
-		#contentPanel .contentBottom {
-			position: absolute;
-		}
+	#contentPanel .contentBottom {
+		position: absolute;
+	}
 }
 
 
 /* Landscape phones */
-@media only screen 
-	and (min-device-width: 700px) 
-	and (max-device-height: 400px) {
+@media only screen and (min-device-width: 700px) and (max-device-height: 450px) {
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
@@ -623,7 +635,7 @@
 		left: 185px;
 		right: 5px;
 	}
-	
+
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		top: 150px;
@@ -631,12 +643,14 @@
 		bottom: 90px;
 		width: 176px;
 	}
-		#unSelectedBarArea MENU LI {
-			height: fit-content;
-		}
-			#unSelectedBarArea MENU LI TOPIC-BAR {
-				height: 42px;
-			}
+
+	#unSelectedBarArea MENU LI {
+		height: fit-content;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR {
+		height: 42px;
+	}
 
 	/* Begin Content Area Selctors */
 	#contentPanel {
@@ -648,21 +662,18 @@
 		left: 185px;
 	}
 
-		#contentPanel .contentBody {
-			position: absolute;
-			top: 15px;
-		}
+	#contentPanel .contentBody {
+		position: absolute;
+		top: 15px;
+	}
 
-		#contentPanel .contentBottom {
-			position: absolute;
-		}
+	#contentPanel .contentBottom {
+		position: absolute;
+	}
 }
 
 /* Other Devices */
-@media only screen 
-	and (min-device-width: 700px) 
-	and (min-device-height: 400px) 
-	{
+@media only screen and (min-device-width: 700px) and (min-device-height: 451px) {
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
@@ -671,7 +682,7 @@
 		left: 185px;
 		right: 5px;
 	}
-	
+
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		top: 160px;
@@ -690,12 +701,12 @@
 		left: 185px;
 	}
 
-		#contentPanel .contentBody {
-			position: absolute;
-			top: 15px;
-		}
+	#contentPanel .contentBody {
+		position: absolute;
+		top: 15px;
+	}
 
-		#contentPanel .contentBottom {
-			position: absolute;
-		}
+	#contentPanel .contentBottom {
+		position: absolute;
+	}
 }

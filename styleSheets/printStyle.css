@@ -1,9 +1,10 @@
-@media print { 
+@media print {
+
 	/* Begin Tag Level Selctors */
 	BODY {
 		background-color: #FFFFFF;
 	}
-	
+
 	HR {
 		color: var(--color-link-green);
 	}
@@ -11,54 +12,57 @@
 	FIELDSET {
 		border: 1px solid #000000;
 	}
-	
+
 	LEGEND {
-		color: #000000; 
+		color: #000000;
 	}
 
-	INPUT, TEXTAREA, SELECT {
+	INPUT,
+	TEXTAREA,
+	SELECT {
 		border: 1px solid #000000;
 	}
-	
+
 	H1 {
 		color: #000000;
 		font-size: 16pt;
 	}
-	
+
 	H2 {
 		color: #000000;
 		font-size: 14pt;
 	}
-	
+
 	H3 {
 		color: #000000;
 		font-size: 12pt;
 	}
-	
+
 	H4 {
 		color: #000000;
 		font-size: 11pt;
 	}
-	
+
 	H5 {
 		color: #000000;
 		font-size: 10pt;
 	}
+
 	/* End Tag Level Selctors */
-	
+
 	#mainContainer {
 		position: static;
 		width: auto;
 		height: auto;
 	}
-	
+
 	/* Begin Content Area Selctors */
 	#contentPanel {
 		position: static;
 		width: auto;
 		height: auto;
 	}
-	
+
 	#contentPanel #contentTop {
 		display: none;
 	}
@@ -66,21 +70,21 @@
 	#contentPanel #contentBody #contentBodyLeft {
 		display: none;
 	}
-	
+
 	#contentArea {
 		position: static;
 		width: auto;
 		height: auto;
 	}
-	
+
 	#content {
 		position: static;
 		top: 70px;
 		width: auto;
 		height: auto;
-		clear: both;		
+		clear: both;
 	}
-	
+
 	#contentPanel #contentBody #contentBodyRight {
 		display: none;
 	}
@@ -88,8 +92,9 @@
 	#contentPanel #contentBottom {
 		display: none;
 	}
+
 	/* End Content Area Selctors */
-			
+
 	/* Begin Logo Selctors */
 	#logo {
 		display: none;
@@ -103,7 +108,7 @@
 		height: 160px;
 		width: 169px;
 	}
-	
+
 	#printBanner {
 		position: absolute;
 		top: 0px;
@@ -114,74 +119,80 @@
 		font-size: 16pt;
 		font-weight: bold;
 	}
-		#printBanner .printTitle {
-			font-size: 14pt;
-		}
+
+	#printBanner .printTitle {
+		font-size: 14pt;
+	}
 
 	#printLogoCover {
 		display: none;
 	}
+
 	/* End Logo Selctors */
 
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		display: none;
 	}
-	
+
 	.unSelectedBar {
 		display: none;
 	}
+
 	/* End UnSelected Topic Bar Selctors */
 
 	/* Begin SubMenu Selctors */
 	#subMenu {
 		display: none;
 	}
+
 	/* End SubMenu Selctors */
 
 	/* Begin Topic Bar Class Selctors */
 	TOPIC-BAR {
 		display: none;
 	}
+
 	/* End Topic Bar Class Selctors */
-	
+
 	/* Begin SubTopic Class Selectors */
 	SUB-TOPIC {
 		display: none;
 	}
-	
+
 	/* End SubTopic Class Selectors */
-	
+
 	/* Begin content formatting selectors */
 	.bodyText {
 		font-size: 10pt;
 		color: #000000;
 	}
-	
+
 	.photoRight {
 		border: 1px solid #000000;
 	}
-	
+
 	.photoLeft {
 		border: 1px solid #000000;
 	}
-	
+
 	.bodyText TABLE {
 		color: #000000;
 	}
-	
+
 	.bodyText TABLE TH {
 		color: #000000;
 	}
-	
+
 	.breadCrumbCurrent {
 		display: none;
 		visibility: hidden;
 	}
-	
+
 	.breadCrumbHist {
 		display: none;
 	}
+
 	/* End content formatting selectors */
-	
+
 }
