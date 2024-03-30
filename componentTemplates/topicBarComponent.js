@@ -5,7 +5,7 @@ topicBarTemplate.innerHTML = `
     <style>
     :host {
         display: block;
-        position: absolute;
+        position: relative;
         right: 0px;
         left: 0px;
         height: 45px;

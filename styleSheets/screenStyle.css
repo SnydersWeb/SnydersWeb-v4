@@ -610,9 +610,56 @@
 		}
 }
 
+
+/* Landscape phones */
+@media only screen 
+	and (min-device-width: 700px) 
+	and (min-device-height: 300px) {
+
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		height: 45px;
+		top: 5px;
+		left: 185px;
+		right: 5px;
+	}
+	
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		top: 150px;
+		left: 3px;
+		bottom: 90px;
+		width: 176px;
+	}
+		#unSelectedBarArea MENU LI {
+			height: fit-content;
+		}
+
+	/* Begin Content Area Selctors */
+	#contentPanel {
+		position: absolute;
+		height: auto;
+		top: 75px;
+		right: 5px;
+		bottom: 5px;
+		left: 185px;
+	}
+
+		#contentPanel .contentBody {
+			position: absolute;
+			top: 15px;
+		}
+
+		#contentPanel .contentBottom {
+			position: absolute;
+		}
+}
+
 /* Other Devices */
 @media only screen 
-	and (min-device-width: 700px) {
+	and (min-device-width: 700px) 
+	and (min-device-height: 320px) 
+	{
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
