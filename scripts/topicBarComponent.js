@@ -30,6 +30,8 @@ class TopicBar extends HTMLElement {
                 cancelable: true,
             }
         );
+
+        this.mobileYThreshold = 90;
     }
 
     adjustTemplatesForPath() {
@@ -94,9 +96,9 @@ class TopicBar extends HTMLElement {
     promote = (rawLocData) => {
         const locData = JSON.parse(rawLocData);
         
-        const homeWidth = locData.home.width > 0 ? locData.home.width : 144; //144 is the min-width
-        const homeXPos = locData.home.y < 10 ? locData.promoted.x : 0 - locData.promoted.x;
-        const homeYPos = locData.home.y < 10 ? 10 - locData.promoted.y : locData.home.y;
+        const homeWidth = locData.home.width > 0 ? locData.home.width : 180; //180 is the min-width
+        const homeXPos = locData.home.y < this.mobileYThreshold ? locData.home.x : 0 - locData.promoted.x;
+        const homeYPos = locData.home.y < this.mobileYThreshold ? 10 - locData.promoted.y : locData.home.y;
         
         const steps = [
             {
@@ -118,7 +120,7 @@ class TopicBar extends HTMLElement {
         ];
 
         //Mobile doesn't get all 3 steps
-        if (locData.home.y < 10) {
+        if (locData.home.y < this.mobileYThreshold) {
             steps.splice(1, 1);
         }
         
@@ -134,8 +136,8 @@ class TopicBar extends HTMLElement {
 
     return = (rawLocData) => {
         const locData = JSON.parse(rawLocData);
-        const homeWidth = locData.home.width > 0 ? locData.home.width : 144; //144 is the min-width
-        const homeYPos = locData.home.y < 10 ? locData.promoted.y : 0 - locData.home.y;
+        const homeWidth = locData.home.width > 0 ? locData.home.width : 180; //180 is the min-width
+        const homeYPos = locData.home.y < this.mobileYThreshold ? locData.promoted.y : 0 - locData.home.y;
         
         const steps = [
             {
@@ -154,7 +156,7 @@ class TopicBar extends HTMLElement {
         ];
 
         //Mobile doesn't get all 3 steps
-        if (locData.home.y < 10) {
+        if (locData.home.y < this.mobileYThreshold) {
             steps.splice(1, 1);
         }
         

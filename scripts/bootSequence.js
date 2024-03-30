@@ -112,12 +112,12 @@ const bootSequence = {
 
         //Clean up our transforms and kick off the next        
         bgAnim.addEventListener("finish", () => { 
-            this.backgroundBackLayer.style.transform = null;
+            this.backgroundBackLayer.style.transform = ``;
             this.backgroundBackLayer.style.opacity = 1;
         });
         
         fgAnim.addEventListener("finish", () => { 
-            this.backgroundFrontLayer.style.transform = null;
+            this.backgroundFrontLayer.style.transform = ``;
             this.backgroundFrontLayer.style.opacity = 1;
 
             this.flyLogoIn();
@@ -160,7 +160,7 @@ const bootSequence = {
         });
         
         logoSVG.addEventListener("finish", () => { 
-            this.logoSVG.style.transform = null;
+            this.logoSVG.style.transform = ``;
 
             //Move the rest in!
             this.strobeBackground(logoFinish);
@@ -241,7 +241,7 @@ const bootSequence = {
         this.animations += 1;
         //Clean up our transforms and kick off the next        
         logoAnim.addEventListener("finish", () => { 
-            this.logo.style.transform = null;
+            this.logo.style.transform = ``;
             this.animations -= 1;
             this.finalize();
         });
@@ -264,7 +264,7 @@ const bootSequence = {
         
         //Clean up our transforms and kick off the next        
         pageHeadAnim.addEventListener("finish", () => { 
-            this.pageHeader.style.transform = null;
+            this.pageHeader.style.transform = ``;
             this.animations -= 1;
             this.finalize();
         });
@@ -286,7 +286,7 @@ const bootSequence = {
         
         //Clean up our transforms and kick off the next        
         unSelBarsAnim.addEventListener("finish", () => { 
-            this.unselectedBarArea.style.transform = null;
+            this.unselectedBarArea.style.transform = ``;
             this.animations -= 1;
             this.finalize();
         });
@@ -308,7 +308,7 @@ const bootSequence = {
 
         //Clean up our transforms and kick off the next        
         contentPanelAnim.addEventListener("finish", () => { 
-            this.contentPanel.style.transform = null;
+            this.contentPanel.style.transform = ``;
             this.animations -= 1;
             this.finalize();
         });
