@@ -65,9 +65,8 @@ class Maestro {
             };
 
             //Adding a temporary "cover" to hide everything
-            this.bootSequence = bootSequence;
-            this.bootSequence.setHandles(itemHandles);
-            this.bootSequence.start(this.stageCover);        
+            bootSequence.setHandles(itemHandles);
+            bootSequence.start(this.stageCover);        
         } else {
             this.utils.removeEl(this.stageCover);
             this.fetchPage({ detail: { pageURL: cleanHash } });

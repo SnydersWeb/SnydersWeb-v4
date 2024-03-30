@@ -538,10 +538,6 @@
 	and (min-device-width: 120px) 
 	and (max-device-width: 699px) {
 
-	#mainContainer {
-		overflow: auto;
-	}
-
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
 		height: 45px;
@@ -617,10 +613,6 @@
 /* Other Devices */
 @media only screen 
 	and (min-device-width: 700px) {
-
-	BODY {
-		overflow: hidden;
-	}
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
