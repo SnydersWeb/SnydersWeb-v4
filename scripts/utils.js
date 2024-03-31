@@ -4,7 +4,10 @@ const utils = {
 		const linkLocParts = linkLoc.replace(fileName, "").split("/").filter(item => item === "..");
 		const cdParts = currentDirectory.slice(0, -1).split("/");
 		const chopFactor = cdParts.length - linkLocParts.length;
-		const linkPath = cdParts.slice(0, 0 + (chopFactor)).join("/");
+		const linkPath = cdParts
+							.slice(0, 0 + (chopFactor))
+							.filter((item, index) => cdParts.indexOf(item) === index) //Quick check to ensure we don't have dups
+							.join("/");
 		
 		return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll("../", "")}`).replaceAll("//", "/");				
 	},

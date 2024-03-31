@@ -12,13 +12,13 @@ const bootSequence = {
 
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
-        let pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight + 20}px)`;
-        let unselectedBarStart = `translateX(-${this.unselectedBarArea.offsetWidth}px)`;
-        let contentPanelStart = `translateY(${this.contentPanel.offsetHeight + 20}px)`;
+        let pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 1.5}px)`;
+        let unselectedBarStart = `translateX(-${this.unselectedBarArea.offsetWidth * 1.5}px)`;
+        let contentPanelStart = `translateY(${this.contentPanel.offsetHeight * 1.05}px)`;
 
         if (unselectedBarArea.y < 10) { //Likely mobile view so our transforms are a bit differnt
             this.isMobile = true;
-            pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 3}px)`;
+            pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 10}px)`;
             unselectedBarStart = `translateX(-${this.unselectedBarArea.offsetHeight}px)`;
             contentPanelStart = `translateX(${this.contentPanel.offsetWidth + 20}px)`;
         }
