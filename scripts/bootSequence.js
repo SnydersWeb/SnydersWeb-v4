@@ -86,6 +86,7 @@ const bootSequence = {
             
         ], {
             duration: 1000,
+            delay: 100,
             easing: "linear",
         });
 
@@ -104,6 +105,7 @@ const bootSequence = {
             
         ], {
             duration: 1000,
+            delay: 100,
             easing: "linear",
         });
 
