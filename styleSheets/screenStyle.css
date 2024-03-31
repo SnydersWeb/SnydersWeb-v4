@@ -529,25 +529,34 @@
 
 /* Mobile Devices */
 @media only screen and (min-device-width: 120px) and (max-device-width: 699px) {
-
+	
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
 		height: 45px;
 		top: 90px;
-		left: 185px;
+		left: 170px;
 		right: 5px;
 	}
 
 	#selectedBar TOPIC-BAR .barTextSlot {
-		font-size: 125%;
+		font-size: 100%;
+	}
+
+	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC {
+		line-height: 24px;
+		font-size: 78%;
+	}
+
+	#selectedBar .subTopics MENU LI {
+		margin: 0px 0px 1px 0px
 	}
 
 	#selectedBar .subTopics MENU LI+LI {
-		margin: 0px 0px 5px -7px
+		margin: 0px 0px 1px -7px
 	}
 
 	#selectedBar MENU LI SUB-TOPIC {
-		font-size: 125%;
+		font-size: 90%;
 	}
 
 	#selectedBar MENU LI SUB-TOPIC {
@@ -557,7 +566,7 @@
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
 		top: 3px;
-		left: 185px;
+		left: 170px;
 		bottom: 90px;
 		right: 3px;
 	}
@@ -566,7 +575,7 @@
 		float: left;
 		position: relative;
 		height: 43px;
-		width: 180px;
+		width: fit-content;
 		margin: 0px 5px 0px 0px;
 	}
 
@@ -575,12 +584,12 @@
 		position: relative;
 		height: 43px;
 		width: fit-content;
-		min-width: 180px;
+		min-width: 125px;
 		margin: 0px 5px 5px 0px;
 	}
 
 	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
-		font-size: 125%;
+		font-size: 100%;
 	}
 
 	/* Begin Content Area Selctors */
