@@ -4,9 +4,6 @@ class Maestro {
         this.pageFetcher = pageFetcher;
         this.utils = utils;
 
-        //Special element used for animation - it is cleared almost immediately.
-        this.stageCover = this.utils.createEl("DIV", { "id": "stageCover" }, [ ], document.querySelector("BODY"));
-
         //Not doing anything with the background stuff for now
         this.backgroundBackLayer = document.querySelector("#backgroundBackLayer");
         this.backgroundFrontLayer = document.querySelector("#backgroundFrontLayer");
@@ -66,15 +63,14 @@ class Maestro {
 
             //Adding a temporary "cover" to hide everything
             bootSequence.setHandles(itemHandles);
-            bootSequence.start(this.stageCover);        
+            bootSequence.start();      
         } else {
-            this.utils.removeEl(this.stageCover);
             this.fetchPage({ detail: { pageURL: cleanHash } });
-            this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
         }       
         
         if (this.utils.getIsMobile() === false) {
             //oversize our background elements for the scrolly thing
+            this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
             this.backgroundBackLayer.classList.add("overSize");
             this.backgroundFrontLayer.classList.add("overSize");
         }
@@ -357,8 +353,8 @@ class Maestro {
             };
             
             //Quick Check to see if our promote bar has all the slot stuff
-            const hasSelSubMenuArea = promoteBar.querySelector("DIV.selSubTopics") !== null;
-            const hasSubMenuArea = promoteBar.querySelector("DIV.subTopics") !== null;
+            const hasSelSubMenuArea = promoteBar !== null ? (promoteBar.querySelector("DIV.selSubTopics") !== null) : false;
+            const hasSubMenuArea = promoteBar !== null ? (promoteBar.querySelector("DIV.subTopics") !== null) : false;
             
             //Create and append our new DOM stuff if needed.
             if (hasSelSubMenuArea === false) {
@@ -437,8 +433,8 @@ class Maestro {
         const backLayer = document.querySelector("#backgroundBackLayer");
         const frontLayer = document.querySelector("#backgroundFrontLayer");
 
-        const backMoveDampener = 25;
-        const frontMoveDampener = 50;
+        const backMoveDampener = 20;
+        const frontMoveDampener = 40;
 
         //shift our backgrounds depending on where our mouse is.
         backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
@@ -456,8 +452,10 @@ class Maestro {
     }
     
     finalizeBoot(evt) {
+        if (this.utils.getIsMobile() === false) {
         //add our background effect hook back in.
         this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
+        }
     }
 
     //Form stuffs

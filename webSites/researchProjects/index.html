@@ -20,7 +20,6 @@
 <body>
 
 <!-- Begin Print Site Logo Div - Outside of mainContainer so it can go behind it.-->
-<div id="printLogo"><img src="../../interfaceImages/snydersWebLogo.svg" width="169" height="145" alt="SnydersWeb" /></div>
 <div id="printBanner">www.SnydersWeb.com<br /><hr /><div class="printTitle">Web Sites - Research Projects</div></div>
 <div id="printLogoCover"></div>
 <!-- End Print Site Logo Div -->
@@ -129,12 +128,12 @@ The graphics were created in <a href="https://inkscape.org/">Inkscape</a> and im
 The React Components in this project are mostly class components - the reasons why I did this was:
 <ol>
 	<li>I wanted constructors that were only called 1x per page refresh when the game is spinning up.</li>
-	<li>The components needed to be self-contained and self-managing whenever possible and class components allowed use of "this" to keep track of each instance variable.</li>
+	<li>The components needed to be self-contained and self-managing whenever possible, and class components allowed use of "this" to keep track of each instance variable.</li>
 </ol>
 
 The game runs on a 10 millisecond clock - which means every 10 milliseconds parts of the screen is being redrawn to reflect the current state of the game.  All parts of the game are aware of this - and what this allowed me to do was to "timestamp" each movement and sub-state in the game.<br /><br />
 
-For example, the birds are the most complex when it comes to sub-movements.  When the birds move their wings, they're doing so in a way that is contained in the bird class, since the game state doesn't need to know and isn't relevent to the action on screen.  Since the bird class is getting refreshed every 10 millisconds I rotate the wings, store the timestamp in the class instance, then wait for a time to pass before I update the rotation again. The same technique was applied to the eyes, and the beaks.  This allowed for a beautiful "hands-off" approach to the coding in them.<br /><br />
+For example, the birds are the most complex when it comes to sub-movements.  When the birds move their wings, they're doing so in a way that is contained in the bird class, since the game state doesn't need to know and isn't relevent to the action on screen.  Since the bird class is getting refreshed every 10 milliseconds, I rotate the wings, store the timestamp in the class instance, then wait for a time to pass before I update the rotation again. The same technique was applied to the eyes and the beaks.  This allowed for a beautiful "hands-off" approach to the coding in them.<br /><br />
 
 <div class="photoLeft">
 	<img src="images/fauxnixShip.png" width="93" height="86" alt="Fauxnix Ship" /></a><br />
@@ -142,7 +141,7 @@ For example, the birds are the most complex when it comes to sub-movements.  Whe
 </div>
 The ship is handled much the same way - one unique thing about the ship was the "wiggle" it had when you moved it left or right.  I preserved this aspect of the ship in this mini-re-creation of it.  The game state only needs to set the state that it is moving left or right, and when it does the ship will automatically move the pylons in and out.  When the game state changes it back to "none" on movement, the pylons reset back to their default position.<br /><br class="clearAll"/>
 
-One of the trickiest aspects of this game was handling the initial canvas sizing.  This took a bit of trial-and-error to get it "just right".  When the game loads, I calculate the aspect ratio of the screen where I divide the height by the width.  If the ratio is greater than 1.4 I use the width to set the correct height of the canvas (to keep everything in proper porportion), otherwise I use height to then set the correct width of the game.  It's a simple 15 lines of code to do this, but it took a few hours to get it just right. The result is it plays well not only on desktops, but holds up beautifully on mobile devices.<br /><br />
+One of the trickiest aspects of this game was handling the initial canvas sizing.  This took a bit of trial-and-error to get it "just right".  When the game loads, I calculate the aspect ratio of the screen where I divide the height by the width.  If the ratio is greater than 1.4, I use the width to set the correct height of the canvas (to keep everything in proper proportion), otherwise I use height to then set the correct width of the game.  It's a simple 15 lines of code to do this, but it took a few hours to get it just right. The result is it plays well not only on desktops, but holds up beautifully on mobile devices.<br /><br />
 
 <div class="photoLeft">
 	<img src="images/fauxnixBirds.png" width="247" height="394" alt="Fauxnix Birds" /></a><br />
@@ -150,9 +149,9 @@ One of the trickiest aspects of this game was handling the initial canvas sizing
 </div>
 To allow for easy development and debugging, virtually all aspects of the game are contained in a central configuration file.  How often things move, how long things wait, how far they move, and even how many bullets the ship can fire at a time are all there and can be adjusted quickly and easily.  It also allowed each bird also needed to have their own "personality" since I configured aspects to have ranges where the computer to pick random numbers from.  This allowed the birds to vary and appear more organic.<br /><br />
 
-The hit-boxing was another rather tricky aspect of the game.  The hitboxes on each bird is complex since you can blow wings off or score hits.  It has 3 detection zones to do this - left, hit, and right.   If a ships bullet is detected on the wing zone, the wing is sent back as a hit and the game engine "blows" the wing off (by scaling it to 0).  Until the wing is back to full size, the hitbox detector keeps the box for that particular wing at 0 x 0.  This makes it so that a bird is easier to score a good hit on until the wing is full size.  Each wing hitbox is generically assigned - it doesn't take into account how high or low each wing is flapped since that would cause a ton of needless and overly complex calculation to determine an actual hit.  Using the central control file, it made it somewhat straight forward to adjust that hitbox since I could slow the flapping and movement speeds down to nearly 0.  Overall I'm happy with how well it's working.<br /><br />
+The hit-boxing was another rather tricky aspect of the game.  The hitboxes on each bird is complex since you can blow wings off or score hits.  It has 3 detection zones to do this - left, hit, and right.   If a ships bullet is detected on the wing zone, the wing is sent back as a hit, and the game engine "blows" the wing off (by scaling it to 0).  Until the wing is back to full size, the hitbox detector keeps the box for that particular wing at 0 x 0.  This makes it so that a bird is easier to score a good hit on until the wing is full size.  Each wing hitbox is generically assigned - it doesn't take into account how high or low each wing is flapped since that would cause a ton of needless and overly complex calculations to determine an actual hit.  Using the central control file, it made it somewhat straight forward to adjust that hitbox since I could slow the flapping and movement speeds down to nearly 0.  Overall, I'm happy with how well it's working.<br /><br />
 
-To accomodate mobile, the interface changes slightly where it renders some on-screen buttons to control the game.  After my initial launch, I received some feedback about the size of the buttons so I went back and greatly increased the size.<br /><br />
+To accommodate mobile, the interface changes slightly where it renders some on-screen buttons to control the game.  After my initial launch, I received some feedback about the size of the buttons so I went back and greatly increased the size.<br /><br />
 
 If you have any comments or questions, please use my <a href="../../contact/index.html">Contact Me</a> section as user feedback has already played a valuable role in making this a fun project to play.<br /><br />
 

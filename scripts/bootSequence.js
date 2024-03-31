@@ -42,12 +42,12 @@ const bootSequence = {
             }
         );
     },
-    start(stageCover) {
+    start() {
         //Stage it!
         this.stageAll();
 
         //Start it!
-        this.fadeBackgroundsIn(stageCover);
+        this.fadeBackgroundsIn();
     },
     stageAll() {        
         this.backgroundBackLayer.style.transform = this.backgroundBackLayerXformStart;
@@ -70,10 +70,7 @@ const bootSequence = {
         //Slide contentPanel down
         this.contentPanel.style.transform = this.contentPanelXformStart;
     },
-    fadeBackgroundsIn(stageCover) {
-        //Remove our cover
-        utils.removeEl(stageCover);
-
+    fadeBackgroundsIn() {
         const bgAnim = this.backgroundBackLayer.animate([
             {
                 transform: this.backgroundBackLayerXformStart,
@@ -136,7 +133,7 @@ const bootSequence = {
             },
             
         ], {
-            duration: 500,
+            duration: 750,
             easing: `ease-out`,
         });
 
@@ -149,7 +146,7 @@ const bootSequence = {
             },
             
         ], {
-            duration: 500,
+            duration: 750,
             easing: `ease-out`,
         });
 
@@ -189,7 +186,7 @@ const bootSequence = {
                 backgroundColor: "#333333"
             },
         ], {
-            duration: 100,
+            duration: 75,
             easing: "linear",
         });
         //Need to flash our cover too
@@ -213,7 +210,7 @@ const bootSequence = {
                 backgroundColor: "#333333"
             },
         ], {
-            duration: 100,
+            duration: 75,
             easing: "linear",
         });
         bodyStrobeAnim.addEventListener("finish", () => {             
@@ -301,7 +298,7 @@ const bootSequence = {
             },
             
         ], {
-            duration: 500,
+            duration: 750,
             easing: `ease-in`,
         });
         this.animations += 1;        

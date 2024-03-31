@@ -97,10 +97,6 @@
 
 	/* Begin Logo Selctors */
 	#logo {
-		display: none;
-	}
-
-	#printLogo {
 		position: relative;
 		float: left;
 		top: 0px;
