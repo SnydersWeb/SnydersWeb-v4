@@ -342,7 +342,16 @@ Next todos:
 
 OK.. Mobile support is complete!  Now to launch this thing!!!
 
+3/30
+Post launch!
 
+I put in a few more tweaks to help it more with some forms of mobile.  So it now has about 3 layouts it can do: Regular, Squished Horizontal, and Phone Vertical.  This should hopefully help it adapt to whatever screen it's asked to be shown on.
+
+Overall it was a smooth launch day.  Still I came up with a few tweaks and so on.  1 was to ditch the extra print logo - previously it was necessary but with SVG, completely not!  I also got rid of the staging cover since it wasn't necessary after I've ran a couple more tests.  Plus having it there could block the entire UI if something broke!
+
+I also found why the backgrounds effect thing would sometimes fire on mobile.  That's now been fixed - though I will see if I can do something similar for mobile... not sure there.
+
+Overall a positive day.
 
 
 
