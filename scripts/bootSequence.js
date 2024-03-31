@@ -77,16 +77,12 @@ const bootSequence = {
                 opacity: 0.0,
             },
             {
-                opacity: 0.1,
-            },
-            {
                 transform: `translateX(0px) translateY(0px)`,
                 opacity: 1,
             },
             
         ], {
-            duration: 1000,
-            delay: 100,
+            duration: 1250,
             easing: "linear",
         });
 
@@ -96,16 +92,12 @@ const bootSequence = {
                 opacity: 0.0,
             },
             {
-                opacity: 0.1,
-            },
-            {
                 transform: `translateX(0px) translateY(0px)`,
                 opacity: 1,
             },
             
         ], {
-            duration: 1000,
-            delay: 100,
+            duration: 1250,
             easing: "linear",
         });
 
