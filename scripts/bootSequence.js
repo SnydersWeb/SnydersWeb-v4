@@ -82,7 +82,7 @@ const bootSequence = {
             },
             
         ], {
-            duration: 1250,
+            duration: 1000,
             easing: "linear",
         });
 
@@ -97,7 +97,7 @@ const bootSequence = {
             },
             
         ], {
-            duration: 1250,
+            duration: 1000,
             easing: "linear",
         });
 
@@ -249,6 +249,7 @@ const bootSequence = {
             
         ], {
             duration: 500,
+            delay: 250,
             easing: `ease-in`,
         });
         this.animations += 1;
@@ -292,7 +293,7 @@ const bootSequence = {
             },
             
         ], {
-            duration: 750,
+            duration: 500,
             easing: `ease-in`,
         });
         this.animations += 1;        
