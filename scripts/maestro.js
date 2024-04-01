@@ -433,8 +433,8 @@ class Maestro {
         const backLayer = document.querySelector("#backgroundBackLayer");
         const frontLayer = document.querySelector("#backgroundFrontLayer");
 
-        const backMoveDampener = 20;
-        const frontMoveDampener = 40;
+        const backMoveDampener = 50;
+        const frontMoveDampener = 100;
 
         //shift our backgrounds depending on where our mouse is.
         backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;

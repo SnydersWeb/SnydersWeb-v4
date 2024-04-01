@@ -18,9 +18,9 @@ const bootSequence = {
 
         if (unselectedBarArea.y < 10) { //Likely mobile view so our transforms are a bit differnt
             this.isMobile = true;
-            pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 10}px)`;
-            unselectedBarStart = `translateX(-${this.unselectedBarArea.offsetHeight}px)`;
-            contentPanelStart = `translateX(${this.contentPanel.offsetWidth + 20}px)`;
+            pageHeaderStart = `translateX(${this.pageHeader.offsetHeight * 10}px)`;
+            unselectedBarStart = `translateY(-${this.unselectedBarArea.offsetHeight * 10}px)`;
+            contentPanelStart = `translateY(${this.contentPanel.offsetWidth * 5}px)`;
         }
 
         //setup our intitial states
