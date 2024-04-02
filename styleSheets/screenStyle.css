@@ -544,7 +544,7 @@
 }
 
 /* Mobile Devices */
-@media only screen and (min-device-width: 120px) and (max-device-width: 699px) {
+@media only screen and (min-device-width: 390px) and (max-device-width: 699px) {
 	#backgroundBackLayer,
 	#backgroundFrontLayer {
 		position: fixed;
@@ -642,6 +642,105 @@
 
 }
 
+
+@media only screen and (min-device-width: 120px) and (max-device-width: 390px) {
+	#backgroundBackLayer,
+	#backgroundFrontLayer {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		top: unset;
+		right: unset; 
+		bottom: unset;
+		left: unset;
+	}
+	BODY {
+		overflow: visible;
+	}
+	
+	#logo {
+		height: 123px;
+		width: 144px;
+		top: -10px;
+		left: -28px;	
+	}
+	
+	#logo IMG {
+		scale: .85;	
+	}
+
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		height: 45px;
+		top: 135px;
+		left: 0px;
+		right: 5px;
+		z-index: 3;
+	}
+
+	#selectedBar TOPIC-BAR .barTextSlot {
+		font-size: 85%;
+	}
+
+	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC {
+		line-height: 24px;
+		font-size: 64%;
+	}
+
+	#selectedBar .subTopics MENU LI {
+		margin: 0px 0px 1px 0px
+	}
+
+	#selectedBar .subTopics MENU LI+LI {
+		margin: 0px 0px 1px -7px
+	}
+
+	#selectedBar MENU LI SUB-TOPIC {
+		font-size: 90%;
+	}
+
+	#selectedBar MENU LI SUB-TOPIC {
+		height: fit-content;
+		font-size: 80%;
+	}
+
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		top: 3px;
+		left: 130px;
+		height: fit-content;
+		right: 0px;
+	}
+
+	#unSelectedBarArea MENU LI {
+		float: left;
+		position: relative;
+		height: 43px;
+		width: 110px;
+		margin: 0px 3px 0px 0px;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR {
+		float: left;
+		position: relative;
+		height: 43px;
+		width: fit-content;
+		min-width: 110px;
+		margin: 0px 5px 5px 0px;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
+		font-size: 78%;
+	}
+
+	#contentPanel {
+		top: 224px;
+		right: 5px;
+		bottom: 0px;
+		left: 5px;
+	}
+
+}
 
 /* Landscape phones */
 @media only screen and (min-device-width: 700px) and (max-device-height: 450px) {
