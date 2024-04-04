@@ -373,7 +373,10 @@ class Maestro {
 
             //Will also need code to remove the slots I think from domSelHeader - probably on animation finish though.
             const returnBar = this.utils.removeEl(domSelHeader); //Remove from Header element
-            promoteBar.parentNode.setAttribute("aria-hidden", "true");
+            const { parentNode:barParent } = promoteBar;
+            if (barParent !== null) {
+                promoteBar.parentNode.setAttribute("aria-hidden", "true");
+            }
             this.utils.removeEl(promoteBar); //Remove from LI "garage"
             this.utils.appendEl(returnBarHome, returnBar);
             returnBarHome.removeAttribute("aria-hidden");

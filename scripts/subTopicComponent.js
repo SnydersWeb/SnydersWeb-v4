@@ -84,12 +84,14 @@ class SubTopic extends HTMLElement {
 
     connectedCallback() {
         this.bar.addEventListener('click', this.handleClick);
+        this.bar.addEventListener('keydown', this.handleClick);
         this.bar.addEventListener('mouseover', this.mouseOver);
         this.bar.addEventListener('mouseout', this.mouseOut);
     };
 
     disconnectedCallback() {
         this.bar.removeEventListener('click', this.handleClick);
+        this.bar.removeEventListener('keydown', this.handleClick);
         this.bar.removeEventListener('mouseover', this.mouseOver);
         this.bar.removeEventListener('mouseout', this.mouseOut);
     };
@@ -109,8 +111,20 @@ class SubTopic extends HTMLElement {
     };
     
     handleClick = (evt) => {
-        evt.cancelBubble = true; //Block this from going to the title bar!
-        document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
+        const { type } = evt;
+        let fireDispatch = false;
+        if (/keydown/.test(type)) {
+            const { keyCode } = evt;
+            if (keyCode === 13) { //Enter
+                fireDispatch = true;
+            }
+        } else {
+            fireDispatch = true; //Click
+        }
+        if (fireDispatch) {
+            evt.cancelBubble = true; 
+            document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
+        }
     };
 
     mouseOver = (evt) => {

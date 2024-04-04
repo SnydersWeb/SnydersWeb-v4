@@ -55,12 +55,14 @@ class TopicBar extends HTMLElement {
         // console.log("Custom element added to page.");
         this.bar.classList.remove(`hover`);
         this.bar.addEventListener('click', this.handleClick);
+        this.addEventListener('keydown', this.handleClick);
         this.bar.addEventListener('mouseover', this.mouseOver);
         this.bar.addEventListener('mouseout', this.mouseOut);
     };
 
     disconnectedCallback() {
         this.bar.removeEventListener('click', this.handleClick);
+        this.removeEventListener('keydown', this.handleClick);
         this.bar.removeEventListener('mouseover', this.mouseOver);
         this.bar.removeEventListener('mouseout', this.mouseOut);
     };
@@ -79,8 +81,24 @@ class TopicBar extends HTMLElement {
     };
 
     handleClick = (evt) => {
-        evt.cancelBubble = true; 
-        document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
+        const { type, target } = evt;
+        let fireDispatch = false;
+        if (/sub-topic/i.test(target.tagName)) {
+            target.handleClick(evt); //pass the event down
+            return; //Stop it from eating sub bar events when at the top!
+        }
+        if (/keydown/.test(type)) {
+            const { keyCode } = evt;
+            if (keyCode === 13) { //Enter
+                fireDispatch = true;
+            }
+        } else {
+            fireDispatch = true; //Click
+        }
+        if (fireDispatch) {
+            evt.cancelBubble = true; 
+            document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
+        }
     };
 
     mouseOver = (evt) => {

@@ -360,7 +360,9 @@ LOTS of work put into the viewport meta tag and all the subsequent adjustments t
 Content adjustments and updates. Also polished up the print style sheet.
 
 4/4
-Updates to improve accessibility lighthouse score, content updates and minor fixes
+Updates to improve accessibility lighthouse score, content updates and minor fixes.
+
+Also put in full tabbing and keyboard navigation support.
 
 
 
