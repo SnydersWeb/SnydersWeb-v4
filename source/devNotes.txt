@@ -353,6 +353,12 @@ I also found why the backgrounds effect thing would sometimes fire on mobile.  T
 
 Overall a positive day.
 
+3/31 and 4/1
+LOTS of work put into the viewport meta tag and all the subsequent adjustments that was necessary to pull that off.  After getting it in, it seems like it has stabilized some of the oddball loading issues I was seeing on mobile devices.  Plus it boosted my lighthouse score up considerably.
+
+4/3
+Content adjustments and updates. Also polished up the print style sheet.
+
 
 
 

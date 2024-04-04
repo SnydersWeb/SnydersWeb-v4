@@ -57,39 +57,39 @@
 	}
 
 	/* Begin Content Area Selctors */
-	#contentPanel {
+	.contentPanel {
 		position: static;
 		width: auto;
 		height: auto;
 	}
 
-	#contentPanel #contentTop {
+	.contentPanel .contentTop {
 		display: none;
 	}
 
-	#contentPanel #contentBody #contentBodyLeft {
+	.contentPanel .contentBody .contentBodyLeft {
 		display: none;
 	}
 
-	#contentArea {
+	.contentArea {
 		position: static;
 		width: auto;
 		height: auto;
 	}
 
 	#content {
-		position: static;
+		position: absolute;
 		top: 70px;
 		width: auto;
 		height: auto;
 		clear: both;
 	}
 
-	#contentPanel #contentBody #contentBodyRight {
+	.contentPanel .contentBody .contentBodyRight {
 		display: none;
 	}
 
-	#contentPanel #contentBottom {
+	.contentPanel #contentBottom {
 		display: none;
 	}
 
@@ -99,17 +99,18 @@
 	#logo {
 		position: relative;
 		float: left;
-		top: 0px;
-		left: 0px;
+		top: -20px;
+		left: -20px;
 		height: 160px;
 		width: 169px;
+		scale: .75;
 	}
 
 	#printBanner {
 		position: absolute;
 		top: 0px;
-		left: 175px;
-		width: 495px;
+		left: 150px;
+		width: 100%;
 		font-family: var(--fonts);
 		color: #000000;
 		font-size: 16pt;
