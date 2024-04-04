@@ -264,7 +264,7 @@ class Maestro {
             item.setAttribute("href", newLink);
             item.setAttribute("added", "true");
             item.classList.add("staged");
-            this.utils.createEl("LI", {}, [ item ], domHeaderSubNavArea);
+            this.utils.createEl("LI", {"role": "tab"}, [ item ], domHeaderSubNavArea);
         });
     }
 
@@ -365,7 +365,7 @@ class Maestro {
             }
             if (hasSubMenuArea === false) {
                 //remap domHeaderSubNavArea to our new bar
-                domHeaderSubNavArea = this.utils.createEl("MENU", { "class": "headerSubNav", "role": "navigation", "aria-label": "Sub Navigation" })
+                domHeaderSubNavArea = this.utils.createEl("MENU", { "class": "headerSubNav", "role": "tablist", "aria-label": "Sub Navigation" })
                 this.utils.createEl("DIV", { "class": "subTopics", "name": "subTopics" }, [ domHeaderSubNavArea ], promoteBar);
             } else {
                 domHeaderSubNavArea = promoteBar.querySelector("MENU.headerSubNav");
@@ -373,8 +373,10 @@ class Maestro {
 
             //Will also need code to remove the slots I think from domSelHeader - probably on animation finish though.
             const returnBar = this.utils.removeEl(domSelHeader); //Remove from Header element
+            promoteBar.parentNode.setAttribute("aria-hidden", "true");
             this.utils.removeEl(promoteBar); //Remove from LI "garage"
             this.utils.appendEl(returnBarHome, returnBar);
+            returnBarHome.removeAttribute("aria-hidden");
             this.utils.appendEl(this.pageHeader, promoteBar);
 
             //Set our attributes which will trigger bar animations

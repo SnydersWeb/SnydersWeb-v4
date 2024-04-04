@@ -42,11 +42,11 @@
 			</div>
 			<div name="subTopics" class="subTopics">
 				<!-- Begin Submenu Items -->
-				<menu class="headerSubNav" role="navigation" aria-label="Sub Navigation">
-					<li><sub-topic data-id="researchProjects" href="researchProjects/index.html">Research Projects</sub-topic></li>
-					<li><sub-topic data-id="personal" href="personal/index.html">Personal Sites</sub-topic></li>
-					<li><sub-topic data-id="freelance" href="freelance/index.html">Freelance Web Sites</sub-topic></li>
-					<li><sub-topic data-id="employer" href="employer/index.html">Employer Web Sites</sub-topic></li>
+				<menu class="headerSubNav" role="tablist" aria-label="Sub Navigation">
+					<li role="tab"><sub-topic data-id="researchProjects" href="researchProjects/index.html">Research Projects</sub-topic></li>
+					<li role="tab"><sub-topic data-id="personal" href="personal/index.html">Personal Sites</sub-topic></li>
+					<li role="tab"><sub-topic data-id="freelance" href="freelance/index.html">Freelance Web Sites</sub-topic></li>
+					<li role="tab"><sub-topic data-id="employer" href="employer/index.html">Employer Web Sites</sub-topic></li>
 				</menu>
 			</div>
 		</topic-bar>
@@ -56,13 +56,13 @@
 
 	<!-- End UnSelected Topic Bar Area -->
 	<nav id="unSelectedBarArea">
-		<menu role="navigation" aria-label="Main Navigation">
-			<li data-id="home" class="topicBarParking"><topic-bar data-id="home" href="../index.html"><div class="barTextSlot">Home</div></topic-bar></li>
-			<li data-id="aboutMe" class="topicBarParking"><topic-bar data-id="aboutMe" href="../aboutMe/index.html"><div class="barTextSlot">About Me</div></topic-bar></li>
-			<li data-id="webSites" class="topicBarParking"></li>
-			<li data-id="portfolio" class="topicBarParking"><topic-bar data-id="portfolio" href="../portfolio/index.html"><div class="barTextSlot">Art Portfolio</div></topic-bar></li>
-			<li data-id="destinations" class="topicBarParking"><topic-bar data-id="destinations" href="../destinations/index.html"><div class="barTextSlot">Destinations</div></topic-bar></li>
-			<li data-id="contact" class="topicBarParking"><topic-bar data-id="contact" href="../contact/index.html"><div class="barTextSlot">Contact Me</div></topic-bar></li>
+		<menu role="menu" aria-label="Main Navigation">
+			<li role="menuitem" data-id="home" class="topicBarParking"><topic-bar data-id="home" href="../index.html"><div class="barTextSlot">Home</div></topic-bar></li>
+			<li role="menuitem" data-id="aboutMe" class="topicBarParking"><topic-bar data-id="aboutMe" href="../aboutMe/index.html"><div class="barTextSlot">About Me</div></topic-bar></li>
+			<li role="menuitem" aria-hidden="true" data-id="webSites" class="topicBarParking"></li>
+			<li role="menuitem" data-id="portfolio" class="topicBarParking"><topic-bar data-id="portfolio" href="../portfolio/index.html"><div class="barTextSlot">Art Portfolio</div></topic-bar></li>
+			<li role="menuitem" data-id="destinations" class="topicBarParking"><topic-bar data-id="destinations" href="../destinations/index.html"><div class="barTextSlot">Destinations</div></topic-bar></li>
+			<li role="menuitem" data-id="contact" class="topicBarParking"><topic-bar data-id="contact" href="../contact/index.html"><div class="barTextSlot">Contact Me</div></topic-bar></li>
 		</menu>
 	</nav>
 	<!-- End UnSelected Topic Bar Area -->

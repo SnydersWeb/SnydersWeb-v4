@@ -71,7 +71,7 @@ const pageFetcher = {
         }
         const subTopics = [];
         let subTopicBars = [];
-        const subMenuArea = selectedTopicBar.querySelector(`MENU[role="navigation"]`);
+        const subMenuArea = selectedTopicBar.querySelector(`MENU.headerSubNav`);
         if (subMenuArea !== null) {
             subTopicBars = subMenuArea.querySelectorAll(`SUB-TOPIC`);
             subTopicBars.forEach(bar => {
