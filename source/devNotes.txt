@@ -359,6 +359,9 @@ LOTS of work put into the viewport meta tag and all the subsequent adjustments t
 4/3
 Content adjustments and updates. Also polished up the print style sheet.
 
+4/4
+Updates to improve accessibility lighthouse score, content updates and minor fixes
+
 
 
 
