@@ -1,5 +1,27 @@
 const pageFetcher = {
+    activeFetch: false,
+    fetchStartEvent: new CustomEvent(
+        "fetchStart", 
+        {
+            detail: {}, 
+            bubbles: false,
+            cancelable: true,
+        }
+    ),
+    fetchEndEvent: new CustomEvent(
+        "fetchEnd", 
+        {
+            detail: {}, 
+            bubbles: false,
+            cancelable: true,
+        }
+    ),
     postData(url = "", data = {}) {
+        if (this.activeFetch === true) {
+            document.querySelector("#mainContainer").dispatchEvent(this.fetchStartEvent);
+            return false;
+        }
+        this.activeFetch = true
         // Default options are marked with *
         return fetch(url, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -16,13 +38,22 @@ const pageFetcher = {
                 if (!response.ok) {
                     throw new Error(`HTTP error: ${response.status}`);
                 }
+                this.activeFetch = false;
+                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
                 return response.text();
             })
             .catch((error) => {
+                this.activeFetch = false;
+                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
                 console.log(`Could not fetch result: ${error}`);
             });   
     },
     getPage(url) {
+        if (this.activeFetch === true) {
+            document.querySelector("#mainContainer").dispatchEvent(this.fetchStartEvent);
+            return false;
+        }
+        this.activeFetch = true
         // Call `fetch()`, passing in the URL.
         return fetch(url)
             // fetch() returns a promise. When we have received a response from the server,
@@ -38,9 +69,13 @@ const pageFetcher = {
                 return response.text();
             })
             .then((rawHtml) => {
+                this.activeFetch = false;
+                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
                 return this.parsePageObject(rawHtml);
             })
             .catch((error) => {
+                this.activeFetch = false;
+                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
                 console.log(`Could not fetch page: ${error}`);
             });        
     },

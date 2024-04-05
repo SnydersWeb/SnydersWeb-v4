@@ -91,10 +91,14 @@ class Maestro {
             return;
         }
         
-        this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
-        this.reqPageURL = pageURL;
+        const fetchResult  = await this.pageFetcher.getPage(pageURL);
 
-        this.handlePageChanges(pageURL);        
+        if (fetchResult !== false) {
+            this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
+            this.reqPageURL = pageURL;
+
+            this.handlePageChanges(pageURL);        
+        }
     }
 
     processSelectedSubitems(currItems, newItems) {

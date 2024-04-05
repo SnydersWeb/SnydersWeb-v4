@@ -364,6 +364,8 @@ Updates to improve accessibility lighthouse score, content updates and minor fix
 
 Also put in full tabbing and keyboard navigation support.
 
+Last thing - added lockout to prevent a request spam from breaking the site and put in hooks for loader display/removal.
+
 
 
 
