@@ -80,9 +80,7 @@ const utils = {
 
 	showShot(fetchInfo) {
 		const { detail } = fetchInfo;
-		let { resize } = detail;
-		let { width } = detail;
-		let { height } = detail;
+		let { resize, width, height } = detail;
 		
 		if (/true/i.test(resize)) {
 			resize = "resizable,";
@@ -194,9 +192,7 @@ const utils = {
 	},
 
 	checkContactForm(evt) {
-        const { name } = evt;
-        const { email } = evt;
-        const { message } = evt;
+        const { name, email, message } = evt;
         const nameErr = name.parentNode.parentNode.querySelector("DIV.errMsg");
         const emailErr = email.parentNode.parentNode.querySelector("DIV.errMsg");
         const messageErr = message.parentNode.parentNode.querySelector("DIV.errMsg");

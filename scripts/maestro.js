@@ -24,8 +24,7 @@ class Maestro {
         this.requestedPageInfo = {};
         
         //Convert hyperlinks in page body
-        const { pathname } = window.location;
-        const { href } = window.location;
+        const { pathname, href } = window.location;
         const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/") + 1);
         const fileName = href.substring(href.lastIndexOf("/") + 1, href.length);
         this.currentDirectory = `${this.pageContent.dataset.dir}`;
