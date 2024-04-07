@@ -16,11 +16,12 @@ const pageFetcher = {
             cancelable: true,
         }
     ),
+    mainContainer: document.querySelector("#mainContainer"),
     postData(url = "", data = {}) {
         if (this.activeFetch === true) {
-            document.querySelector("#mainContainer").dispatchEvent(this.fetchStartEvent);
             return false;
         }
+        this.mainContainer.dispatchEvent(this.fetchStartEvent);
         this.activeFetch = true
         // Default options are marked with *
         return fetch(url, {
@@ -39,20 +40,20 @@ const pageFetcher = {
                     throw new Error(`HTTP error: ${response.status}`);
                 }
                 this.activeFetch = false;
-                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
+                this.mainContainer.dispatchEvent(this.fetchEndEvent);
                 return response.text();
             })
             .catch((error) => {
                 this.activeFetch = false;
-                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
+                this.mainContainer.dispatchEvent(this.fetchEndEvent);
                 console.log(`Could not fetch result: ${error}`);
             });   
     },
     getPage(url) {
         if (this.activeFetch === true) {
-            document.querySelector("#mainContainer").dispatchEvent(this.fetchStartEvent);
             return false;
         }
+        this.mainContainer.dispatchEvent(this.fetchStartEvent);
         this.activeFetch = true
         // Call `fetch()`, passing in the URL.
         return fetch(url)
@@ -70,12 +71,12 @@ const pageFetcher = {
             })
             .then((rawHtml) => {
                 this.activeFetch = false;
-                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
+                this.mainContainer.dispatchEvent(this.fetchEndEvent);
                 return this.parsePageObject(rawHtml);
             })
             .catch((error) => {
                 this.activeFetch = false;
-                document.querySelector("#mainContainer").dispatchEvent(this.fetchEndEvent);
+                this.mainContainer.dispatchEvent(this.fetchEndEvent);
                 console.log(`Could not fetch page: ${error}`);
             });        
     },

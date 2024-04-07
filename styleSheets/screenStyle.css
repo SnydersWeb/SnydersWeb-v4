@@ -85,6 +85,58 @@
 		overflow: hidden;
 	}
 
+	#loader {
+		position: absolute;
+		background-color: #333333;
+		opacity: .75;
+		top: 0px;
+		right: 0px; 
+		bottom: 0px;
+		left: 0px;
+		height: 100%;
+		width: 100%;
+		z-index: 5;
+		overflow: hidden;
+		animation-duration: .5s;
+		animation-timing-function: linear;
+  		animation-name: fadeIn;
+	}
+	@keyframes fadeIn {
+		0% {
+		  	opacity: 0;
+		}
+		100% {
+			opacity: .75;
+		}
+	}
+
+	.loaderText {
+		position: absolute;
+		font-size: 250%;
+		font-family: var(--fonts);
+		font-style: italic;
+		color: var(--color-link-hover);
+		border: 1px solid var(--color-link-hover);
+		z-index: 10;
+		padding: 10px;
+		background-color: #666666;
+		animation-duration: 1.50s;
+		animation-timing-function: linear;
+  		animation-name: crossClip;
+		animation-iteration-count: infinite;
+	}
+	@keyframes crossClip {
+		0% {
+		  	clip: rect(auto, 0px, auto, -80px);
+		}
+		50% {
+			clip: rect(auto, 200px, auto, 120px);
+	  	}	
+		100% {
+			clip: rect(auto, 400px, auto, 320px);
+		}
+	}
+
 	/* Begin Content Area Selctors */
 	#contentPanel {
 		position: absolute;

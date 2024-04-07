@@ -366,6 +366,12 @@ Also put in full tabbing and keyboard navigation support.
 
 Last thing - added lockout to prevent a request spam from breaking the site and put in hooks for loader display/removal.
 
+4/6
+Implemented loader.  Kept the animation in the CSS itself since it's really completely non-interactive and doesn't require any JavaScript manipulation.
+
+Also removed some bad/dead links from Colorado section.
+
+
 
 
 

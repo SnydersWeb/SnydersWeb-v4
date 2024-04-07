@@ -33,6 +33,7 @@ class Maestro {
         this.reqPageURL = "";
         this.startingDirectory = rawPath.replace(this.currentDirectory, "");
         this.initialized = false;
+        this.loader = null;
             
         this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
     }
@@ -45,6 +46,8 @@ class Maestro {
         //Content Panel events
         this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
         this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
+        this.mainContainer.addEventListener('fetchStart', () => { this.showLoader() });
+        this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         window.addEventListener("popstate", () => { this.hashChange() });
 
         const { hash } = window.location;
@@ -462,8 +465,26 @@ class Maestro {
     
     finalizeBoot(evt) {
         if (this.utils.getIsMobile() === false) {
-        //add our background effect hook back in.
-        this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
+            //add our background effect hook back in.
+            this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
+        }
+    }
+
+    //Loader stuffs
+    showLoader() {
+        console.log("showLoader");
+        const { innerWidth, innerHeight } = window;
+        const loaderText = this.utils.createEl("DIV", {"class": "loaderText"}, [ "Accessing..." ]);
+        this.loader = this.utils.createEl("DIV", {"id": "loader"}, [ loaderText ], this.mainContainer);
+        loaderText.style.top = `${innerHeight/2 - loaderText.offsetHeight/2}px`;
+        loaderText.style.left = `${innerWidth/2 - loaderText.offsetWidth/2}px`;
+    }
+
+    hideLoader() {
+        console.log("hideLoader");
+        if (this.loader !== null) {
+            this.utils.removeEl(this.loader);
+            this.loader = null;
         }
     }
 
@@ -496,6 +517,7 @@ class Maestro {
         }
 
     }
+
 }
 
 const pageMaestro = new Maestro();
