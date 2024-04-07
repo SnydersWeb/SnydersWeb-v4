@@ -472,16 +472,16 @@ class Maestro {
 
     //Loader stuffs
     showLoader() {
-        console.log("showLoader");
-        const { innerWidth, innerHeight } = window;
-        const loaderText = this.utils.createEl("DIV", {"class": "loaderText"}, [ "Accessing..." ]);
-        this.loader = this.utils.createEl("DIV", {"id": "loader"}, [ loaderText ], this.mainContainer);
-        loaderText.style.top = `${innerHeight/2 - loaderText.offsetHeight/2}px`;
-        loaderText.style.left = `${innerWidth/2 - loaderText.offsetWidth/2}px`;
+        if (this.loader === null) {
+            const { innerWidth, innerHeight } = window;
+            const loaderText = this.utils.createEl("DIV", {"class": "loaderText"}, [ "Accessing..." ]);
+            this.loader = this.utils.createEl("DIV", {"id": "loader"}, [ loaderText ], this.mainContainer);
+            loaderText.style.top = `${innerHeight/2 - loaderText.offsetHeight/2}px`;
+            loaderText.style.left = `${innerWidth/2 - loaderText.offsetWidth/2}px`;
+        }
     }
 
     hideLoader() {
-        console.log("hideLoader");
         if (this.loader !== null) {
             this.utils.removeEl(this.loader);
             this.loader = null;
