@@ -96,7 +96,7 @@ class Maestro {
         const fetchResult  = await this.pageFetcher.getPage(pageURL);
 
         if (fetchResult !== false) {
-            this.requestedPageInfo = await this.pageFetcher.getPage(pageURL);
+            this.requestedPageInfo = fetchResult;
             this.reqPageURL = pageURL;
 
             this.handlePageChanges(pageURL);        
@@ -425,18 +425,15 @@ class Maestro {
         const { parentNode:pn } = item; //get our parent
 
         if (/li/i.test(pn.tagName)) {
-            const { parentNode:menu } = pn;
-            menu.removeChild(pn); 
+            this.utils.removeEl(pn); 
         } else if (pn.classList.contains("selSubTopics")) {
-            pn.removeChild(item); 
+            this.utils.removeEl(item); 
         }
     }
 
     //Special effect events
     moveBackground(evt) {
-        const x = evt.clientX;
-        const y = evt.clientY;
-
+        const { clientX:x, clientY:y } = evt;
         const { height, width } = this.mainContainerInfo;
         const centerHeight = height / 2;
         const centerWidth = width / 2;

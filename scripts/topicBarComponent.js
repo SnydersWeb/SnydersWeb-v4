@@ -173,6 +173,9 @@ class TopicBar extends HTMLElement {
             
         ];
 
+        //hide our submenu stuff - minor fix to keep our items under from getting "bumped"
+        this.querySelector("MENU.headerSubNav").style.display = "none";
+
         //Mobile doesn't get all 3 steps
         if (locData.home.y < this.mobileYThreshold) {
             steps.splice(1, 1);
@@ -185,6 +188,9 @@ class TopicBar extends HTMLElement {
 
         animate.addEventListener("finish", () => { 
             this.removeAttribute("return");
+
+            //show our submenu stuff
+            this.querySelector("MENU.headerSubNav").style.display = "block";        
         });
     };
   }

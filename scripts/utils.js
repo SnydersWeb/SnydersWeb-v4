@@ -186,13 +186,17 @@ const utils = {
 			elItem = [elItem]
 		}
 		elItem.forEach((currEl) => {
-			retVal = currEl.parentNode.removeChild(currEl);
+			if (currEl !== undefined && currEl.parentNode !== undefined) {
+				retVal = currEl.parentNode.removeChild(currEl);
+			}
 		});
 		return retVal;
 	},
 
 	checkContactForm(evt) {
-        const { name, email, message } = evt;
+        const { name } = evt;
+        const { email } = evt;
+        const { message } = evt;
         const nameErr = name.parentNode.parentNode.querySelector("DIV.errMsg");
         const emailErr = email.parentNode.parentNode.querySelector("DIV.errMsg");
         const messageErr = message.parentNode.parentNode.querySelector("DIV.errMsg");
