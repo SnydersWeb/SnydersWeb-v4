@@ -182,8 +182,8 @@ class TopicBar extends HTMLElement {
 
         //Unhide our stuff so we can see the animation
         const subNavMenu = this.querySelector(`MENU.headerSubNav`);
-        subNavMenu.style.display = "flex";        
-
+        subNavMenu.style.display = "inline-block";
+        subNavMenu.width = `${promoted.width}px`;
 
         //Dismiss all submenu items since it's magically appearing at the top
         const oldSubTopicItems = this.querySelectorAll(`SUB-TOPIC`);
@@ -212,6 +212,8 @@ class TopicBar extends HTMLElement {
         
         this.style.transform = ``;
         this.style.width = ``;
+        const subNavMenu = this.querySelector(`MENU.headerSubNav`);
+        subNavMenu.width = ``;
 
         const steps = [
             {

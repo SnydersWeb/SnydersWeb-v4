@@ -15,9 +15,12 @@ topicBarTemplate.innerHTML = `
     }
     ::slotted(.barTextSlot) {
         float: left;
+        position: relative;
+        top: 0px;
     }
     ::slotted(.selSubTopics) {
         position: relative;
+        float: left;
         z-index: 20;
     }
     ::slotted(.subTopics) {

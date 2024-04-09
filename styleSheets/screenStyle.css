@@ -492,8 +492,8 @@
 	}
 
 	#selectedBar .subTopics MENU {
-		float: left;
-		display: flex;
+		clear: both;
+		display: inline-block;
 		padding: 0px 55px 0px 0px;
 		margin: 2px 0px 0px 0px;
 	}
