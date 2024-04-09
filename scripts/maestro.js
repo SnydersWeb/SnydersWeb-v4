@@ -336,12 +336,6 @@ class Maestro {
             //Get the "home garage" where the bar is to return to
             const returnBarHome = this.unselectedBarArea.querySelector(`LI[data-id="${domSelHeader.dataset.id}"]`);
             
-            //Dismiss all submenu items
-            const oldSubTopicItems = domSelHeader.querySelectorAll(`SUB-TOPIC`);
-            oldSubTopicItems.forEach(subTopic => {
-                subTopic.setAttribute("dismissed", "true");
-            });
-
             //Grab some coordinates of where our bars are and need to go
             const rawPromoteBarPosData = domSelHeader.getBoundingClientRect();
             const rawReturnBarHomePosData = returnBarHome.getBoundingClientRect();
@@ -417,18 +411,6 @@ class Maestro {
         //update our page info
         this.currentPageInfo = {...this.requestedPageInfo};
         this.requestedPageInfo = {};
-    }
-
-    //Event handlers for our Custom Elements
-    removeSubTopic(evtInfo) {
-        const { item } = evtInfo.detail;
-        const { parentNode:pn } = item; //get our parent
-
-        if (/li/i.test(pn.tagName)) {
-            this.utils.removeEl(pn); 
-        } else if (pn.classList.contains("selSubTopics")) {
-            this.utils.removeEl(item); 
-        }
     }
 
     //Special effect events

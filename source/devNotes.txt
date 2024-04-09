@@ -371,6 +371,10 @@ Implemented loader.  Kept the animation in the CSS itself since it's really comp
 
 Also removed some bad/dead links from Colorado section.
 
+4/9
+Reworked animations.  SubTopic removal from the DOM are now handled by the TopicBar since it's the only thing that has them.  The main DOM doesn't need to handle that.
+
+I think this solution will work a bit better.  Though the bars more a tad more asyncronously - which is fine.
 
 
 

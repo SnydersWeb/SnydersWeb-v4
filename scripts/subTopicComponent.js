@@ -22,6 +22,7 @@ class SubTopic extends HTMLElement {
         this.href = this.getAttribute("href");   
         this.isHeader = this.getAttribute("isHeader");
         this.selected = this.getAttribute("selected") || "false";
+        this.parentBar = this.closest('TOPIC-BAR');
                 
         if (/true/i.test(this.isHeader)) {
             this.bar.classList.toggle(`header`);
@@ -200,7 +201,7 @@ class SubTopic extends HTMLElement {
         }
         
         animate.addEventListener("finish", () => { 
-            document.querySelector("#selectedBar").dispatchEvent(this.removeEvent);
+            this.parentBar.dispatchEvent(this.removeEvent);
         });
     };
 

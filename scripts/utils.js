@@ -80,7 +80,9 @@ const utils = {
 
 	showShot(fetchInfo) {
 		const { detail } = fetchInfo;
-		let { resize, width, height } = detail;
+		let { resize } = detail;
+		let { width } = detail;
+		let { height } = detail;
 		
 		if (/true/i.test(resize)) {
 			resize = "resizable,";
