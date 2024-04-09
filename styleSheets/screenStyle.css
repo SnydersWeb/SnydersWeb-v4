@@ -493,6 +493,7 @@
 
 	#selectedBar .subTopics MENU {
 		float: left;
+		display: flex;
 		padding: 0px 55px 0px 0px;
 		margin: 2px 0px 0px 0px;
 	}
@@ -527,6 +528,9 @@
 		height: 45px;
 	}
 
+	#unSelectedBarArea MENU LI TOPIC-BAR MENU.headerSubNav {
+		display: none;
+	}
 	/* End UnSelected Topic Bar Selctors */
 
 

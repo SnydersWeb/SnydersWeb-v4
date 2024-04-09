@@ -180,6 +180,11 @@ class TopicBar extends HTMLElement {
         this.style.transform = `translateX(${promoted.x}px) translateY(${homeYPos}px)`;
         this.style.width = `${promoted.width}px`;
 
+        //Unhide our stuff so we can see the animation
+        const subNavMenu = this.querySelector(`MENU.headerSubNav`);
+        subNavMenu.style.display = "flex";        
+
+
         //Dismiss all submenu items since it's magically appearing at the top
         const oldSubTopicItems = this.querySelectorAll(`SUB-TOPIC`);
         this.subTopics = oldSubTopicItems.length;
@@ -187,7 +192,7 @@ class TopicBar extends HTMLElement {
             oldSubTopicItems.forEach(subTopic => {
                 subTopic.setAttribute("dismissed", "true");
             });
-        } else if (oldSubTopicItems.length === 0) { //No subitems, just return
+        } else if (oldSubTopicItems.length === 0) {
             this.return();
         }
     };
