@@ -175,9 +175,11 @@ class TopicBar extends HTMLElement {
     };
 
     cleanBar = () => {
-        const { home, promoted } = this.locData;        
-        const homeYPos = home.y < this.mobileYThreshold ? promoted.y : 0 - home.y;       
-        this.style.transform = `translateX(${promoted.x}px) translateY(${homeYPos}px)`;
+        const { home, promoted } = this.locData;
+
+        const homeYPos = promoted.y - home.y;       
+        const homeXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3;       
+        this.style.transform = `translateX(${homeXPos}px) translateY(${homeYPos}px)`;
         this.style.width = `${promoted.width}px`;
 
         //Unhide our stuff so we can see the animation
@@ -208,20 +210,22 @@ class TopicBar extends HTMLElement {
     return = (fast = false) => {
         const { home, promoted } = this.locData;        
         const homeWidth = home.width > 0 ? home.width : 180; //180 is the min-width
-        const homeYPos = home.y < this.mobileYThreshold ? promoted.y : 0 - home.y;
+        const homeYPos = home.y < this.mobileYThreshold ? promoted.y - home.y : 5 - home.y;       
+        const promotedXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3; 
+
         
         this.style.transform = ``;
         this.style.width = ``;
         const subNavMenu = this.querySelector(`MENU.headerSubNav`);
         subNavMenu.width = ``;
 
-        const steps = [
+        let steps = [
             {
-                transform: `translateX(${promoted.x}px) translateY(${homeYPos}px)`,
+                transform: `translateX(${promotedXPos}px) translateY(${homeYPos}px)`,
                 width: `${promoted.width}px`,
             },
             {
-                transform: `translateX(${promoted.x}px) translateY(${0}px)`,
+                transform: `translateX(${promotedXPos}px) translateY(${0}px)`,
                 width: `${promoted.width/2}px`,
             },
             {
@@ -233,7 +237,21 @@ class TopicBar extends HTMLElement {
 
         //Mobile doesn't get all 3 steps
         if (home.y < this.mobileYThreshold) {
-            steps.splice(1, 1);
+            steps = [
+                {
+                    transform: `translateX(${promotedXPos}px) translateY(${homeYPos}px)`,
+                    width: `${promoted.width}px`,
+                },
+                {
+                    transform: `translateX(${promotedXPos}px) translateY(${homeYPos}px)`,
+                    width: `${homeWidth}px`,
+                },
+                {
+                    transform: `translateX(0px) translateY(0px)`,
+                    width: `${homeWidth}px`,
+                },
+                
+            ];
         }
         
         const animate = this.animate(steps, {

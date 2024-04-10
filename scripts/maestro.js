@@ -337,7 +337,7 @@ class Maestro {
             const returnBarHome = this.unselectedBarArea.querySelector(`LI[data-id="${domSelHeader.dataset.id}"]`);
             
             //Grab some coordinates of where our bars are and need to go
-            const rawPromoteBarPosData = domSelHeader.getBoundingClientRect();
+            const rawPromoteBarPosData = this.pageHeader.getBoundingClientRect();
             const rawReturnBarHomePosData = returnBarHome.getBoundingClientRect();
             const topicBarMoveData = {
                 home: {
