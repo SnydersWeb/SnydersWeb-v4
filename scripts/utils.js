@@ -22,24 +22,28 @@ const utils = {
 			const { nofetch:rawNoFetch } = link.dataset;
 			const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
 			
-			if (/http/i.test(trueHref) === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false && noFetch === false) { //NOT Link to external
-				
-				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
-				
-				const linkClickEvent = new CustomEvent(
-					"fetchPage", 
-					{
-						detail: {
-							pageURL: linkHref
-						}, 
-						bubbles: false,
-						cancelable: true,
-					}
-				);
+			if (/http/i.test(trueHref) === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false) {
+				if (noFetch === false) { //NOT Link to external
+					const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+					
+					const linkClickEvent = new CustomEvent(
+						"fetchPage", 
+						{
+							detail: {
+								pageURL: linkHref
+							}, 
+							bubbles: false,
+							cancelable: true,
+						}
+					);
 
-				link.setAttribute('href', "JavaScript:void(0);");
-				link.dataset.link = linkHref;
-				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+					link.setAttribute('href', "JavaScript:void(0);");
+					link.dataset.link = linkHref;
+					link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+				} else {
+					const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+					link.setAttribute('href', linkHref);
+				}
 			} else if (imgRegEx.test(href)) { //special image link
 
 				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
