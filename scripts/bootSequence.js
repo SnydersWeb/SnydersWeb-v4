@@ -314,10 +314,6 @@ const bootSequence = {
         }
     },
     createSpark() {
-        if(this.utils === undefined) {
-            this.utils = utils;
-        }
-
         const { innerWidth, innerHeight } = window;
         const distDivisor = 6;
         const sparkMaxDistanceX = innerWidth/distDivisor;
@@ -377,6 +373,9 @@ const bootSequence = {
         });
     },
     sparky() {
+        if(this.utils === undefined) {
+            this.utils = utils;
+        }
         const minTime = 1000 * 30; //30sec 
         const maxTime = minTime * 5; //2.5 min
         const timeOut = this.utils.getRandomInt(minTime, maxTime, 0);
