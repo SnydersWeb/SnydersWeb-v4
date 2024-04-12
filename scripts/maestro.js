@@ -69,6 +69,7 @@ class Maestro {
             bootSequence.setHandles(itemHandles);
             bootSequence.start();      
         } else {
+            bootSequence.sparky();
             this.fetchPage({ detail: { pageURL: cleanHash } });
         }       
         
@@ -272,7 +273,7 @@ class Maestro {
             item.setAttribute("href", newLink);
             item.setAttribute("added", "true");
             item.classList.add("staged");
-            this.utils.createEl("LI", {"role": "tab"}, [ item ], domHeaderSubNavArea);
+            this.utils.createEl("li", {"role": "tab"}, [ item ], domHeaderSubNavArea);
         });
     }
 
@@ -361,14 +362,14 @@ class Maestro {
             //Create and append our new DOM stuff if needed.
             if (hasSelSubMenuArea === false) {
                 //remap domSelectedSubTopicArea to our new bar
-                domSelectedSubTopicArea = this.utils.createEl("DIV", { "class": "selSubTopics", "name": "selectedSubTopic" }, [], promoteBar);
+                domSelectedSubTopicArea = this.utils.createEl("div", { "class": "selSubTopics", "name": "selectedSubTopic" }, [], promoteBar);
             } else {
                 domSelectedSubTopicArea = promoteBar.querySelector("DIV.selSubTopics");
             }
             if (hasSubMenuArea === false) {
                 //remap domHeaderSubNavArea to our new bar
-                domHeaderSubNavArea = this.utils.createEl("MENU", { "class": "headerSubNav", "role": "tablist", "aria-label": "Sub Navigation" })
-                this.utils.createEl("DIV", { "class": "subTopics", "name": "subTopics" }, [ domHeaderSubNavArea ], promoteBar);
+                domHeaderSubNavArea = this.utils.createEl("menu", { "class": "headerSubNav", "role": "tablist", "aria-label": "Sub Navigation" })
+                this.utils.createEl("div", { "class": "subTopics", "name": "subTopics" }, [ domHeaderSubNavArea ], promoteBar);
             } else {
                 domHeaderSubNavArea = promoteBar.querySelector("MENU.headerSubNav");
             }
@@ -445,7 +446,9 @@ class Maestro {
         }
     }
     
-    finalizeBoot(evt) {
+    finalizeBoot() {
+        bootSequence.sparky();
+            
         if (this.utils.getIsMobile() === false) {
             //add our background effect hook back in.
             this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
@@ -456,8 +459,8 @@ class Maestro {
     showLoader() {
         if (this.loader === null) {
             const { innerWidth, innerHeight } = window;
-            const loaderText = this.utils.createEl("DIV", {"class": "loaderText"}, [ "Accessing..." ]);
-            this.loader = this.utils.createEl("DIV", {"id": "loader"}, [ loaderText ], this.mainContainer);
+            const loaderText = this.utils.createEl("div", {"class": "loaderText"}, [ "Accessing..." ]);
+            this.loader = this.utils.createEl("div", {"id": "loader"}, [ loaderText ], this.mainContainer);
             loaderText.style.top = `${innerHeight/2 - loaderText.offsetHeight/2}px`;
             loaderText.style.left = `${innerWidth/2 - loaderText.offsetWidth/2}px`;
         }

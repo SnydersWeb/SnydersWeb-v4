@@ -114,6 +114,49 @@ const utils = {
 		}
 		return el;
 	},
+	
+	setStyle(el, styles) {
+
+		el = this.get(el);	
+		if (!el) {
+			return;
+		}
+
+		const pairs = [];
+		styles = styles.split(";");
+		
+		styles.forEach(style => {
+			const nv = style.replace(":","{:}").split("{:}");
+
+			if (nv.length > 1) {
+				nv[0] = nv[0].replace(/\-(.)/g, function() {
+					return arguments[1].toUpperCase();
+				}).replace(/\s/g, "");
+
+				pairs.push({n:nv[0],v:nv[1].replace(/^\s*|\s*$/g, "")});	
+			}
+		});
+	
+		if (!Array.isArray(el)) {
+			el = [el]
+		}
+	
+		var attributeMap = {
+			"float": ["cssFloat","styleFloat"]
+		}
+	
+		el.forEach(item => {
+			pairs.forEach(pair => {
+				if (attributeMap[pair.n] !== undefined) {
+					attributeMap[pair.n].forEach(att => {
+						pairs.push({n:att,v:pair.v});
+					});
+				}
+				item.style[pair.n] = pair.v;
+			});			
+		});
+	
+	},
 
 	createEl(tag, attributes, children, parent, elementInstance) {
 
@@ -123,16 +166,16 @@ const utils = {
 		{
 			if (/className|class/i.test(item))
 			{
-				element.className = attributes[item];
+				element.classList.add(attributes[item]);
 			}
 			else if (/style/i.test(item))
 			{
-				this.setStyle(element,attributes[i]);
+				this.setStyle(element,attributes[item]);
 			}
 			else if (/Events/i.test(item))
 			{
 				if (typeof Events != "undefined") {
-					const elEvents = attributes[i];
+					const elEvents = attributes[item];
 					if (!Array.isArray(elEvents)) {
 						elEvents = [elEvents]
 					}

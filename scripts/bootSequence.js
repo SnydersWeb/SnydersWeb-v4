@@ -1,7 +1,8 @@
 const bootSequence = {
     setHandles(handles) {
         const { innerWidth, innerHeight } = window;
-        
+        this.utils = utils;
+
         //just copy them into here
         for (let item in handles)
 		{
@@ -9,7 +10,9 @@ const bootSequence = {
         }
         this.logoSVG = this.logo.querySelector("IMG");
         this.isMobile = false;
-
+        this.sparkDiv = null;
+        this.sparkTimeout = null;
+        
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
         let pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 1.5}px)`;
@@ -309,5 +312,75 @@ const bootSequence = {
         if(this.animations === 0) {
             this.mainContainer.dispatchEvent(this.finalizeBoot);
         }
-    }
+    },
+    createSpark() {
+        if(this.utils === undefined) {
+            this.utils = utils;
+        }
+
+        const { innerWidth, innerHeight } = window;
+        const distDivisor = 6;
+        const sparkMaxDistanceX = innerWidth/distDivisor;
+        const sparkMaxDistanceY = innerHeight/distDivisor;
+        const numSparkPoints = this.utils.getRandomInt(3, 8, 0);
+        const sparkPoints = [];
+        const sparkZIndex = this.utils.getRandomInt(0, 3, 0);
+        const sparkColors = ["transparent", "#00FFFF", "#FFFFFF"];
+
+        let pointX, pointY = 0;
+        for (let i = 0, j = numSparkPoints; i < j; i++) {
+            
+            if (i === 0) { //first point
+                pointX = this.utils.getRandomInt(0, innerWidth, 0);
+                pointY = this.utils.getRandomInt(0, innerHeight, 0);
+                sparkPoints.push(`${pointX},${pointY}`);
+            } else {
+                pointX = this.utils.getRandomInt(pointX - sparkMaxDistanceX, pointX + sparkMaxDistanceX, 0);
+                pointY = this.utils.getRandomInt(pointY - sparkMaxDistanceY, pointY + sparkMaxDistanceY, 0);
+                sparkPoints.push(`${pointX},${pointY}`);
+            }
+        }
+
+        //Can't use my createEl tools here since this is SVG, it also doesn't respond well to styles from stylesheets
+        const elNs = "http://www.w3.org/2000/svg";        
+        const svg = document.createElementNS(elNs, "svg");
+        svg.setAttribute("height", `${innerHeight}`);
+        svg.setAttribute("width", `${innerWidth}`);
+
+        const sparkPath = document.createElementNS(elNs, "path");
+        sparkPath.classList.add("sparkPath");
+        sparkPath.setAttribute("style", "stroke:transparent;stroke-width:2;fill:none");
+        sparkPath.setAttribute("d", `M ${sparkPoints.join(" ")}`);
+
+        svg.appendChild(sparkPath);
+        
+        this.sparkDiv = this.utils.createEl("div", { class: "sparkDiv", style: `z-index: ${sparkZIndex}`, 'aria-hidden': 'true' }, [ svg ], document.querySelector("BODY"));
+        
+        const sparkSteps = [];
+        for (let i = 0, j = this.utils.getRandomInt(0, 10, 0); i < j; i++) {
+            sparkSteps.push({
+                stroke: `${sparkColors[this.utils.getRandomInt(0, sparkColors.length - 1, 0)]}`,
+                strokeWidth: this.utils.getRandomInt(1, 3, 3)
+            });
+        }
+
+        const sparkPathAnimate = sparkPath.animate(sparkSteps, {
+            duration: 125,
+            easing: `linear`,
+        });
+
+        sparkPathAnimate.addEventListener("finish", () => { 
+            if (this.sparkDiv !== null) {
+                this.utils.removeEl(this.sparkDiv);
+            }
+            this.sparky();
+        });
+    },
+    sparky() {
+        const minTime = 1000 * 30; //30sec 
+        const maxTime = minTime * 5; //2.5 min
+        const timeOut = this.utils.getRandomInt(minTime, maxTime, 0);
+        this.sparkTimeout = setTimeout(() => { this.createSpark(); }, timeOut);
+    },
+
 };

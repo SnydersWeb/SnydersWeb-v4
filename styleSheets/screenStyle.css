@@ -42,17 +42,15 @@
 
 	/* End Tag Level Selctors */
 	#backgroundBackLayer,
-	#backgroundFrontLayer {
+	#backgroundFrontLayer,
+	.sparkDiv {
 		position: absolute;
-		/* height: 100%;
-		width: 100%; */
 		top: 0px;
 		right: 0px; 
 		bottom: 0px;
 		left: 0px;
 		height: 100%;
 		width: 100%;
-		z-index: 0;
 		overflow: hidden;
 	}
 
@@ -66,12 +64,13 @@
 
 	#backgroundFrontLayer {
 		background-image: url('../interfaceImages/backgroundFrontLayer.svg');
+		z-index: 1;
 	}
 
 	#backgroundBackLayer {
 		background-image: url('../interfaceImages/backgroundBackLayer.svg');
+		z-index: 3;
 	}
-
 
 	#mainContainer {
 		position: absolute;
@@ -81,7 +80,7 @@
 		left: 0px;
 		height: auto;
 		width: auto;
-		z-index: 1;
+		z-index: 5;
 		overflow: hidden;
 	}
 
@@ -95,7 +94,7 @@
 		left: 0px;
 		height: 100%;
 		width: 100%;
-		z-index: 5;
+		z-index: 10;
 		overflow: hidden;
 		animation-duration: .5s;
 		animation-timing-function: linear;
@@ -117,7 +116,7 @@
 		font-style: italic;
 		color: var(--color-link-hover);
 		border: 1px solid var(--color-link-hover);
-		z-index: 10;
+		z-index: 12;
 		padding: 10px;
 		background-color: #666666;
 		animation-duration: 1.50s;
@@ -140,7 +139,7 @@
 	/* Begin Content Area Selctors */
 	#contentPanel {
 		position: absolute;
-		z-index: 2;
+		z-index: 4;
 	}
 
 	/* this rule is skipped by IE - this is the PROPER way to draw that div! */
@@ -436,7 +435,7 @@
 		left: 5px;
 		height: 145px;
 		width: 169px;
-		z-index: 1
+		z-index: 4
 	}
 
 	#printBanner {
@@ -470,7 +469,7 @@
 	#selectedBar {
 		position: absolute;
 		width: auto;
-		z-index: 3;
+		z-index: 6;
 		margin: 0px;
 	}
 
