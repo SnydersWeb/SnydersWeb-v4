@@ -30,6 +30,14 @@ class TopicBar extends HTMLElement {
                 cancelable: true,
             }
         );
+        this.barMotionEnd = new CustomEvent(
+            "barMotionEnd", 
+            {
+                detail: {}, 
+                bubbles: false,
+                cancelable: true,
+            }
+        );
         this.mobileYThreshold = 90;
         this.subTopics = 0;
         this.locData = null;
@@ -171,6 +179,7 @@ class TopicBar extends HTMLElement {
         animate.addEventListener("finish", () => { 
             this.locData = null;
             this.removeAttribute("promote");
+            document.querySelector("#mainContainer").dispatchEvent(this.barMotionEnd);
         });
     };
 
@@ -263,6 +272,7 @@ class TopicBar extends HTMLElement {
             this.locData = null;
             this.removeAttribute("return");  
             this.removeEventListener('removeSubTopic', this.subTopicRemoved);
+            document.querySelector("#mainContainer").dispatchEvent(this.barMotionEnd);
         });
     };
 

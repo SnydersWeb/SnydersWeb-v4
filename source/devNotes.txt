@@ -376,6 +376,10 @@ Reworked animations.  SubTopic removal from the DOM are now handled by the Topic
 
 I think this solution will work a bit better.  Though the bars more a tad more asyncronously - which is fine.
 
+4/11
+Put a simple lockout mechanism in place to prevent the topicBars from being spam-clicked and eventually breaking the UI.
+
+
 
 
 

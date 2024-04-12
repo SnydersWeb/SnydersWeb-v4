@@ -33,6 +33,7 @@ class Maestro {
         this.startingDirectory = rawPath.replace(this.currentDirectory, "");
         this.initialized = false;
         this.loader = null;
+        this.barsInMotion = 0;
             
         this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
     }
@@ -47,6 +48,7 @@ class Maestro {
         this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
         this.mainContainer.addEventListener('fetchStart', () => { this.showLoader() });
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
+        this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
         window.addEventListener("popstate", () => { this.hashChange() });
 
         const { hash } = window.location;
@@ -89,7 +91,7 @@ class Maestro {
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
 
-        if (/undefined/i.test(pageURL) || pageURL === this.currPageURL) {
+        if (/undefined/i.test(pageURL) || pageURL === this.currPageURL || this.barsInMotion > 0) {
             return;
         }
         
@@ -382,6 +384,8 @@ class Maestro {
             returnBarHome.removeAttribute("aria-hidden");
             this.utils.appendEl(this.pageHeader, promoteBar);
 
+            //Set our animation lockout to prevent bar spam
+            this.barsInMotion = 2;
             //Set our attributes which will trigger bar animations
             promoteBar.setAttribute("promote", JSON.stringify(topicBarMoveData));
             returnBar.setAttribute("return", JSON.stringify(topicBarMoveData));
@@ -466,6 +470,9 @@ class Maestro {
         }
     }
 
+    barMotionEnd() {
+        this.barsInMotion -= 1;
+    }
     //Form stuffs
     checkContactForm(evt) {
         const postData = this.utils.checkContactForm(evt);
