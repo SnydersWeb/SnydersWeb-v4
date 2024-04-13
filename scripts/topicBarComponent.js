@@ -1,12 +1,12 @@
 // Create a class for the element
 class TopicBar extends HTMLElement {
-    static observedAttributes = ["isHeader", "promote", "return"]; 
+    static observedAttributes = ['isHeader', 'promote', 'return']; 
     
     constructor() {
         // Always call super first in constructor
         self = super();
         
-        this._shadow = this.attachShadow({mode: "open"});
+        this._shadow = this.attachShadow({mode: 'open'});
 
         //Template is called multiple times - but to ensure it's only changed 1x we set
         //a data attribute to make sure it's only fixed 1x since it's a GLOBAL
@@ -17,11 +17,11 @@ class TopicBar extends HTMLElement {
 
         const templateText = topicBarTemplate.content.cloneNode(true);
         this.shadowRoot.append(templateText);
-        this.bar = this.shadowRoot.querySelector(".topicBar");
+        this.bar = this.shadowRoot.querySelector('.topicBar');
         
-        this.href = this.getAttribute("href");
+        this.href = this.getAttribute('href');
         this.clickEvent = new CustomEvent(
-            "fetchPage", 
+            'fetchPage', 
             {
                 detail: {
                     pageURL: this.href
@@ -31,7 +31,7 @@ class TopicBar extends HTMLElement {
             }
         );
         this.barMotionEnd = new CustomEvent(
-            "barMotionEnd", 
+            'barMotionEnd', 
             {
                 detail: {}, 
                 bubbles: false,
@@ -46,25 +46,24 @@ class TopicBar extends HTMLElement {
     adjustTemplatesForPath() {
         //Fix our templates for current path
         //bit of a brutal hack here for image pathing
-        const pageContent = document.querySelector("#content");
+        const pageContent = document.querySelector('#content');
         const currentDirectory = pageContent.dataset.dir.slice(0,-1);
-        if (currentDirectory !== "") {
-            const pathPrepend = currentDirectory.split("/").map(() => {
-                return "../";
-            }).join("");
+        if (currentDirectory !== '') {
+            const pathPrepend = currentDirectory.split('/').map(() => {
+                return '../';
+            }).join('');
             
             //Fix our templates!
             let templateContent = topicBarTemplate.innerHTML;
-            templateContent = templateContent.replaceAll("interfaceImages", `${pathPrepend}interfaceImages`);
+            templateContent = templateContent.replaceAll('interfaceImages', `${pathPrepend}interfaceImages`);
             topicBarTemplate.innerHTML = templateContent;
         }
     }   
 
     connectedCallback() {
-        // console.log("Custom element added to page.");
         this.addEventListener('keydown', this.handleClick);
         this.addEventListener('removeSubTopic', this.removeSubTopic);
-        this.bar.classList.remove(`hover`);
+        this.bar.classList.remove('hover');
         this.bar.addEventListener('click', this.handleClick);
         this.bar.addEventListener('mouseover', this.mouseOver);
         this.bar.addEventListener('mouseout', this.mouseOut);
@@ -109,17 +108,17 @@ class TopicBar extends HTMLElement {
         }
         if (fireDispatch) {
             evt.cancelBubble = true; 
-            document.querySelector("#mainContainer").dispatchEvent(this.clickEvent);
+            document.querySelector('#mainContainer').dispatchEvent(this.clickEvent);
         }
     };
 
     mouseOver = (evt) => {
-        evt.currentTarget.classList.add(`hover`);
+        evt.currentTarget.classList.add('hover');
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
     mouseOut = (evt) => {
-        evt.currentTarget.classList.remove(`hover`);
+        evt.currentTarget.classList.remove('hover');
         evt.cancelBubble = true; //Block this from going to the title bar!
     };
 
@@ -130,12 +129,12 @@ class TopicBar extends HTMLElement {
         if (/li/i.test(pn.tagName)) {
             const { parentNode:menu } = pn;
             menu.removeChild(pn); 
-        } else if (pn.classList.contains("selSubTopics")) {
+        } else if (pn.classList.contains('selSubTopics')) {
             pn.removeChild(item); 
         }
 
         //Check to see if we're in a return state
-        const isReturn = this.getAttribute("return");
+        const isReturn = this.getAttribute('return');
         if (/null/.test(isReturn) === false) {
             this.subTopicRemoved();
         }
@@ -159,7 +158,7 @@ class TopicBar extends HTMLElement {
                 width: `${promoted.width/2}px`,
             },
             {
-                transform: `translateX(0px) translateY(0px)`,
+                transform: 'translateX(0px) translateY(0px)',
                 width: `${promoted.width}px`,
                 position: 'relative',
                 zIndex: 1,
@@ -173,13 +172,13 @@ class TopicBar extends HTMLElement {
         
         const animate = this.animate(steps, {
             duration: 750,
-            easing: "ease-in-out",
+            easing: 'ease-in-out',
         });
         
-        animate.addEventListener("finish", () => { 
+        animate.addEventListener('finish', () => { 
             this.locData = null;
-            this.removeAttribute("promote");
-            document.querySelector("#mainContainer").dispatchEvent(this.barMotionEnd);
+            this.removeAttribute('promote');
+            document.querySelector('#mainContainer').dispatchEvent(this.barMotionEnd);
         });
     };
 
@@ -192,16 +191,16 @@ class TopicBar extends HTMLElement {
         this.style.width = `${promoted.width}px`;
 
         //Unhide our stuff so we can see the animation
-        const subNavMenu = this.querySelector(`MENU.headerSubNav`);
-        subNavMenu.style.display = "inline-block";
+        const subNavMenu = this.querySelector('menu.headerSubNav');
+        subNavMenu.style.display = 'inline-block';
         subNavMenu.width = `${promoted.width}px`;
 
         //Dismiss all submenu items since it's magically appearing at the top
-        const oldSubTopicItems = this.querySelectorAll(`SUB-TOPIC`);
+        const oldSubTopicItems = this.querySelectorAll('sub-topic');
         this.subTopics = oldSubTopicItems.length;
         if (oldSubTopicItems.length > 0) {            
             oldSubTopicItems.forEach(subTopic => {
-                subTopic.setAttribute("dismissed", "true");
+                subTopic.setAttribute('dismissed', 'true');
             });
         } else if (oldSubTopicItems.length === 0) {
             this.return();
@@ -223,10 +222,10 @@ class TopicBar extends HTMLElement {
         const promotedXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3; 
 
         
-        this.style.transform = ``;
-        this.style.width = ``;
-        const subNavMenu = this.querySelector(`MENU.headerSubNav`);
-        subNavMenu.width = ``;
+        this.style.transform = '';
+        this.style.width = '';
+        const subNavMenu = this.querySelector('menu.headerSubNav');
+        subNavMenu.width = '';
 
         let steps = [
             {
@@ -238,7 +237,7 @@ class TopicBar extends HTMLElement {
                 width: `${promoted.width/2}px`,
             },
             {
-                transform: `translateX(0px) translateY(0px)`,
+                transform: 'translateX(0px) translateY(0px)',
                 width: `${homeWidth}px`,
             },
             
@@ -256,7 +255,7 @@ class TopicBar extends HTMLElement {
                     width: `${homeWidth}px`,
                 },
                 {
-                    transform: `translateX(0px) translateY(0px)`,
+                    transform: 'translateX(0px) translateY(0px)',
                     width: `${homeWidth}px`,
                 },
                 
@@ -265,18 +264,18 @@ class TopicBar extends HTMLElement {
         
         const animate = this.animate(steps, {
             duration: fast ? 500 : 750,
-            easing: "ease-in-out",
+            easing: 'ease-in-out',
         });
 
-        animate.addEventListener("finish", () => { 
+        animate.addEventListener('finish', () => { 
             this.locData = null;
-            this.removeAttribute("return");  
+            this.removeAttribute('return');  
             this.removeEventListener('removeSubTopic', this.subTopicRemoved);
-            document.querySelector("#mainContainer").dispatchEvent(this.barMotionEnd);
+            document.querySelector('#mainContainer').dispatchEvent(this.barMotionEnd);
         });
     };
 
 
   }
   
-  customElements.define("topic-bar", TopicBar);
+  customElements.define('topic-bar', TopicBar);

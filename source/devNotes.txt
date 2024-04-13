@@ -386,6 +386,15 @@ OK.. got sparky working.. interesting stuff.   So document.createElement doesn't
 
 Either way, it's a fun little real-time SVG generation that runs at random times.
 
+Later work - further tweaked sparky a bit on timing.
+
+I also added some haptic feedback to the click on mobile.
+
+Playing with getting the background moving on mobile.  May need to post to an SSL environ for that to work.. which makes testing super annoying!
+
+Hmm.. it seems that the devicemotion thing is a no-go.  Either way my OCD got the better of me and I made all my quote usage in my scripts consistent.  `` is ONLY used when it's in tandem w/the ${} thing.
+
+
 
 
 

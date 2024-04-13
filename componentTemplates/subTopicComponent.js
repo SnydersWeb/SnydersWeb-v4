@@ -1,6 +1,6 @@
 const subTopicTemplate = document.createElement('template');
-subTopicTemplate.setAttribute("id", "subTopicTemplate");
-subTopicTemplate.setAttribute("data-adjusted", "false");
+subTopicTemplate.setAttribute('id', 'subTopicTemplate');
+subTopicTemplate.setAttribute('data-adjusted', 'false');
 subTopicTemplate.innerHTML = `
     <style>
     :host {

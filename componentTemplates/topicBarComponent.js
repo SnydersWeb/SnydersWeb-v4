@@ -1,6 +1,6 @@
 const topicBarTemplate = document.createElement('template');
-topicBarTemplate.setAttribute("id", "topicBarTemplate");
-topicBarTemplate.setAttribute("data-adjusted", "false");
+topicBarTemplate.setAttribute('id', 'topicBarTemplate');
+topicBarTemplate.setAttribute('data-adjusted', 'false');
 topicBarTemplate.innerHTML = `
     <style>
     :host {

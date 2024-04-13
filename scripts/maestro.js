@@ -3,21 +3,21 @@ class Maestro {
         //Grab our utils
         this.pageFetcher = pageFetcher;
         this.utils = utils;
+        this.isMobile = this.utils.getIsMobile();
 
         //Not doing anything with the background stuff for now
-        this.backgroundBackLayer = document.querySelector("#backgroundBackLayer");
-        this.backgroundFrontLayer = document.querySelector("#backgroundFrontLayer");
+        this.backgroundBackLayer = document.querySelector('#backgroundBackLayer');
+        this.backgroundFrontLayer = document.querySelector('#backgroundFrontLayer');
 
         //Set up bindings to important areas of the page
-        this.mainContainer = document.querySelector("#mainContainer");
-        this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
-        this.logo = this.mainContainer.querySelector("#logo");
-        this.pageHeader = this.mainContainer.querySelector("#selectedBar");
-        this.unselectedBarArea = this.mainContainer.querySelector("#unSelectedBarArea");
-        this.contentPanel = this.mainContainer.querySelector("#contentPanel");
-        this.pageContent = this.mainContainer.querySelector("#content");
-        const printBanner = document.querySelector("#printBanner");
-        this.printTitle = printBanner.querySelector("DIV.printTitle");
+        this.mainContainer = document.querySelector('#mainContainer');
+        this.logo = this.mainContainer.querySelector('#logo');
+        this.pageHeader = this.mainContainer.querySelector('#selectedBar');
+        this.unselectedBarArea = this.mainContainer.querySelector('#unSelectedBarArea');
+        this.contentPanel = this.mainContainer.querySelector('#contentPanel');
+        this.pageContent = this.mainContainer.querySelector('#content');
+        const printBanner = document.querySelector('#printBanner');
+        this.printTitle = printBanner.querySelector('div.printTitle');
         
         //Get information about where we're starting
         this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
@@ -25,12 +25,12 @@ class Maestro {
         
         //Convert hyperlinks in page body
         const { pathname, href } = window.location;
-        const rawPath = pathname.replace(/\\/gi,"/").substring(0, pathname.replace(/\\/gi,"/").lastIndexOf("/") + 1);
-        const fileName = href.substring(href.lastIndexOf("/") + 1, href.length);
+        const rawPath = pathname.replace(/\\/gi,'/').substring(0, pathname.replace(/\\/gi,'/').lastIndexOf('/') + 1);
+        const fileName = href.substring(href.lastIndexOf('/') + 1, href.length);
         this.currentDirectory = `${this.pageContent.dataset.dir}`;
         this.currPageURL = `${this.currentDirectory}${fileName}`;
-        this.reqPageURL = "";
-        this.startingDirectory = rawPath.replace(this.currentDirectory, "");
+        this.reqPageURL = '';
+        this.startingDirectory = rawPath.replace(this.currentDirectory, '');
         this.initialized = false;
         this.loader = null;
         this.barsInMotion = 0;
@@ -49,11 +49,11 @@ class Maestro {
         this.mainContainer.addEventListener('fetchStart', () => { this.showLoader() });
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
-        window.addEventListener("popstate", () => { this.hashChange() });
+        window.addEventListener('popstate', () => { this.hashChange() });
 
         const { hash } = window.location;
-        let cleanHash = hash.replace("#", "");
-        if (this.initialized === false && cleanHash === "") { // no hash means a fresh hit
+        let cleanHash = hash.replace('#', '');
+        if (this.initialized === false && cleanHash === '') { // no hash means a fresh hit
             this.mainContainer.addEventListener('finalizeBoot', (evt) => { this.finalizeBoot(evt) });   
             const itemHandles = {
                 backgroundBackLayer: this.backgroundBackLayer,
@@ -65,20 +65,19 @@ class Maestro {
                 contentPanel: this.contentPanel,
             };
 
-            //Adding a temporary "cover" to hide everything
-            bootSequence.setHandles(itemHandles);
-            bootSequence.start();      
+            specialEffects.setHandles(itemHandles);
+            specialEffects.start();      
         } else {
-            bootSequence.sparky();
+            specialEffects.sparky();
             this.fetchPage({ detail: { pageURL: cleanHash } });
-        }       
+        }      
         
-        if (this.utils.getIsMobile() === false) {
+        if (this.isMobile === false) {
             //oversize our background elements for the scrolly thing
-            this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
-            this.backgroundBackLayer.classList.add("overSize");
-            this.backgroundFrontLayer.classList.add("overSize");
-        }
+            this.backgroundBackLayer.classList.add('overSize');
+            this.backgroundFrontLayer.classList.add('overSize');
+            this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt) });
+        } 
     }
 
     getStartingDir() {
@@ -91,6 +90,10 @@ class Maestro {
 
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
+
+        if (this.isMobile) {
+            navigator.vibrate(10); //Haptic feedback
+        }
 
         if (/undefined/i.test(pageURL) || pageURL === this.currPageURL || this.barsInMotion > 0) {
             return;
@@ -222,9 +225,9 @@ class Maestro {
             },
         ], {
             duration: 250,
-            easing: "ease-out",
+            easing: 'ease-out',
         });
-        fadeOut.addEventListener("finish", () => { 
+        fadeOut.addEventListener('finish', () => { 
             this.pageContent.innerHTML = content.innerHTML;
             this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
             this.utils.adjustImages(this.pageContent, this.startingDirectory, this.currentDirectory);
@@ -238,10 +241,10 @@ class Maestro {
                 },
             ], {
                 duration: 250,
-                easing: "ease-in",
+                easing: 'ease-in',
             });
 
-            fadeIn.addEventListener("finish", () => { 
+            fadeIn.addEventListener('finish', () => { 
                 this.finishPageChanges();
             });
             
@@ -255,12 +258,12 @@ class Maestro {
             const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
             if (newBar !== null && newBar.length > 0) {
                 let bar = newBar[0];
-                bar.setAttribute("href", this.utils.linkAdjustor(`${addItem.href}`, this.startingDirectory, currentDirectory));
+                bar.setAttribute('href', this.utils.linkAdjustor(`${addItem.href}`, this.startingDirectory, currentDirectory));
                 return bar;
             }
         });
         addDOMSelSubItems.forEach(item => {
-            item.setAttribute("added", "true");
+            item.setAttribute('added', 'true');
             this.utils.appendEl(domSelectedSubTopicArea, item);
         });
     }
@@ -269,11 +272,11 @@ class Maestro {
         //Add new submenu items
         const { subTopicBars } = reqHeaderInfo;
         subTopicBars.forEach(item => {
-            const newLink = this.utils.linkAdjustor(`${item.getAttribute("href")}`, this.startingDirectory, currentDirectory);
-            item.setAttribute("href", newLink);
-            item.setAttribute("added", "true");
-            item.classList.add("staged");
-            this.utils.createEl("li", {"role": "tab"}, [ item ], domHeaderSubNavArea);
+            const newLink = this.utils.linkAdjustor(`${item.getAttribute('href')}`, this.startingDirectory, currentDirectory);
+            item.setAttribute('href', newLink);
+            item.setAttribute('added', 'true');
+            item.classList.add('staged');
+            this.utils.createEl('li', {'role': 'tab'}, [ item ], domHeaderSubNavArea);
         });
     }
 
@@ -292,11 +295,11 @@ class Maestro {
         }
 
         //make some DOM pointers
-        const domSelHeader = this.pageHeader.querySelector("TOPIC-BAR");
-        let domSelectedSubTopicArea = domSelHeader.querySelector("DIV.selSubTopics");
-        const domSelectedSubTopics = domSelectedSubTopicArea.querySelectorAll("SUB-TOPIC");
-        let domHeaderSubNavArea = domSelHeader.querySelector("MENU.headerSubNav");
-        const domSubTopics = domHeaderSubNavArea.querySelectorAll("SUB-TOPIC");
+        const domSelHeader = this.pageHeader.querySelector('topic-bar');
+        let domSelectedSubTopicArea = domSelHeader.querySelector('div.selSubTopics');
+        const domSelectedSubTopics = domSelectedSubTopicArea.querySelectorAll('sub-topic');
+        let domHeaderSubNavArea = domSelHeader.querySelector('menu.headerSubNav');
+        const domSubTopics = domHeaderSubNavArea.querySelectorAll('sub-topic');
 
         if (barChanges.barChange === null) {
             //Start with our smallest change - subTopic item only changes
@@ -305,7 +308,7 @@ class Maestro {
                     //grab our subTopic DOM item.
                     const subTopicDOM = [...domSubTopics].filter(top => top.dataset.id === reqSubTopic.id);
                     if (subTopicDOM !== null && subTopicDOM.length > 0) {
-                        subTopicDOM[0].setAttribute("selected", reqSubTopic.selected);
+                        subTopicDOM[0].setAttribute('selected', reqSubTopic.selected);
                     }
                 });
             } else { //We changed our selected sub topic (going up a menu)
@@ -319,11 +322,11 @@ class Maestro {
 
                 //Dismiss the remove items
                 removeDOMSelSubItems.forEach(item => {
-                    item.setAttribute("dismissed", "true");
+                    item.setAttribute('dismissed', 'true');
                 });                
                 //Remove all submenu items
                 domSubTopics.forEach(item => {
-                    item.setAttribute("dismissed", "true");
+                    item.setAttribute('dismissed', 'true');
                 });
                 
                 //Next up.. populate our new sub items.
@@ -334,10 +337,10 @@ class Maestro {
             }
         } else { //Topic Bar Change!
             //Get our bar to be promoted
-            const promoteBar = this.unselectedBarArea.querySelector(`TOPIC-BAR[data-id="${barChanges.barChange}"]`);
+            const promoteBar = this.unselectedBarArea.querySelector(`topic-bar[data-id='${barChanges.barChange}']`);
 
             //Get the "home garage" where the bar is to return to
-            const returnBarHome = this.unselectedBarArea.querySelector(`LI[data-id="${domSelHeader.dataset.id}"]`);
+            const returnBarHome = this.unselectedBarArea.querySelector(`li[data-id='${domSelHeader.dataset.id}']`);
             
             //Grab some coordinates of where our bars are and need to go
             const rawPromoteBarPosData = this.pageHeader.getBoundingClientRect();
@@ -356,40 +359,40 @@ class Maestro {
             };
             
             //Quick Check to see if our promote bar has all the slot stuff
-            const hasSelSubMenuArea = promoteBar !== null ? (promoteBar.querySelector("DIV.selSubTopics") !== null) : false;
-            const hasSubMenuArea = promoteBar !== null ? (promoteBar.querySelector("DIV.subTopics") !== null) : false;
+            const hasSelSubMenuArea = promoteBar !== null ? (promoteBar.querySelector('div.selSubTopics') !== null) : false;
+            const hasSubMenuArea = promoteBar !== null ? (promoteBar.querySelector('div.subTopics') !== null) : false;
             
             //Create and append our new DOM stuff if needed.
             if (hasSelSubMenuArea === false) {
                 //remap domSelectedSubTopicArea to our new bar
-                domSelectedSubTopicArea = this.utils.createEl("div", { "class": "selSubTopics", "name": "selectedSubTopic" }, [], promoteBar);
+                domSelectedSubTopicArea = this.utils.createEl('div', { 'class': 'selSubTopics', 'name': 'selectedSubTopic' }, [], promoteBar);
             } else {
-                domSelectedSubTopicArea = promoteBar.querySelector("DIV.selSubTopics");
+                domSelectedSubTopicArea = promoteBar.querySelector('DIV.selSubTopics');
             }
             if (hasSubMenuArea === false) {
                 //remap domHeaderSubNavArea to our new bar
-                domHeaderSubNavArea = this.utils.createEl("menu", { "class": "headerSubNav", "role": "tablist", "aria-label": "Sub Navigation" })
-                this.utils.createEl("div", { "class": "subTopics", "name": "subTopics" }, [ domHeaderSubNavArea ], promoteBar);
+                domHeaderSubNavArea = this.utils.createEl('menu', { 'class': 'headerSubNav', 'role': 'tablist', 'aria-label': 'Sub Navigation' })
+                this.utils.createEl('div', { 'class': 'subTopics', 'name': 'subTopics' }, [ domHeaderSubNavArea ], promoteBar);
             } else {
-                domHeaderSubNavArea = promoteBar.querySelector("MENU.headerSubNav");
+                domHeaderSubNavArea = promoteBar.querySelector('menu.headerSubNav');
             }
 
             //Will also need code to remove the slots I think from domSelHeader - probably on animation finish though.
             const returnBar = this.utils.removeEl(domSelHeader); //Remove from Header element
             const { parentNode:barParent } = promoteBar;
             if (barParent !== null) {
-                promoteBar.parentNode.setAttribute("aria-hidden", "true");
+                promoteBar.parentNode.setAttribute('aria-hidden', 'true');
             }
             this.utils.removeEl(promoteBar); //Remove from LI "garage"
             this.utils.appendEl(returnBarHome, returnBar);
-            returnBarHome.removeAttribute("aria-hidden");
+            returnBarHome.removeAttribute('aria-hidden');
             this.utils.appendEl(this.pageHeader, promoteBar);
 
             //Set our animation lockout to prevent bar spam
             this.barsInMotion = 2;
             //Set our attributes which will trigger bar animations
-            promoteBar.setAttribute("promote", JSON.stringify(topicBarMoveData));
-            returnBar.setAttribute("return", JSON.stringify(topicBarMoveData));
+            promoteBar.setAttribute('promote', JSON.stringify(topicBarMoveData));
+            returnBar.setAttribute('return', JSON.stringify(topicBarMoveData));
 
             //Add new selected SubTopic items
             this.addSelectedSubTopicItems(barChanges, reqHeaderInfo, domSelectedSubTopicArea, currentDirectory);
@@ -404,8 +407,8 @@ class Maestro {
         this.pageContent.scrollTop = 0;
 
         //Update our print thing
-        const baseTitle = `${this.pageHeader.querySelector("DIV.barTextSlot").innerText}`;
-        const subTopicTitle = [...domSelectedSubTopicArea.querySelectorAll("SUB-TOPIC")].map(topic => { return ` - ${topic.innerText}` });
+        const baseTitle = `${this.pageHeader.querySelector('div.barTextSlot').innerText}`;
+        const subTopicTitle = [...domSelectedSubTopicArea.querySelectorAll('sub-topic')].map(topic => { return ` - ${topic.innerText}` });
         this.printTitle.innerHTML = `${baseTitle}${subTopicTitle}`;
 
         window.location.hash = pageURL;
@@ -416,30 +419,12 @@ class Maestro {
         //update our page info
         this.currentPageInfo = {...this.requestedPageInfo};
         this.requestedPageInfo = {};
-    }
-
-    //Special effect events
-    moveBackground(evt) {
-        const { clientX:x, clientY:y } = evt;
-        const { height, width } = this.mainContainerInfo;
-        const centerHeight = height / 2;
-        const centerWidth = width / 2;
-        
-        const backLayer = document.querySelector("#backgroundBackLayer");
-        const frontLayer = document.querySelector("#backgroundFrontLayer");
-
-        const backMoveDampener = 50;
-        const frontMoveDampener = 100;
-
-        //shift our backgrounds depending on where our mouse is.
-        backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
-        frontLayer.style.transform = `translate(${(centerWidth - x)/frontMoveDampener}px, ${(centerHeight - y)/frontMoveDampener}px)`;
-    }
+    }   
 
     //Hash changes for forward/backward button support.
     hashChange() {
         const { hash } = window.location;
-        let cleanHash = hash.replace("#", "");
+        let cleanHash = hash.replace('#', '');
             
         if (cleanHash !== this.reqPageURL) { //Prevents a "bounce"
             this.fetchPage({ detail: { pageURL: cleanHash } });
@@ -447,20 +432,15 @@ class Maestro {
     }
     
     finalizeBoot() {
-        bootSequence.sparky();
-            
-        if (this.utils.getIsMobile() === false) {
-            //add our background effect hook back in.
-            this.mainContainer.addEventListener('mousemove', (evt) => { this.moveBackground(evt) })
-        }
+        specialEffects.sparky();          
     }
 
     //Loader stuffs
     showLoader() {
         if (this.loader === null) {
             const { innerWidth, innerHeight } = window;
-            const loaderText = this.utils.createEl("div", {"class": "loaderText"}, [ "Accessing..." ]);
-            this.loader = this.utils.createEl("div", {"id": "loader"}, [ loaderText ], this.mainContainer);
+            const loaderText = this.utils.createEl('div', {'class': 'loaderText'}, [ 'Accessing...' ]);
+            this.loader = this.utils.createEl('div', {'id': 'loader'}, [ loaderText ], this.mainContainer);
             loaderText.style.top = `${innerHeight/2 - loaderText.offsetHeight/2}px`;
             loaderText.style.left = `${innerWidth/2 - loaderText.offsetWidth/2}px`;
         }
@@ -492,16 +472,16 @@ class Maestro {
         if (/file/.test(protocol)) {
             postURL = this.utils.linkAdjustor('dummyParser.html');
         }
-        const rawResult = await this.pageFetcher.postData(postURL, postData) || "";
-        const result = JSON.parse(rawResult.replaceAll(`'`, `"`));
-        const resultDisplay = this.contentPanel.querySelector("DIV.contactResult");
-        const submitButton = this.contentPanel.querySelector("INPUT[type='submit']");
+        const rawResult = await this.pageFetcher.postData(postURL, postData) || '';
+        const result = JSON.parse(rawResult.replaceAll("'", '"'));
+        const resultDisplay = this.contentPanel.querySelector('div.contactResult');
+        const submitButton = this.contentPanel.querySelector('INPUT[type="submit"]');
         
         resultDisplay.innerHTML = `${result.status}`
-        resultDisplay.classList.remove("hide");
+        resultDisplay.classList.remove('hide');
 
         if (Number(result.result) === 1) {
-            submitButton.setAttribute("disabled", "disabled");
+            submitButton.setAttribute('disabled', 'disabled');
         }
 
     }
