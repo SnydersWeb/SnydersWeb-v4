@@ -126,11 +126,13 @@ class TopicBar extends HTMLElement {
         const { item } = evt.detail;
         const { parentNode:pn } = item; //get our parent
 
-        if (/li/i.test(pn.tagName)) {
-            const { parentNode:menu } = pn;
-            menu.removeChild(pn); 
-        } else if (pn.classList.contains('selSubTopics')) {
-            pn.removeChild(item); 
+        if (pn !== null) {
+            if (/li/i.test(pn.tagName)) {
+                const { parentNode:menu } = pn;
+                menu.removeChild(pn); 
+            } else if (pn.classList.contains('selSubTopics')) {
+                pn.removeChild(item); 
+            }
         }
 
         //Check to see if we're in a return state

@@ -290,7 +290,7 @@ class Maestro {
         //Find out what changed on our UI
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
         
-        if (!barChanges.pageChanged) { //No page change - do nothing.
+        if (barChanges.pageChanged === false || currHeaderInfo === undefined || reqHeaderInfo === undefined) { //No page change - do nothing.
             return; 
         }
 
@@ -417,8 +417,10 @@ class Maestro {
 
     finishPageChanges() {
         //update our page info
-        this.currentPageInfo = {...this.requestedPageInfo};
-        this.requestedPageInfo = {};
+        if (this.requestedPageInfo !== undefined && this.requestedPageInfo.headerInfo !== undefined) {
+            this.currentPageInfo = {...this.requestedPageInfo};
+            this.requestedPageInfo = {};
+        }
     }   
 
     //Hash changes for forward/backward button support.
