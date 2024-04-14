@@ -64,12 +64,12 @@
 
 	#backgroundFrontLayer {
 		background-image: url('../interfaceImages/backgroundFrontLayer.svg');
-		z-index: 1;
+		z-index: 3;
 	}
 
 	#backgroundBackLayer {
 		background-image: url('../interfaceImages/backgroundBackLayer.svg');
-		z-index: 3;
+		z-index: 1;
 	}
 
 	#mainContainer {
