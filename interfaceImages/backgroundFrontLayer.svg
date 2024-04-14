@@ -90,39 +90,39 @@
         </filter>    
         <pattern id="backgroundFrontLayerPat" x="0" y="0" width="118" height="118" patternUnits="userSpaceOnUse">
             <g id="bgFt">
-                <path class="lineProps bgFtGreyLine" d="M 97.639312,68.737705 V 62.432996 H 15.621576 V 0" />
+                <path class="lineProps bgFtGreyLine" d="M 97.639312,68.737705 V 62.432996 H 15.621576" />
                 <path class="lineProps bgFtGreyLine" d="M 0.00181623,19.748999 H 24.629437 v 4.230305" />
                 <path class="lineProps bgFtGreyLine" d="m 47.642079,0 v 2.4689998 h 17.04074 V 28.639998 H 49.089061 v 28.73 H 0.00181623" />
                 <path class="lineProps bgFtGreyLine" d="m 31.502331,23.652589 v -6.68259 H 79.056599 V 49.444998 H 111.2511 V 0" />
                 <path class="lineProps bgFtGreyLine" d="M 111.5031,117.99999 V 91.666994 h -10.84384" />
                 <path class="lineProps bgFtGreyLine" d="m 118,19.622999 h -11.75882 v 63.482995 h -6.05209" />
                 <path class="lineProps bgFtGreyLine" d="m 118,84.697995 h -2.55396 V 57.369998 H 118" />
-                <path class="lineProps bgFtGreyLine" d="M 0.00181623,84.697995 47.642079,84.798001 V 118" />
+                <path class="lineProps bgFtGreyLine" d="M 0.00181623,84.697995 47.642079,84.798001 V 118 H 0" />
                 <path class="lineProps bgFtGreyLine" d="M 118,116.78199 H 87.547467 V 97.490399" />
                 <path class="lineProps bgFtGreyLine" d="m 15.621576,117.99999 v -1.218 l -15.61975977,0.12609" />
                 <path class="lineProps bgFtGreenLine1" d="M 24.368441,0 V 15.315999 H 8.8776795 V 109.70599 H 87.724464 v 8.294" />
                 <path class="lineProps bgFtPurpleLine3" d="M 73.970676,0 V 8.1859993 H 118" />
-                <path class="lineProps bgFtGreenLine1" d="M 87.724464,69.52978 V 0" />
+                <path class="lineProps bgFtGreenLine3" d="M 87.724464,69.52978 V 0 H 88.724464" />
                 <path class="lineProps bgFtGreenLine3" d="M 71.74876,70.461997 H 20.599499 V 52.752643" />
-                <path class="lineProps bgFtYellowLine1" d="M 118,31.856998 H 0.00181623" />
+                <path class="lineProps bgFtYellowLine1" d="M 118,31.856998 H 0.00181623 V 30.856998" />
                 <path class="lineProps bgFtPurpleLine3" d="M 0.00181623,8.1859993 H 53.120828 L 66.882723,23.963998 h 34.548527 v 12.048 H 118" />
-                <path class="lineProps bgFtYellowLine2" d="M 0.00181623,103.90899 H 118" />
-                <path class="lineProps bgFtYellowLine2" d="M 55.082966,0 V 117.99999" />
+                <path class="lineProps bgFtYellowLine2" d="M 0.00181623,103.90899 H 118 V 102.90899" />
+                <path class="lineProps bgFtYellowLine2" d="M 55.082966,0 V 117.99999 H 54.082966" />
                 <path class="lineProps bgFtGreenLine1" d="M 24.368441,117.99999 V 85.495993 H 34.498286 V 54.169229" />
-                <path class="lineProps bgFtRedLine1" d="M 0.00181623,43.622999 H 118" />
-                <path class="lineProps bgFtPurpleLine1" d="M 3.5057623,117.99999 V 0" />
+                <path class="lineProps bgFtRedLine1" d="M 0.00181623,43.622999 H 118 V 42.622999" />
+                <path class="lineProps bgFtPurpleLine1" d="M 3.5057623,117.99999 V 0 H 1.5057623" />
                 <path class="lineProps bgFtPurpleLine2" d="M 118,89.129993 0.00181623,89.130447" />
                 <path class="lineProps bgFtPurpleLine1" d="m 118,80.149995 h -7.45589 V 59.655996 H 80.048581 v 10.157241" />
                 <path class="lineProps bgFtPurpleLine3" d="M 73.895676,0 V 8.1859993 H 118" />
-                <path class="lineProps bgFtRedLine1" d="M 83.039535,0 V 69.235404" />
-                <path class="lineProps bgFtPurpleLine1" d="M 71.529831,80.149995 H 0.00181623" />
-                <path class="lineProps bgFtPurpleLine3" d="M 73.895676,97.941685 V 117.99999" />
+                <path class="lineProps bgFtRedLine1" d="M 83.039535,0 V 69.235404 H 82.039535" />
+                <path class="lineProps bgFtPurpleLine1" d="M 71.529831,80.149995 H 0.00181623 V 79.149995" />
+                <path class="lineProps bgFtPurpleLine3" d="M 73.895676,97.941685 V 117.99999 H 72.895676" />
                 <path class="lineProps bgFtPurpleLine3" d="m 43.033704,49.248995 h 32.19095 v 20.23376" />
-                <path class="lineProps bgFtPurpleLine3" d="M 0.00181623,36.011998 H 15.210124" />
+                <path class="lineProps bgFtPurpleLine3" d="M 0.00181623,36.011998 H 15.210124 V 38.011998" />
                 <path class="lineProps bgFtYellowLine3" d="m 42.886997,37.060998 h 21.472829 v 47.472996 h 6.812248" />
-                <path class="lineProps bgFtRedLine2" d="M 40.55619,0 V 23.599193" />
+                <path class="lineProps bgFtRedLine2" d="M 40.55619,0 V 23.599193 H 42.55619" />
                 <path class="lineProps bgFtRedLine2" d="M 40.55619,117.99999 V 75.295993 H 0.00181623" />
-                <path class="lineProps bgFtRedLine2" d="M 118,75.295993 H 100.54344" />
+                <path class="lineProps bgFtRedLine2" d="M 118,75.295993 H 100.54344 V 77.295993" />
                 <path class="lineProps bgFtRedLine1" d="M 118,113.08899 H 98.548298 V 97.604264" />
                 <path class="lineProps bgFtRedLine1" d="M 0.00181623,113.08899 H 83.039539 v 4.911" />
                 <rect class="bgFtGreyChip" width="31.403517" height="31.403999" x="70.119019" y="67.461647" />
