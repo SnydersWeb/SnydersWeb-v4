@@ -399,6 +399,12 @@ Spent some time hardening it a bit more - now it is way harder to break the UI w
 
 Also fixed minor error with the backgroudn z-indexing.
 
+4/15
+Tweaked backgrounds a bit more to make sure all lines are showing (some where not)
+
+Also worked style sheets for horizontal mobile.
+
+
 
 
 

@@ -7,8 +7,8 @@
             --dk-green-line-color: #49553e;
             --blue-line-color: #273768;
             --purple-line-color: #512848;
-            --gray-line-color: #6d7679;
-            --stroke1: 0.699052;
+            --grey-line-color: #6d7679;
+            --stroke1: 0.699994;
             --stroke2: 0.999991;
             --stroke3: 1.10052;
             --stroke4: 1.49798;
@@ -23,6 +23,7 @@
             display: inline;
             fill-opacity: 1;
             stroke-width: var(--stroke2);
+            filter: url(#shadow);
         }
         rect.bgBkBlueChip {
             fill: var(--blue-fill-color);
@@ -92,6 +93,10 @@
     </style>
 
     <defs>
+        <filter id="shadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.5">
+            </feDropShadow>
+        </filter>    
         <pattern id="backgroundRearLayerPat" x="0" y="0" width="118" height="118" patternUnits="userSpaceOnUse">
             <g id="bgBk">
                 <path class="lineProps bgBkGreyLine" d="M 35.544023,91.586937 V 84.190475 H 0.10212247" />
@@ -102,14 +107,14 @@
                 <path class="lineProps bgBkGreyLine" d="M 17.763121,0.00154156 V 6.3014887 H 69.2483 V 33.733007 H 19.027118 V 69.777046 H 2.586153 v 25.744752 h 15.176968 v 22.254432" />
                 <path class="lineProps bgBkGreyLine" d="M 87.588615,18.073569 87.471088,11.73709 h 30.537552" />
                 <path class="lineProps bgBkGreyLine" d="M 51.354487,2.5166121 V 11.73709 H 0.10212247" />
-                <path class="lineProps bgBkBlueLine" d="M 118.00864,52.90034 H 0.10212247" />
+                <path class="lineProps bgBkBlueLine" d="M 118.00864,52.90034 H 0.10212247 V 51.90034" />
                 <path class="lineProps bgBkBlueLine1" d="M 2.9525732,0.01236885 2.8683986,33.8053 0.13193758,33.704753" />
                 <path class="lineProps bgBkBlueLine1" d="M 22.608881,103.3578 H 2.8789208 v 14.41843" />
                 <path class="lineProps bgBkGreenLine" d="M 0.10212247,61.88315 H 87.167093 V 46.14908" />
                 <path class="lineProps bgBkPurpleLine" d="M 58.451859,0.00154156 V 58.811028 H 0.10212247" />
                 <path class="lineProps bgBkPurpleLine" d="M 97.873602,117.77623 V 58.876927 l 20.135038,-0.234803" />
-                <path class="lineProps bgBkPurpleLine" d="M 97.873602,18.390147 V 0.00154156" />
-                <path class="lineProps bgBkPurpleLine1" d="M 46.043695,0.00154156 V 19.252607 l -45.94157253,1.05e-4" />
+                <path class="lineProps bgBkPurpleLine" d="M 97.873602,18.390147 H 97.873602 V 0" />
+                <path class="lineProps bgBkPurpleLine1" d="M 46.043695,0.00154156 V 19.252607 l -45.94157253,0" />
                 <path class="lineProps bgBkPurpleLine1" d="m 118.00864,19.252712 h -5.03046" />
                 <path class="lineProps bgBkBlueLine2" d="M 12.560245,0.00154156 V 117.77623" />
                 <path class="lineProps bgBkBlueLine3" d="M 118.00865,98.704142 H 0.10212247" />
@@ -118,7 +123,7 @@
                 <path class="lineProps bgBkDkGreenLine" d="M 117.92498,91.03338 H 83.638888 V 102.8907 H 52.345204" />
                 <path class="lineProps bgBkDkGreenLine" d="m 111.18806,46.124477 v 29.11412 H 13.673036 L -0.72056302,91.972542" />
                 <path class="lineProps bgBkDkGreenLine1" d="M 105.16382,18.620974 V 8.9943367 H 74.40421 V 28.898257 H 0.10212247" />
-                <path class="lineProps bgBkDkGreenLine" d="m 118.0978,116.57452 -9.61287,0.23481" />
+                <path class="lineProps bgBkDkGreenLine" d="m 118.0978,116.57452 h -9.61287" />
                 <path class="lineProps bgBkDkGreenLine" d="M 109.80715,17.587599 V 0.00154156" />
                 <path class="lineProps bgBkDkGreenLine1" d="m 118.00864,28.898257 h -5.121" />
                 <path class="lineProps bgBkDkGreenLine1" d="M 63.667723,0.00154156 V 117.77623" />
@@ -129,8 +134,8 @@
                 <path class="lineProps bgBkGreenLine" d="M 101.74154,19.648869 V 0.00154156" />
                 <path class="lineProps bgBkGreenLine" d="M 101.74116,117.77623 V 61.88315 h 16.26748" />
                 <rect class="bgBkBlueChip" width="31.37912" height="31.344034" x="83.545464" y="16.554245" />
-                <rect class="bgBkGrayChipBottom" width="31.37912" height="27.939577" x="22.278427" y="89.877457" />
-                <rect class="bgBkGrayChipTop" width="31.37912" height="3.5214024" x="22.278538" y="0.0015415654" />
+                <rect class="bgBkGrayChipBottom" width="31.37912" height="29" x="22.278427" y="89.877457" />
+                <rect class="bgBkGrayChipTop" width="31.37912" height="3.5214024" x="22.278538" y="0" />
             </g>
         </pattern>
     </defs>

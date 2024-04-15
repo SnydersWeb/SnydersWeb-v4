@@ -598,7 +598,7 @@
 	/* End content formatting selectors */
 }
 
-/* Mobile Devices */
+/* Mobile Devices in Portrait */
 @media only screen and (min-device-width: 390px) and (max-device-width: 699px) {
 	#backgroundBackLayer,
 	#backgroundFrontLayer {
@@ -694,8 +694,8 @@
 
 }
 
-
-@media only screen and (min-device-width: 120px) and (max-device-width: 390px) {
+/* Mobile Devices in Portrait smaller */
+@media only screen and (min-device-width: 360px) and (max-device-width: 390px) {
 	#backgroundBackLayer,
 	#backgroundFrontLayer {
 		position: fixed;
@@ -791,6 +791,132 @@
 		bottom: 0px;
 		left: 5px;
 	}
+}
+
+
+/* Mobile Devices in Portrait unreasonably skinny */
+@media only screen and (min-device-width: 120px) and (max-device-width: 359px) {
+	#backgroundBackLayer,
+	#backgroundFrontLayer {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		top: unset;
+		right: unset; 
+		bottom: unset;
+		left: unset;
+	}
+	
+	#logo {
+		height: 123px;
+		width: 144px;
+		top: -24px;
+		left: -34px;	
+	}
+	
+	#logo IMG {
+		scale: .65;	
+	}
+
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		height: 45px;
+		top: 105px;
+		left: -50px;
+		right: -50px;
+		z-index: 3;
+		scale: .7;
+	}
+
+	#selectedBar TOPIC-BAR .barTextSlot {
+		font-size: 85%;
+	}
+
+	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC {
+		line-height: 24px;
+		font-size: 64%;
+	}
+
+	#selectedBar .subTopics MENU LI {
+		margin: 0px 0px 1px 0px
+	}
+
+	#selectedBar .subTopics MENU LI+LI {
+		margin: 0px 0px 1px -7px
+	}
+
+	#selectedBar MENU LI SUB-TOPIC {
+		font-size: 90%;
+	}
+
+	#selectedBar MENU LI SUB-TOPIC {
+		height: fit-content;
+		font-size: 80%;
+	}
+
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		top: -4px;
+		left: 85px;
+		height: fit-content;
+		right: 0px;
+	}
+
+	#unSelectedBarArea MENU LI {
+		float: left;
+		position: relative;
+		height: fit-content;
+		margin: 0px 0px 0px 0px;
+		scale: .7;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR {
+		float: left;
+		position: relative;
+		height: 28px;
+		width: fit-content;
+		min-width: 90px;
+		margin: 0px;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
+		font-size: 78%;
+	}
+
+	#contentPanel {
+		top: 175px;
+		right: 5px;
+		bottom: 0px;
+		left: 5px;
+	}
+}
+
+/* Other Devices bigger than most phone screens */
+@media only screen and (min-device-width: 700px) and (min-device-height: 451px) {
+
+	/* Begin Selected Topic Bar Selctors */
+	#selectedBar {
+		height: 45px;
+		top: 5px;
+		left: 185px;
+		right: 5px;
+	}
+
+	/* Begin UnSelected Topic Bar Selctors */
+	#unSelectedBarArea {
+		top: 160px;
+		left: 3px;
+		bottom: 90px;
+		width: 176px;
+	}
+
+	/* Begin Content Area Selctors */
+	#contentPanel {
+		top: 75px;
+		right: 5px;
+		bottom: 5px;
+		left: 185px;
+	}
 
 }
 
@@ -840,8 +966,18 @@
 	}
 }
 
-/* Other Devices */
-@media only screen and (min-device-width: 700px) and (min-device-height: 451px) {
+/* Landscape phones with less vertical space */
+@media only screen and (min-device-width: 700px) and (max-device-height: 340px) {
+	#logo {
+		height: 131px;
+		width: 152px;
+		top: -26px;
+		left: 0px;	
+	}
+	
+	#logo IMG {
+		scale: .65;	
+	}
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
@@ -853,18 +989,25 @@
 
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
-		top: 160px;
+		top: 90px;
 		left: 3px;
 		bottom: 90px;
 		width: 176px;
+	}
+
+	#unSelectedBarArea MENU LI {
+		height: fit-content;
+	}
+
+	#unSelectedBarArea MENU LI TOPIC-BAR {
+		height: 42px;
 	}
 
 	/* Begin Content Area Selctors */
 	#contentPanel {
 		top: 75px;
 		right: 5px;
-		bottom: 5px;
+		bottom: 0px;
 		left: 185px;
 	}
-
 }
