@@ -1,12 +1,12 @@
 // Create a class for the element
 class TopicBar extends HTMLElement {
-    static observedAttributes = ['isHeader', 'promote', 'return']; 
-    
+    static observedAttributes = ['isHeader', 'promote', 'return'];
+
     constructor() {
         // Always call super first in constructor
         self = super();
-        
-        this._shadow = this.attachShadow({mode: 'open'});
+
+        this._shadow = this.attachShadow({ mode: 'open' });
 
         //Template is called multiple times - but to ensure it's only changed 1x we set
         //a data attribute to make sure it's only fixed 1x since it's a GLOBAL
@@ -18,22 +18,22 @@ class TopicBar extends HTMLElement {
         const templateText = topicBarTemplate.content.cloneNode(true);
         this.shadowRoot.append(templateText);
         this.bar = this.shadowRoot.querySelector('.topicBar');
-        
+
         this.href = this.getAttribute('href');
         this.clickEvent = new CustomEvent(
-            'fetchPage', 
+            'fetchPage',
             {
                 detail: {
                     pageURL: this.href
-                }, 
+                },
                 bubbles: false,
                 cancelable: true,
             }
         );
         this.barMotionEnd = new CustomEvent(
-            'barMotionEnd', 
+            'barMotionEnd',
             {
-                detail: {}, 
+                detail: {},
                 bubbles: false,
                 cancelable: true,
             }
@@ -47,18 +47,18 @@ class TopicBar extends HTMLElement {
         //Fix our templates for current path
         //bit of a brutal hack here for image pathing
         const pageContent = document.querySelector('#content');
-        const currentDirectory = pageContent.dataset.dir.slice(0,-1);
+        const currentDirectory = pageContent.dataset.dir.slice(0, -1);
         if (currentDirectory !== '') {
             const pathPrepend = currentDirectory.split('/').map(() => {
                 return '../';
             }).join('');
-            
+
             //Fix our templates!
             let templateContent = topicBarTemplate.innerHTML;
             templateContent = templateContent.replaceAll('interfaceImages', `${pathPrepend}interfaceImages`);
             topicBarTemplate.innerHTML = templateContent;
         }
-    }   
+    }
 
     connectedCallback() {
         this.addEventListener('keydown', this.handleClick);
@@ -76,7 +76,7 @@ class TopicBar extends HTMLElement {
         this.bar.removeEventListener('mouseover', this.mouseOver);
         this.bar.removeEventListener('mouseout', this.mouseOut);
     };
-    
+
     attributeChangedCallback(name, oldValue, newValue) {
         if (/promote/.test(name)) {
             if (/null/i.test(newValue) === false) {
@@ -107,7 +107,7 @@ class TopicBar extends HTMLElement {
             fireDispatch = true; //Click
         }
         if (fireDispatch) {
-            evt.cancelBubble = true; 
+            evt.cancelBubble = true;
             document.querySelector('#mainContainer').dispatchEvent(this.clickEvent);
         }
     };
@@ -124,14 +124,14 @@ class TopicBar extends HTMLElement {
 
     removeSubTopic = (evt) => {
         const { item } = evt.detail;
-        const { parentNode:pn } = item; //get our parent
+        const { parentNode: pn } = item; //get our parent
 
         if (pn !== null) {
             if (/li/i.test(pn.tagName)) {
-                const { parentNode:menu } = pn;
-                menu.removeChild(pn); 
+                const { parentNode: menu } = pn;
+                menu.removeChild(pn);
             } else if (pn.classList.contains('selSubTopics')) {
-                pn.removeChild(item); 
+                pn.removeChild(item);
             }
         }
 
@@ -147,7 +147,7 @@ class TopicBar extends HTMLElement {
         const homeWidth = home.width > 0 ? home.width : 180; //180 is the min-width
         const homeXPos = home.y < this.mobileYThreshold ? home.x : 0 - promoted.x;
         const homeYPos = home.y < this.mobileYThreshold ? 10 - promoted.y : home.y;
-        
+
         const steps = [
             {
                 transform: `translateX(${homeXPos}px) translateY(${homeYPos}px)`,
@@ -157,27 +157,27 @@ class TopicBar extends HTMLElement {
             },
             {
                 transform: `translateX(-${promoted.x}px) translateY(${0}px)`,
-                width: `${promoted.width/2}px`,
+                width: `${promoted.width / 2}px`,
             },
             {
                 transform: 'translateX(0px) translateY(0px)',
                 width: `${promoted.width}px`,
                 position: 'relative',
                 zIndex: 1,
-            },            
+            },
         ];
 
         //Mobile doesn't get all 3 steps
         if (home.y < this.mobileYThreshold) {
             steps.splice(1, 1);
         }
-        
+
         const animate = this.animate(steps, {
             duration: 750,
             easing: 'ease-in-out',
         });
-        
-        animate.addEventListener('finish', () => { 
+
+        animate.addEventListener('finish', () => {
             this.locData = null;
             this.removeAttribute('promote');
             document.querySelector('#mainContainer').dispatchEvent(this.barMotionEnd);
@@ -187,20 +187,22 @@ class TopicBar extends HTMLElement {
     cleanBar = () => {
         const { home, promoted } = this.locData;
 
-        const homeYPos = promoted.y - home.y;       
-        const homeXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3;       
+        const homeYPos = promoted.y - home.y;
+        const homeXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3;
         this.style.transform = `translateX(${homeXPos}px) translateY(${homeYPos}px)`;
         this.style.width = `${promoted.width}px`;
 
         //Unhide our stuff so we can see the animation
         const subNavMenu = this.querySelector('menu.headerSubNav');
-        subNavMenu.style.display = 'inline-block';
-        subNavMenu.width = `${promoted.width}px`;
+        if (subNavMenu !== null) {
+            subNavMenu.style.display = 'inline-block';
+            subNavMenu.width = `${promoted.width}px`;
+        }
 
         //Dismiss all submenu items since it's magically appearing at the top
         const oldSubTopicItems = this.querySelectorAll('sub-topic');
         this.subTopics = oldSubTopicItems.length;
-        if (oldSubTopicItems.length > 0) {            
+        if (oldSubTopicItems.length > 0) {
             oldSubTopicItems.forEach(subTopic => {
                 subTopic.setAttribute('dismissed', 'true');
             });
@@ -210,7 +212,7 @@ class TopicBar extends HTMLElement {
     };
 
     subTopicRemoved = () => {
-        this.subTopics -=1; 
+        this.subTopics -= 1;
 
         if (this.subTopics === 0) {
             this.return(true);
@@ -218,16 +220,17 @@ class TopicBar extends HTMLElement {
     };
 
     return = (fast = false) => {
-        const { home, promoted } = this.locData;        
+        const { home, promoted } = this.locData;
         const homeWidth = home.width > 0 ? home.width : 180; //180 is the min-width
-        const homeYPos = home.y < this.mobileYThreshold ? promoted.y - home.y : 5 - home.y;       
-        const promotedXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3; 
+        const homeYPos = home.y < this.mobileYThreshold ? promoted.y - home.y : 5 - home.y;
+        const promotedXPos = home.y < this.mobileYThreshold ? promoted.x - home.x : promoted.x - 3;
 
-        
         this.style.transform = '';
         this.style.width = '';
         const subNavMenu = this.querySelector('menu.headerSubNav');
-        subNavMenu.width = '';
+        if (subNavMenu !== null) {
+            subNavMenu.width = '';
+        }
 
         let steps = [
             {
@@ -236,13 +239,13 @@ class TopicBar extends HTMLElement {
             },
             {
                 transform: `translateX(${promotedXPos}px) translateY(${0}px)`,
-                width: `${promoted.width/2}px`,
+                width: `${promoted.width / 2}px`,
             },
             {
                 transform: 'translateX(0px) translateY(0px)',
                 width: `${homeWidth}px`,
             },
-            
+
         ];
 
         //Mobile doesn't get all 3 steps
@@ -260,24 +263,24 @@ class TopicBar extends HTMLElement {
                     transform: 'translateX(0px) translateY(0px)',
                     width: `${homeWidth}px`,
                 },
-                
+
             ];
         }
-        
+
         const animate = this.animate(steps, {
             duration: fast ? 500 : 750,
             easing: 'ease-in-out',
         });
 
-        animate.addEventListener('finish', () => { 
+        animate.addEventListener('finish', () => {
             this.locData = null;
-            this.removeAttribute('return');  
+            this.removeAttribute('return');
             this.removeEventListener('removeSubTopic', this.subTopicRemoved);
             document.querySelector('#mainContainer').dispatchEvent(this.barMotionEnd);
         });
     };
 
 
-  }
-  
-  customElements.define('topic-bar', TopicBar);
+}
+
+customElements.define('topic-bar', TopicBar);

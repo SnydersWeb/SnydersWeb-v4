@@ -1,9 +1,7 @@
 class Maestro {
     constructor() {
         //Grab our utils
-        this.pageFetcher = pageFetcher;
-        this.utils = utils;
-        this.isMobile = this.utils.getIsMobile();
+        this.isMobile = utils.getIsMobile();
 
         //Not doing anything with the background stuff for now
         this.backgroundBackLayer = document.querySelector('#backgroundBackLayer');
@@ -18,14 +16,14 @@ class Maestro {
         this.pageContent = this.mainContainer.querySelector('#content');
         const printBanner = document.querySelector('#printBanner');
         this.printTitle = printBanner.querySelector('div.printTitle');
-        
+
         //Get information about where we're starting
-        this.currentPageInfo = this.pageFetcher.extractPageInfo(document);
+        this.currentPageInfo = pageFetcher.extractPageInfo(document);
         this.requestedPageInfo = {};
-        
+
         //Convert hyperlinks in page body
         const { pathname, href } = window.location;
-        const rawPath = pathname.replace(/\\/gi,'/').substring(0, pathname.replace(/\\/gi,'/').lastIndexOf('/') + 1);
+        const rawPath = pathname.replace(/\\/gi, '/').substring(0, pathname.replace(/\\/gi, '/').lastIndexOf('/') + 1);
         const fileName = href.substring(href.lastIndexOf('/') + 1, href.length);
         this.currentDirectory = `${this.pageContent.dataset.dir}`;
         this.currPageURL = `${this.currentDirectory}${fileName}`;
@@ -34,18 +32,18 @@ class Maestro {
         this.initialized = false;
         this.loader = null;
         this.barsInMotion = 0;
-            
-        this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
+
+        utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
     }
 
     //Methods
     init() {
         //Selected Topic Bar events
-        this.pageHeader.addEventListener('removeSubTopic', (evt) => { this.removeSubTopic(evt) });   
+        this.pageHeader.addEventListener('removeSubTopic', (evt) => { this.removeSubTopic(evt) });
 
         //Content Panel events
-        this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });   
-        this.mainContainer.addEventListener('showShot', (evt) => { this.utils.showShot(evt) });
+        this.mainContainer.addEventListener('fetchPage', (evt) => { this.fetchPage(evt) });
+        this.mainContainer.addEventListener('showShot', (evt) => { utils.showShot(evt) });
         this.mainContainer.addEventListener('fetchStart', () => { this.showLoader() });
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
@@ -54,7 +52,7 @@ class Maestro {
         const { hash } = window.location;
         let cleanHash = hash.replace('#', '');
         if (this.initialized === false && cleanHash === '') { // no hash means a fresh hit
-            this.mainContainer.addEventListener('finalizeBoot', (evt) => { this.finalizeBoot(evt) });   
+            this.mainContainer.addEventListener('finalizeBoot', (evt) => { this.finalizeBoot(evt) });
             const itemHandles = {
                 backgroundBackLayer: this.backgroundBackLayer,
                 backgroundFrontLayer: this.backgroundFrontLayer,
@@ -66,18 +64,18 @@ class Maestro {
             };
 
             specialEffects.setHandles(itemHandles);
-            specialEffects.start();      
+            specialEffects.start();
         } else {
             specialEffects.sparky();
             this.fetchPage({ detail: { pageURL: cleanHash } });
-        }      
-        
+        }
+
         if (this.isMobile === false) {
             //oversize our background elements for the scrolly thing
             this.backgroundBackLayer.classList.add('overSize');
             this.backgroundFrontLayer.classList.add('overSize');
             this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt) });
-        } 
+        }
     }
 
     getStartingDir() {
@@ -98,14 +96,14 @@ class Maestro {
         if (/undefined/i.test(pageURL) || pageURL === this.currPageURL || this.barsInMotion > 0) {
             return;
         }
-        
-        const fetchResult  = await this.pageFetcher.getPage(pageURL);
+
+        const fetchResult = await pageFetcher.getPage(pageURL);
 
         if (fetchResult !== false) {
             this.requestedPageInfo = fetchResult;
             this.reqPageURL = pageURL;
 
-            this.handlePageChanges(pageURL);        
+            this.handlePageChanges(pageURL);
         }
     }
 
@@ -141,11 +139,11 @@ class Maestro {
                     status: 'add',
                 });
             }
-        });                
-        
+        });
+
         return newSelSubTopics;
     }
-    
+
     collectBarChanges(currHeaderInfo, reqHeaderInfo) {
         let pageChanged = false;
         let barChange = null;
@@ -153,10 +151,10 @@ class Maestro {
         let selSubTopicsChange = [];
         let subTopicListChange = [];
         //First start with our selectedSubTopicInfo
-        const { selectedSubTopicId:curSelectedSubTopicId } = currHeaderInfo;
-        const { selectedSubTopicId:reqSelectedSubTopicId } = reqHeaderInfo;
-        const { selectedSubTopicInfo:curSelectedSubTopicInfo } = currHeaderInfo;
-        const { selectedSubTopicInfo:reqSelectedSubTopicInfo } = reqHeaderInfo;
+        const { selectedSubTopicId: curSelectedSubTopicId } = currHeaderInfo;
+        const { selectedSubTopicId: reqSelectedSubTopicId } = reqHeaderInfo;
+        const { selectedSubTopicInfo: curSelectedSubTopicInfo } = currHeaderInfo;
+        const { selectedSubTopicInfo: reqSelectedSubTopicInfo } = reqHeaderInfo;
 
         if (currHeaderInfo.id !== reqHeaderInfo.id) { //Bar change == everything change
             pageChanged = true;
@@ -185,9 +183,9 @@ class Maestro {
                 }
                 //OK.. last check - did our subMenu Items change?
                 if (!pageChanged) {
-                    const { subTopics:curSubTopicInfo } = currHeaderInfo;
-                    const { subTopics:reqSubTopicInfo } = reqHeaderInfo;
-                    
+                    const { subTopics: curSubTopicInfo } = currHeaderInfo;
+                    const { subTopics: reqSubTopicInfo } = reqHeaderInfo;
+
                     curSubTopicInfo.forEach((subTopic, iter) => {
                         const reqSubTopic = reqSubTopicInfo[iter];
                         if (reqSubTopic !== undefined) {
@@ -200,7 +198,7 @@ class Maestro {
                             }
                         }
                     });
-                }                
+                }
             }
         }
 
@@ -212,10 +210,10 @@ class Maestro {
             subTopicListChange,
         };
     }
-        
-    swapContent(content) {    
+
+    swapContent(content) {
         this.currentDirectory = `${content.dataset.dir}`;
-              
+
         const fadeOut = this.pageContent.animate([
             {
                 opacity: 1,
@@ -227,10 +225,10 @@ class Maestro {
             duration: 250,
             easing: 'ease-out',
         });
-        fadeOut.addEventListener('finish', () => { 
+        fadeOut.addEventListener('finish', () => {
             this.pageContent.innerHTML = content.innerHTML;
-            this.utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
-            this.utils.adjustImages(this.pageContent, this.startingDirectory, this.currentDirectory);
+            utils.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
+            utils.adjustImages(this.pageContent, this.currentDirectory, this.startingDirectory);
 
             const fadeIn = this.pageContent.animate([
                 {
@@ -244,10 +242,10 @@ class Maestro {
                 easing: 'ease-in',
             });
 
-            fadeIn.addEventListener('finish', () => { 
+            fadeIn.addEventListener('finish', () => {
                 this.finishPageChanges();
             });
-            
+
         })
     }
 
@@ -258,13 +256,13 @@ class Maestro {
             const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
             if (newBar !== null && newBar.length > 0) {
                 let bar = newBar[0];
-                bar.setAttribute('href', this.utils.linkAdjustor(`${addItem.href}`, this.startingDirectory, currentDirectory));
+                bar.setAttribute('href', utils.linkAdjustor(`${addItem.href}`, currentDirectory, this.startingDirectory));
                 return bar;
             }
         });
         addDOMSelSubItems.forEach(item => {
             item.setAttribute('added', 'true');
-            this.utils.appendEl(domSelectedSubTopicArea, item);
+            utils.appendEl(domSelectedSubTopicArea, item);
         });
     }
 
@@ -272,26 +270,26 @@ class Maestro {
         //Add new submenu items
         const { subTopicBars } = reqHeaderInfo;
         subTopicBars.forEach(item => {
-            const newLink = this.utils.linkAdjustor(`${item.getAttribute('href')}`, this.startingDirectory, currentDirectory);
+            const newLink = utils.linkAdjustor(`${item.getAttribute('href')}`, currentDirectory, this.startingDirectory);
             item.setAttribute('href', newLink);
             item.setAttribute('added', 'true');
             item.classList.add('staged');
-            this.utils.createEl('li', {'role': 'tab'}, [ item ], domHeaderSubNavArea);
+            utils.createEl('li', { 'role': 'tab' }, [item], domHeaderSubNavArea);
         });
     }
 
     handlePageChanges(pageURL) {
-        const { headerInfo:currHeaderInfo } = this.currentPageInfo;
-        const { headerInfo:reqHeaderInfo } = this.requestedPageInfo;
+        const { headerInfo: currHeaderInfo } = this.currentPageInfo;
+        const { headerInfo: reqHeaderInfo } = this.requestedPageInfo;
         //extract the directory before it's inserted since this stuff fires before the content is actually updated
-        const { content:newContent } = this.requestedPageInfo;
+        const { content: newContent } = this.requestedPageInfo;
         const currentDirectory = `${newContent.dataset.dir}`;
-        
+
         //Find out what changed on our UI
         const barChanges = this.collectBarChanges(currHeaderInfo, reqHeaderInfo);
-        
+
         if (barChanges.pageChanged === false || currHeaderInfo === undefined || reqHeaderInfo === undefined) { //No page change - do nothing.
-            return; 
+            return;
         }
 
         //make some DOM pointers
@@ -299,7 +297,7 @@ class Maestro {
         let domSelectedSubTopicArea = domSelHeader.querySelector('div.selSubTopics');
         const domSelectedSubTopics = domSelectedSubTopicArea.querySelectorAll('sub-topic');
         let domHeaderSubNavArea = domSelHeader.querySelector('menu.headerSubNav');
-        const domSubTopics = domHeaderSubNavArea.querySelectorAll('sub-topic');
+        const domSubTopics = domHeaderSubNavArea !== null ? domHeaderSubNavArea.querySelectorAll('sub-topic') : [];
 
         if (barChanges.barChange === null) {
             //Start with our smallest change - subTopic item only changes
@@ -323,12 +321,12 @@ class Maestro {
                 //Dismiss the remove items
                 removeDOMSelSubItems.forEach(item => {
                     item.setAttribute('dismissed', 'true');
-                });                
+                });
                 //Remove all submenu items
                 domSubTopics.forEach(item => {
                     item.setAttribute('dismissed', 'true');
                 });
-                
+
                 //Next up.. populate our new sub items.
                 //Add new selected SubTopic items
                 this.addSelectedSubTopicItems(barChanges, reqHeaderInfo, domSelectedSubTopicArea, currentDirectory);
@@ -341,7 +339,7 @@ class Maestro {
 
             //Get the "home garage" where the bar is to return to
             const returnBarHome = this.unselectedBarArea.querySelector(`li[data-id='${domSelHeader.dataset.id}']`);
-            
+
             //Grab some coordinates of where our bars are and need to go
             const rawPromoteBarPosData = this.pageHeader.getBoundingClientRect();
             const rawReturnBarHomePosData = returnBarHome.getBoundingClientRect();
@@ -357,36 +355,36 @@ class Maestro {
                     width: rawPromoteBarPosData.width,
                 }
             };
-            
+
             //Quick Check to see if our promote bar has all the slot stuff
             const hasSelSubMenuArea = promoteBar !== null ? (promoteBar.querySelector('div.selSubTopics') !== null) : false;
             const hasSubMenuArea = promoteBar !== null ? (promoteBar.querySelector('div.subTopics') !== null) : false;
-            
+
             //Create and append our new DOM stuff if needed.
             if (hasSelSubMenuArea === false) {
                 //remap domSelectedSubTopicArea to our new bar
-                domSelectedSubTopicArea = this.utils.createEl('div', { 'class': 'selSubTopics', 'name': 'selectedSubTopic' }, [], promoteBar);
+                domSelectedSubTopicArea = utils.createEl('div', { 'class': 'selSubTopics', 'name': 'selectedSubTopic' }, [], promoteBar);
             } else {
                 domSelectedSubTopicArea = promoteBar.querySelector('DIV.selSubTopics');
             }
             if (hasSubMenuArea === false) {
                 //remap domHeaderSubNavArea to our new bar
-                domHeaderSubNavArea = this.utils.createEl('menu', { 'class': 'headerSubNav', 'role': 'tablist', 'aria-label': 'Sub Navigation' })
-                this.utils.createEl('div', { 'class': 'subTopics', 'name': 'subTopics' }, [ domHeaderSubNavArea ], promoteBar);
+                domHeaderSubNavArea = utils.createEl('menu', { 'class': 'headerSubNav', 'role': 'tablist', 'aria-label': 'Sub Navigation' })
+                utils.createEl('div', { 'class': 'subTopics', 'name': 'subTopics' }, [domHeaderSubNavArea], promoteBar);
             } else {
                 domHeaderSubNavArea = promoteBar.querySelector('menu.headerSubNav');
             }
 
             //Will also need code to remove the slots I think from domSelHeader - probably on animation finish though.
-            const returnBar = this.utils.removeEl(domSelHeader); //Remove from Header element
-            const { parentNode:barParent } = promoteBar;
+            const returnBar = utils.removeEl(domSelHeader); //Remove from Header element
+            const { parentNode: barParent } = promoteBar;
             if (barParent !== null) {
                 promoteBar.parentNode.setAttribute('aria-hidden', 'true');
             }
-            this.utils.removeEl(promoteBar); //Remove from LI "garage"
-            this.utils.appendEl(returnBarHome, returnBar);
+            utils.removeEl(promoteBar); //Remove from LI "garage"
+            utils.appendEl(returnBarHome, returnBar);
             returnBarHome.removeAttribute('aria-hidden');
-            this.utils.appendEl(this.pageHeader, promoteBar);
+            utils.appendEl(this.pageHeader, promoteBar);
 
             //Set our animation lockout to prevent bar spam
             this.barsInMotion = 2;
@@ -397,7 +395,7 @@ class Maestro {
             //Add new selected SubTopic items
             this.addSelectedSubTopicItems(barChanges, reqHeaderInfo, domSelectedSubTopicArea, currentDirectory);
             //Add new submenu items
-            this.addSubTopicItems(reqHeaderInfo, domHeaderSubNavArea, currentDirectory);                
+            this.addSubTopicItems(reqHeaderInfo, domHeaderSubNavArea, currentDirectory);
         }
 
         //Unconditional stuff (content change)
@@ -418,39 +416,39 @@ class Maestro {
     finishPageChanges() {
         //update our page info
         if (this.requestedPageInfo !== undefined && this.requestedPageInfo.headerInfo !== undefined) {
-            this.currentPageInfo = {...this.requestedPageInfo};
+            this.currentPageInfo = { ...this.requestedPageInfo };
             this.requestedPageInfo = {};
         }
-    }   
+    }
 
     //Hash changes for forward/backward button support.
     hashChange() {
         const { hash } = window.location;
         let cleanHash = hash.replace('#', '');
-            
+
         if (cleanHash !== this.reqPageURL) { //Prevents a "bounce"
             this.fetchPage({ detail: { pageURL: cleanHash } });
         }
     }
-    
+
     finalizeBoot() {
-        specialEffects.sparky();          
+        specialEffects.sparky();
     }
 
     //Loader stuffs
     showLoader() {
         if (this.loader === null) {
             const { innerWidth, innerHeight } = window;
-            const loaderText = this.utils.createEl('div', {'class': 'loaderText'}, [ 'Accessing...' ]);
-            this.loader = this.utils.createEl('div', {'id': 'loader'}, [ loaderText ], this.mainContainer);
-            loaderText.style.top = `${innerHeight/2 - loaderText.offsetHeight/2}px`;
-            loaderText.style.left = `${innerWidth/2 - loaderText.offsetWidth/2}px`;
+            const loaderText = utils.createEl('div', { 'class': 'loaderText' }, ['Accessing...']);
+            this.loader = utils.createEl('div', { 'id': 'loader' }, [loaderText], this.mainContainer);
+            loaderText.style.top = `${innerHeight / 2 - loaderText.offsetHeight / 2}px`;
+            loaderText.style.left = `${innerWidth / 2 - loaderText.offsetWidth / 2}px`;
         }
     }
 
     hideLoader() {
         if (this.loader !== null) {
-            this.utils.removeEl(this.loader);
+            utils.removeEl(this.loader);
             this.loader = null;
         }
     }
@@ -458,36 +456,6 @@ class Maestro {
     barMotionEnd() {
         this.barsInMotion -= 1;
     }
-    //Form stuffs
-    checkContactForm(evt) {
-        const postData = this.utils.checkContactForm(evt);
-
-        if (postData !== null) {
-            this.submitContactForm(postData);
-        }
-    }
-
-    async submitContactForm(postData) {
-        let postURL = this.utils.linkAdjustor('parser.php'); 
-        const { protocol } = window.location;
-        //Local dev testing
-        if (/file/.test(protocol)) {
-            postURL = this.utils.linkAdjustor('dummyParser.html');
-        }
-        const rawResult = await this.pageFetcher.postData(postURL, postData) || '';
-        const result = JSON.parse(rawResult.replaceAll("'", '"'));
-        const resultDisplay = this.contentPanel.querySelector('div.contactResult');
-        const submitButton = this.contentPanel.querySelector('INPUT[type="submit"]');
-        
-        resultDisplay.innerHTML = `${result.status}`
-        resultDisplay.classList.remove('hide');
-
-        if (Number(result.result) === 1) {
-            submitButton.setAttribute('disabled', 'disabled');
-        }
-
-    }
-
 }
 
 const pageMaestro = new Maestro();

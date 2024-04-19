@@ -1,37 +1,37 @@
 const utils = {
-    linkAdjustor(linkLoc, startingDirectory = pageMaestro.getStartingDir(), currentDirectory = pageMaestro.getCurrentDir()) {
-		const fileName = linkLoc.substring(linkLoc.lastIndexOf('/'), linkLoc.length);				
+	linkAdjustor(linkLoc, currentDirectory = pageMaestro.getCurrentDir(), startingDirectory = pageMaestro.getStartingDir()) {
+		const fileName = linkLoc.substring(linkLoc.lastIndexOf('/'), linkLoc.length);
 		const linkLocParts = linkLoc.replace(fileName, '').split('/').filter(item => item === '..');
 		const cdParts = currentDirectory.slice(0, -1).split('/');
 		const chopFactor = cdParts.length - linkLocParts.length;
 		const linkPath = cdParts
-							.slice(0, 0 + (chopFactor))
-							.filter((item, index) => cdParts.indexOf(item) === index) //Quick check to ensure we don't have dups
-							.join('/');
-		
-		return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll('../', '')}`).replaceAll('//', '/');				
+			.slice(0, 0 + (chopFactor))
+			.filter((item, index) => cdParts.indexOf(item) === index) //Quick check to ensure we don't have dups
+			.join('/');
+
+		return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll('../', '')}`).replaceAll('//', '/');
 	},
 
 	adjustLinks(pageContent, mainContainer, startingDirectory, currentDirectory) {
 		const contentLinks = pageContent.querySelectorAll('a');
 		const imgRegEx = new RegExp(/\.gif|\.jpg|\.png|\.svg/i);
-				
+
 		contentLinks.forEach((link, current) => {
 			const { href } = link; //This returns some form of "Reconciled" location.. 
 			const trueHref = link.getAttribute('href');
-			const { nofetch:rawNoFetch } = link.dataset;
+			const { nofetch: rawNoFetch } = link.dataset;
 			const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
-			
+
 			if (/http/i.test(trueHref) === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false) {
 				if (noFetch === false) { //NOT Link to external
-					const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
-					
+					const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+
 					const linkClickEvent = new CustomEvent(
-						'fetchPage', 
+						'fetchPage',
 						{
 							detail: {
 								pageURL: linkHref
-							}, 
+							},
 							bubbles: false,
 							cancelable: true,
 						}
@@ -41,15 +41,15 @@ const utils = {
 					link.dataset.link = linkHref;
 					link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
 				} else {
-					const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+					const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
 					link.setAttribute('href', linkHref);
 				}
 			} else if (imgRegEx.test(href)) { //special image link
 
-				const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
-				
+				const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+
 				const linkClickEvent = new CustomEvent(
-					'showShot', 
+					'showShot',
 					{
 						detail: {
 							pageURL: linkHref,
@@ -57,7 +57,7 @@ const utils = {
 							resize: true,
 							width: 'auto',
 							height: 'auto',
-						}, 
+						},
 						bubbles: false,
 						cancelable: true,
 					}
@@ -65,17 +65,17 @@ const utils = {
 
 				link.setAttribute('href', 'JavaScript:void(0);');
 				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
-			} 
+			}
 		});
 	},
 
-	adjustImages(pageContent, startingDirectory, currentDirectory) {
-        const contentImages = pageContent.querySelectorAll('img');
-        contentImages.forEach((img) => {
-            const trueHref = img.getAttribute('src');
-			const linkHref = this.linkAdjustor(trueHref, startingDirectory, currentDirectory);
+	adjustImages(pageContent, currentDirectory, startingDirectory) {
+		const contentImages = pageContent.querySelectorAll('img');
+		contentImages.forEach((img) => {
+			const trueHref = img.getAttribute('src');
+			const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
 			img.setAttribute('src', linkHref);
-        });
+		});
 	},
 
 	showShot(fetchInfo) {
@@ -83,29 +83,29 @@ const utils = {
 		let { resize } = detail;
 		let { width } = detail;
 		let { height } = detail;
-		
+
 		if (/true/i.test(resize)) {
 			resize = 'resizable,';
 		} else {
 			resize = '';
 		}
 		if (width === 'auto') {
-			width = window.innerWidth/2;
+			width = window.innerWidth / 2;
 		}
 		if (height === 'auto') {
-			height = window.innerHeight/2;
+			height = window.innerHeight / 2;
 		}
 		window.open(detail.pageURL, detail.name, `scrollbars=yes,menubar=no,${resize}width=${width},height=${height}`);
 	},
-	
+
 	getRandomInt(min, max, dec) {
 		return Number((Math.random() * (max - min) + min).toFixed(dec));
 	},
 
 	getIsMobile() {
 		return (('ontouchstart' in window) ||
-		 (navigator.maxTouchPoints > 0) ||
-		 (navigator.msMaxTouchPoints > 0));
+			(navigator.maxTouchPoints > 0) ||
+			(navigator.msMaxTouchPoints > 0));
 	},
 
 	get(el) {
@@ -114,66 +114,62 @@ const utils = {
 		}
 		return el;
 	},
-	
+
 	setStyle(el, styles) {
 
-		el = this.get(el);	
+		el = this.get(el);
 		if (!el) {
 			return;
 		}
 
 		const pairs = [];
 		styles = styles.split(';');
-		
+
 		styles.forEach(style => {
-			const nv = style.replace(':','{:}').split('{:}');
+			const nv = style.replace(':', '{:}').split('{:}');
 
 			if (nv.length > 1) {
-				nv[0] = nv[0].replace(/\-(.)/g, function() {
+				nv[0] = nv[0].replace(/\-(.)/g, function () {
 					return arguments[1].toUpperCase();
 				}).replace(/\s/g, '');
 
-				pairs.push({n:nv[0],v:nv[1].replace(/^\s*|\s*$/g, '')});	
+				pairs.push({ n: nv[0], v: nv[1].replace(/^\s*|\s*$/g, '') });
 			}
 		});
-	
+
 		if (!Array.isArray(el)) {
 			el = [el]
 		}
-	
+
 		var attributeMap = {
-			'float': ['cssFloat','styleFloat']
+			'float': ['cssFloat', 'styleFloat']
 		}
-	
+
 		el.forEach(item => {
 			pairs.forEach(pair => {
 				if (attributeMap[pair.n] !== undefined) {
 					attributeMap[pair.n].forEach(att => {
-						pairs.push({n:att,v:pair.v});
+						pairs.push({ n: att, v: pair.v });
 					});
 				}
 				item.style[pair.n] = pair.v;
-			});			
+			});
 		});
-	
+
 	},
 
 	createEl(tag, attributes, children, parent, elementInstance) {
 
 		let element = document.createElement(tag);
 
-		for (let item in attributes)
-		{
-			if (/className|class/i.test(item))
-			{
+		for (let item in attributes) {
+			if (/className|class/i.test(item)) {
 				element.classList.add(attributes[item]);
 			}
-			else if (/style/i.test(item))
-			{
-				this.setStyle(element,attributes[item]);
+			else if (/style/i.test(item)) {
+				this.setStyle(element, attributes[item]);
 			}
-			else if (/Events/i.test(item))
-			{
+			else if (/Events/i.test(item)) {
 				if (typeof Events !== 'undefined') {
 					const elEvents = attributes[item];
 					if (!Array.isArray(elEvents)) {
@@ -186,8 +182,7 @@ const utils = {
 					});
 				}
 			}
-			else
-			{
+			else {
 				element.setAttribute(item, attributes[item]);
 			};
 		};
@@ -237,58 +232,4 @@ const utils = {
 		});
 		return retVal;
 	},
-
-	checkContactForm(evt) {
-        const { name } = evt;
-        const { email } = evt;
-        const { message } = evt;
-        const nameErr = name.parentNode.parentNode.querySelector('div.errMsg');
-        const emailErr = email.parentNode.parentNode.querySelector('div.errMsg');
-        const messageErr = message.parentNode.parentNode.querySelector('div.errMsg');
-        const { value:nameVal } = name;
-        const { value:emailVal } = email;
-        const { value:messageVal } = message;
-        let good = true;
-        
-        if (nameVal.length < 3) {
-            name.classList.add('err');
-            nameErr.innerText = 'Please enter your name.';
-            good = false;
-        } else {
-            name.classList.remove('err');
-            nameErr.innerText = '';
-        }
-
-        if (emailVal.length < 5 ) {
-            email.classList.add('err');
-            emailErr.innerText = 'Please enter your email address.';
-            good = false;
-        } else if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(emailVal) === false) {
-            email.classList.add('err');
-            emailErr.innerText = 'Please enter a valid email address.';
-            good = false;
-        } else {
-            email.classList.remove('err');
-            emailErr.innerText = '';
-        }
-
-        if (messageVal.length < 5) {
-            message.classList.add('err');
-            messageErr.innerText = 'Please enter a message';
-            good = false;
-        } else {
-            message.classList.remove('err');
-            messageErr.innerText = '';
-        }
-
-		let data = null;
-        if(good === true) {
-            data = new URLSearchParams();
-            data.append('name', nameVal);
-            data.append('email', emailVal);
-            data.append('message', messageVal);
-        }
-
-		return data;
-    },
 }

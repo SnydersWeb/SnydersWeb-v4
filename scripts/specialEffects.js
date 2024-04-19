@@ -4,15 +4,14 @@ const specialEffects = {
         this.utils = utils;
 
         //just copy them into here
-        for (let item in handles)
-		{
+        for (let item in handles) {
             this[item] = handles[item];
         }
         this.logoSVG = this.logo.querySelector('img');
         this.isMobile = false;
         this.sparkDiv = null;
         this.sparkTimeout = null;
-        
+
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
         let pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 1.5}px)`;
@@ -27,9 +26,9 @@ const specialEffects = {
         }
 
         //setup our intitial states
-        this.backgroundBackLayerXformStart = `translateX(-${innerWidth + innerWidth/3}px) translateY(0px)`;
-        this.backgroundFrontLayerXformStart = `translateX(${innerWidth + innerWidth/3}px) translateY(0px)`;
-        this.logoXformStart = `translateX(${(innerWidth/2) - (this.logo.offsetWidth/2)}px) translateY(${(innerHeight/2) - (this.logo.offsetHeight/2)}px) rotate(1turn)`;
+        this.backgroundBackLayerXformStart = `translateX(-${innerWidth + innerWidth / 3}px) translateY(0px)`;
+        this.backgroundFrontLayerXformStart = `translateX(${innerWidth + innerWidth / 3}px) translateY(0px)`;
+        this.logoXformStart = `translateX(${(innerWidth / 2) - (this.logo.offsetWidth / 2)}px) translateY(${(innerHeight / 2) - (this.logo.offsetHeight / 2)}px) rotate(1turn)`;
         this.logoSVGXformStart = 'scale(50)';
         this.pageHeaderXformStart = pageHeaderStart;
         this.unselectedBarAreaXformStart = unselectedBarStart;
@@ -37,9 +36,9 @@ const specialEffects = {
 
         this.animations = 0;
         this.finalizeBoot = new CustomEvent(
-            'finalizeBoot', 
+            'finalizeBoot',
             {
-                detail: {}, 
+                detail: {},
                 bubbles: false,
                 cancelable: true,
             }
@@ -52,12 +51,12 @@ const specialEffects = {
         //Start it!
         this.fadeBackgroundsIn();
     },
-    stageAll() {        
+    stageAll() {
         this.backgroundBackLayer.style.transform = this.backgroundBackLayerXformStart;
         this.backgroundBackLayer.style.opacity = 0;
         this.backgroundFrontLayer.style.transform = this.backgroundFrontLayerXformStart;
         this.backgroundFrontLayer.style.opacity = 0;
-        
+
         //Logo has to be scaled independently to prevent problems with translation
         this.logo.style.transform = this.logoXformStart;
         this.logo.style.zIndex = 10;
@@ -66,7 +65,7 @@ const specialEffects = {
 
         //Slide selected bar up
         this.pageHeader.style.transform = this.pageHeaderXformStart;
-        
+
         //Slide unselected bars left
         this.unselectedBarArea.style.transform = this.unselectedBarAreaXformStart;
 
@@ -83,7 +82,7 @@ const specialEffects = {
                 transform: 'translateX(0px) translateY(0px)',
                 opacity: 1,
             },
-            
+
         ], {
             duration: 1000,
             easing: 'linear',
@@ -98,19 +97,19 @@ const specialEffects = {
                 transform: 'translateX(0px) translateY(0px)',
                 opacity: 1,
             },
-            
+
         ], {
             duration: 1000,
             easing: 'linear',
         });
 
         //Clean up our transforms and kick off the next        
-        bgAnim.addEventListener('finish', () => { 
+        bgAnim.addEventListener('finish', () => {
             this.backgroundBackLayer.style.transform = '';
             this.backgroundBackLayer.style.opacity = 1;
         });
-        
-        fgAnim.addEventListener('finish', () => { 
+
+        fgAnim.addEventListener('finish', () => {
             this.backgroundFrontLayer.style.transform = '';
             this.backgroundFrontLayer.style.opacity = 1;
 
@@ -128,7 +127,7 @@ const specialEffects = {
                 transform: logoFinish,
                 opacity: 1,
             },
-            
+
         ], {
             duration: 750,
             easing: 'ease-out',
@@ -141,24 +140,24 @@ const specialEffects = {
             {
                 transform: 'scale(1)',
             },
-            
+
         ], {
             duration: 750,
             easing: 'ease-out',
         });
 
         //Clean up our transforms and kick off the next        
-        logoAnim.addEventListener('finish', () => { 
+        logoAnim.addEventListener('finish', () => {
             this.logo.style.zIndex = 1;
             this.logo.style.opacity = 1;
         });
-        
-        logoSVG.addEventListener('finish', () => { 
+
+        logoSVG.addEventListener('finish', () => {
             this.logoSVG.style.transform = '';
 
             //Move the rest in!
             this.strobeBackground(logoFinish);
-        });        
+        });
     },
     strobeBackground(logoFinish) {
         const body = document.querySelector('body');
@@ -210,13 +209,13 @@ const specialEffects = {
             duration: 75,
             easing: 'linear',
         });
-        bodyStrobeAnim.addEventListener('finish', () => {             
+        bodyStrobeAnim.addEventListener('finish', () => {
             //Move the rest in!
             this.parkLogo(logoFinish);
             this.slidePageHeadIn();
             this.slideUnSelectedBarsIn();
             this.slideContentPanelIn();
-        });        
+        });
     },
     parkLogo(logoStart) {
         const logoAnim = this.logo.animate([
@@ -226,7 +225,7 @@ const specialEffects = {
             {
                 transform: 'translateX(0px) translateY(0px)',
             },
-            
+
         ], {
             duration: 500,
             easing: 'ease-in',
@@ -234,7 +233,7 @@ const specialEffects = {
 
         this.animations += 1;
         //Clean up our transforms and kick off the next        
-        logoAnim.addEventListener('finish', () => { 
+        logoAnim.addEventListener('finish', () => {
             this.logo.style.transform = '';
             this.animations -= 1;
             this.finalize();
@@ -249,16 +248,16 @@ const specialEffects = {
             {
                 transform: 'translateX(0px) translateY(0px)',
             },
-            
+
         ], {
             duration: 500,
             delay: 250,
             easing: 'ease-in',
         });
         this.animations += 1;
-        
+
         //Clean up our transforms and kick off the next        
-        pageHeadAnim.addEventListener('finish', () => { 
+        pageHeadAnim.addEventListener('finish', () => {
             this.pageHeader.style.transform = '';
             this.animations -= 1;
             this.finalize();
@@ -272,15 +271,15 @@ const specialEffects = {
             {
                 transform: 'translateX(0px) translateY(0px)',
             },
-            
+
         ], {
             duration: 500,
             easing: 'ease-in',
         });
         this.animations += 1;
-        
+
         //Clean up our transforms and kick off the next        
-        unSelBarsAnim.addEventListener('finish', () => { 
+        unSelBarsAnim.addEventListener('finish', () => {
             this.unselectedBarArea.style.transform = '';
             this.animations -= 1;
             this.finalize();
@@ -294,36 +293,36 @@ const specialEffects = {
             {
                 transform: 'translateX(0px) translateY(0px)',
             },
-            
+
         ], {
             duration: 500,
             easing: 'ease-in',
         });
-        this.animations += 1;        
+        this.animations += 1;
 
         //Clean up our transforms and kick off the next        
-        contentPanelAnim.addEventListener('finish', () => { 
+        contentPanelAnim.addEventListener('finish', () => {
             this.contentPanel.style.transform = '';
             this.animations -= 1;
             this.finalize();
         });
     },
     finalize() {
-        if(this.animations === 0) {
+        if (this.animations === 0) {
             this.mainContainer.dispatchEvent(this.finalizeBoot);
         }
     },
     moveBackground(evt) {
         if (this.mainContainerInfo === undefined) { //Needed this since the boot sequence may or may not have run!
             this.mainContainer = document.querySelector('#mainContainer');
-            this.mainContainerInfo = this.mainContainer.getBoundingClientRect();        
+            this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
         }
 
-        const { clientX:x, clientY:y } = evt;
+        const { clientX: x, clientY: y } = evt;
         const { height, width } = this.mainContainerInfo;
         const centerHeight = height / 2;
         const centerWidth = width / 2;
-        
+
         const backLayer = document.querySelector('#backgroundBackLayer');
         const frontLayer = document.querySelector('#backgroundFrontLayer');
 
@@ -331,14 +330,14 @@ const specialEffects = {
         const frontMoveDampener = 100;
 
         //shift our backgrounds depending on where our mouse is.
-        backLayer.style.transform = `translate(${(centerWidth - x)/backMoveDampener}px, ${(centerHeight - y)/backMoveDampener}px)`;
-        frontLayer.style.transform = `translate(${(centerWidth - x)/frontMoveDampener}px, ${(centerHeight - y)/frontMoveDampener}px)`;
+        backLayer.style.transform = `translate(${(centerWidth - x) / backMoveDampener}px, ${(centerHeight - y) / backMoveDampener}px)`;
+        frontLayer.style.transform = `translate(${(centerWidth - x) / frontMoveDampener}px, ${(centerHeight - y) / frontMoveDampener}px)`;
     },
     createSpark() {
         const { innerWidth, innerHeight } = window;
         const distDivisor = 6;
-        const sparkMaxDistanceX = innerWidth/distDivisor;
-        const sparkMaxDistanceY = innerHeight/distDivisor;
+        const sparkMaxDistanceX = innerWidth / distDivisor;
+        const sparkMaxDistanceY = innerHeight / distDivisor;
         const numSparkPoints = this.utils.getRandomInt(3, 8, 0);
         const sparkPoints = [];
         const sparkZIndex = this.utils.getRandomInt(0, 3, 0);
@@ -346,7 +345,7 @@ const specialEffects = {
 
         let pointX, pointY = 0;
         for (let i = 0, j = numSparkPoints; i < j; i++) {
-            
+
             if (i === 0) { //first point
                 pointX = this.utils.getRandomInt(0, innerWidth, 0);
                 pointY = this.utils.getRandomInt(0, innerHeight, 0);
@@ -359,7 +358,7 @@ const specialEffects = {
         }
 
         //Can't use my createEl tools here since this is SVG, it also doesn't respond well to styles from stylesheets
-        const elNs = 'http://www.w3.org/2000/svg';        
+        const elNs = 'http://www.w3.org/2000/svg';
         const svg = document.createElementNS(elNs, 'svg');
         svg.setAttribute('height', `${innerHeight}`);
         svg.setAttribute('width', `${innerWidth}`);
@@ -370,9 +369,9 @@ const specialEffects = {
         sparkPath.setAttribute('d', `M ${sparkPoints.join(' ')}`);
 
         svg.appendChild(sparkPath);
-        
-        this.sparkDiv = this.utils.createEl('div', { class: 'sparkDiv', style: `z-index: ${sparkZIndex}`, 'aria-hidden': 'true' }, [ svg ], document.querySelector('body'));
-        
+
+        this.sparkDiv = this.utils.createEl('div', { class: 'sparkDiv', style: `z-index: ${sparkZIndex}`, 'aria-hidden': 'true' }, [svg], document.querySelector('body'));
+
         const sparkSteps = [];
         for (let i = 0, j = this.utils.getRandomInt(0, 15, 0); i < j; i++) {
             const color = (i == j - 1) ? 'transparent' : `${sparkColors[this.utils.getRandomInt(0, sparkColors.length - 1, 0)]}`;
@@ -387,7 +386,7 @@ const specialEffects = {
             easing: 'linear',
         });
 
-        sparkPathAnimate.addEventListener('finish', () => { 
+        sparkPathAnimate.addEventListener('finish', () => {
             if (this.sparkDiv !== null) {
                 this.utils.removeEl(this.sparkDiv);
             }
@@ -395,7 +394,7 @@ const specialEffects = {
         });
     },
     sparky() {
-        if(this.utils === undefined) {
+        if (this.utils === undefined) {
             this.utils = utils;
         }
         const minTime = 1000 * 10; //10sec 

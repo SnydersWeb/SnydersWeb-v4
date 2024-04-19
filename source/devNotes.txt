@@ -404,6 +404,23 @@ Tweaked backgrounds a bit more to make sure all lines are showing (some where no
 
 Also worked style sheets for horizontal mobile.
 
+4/19
+Spent some time tweaking the system a bit.  My change will be good for a future project.  The page system will now dynamically load a script that is specified and have safety locks to prevent it from being re-loaded.
+
+While working on this I found out that you can do imports via:
+const newScript = await import(adjustedSrc);
+newScript.then((script) => {
+    console.log(script);
+});
+
+for (let item in newScript) {
+    window[item] = newScript[item];
+}
+
+This of course requires each has exports.  The system I put in was a bit more.. crude/simple but it had to take into account of landing directly on a page with a special script.
+
+
+
 
 
 

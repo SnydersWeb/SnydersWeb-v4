@@ -1,17 +1,29 @@
 const pageFetcher = {
     activeFetch: false,
+    engineScripts: [
+        "componentTemplates/topicBarComponent.js",
+        "componentTemplates/subTopicComponent.js",
+        "scripts/topicBarComponent.js",
+        "scripts/subTopicComponent.js",
+        "scripts/pageFetcher.js",
+        "scripts/utils.js",
+        "scripts/specialEffects.js",
+        "scripts/maestro.js"
+    ],
+    extraScriptRegistry: [],
+    currReqUrl: '',
     fetchStartEvent: new CustomEvent(
-        'fetchStart', 
+        'fetchStart',
         {
-            detail: {}, 
+            detail: {},
             bubbles: false,
             cancelable: true,
         }
     ),
     fetchEndEvent: new CustomEvent(
-        'fetchEnd', 
+        'fetchEnd',
         {
-            detail: {}, 
+            detail: {},
             bubbles: false,
             cancelable: true,
         }
@@ -25,13 +37,13 @@ const pageFetcher = {
         this.activeFetch = true
         // Default options are marked with *
         return fetch(url, {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'cors', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: data
-            })
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: data
+        })
             // fetch() returns a promise. When we have received a response from the server,
             // the promise's 'then()' handler is called with the response.
             .then((response) => {
@@ -47,7 +59,7 @@ const pageFetcher = {
                 this.activeFetch = false;
                 this.mainContainer.dispatchEvent(this.fetchEndEvent);
                 console.log(`Could not fetch result: ${error}`);
-            });   
+            });
     },
     getPage(url) {
         if (this.activeFetch === true) {
@@ -55,6 +67,7 @@ const pageFetcher = {
         }
         this.mainContainer.dispatchEvent(this.fetchStartEvent);
         this.activeFetch = true
+        this.currReqUrl = url;
         // Call 'fetch()', passing in the URL.
         return fetch(url)
             // fetch() returns a promise. When we have received a response from the server,
@@ -78,16 +91,77 @@ const pageFetcher = {
                 this.activeFetch = false;
                 this.mainContainer.dispatchEvent(this.fetchEndEvent);
                 console.log(`Could not fetch page: ${error}`);
-            });        
+            });
     },
     parsePageObject(rawHtml) {
         const xmlDoc = new DOMParser().parseFromString(rawHtml, 'text/html');
 
         return this.extractPageInfo(xmlDoc);
     },
+    async loadScript(script, dirContext, startDir) {
+
+        const scriptSrc = script.getAttribute("src");
+        const adjustedSrc = utils.linkAdjustor(scriptSrc, dirContext, startDir);
+
+        //Ideally we would do this via import but since our scripts can be accessed more than one way
+        const scriptPromise = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            document.body.appendChild(script);
+            script.onload = resolve;
+            script.onerror = reject;
+            script.async = true;
+            script.src = adjustedSrc;
+        });
+
+        //Add it to our registry
+        this.extraScriptRegistry.push(`${dirContext}${scriptSrc}`);
+    },
+    fetchScripts(pageScripts, reqDocDir) {
+        if (this.currReqUrl !== '') { //currReqUrl would ONLY be blank for an initial page load!
+            const { pathname } = window.location;
+            const rawPath = pathname.replace(/\\/gi, '/').substring(0, pathname.replace(/\\/gi, '/').lastIndexOf('/') + 1);
+            const stDirectory = rawPath.replace(reqDocDir, '');
+
+            //Need a quick check here to see if thisn't the landing page for this.
+            const newPageScripts = [...pageScripts].filter(x => {
+                const scriptSrc = x.getAttribute("src").replaceAll('../', '');
+                const isEngineScript = this.engineScripts.includes(scriptSrc);
+                let retVal = false;
+
+                if (isEngineScript === false) {
+                    const scriptKey = `${reqDocDir}${scriptSrc}`;
+                    if (this.extraScriptRegistry.includes(scriptKey) === false) {
+                        retVal = true;
+                    }
+                }
+                return retVal;
+            });
+
+            newPageScripts.forEach(x => this.loadScript(x, reqDocDir, stDirectory)); //This will dynamically load scripts
+
+        } else { //add scripts into our extraScriptRegistry
+            //Need a quick check here to see if this isn't the landing page for this.
+            [...pageScripts].forEach(x => {
+                const scriptSrc = x.getAttribute("src").replaceAll('../', '');
+                const isEngineScript = this.engineScripts.includes(scriptSrc);
+                if (isEngineScript === false) {
+                    const scriptKey = `${reqDocDir}${scriptSrc}`;
+                    if (this.extraScriptRegistry.includes(scriptKey) === false) {
+                        this.extraScriptRegistry.push(scriptKey);
+                    }
+                }
+            });
+        }
+    },
     extractPageInfo(docObj) {
-        //SnyderD - use some querySelector magic to get the parts
-        //We care about what bar is selected, subtopics that are selected, and available sub topics - oh, and page content
+        const content = docObj.querySelector('#content'); //Need to get this node early to get our directory context
+        const reqDocDir = content !== null ? content.dataset.dir : '';
+        const pageScripts = docObj.querySelectorAll('script');
+
+        //Dynamically load scripts that are not in the browser's memory
+        this.fetchScripts(pageScripts, reqDocDir);
+
+        //Next, onto our page elements
         const headerArea = docObj.querySelector('#selectedBar');
         const selectedTopicBar = headerArea.querySelector('topic-bar');
         const selectedTopicId = selectedTopicBar.dataset.id;
@@ -119,10 +193,9 @@ const pageFetcher = {
                 });
             });
         }
-        const content = docObj.querySelector('#content');
         const selectedSubTopicId = selectedSubTopics.length > 0 ? selectedSubTopics[selectedSubTopics.length - 1].id : '';
-        const selectedSubTopicLink = selectedSubTopics.length > 0 ? selectedSubTopics[selectedSubTopics.length - 1].href : '';        
-        
+        const selectedSubTopicLink = selectedSubTopics.length > 0 ? selectedSubTopics[selectedSubTopics.length - 1].href : '';
+
         const pageInfo = {
             headerInfo: {
                 id: selectedTopicId,
@@ -136,8 +209,8 @@ const pageFetcher = {
             },
             content,
         };
-        
+
         return pageInfo;
-    },  
+    },
 };
-   
+
