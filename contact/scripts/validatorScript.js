@@ -6,11 +6,11 @@ const contactForm = {
         const nameErr = name.parentNode.parentNode.querySelector('div.errMsg');
         const emailErr = email.parentNode.parentNode.querySelector('div.errMsg');
         const messageErr = message.parentNode.parentNode.querySelector('div.errMsg');
-        const { value: nameVal } = name;
-        const { value: emailVal } = email;
-        const { value: messageVal } = message;
+        const { value:nameVal } = name;
+        const { value:emailVal } = email;
+        const { value:messageVal } = message;
         let good = true;
-
+        
         if (nameVal.length < 3) {
             name.classList.add('err');
             nameErr.innerText = 'Please enter your name.';
@@ -20,7 +20,7 @@ const contactForm = {
             nameErr.innerText = '';
         }
 
-        if (emailVal.length < 5) {
+        if (emailVal.length < 5 ) {
             email.classList.add('err');
             emailErr.innerText = 'Please enter your email address.';
             good = false;
@@ -43,7 +43,7 @@ const contactForm = {
         }
 
         let data = null;
-        if (good === true) {
+        if(good === true) {
             data = new URLSearchParams();
             data.append('name', nameVal);
             data.append('email', emailVal);
@@ -60,11 +60,11 @@ const contactForm = {
         }
     },
     async submitContactForm(postData) {
-        let postURL = utils.linkAdjustor('parser.php');
+        let postURL = pageMaestro.linkAdjustor('parser.php');
         const { protocol } = window.location;
         //Local dev testing
         if (/file/.test(protocol)) {
-            postURL = utils.linkAdjustor('dummyParser.html');
+            postURL = pageMaestro.linkAdjustor('dummyParser.html');
         }
         const rawResult = await pageFetcher.postData(postURL, postData) || '';
         const result = JSON.parse(rawResult.replaceAll("'", '"'));

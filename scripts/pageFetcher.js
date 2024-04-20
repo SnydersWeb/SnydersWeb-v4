@@ -1,14 +1,11 @@
 const pageFetcher = {
     activeFetch: false,
     engineScripts: [
-        "componentTemplates/topicBarComponent.js",
-        "componentTemplates/subTopicComponent.js",
-        "scripts/topicBarComponent.js",
-        "scripts/subTopicComponent.js",
-        "scripts/pageFetcher.js",
-        "scripts/utils.js",
-        "scripts/specialEffects.js",
-        "scripts/maestro.js"
+        'componentTemplates/topicBarComponent.js',
+        'componentTemplates/subTopicComponent.js',
+        'scripts/topicBarComponent.js',
+        'scripts/subTopicComponent.js',
+        'scripts/maestro.js'
     ],
     extraScriptRegistry: [],
     currReqUrl: '',
@@ -119,7 +116,7 @@ const pageFetcher = {
     fetchScripts(pageScripts, reqDocDir) {
         if (this.currReqUrl !== '') { //currReqUrl would ONLY be blank for an initial page load!
             const dirBackStep = this.currReqUrl.includes('../') ? this.currReqUrl.substring(0, this.currReqUrl.lastIndexOf('../') + 3) : '';
-
+            
             //Need a quick check here to see if thisn't the landing page for this.
             const newPageScripts = [...pageScripts].filter(x => {
                 const scriptSrc = x.getAttribute('src').replaceAll('../', '');
@@ -212,3 +209,4 @@ const pageFetcher = {
     },
 };
 
+export default { pageFetcher };

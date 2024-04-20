@@ -1,12 +1,5 @@
 class Maestro {
     constructor() {
-        //Grab our utils
-        this.isMobile = utils.getIsMobile();
-
-        //Not doing anything with the background stuff for now
-        this.backgroundBackLayer = document.querySelector('#backgroundBackLayer');
-        this.backgroundFrontLayer = document.querySelector('#backgroundFrontLayer');
-
         //Set up bindings to important areas of the page
         this.mainContainer = document.querySelector('#mainContainer');
         this.logo = this.mainContainer.querySelector('#logo');
@@ -17,11 +10,7 @@ class Maestro {
         const printBanner = document.querySelector('#printBanner');
         this.printTitle = printBanner.querySelector('div.printTitle');
 
-        //Get information about where we're starting
-        this.currentPageInfo = pageFetcher.extractPageInfo(document);
-        this.requestedPageInfo = {};
-
-        //Convert hyperlinks in page body
+        //Get some base context info
         const { pathname, href } = window.location;
         const rawPath = pathname.replace(/\\/gi, '/').substring(0, pathname.replace(/\\/gi, '/').lastIndexOf('/') + 1);
         const fileName = href.substring(href.lastIndexOf('/') + 1, href.length);
@@ -29,15 +18,49 @@ class Maestro {
         this.currPageURL = `${this.currentDirectory}${fileName}`;
         this.reqPageURL = '';
         this.startingDirectory = rawPath.replace(this.currentDirectory, '');
+
+        //Not doing anything with the background stuff for now
+        this.backgroundBackLayer = document.querySelector('#backgroundBackLayer');
+        this.backgroundFrontLayer = document.querySelector('#backgroundFrontLayer');
+
+        //Information about where we're starting
+        this.currentPageInfo = {};
+        this.requestedPageInfo = {};
+
+        //Convert hyperlinks in page body
         this.initialized = false;
         this.loader = null;
         this.barsInMotion = 0;
-
-        utils.adjustLinks(this.pageContent, this.mainContainer, this.startingDirectory, this.currentDirectory);
+        this.isMobile = false;
     }
 
     //Methods
-    init() {
+    async init() {
+        await Promise.all(
+            //Grab our script modules
+            [
+                'scripts/utils.js',
+                'scripts/pageFetcher.js',
+                'scripts/specialEffects.js',
+            ].map(async x => {
+                const curDirParts = this.currentDirectory.split('/');
+                const dirBackStep = curDirParts.map(() => '../').splice(0, 1).join('');
+
+                const adjustedSrc = `${dirBackStep}${x}`;
+
+                await import(adjustedSrc).then((script) => {
+                    const { default: payload } = script;
+                    for (let item in payload) {
+                        window[item] = payload[item];
+                    }
+                });
+            })
+        ).then(() => {
+            this.startInterface();
+        });
+    }
+
+    startInterface() {
         //Selected Topic Bar events
         this.pageHeader.addEventListener('removeSubTopic', (evt) => { this.removeSubTopic(evt) });
 
@@ -48,6 +71,12 @@ class Maestro {
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
         window.addEventListener('popstate', () => { this.hashChange() });
+
+        this.isMobile = utils.getIsMobile();
+
+        //get our first page.
+        this.currentPageInfo = pageFetcher.extractPageInfo(document);
+        this.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
 
         const { hash } = window.location;
         let cleanHash = hash.replace('#', '');
@@ -63,8 +92,13 @@ class Maestro {
                 contentPanel: this.contentPanel,
             };
 
+            //hide the elements at first.
+            for (let item in itemHandles) {
+                itemHandles[item].style.visibility = 'hidden';
+            }
+
             specialEffects.setHandles(itemHandles);
-            specialEffects.start();
+            specialEffects.bootSequence(itemHandles);
         } else {
             specialEffects.sparky();
             this.fetchPage({ detail: { pageURL: cleanHash } });
@@ -76,6 +110,85 @@ class Maestro {
             this.backgroundFrontLayer.classList.add('overSize');
             this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt) });
         }
+    }
+
+    linkAdjustor(linkLoc, currentDirectory = this.getCurrentDir(), startingDirectory = this.getStartingDir()) {
+        const fileName = linkLoc.substring(linkLoc.lastIndexOf('/'), linkLoc.length);
+        const linkLocParts = linkLoc.replace(fileName, '').split('/').filter(item => item === '..');
+        const cdParts = currentDirectory.slice(0, -1).split('/');
+        const chopFactor = cdParts.length - linkLocParts.length;
+        const linkPath = cdParts
+            .slice(0, 0 + (chopFactor))
+            .filter((item, index) => cdParts.indexOf(item) === index) //Quick check to ensure we don't have dups
+            .join('/');
+
+        return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll('../', '')}`).replaceAll('//', '/');
+    }
+
+    adjustLinks(pageContent, mainContainer, currentDirectory, startingDirectory) {
+        const contentLinks = pageContent.querySelectorAll('a');
+        const imgRegEx = new RegExp(/\.gif|\.jpg|\.png|\.svg/i);
+
+        contentLinks.forEach((link, current) => {
+            const { href } = link; //This returns some form of "Reconciled" location.. 
+            const trueHref = link.getAttribute('href');
+            const { nofetch: rawNoFetch } = link.dataset;
+            const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
+
+            if (/http/i.test(trueHref) === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false) {
+                if (noFetch === false) { //NOT Link to external
+                    const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+
+                    const linkClickEvent = new CustomEvent(
+                        'fetchPage',
+                        {
+                            detail: {
+                                pageURL: linkHref
+                            },
+                            bubbles: false,
+                            cancelable: true,
+                        }
+                    );
+
+                    link.setAttribute('href', 'JavaScript:void(0);');
+                    link.dataset.link = linkHref;
+                    link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+                } else {
+                    const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+                    link.setAttribute('href', linkHref);
+                }
+            } else if (imgRegEx.test(href)) { //special image link
+
+                const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+
+                const linkClickEvent = new CustomEvent(
+                    'showShot',
+                    {
+                        detail: {
+                            pageURL: linkHref,
+                            name: 'screen_shot',
+                            resize: true,
+                            width: 'auto',
+                            height: 'auto',
+                        },
+                        bubbles: false,
+                        cancelable: true,
+                    }
+                );
+
+                link.setAttribute('href', 'JavaScript:void(0);');
+                link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+            }
+        });
+    }
+
+    adjustImages(pageContent, currentDirectory, startingDirectory) {
+        const contentImages = pageContent.querySelectorAll('img');
+        contentImages.forEach((img) => {
+            const trueHref = img.getAttribute('src');
+            const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+            img.setAttribute('src', linkHref);
+        });
     }
 
     getStartingDir() {
@@ -102,7 +215,6 @@ class Maestro {
         if (fetchResult !== false) {
             this.requestedPageInfo = fetchResult;
             this.reqPageURL = pageURL;
-
             this.handlePageChanges(pageURL);
         }
     }
@@ -227,8 +339,8 @@ class Maestro {
         });
         fadeOut.addEventListener('finish', () => {
             this.pageContent.innerHTML = content.innerHTML;
-            utils.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
-            utils.adjustImages(this.pageContent, this.currentDirectory, this.startingDirectory);
+            this.adjustLinks(this.pageContent, this.mainContainer, this.currentDirectory, this.startingDirectory);
+            this.adjustImages(this.pageContent, this.currentDirectory, this.startingDirectory);
 
             const fadeIn = this.pageContent.animate([
                 {
@@ -256,7 +368,7 @@ class Maestro {
             const newBar = [...selectedSubTopicBars].filter(item => addItem.id === item.dataset.id);
             if (newBar !== null && newBar.length > 0) {
                 let bar = newBar[0];
-                bar.setAttribute('href', utils.linkAdjustor(`${addItem.href}`, currentDirectory, this.startingDirectory));
+                bar.setAttribute('href', this.linkAdjustor(`${addItem.href}`, currentDirectory, this.startingDirectory));
                 return bar;
             }
         });
@@ -270,7 +382,7 @@ class Maestro {
         //Add new submenu items
         const { subTopicBars } = reqHeaderInfo;
         subTopicBars.forEach(item => {
-            const newLink = utils.linkAdjustor(`${item.getAttribute('href')}`, currentDirectory, this.startingDirectory);
+            const newLink = this.linkAdjustor(`${item.getAttribute('href')}`, currentDirectory, this.startingDirectory);
             item.setAttribute('href', newLink);
             item.setAttribute('added', 'true');
             item.classList.add('staged');

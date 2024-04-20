@@ -1,83 +1,5 @@
 const utils = {
-	linkAdjustor(linkLoc, currentDirectory = pageMaestro.getCurrentDir(), startingDirectory = pageMaestro.getStartingDir()) {
-		const fileName = linkLoc.substring(linkLoc.lastIndexOf('/'), linkLoc.length);
-		const linkLocParts = linkLoc.replace(fileName, '').split('/').filter(item => item === '..');
-		const cdParts = currentDirectory.slice(0, -1).split('/');
-		const chopFactor = cdParts.length - linkLocParts.length;
-		const linkPath = cdParts
-			.slice(0, 0 + (chopFactor))
-			.filter((item, index) => cdParts.indexOf(item) === index) //Quick check to ensure we don't have dups
-			.join('/');
-
-		return (`${startingDirectory}${linkPath}/${linkLoc.replaceAll('../', '')}`).replaceAll('//', '/');
-	},
-
-	adjustLinks(pageContent, mainContainer, startingDirectory, currentDirectory) {
-		const contentLinks = pageContent.querySelectorAll('a');
-		const imgRegEx = new RegExp(/\.gif|\.jpg|\.png|\.svg/i);
-
-		contentLinks.forEach((link, current) => {
-			const { href } = link; //This returns some form of "Reconciled" location.. 
-			const trueHref = link.getAttribute('href');
-			const { nofetch: rawNoFetch } = link.dataset;
-			const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
-
-			if (/http/i.test(trueHref) === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false) {
-				if (noFetch === false) { //NOT Link to external
-					const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
-
-					const linkClickEvent = new CustomEvent(
-						'fetchPage',
-						{
-							detail: {
-								pageURL: linkHref
-							},
-							bubbles: false,
-							cancelable: true,
-						}
-					);
-
-					link.setAttribute('href', 'JavaScript:void(0);');
-					link.dataset.link = linkHref;
-					link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
-				} else {
-					const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
-					link.setAttribute('href', linkHref);
-				}
-			} else if (imgRegEx.test(href)) { //special image link
-
-				const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
-
-				const linkClickEvent = new CustomEvent(
-					'showShot',
-					{
-						detail: {
-							pageURL: linkHref,
-							name: 'screen_shot',
-							resize: true,
-							width: 'auto',
-							height: 'auto',
-						},
-						bubbles: false,
-						cancelable: true,
-					}
-				);
-
-				link.setAttribute('href', 'JavaScript:void(0);');
-				link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
-			}
-		});
-	},
-
-	adjustImages(pageContent, currentDirectory, startingDirectory) {
-		const contentImages = pageContent.querySelectorAll('img');
-		contentImages.forEach((img) => {
-			const trueHref = img.getAttribute('src');
-			const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
-			img.setAttribute('src', linkHref);
-		});
-	},
-
+	
 	showShot(fetchInfo) {
 		const { detail } = fetchInfo;
 		let { resize } = detail;
@@ -232,4 +154,6 @@ const utils = {
 		});
 		return retVal;
 	},
-}
+};
+
+export default { utils };

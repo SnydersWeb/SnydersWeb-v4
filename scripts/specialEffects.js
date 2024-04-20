@@ -44,9 +44,13 @@ const specialEffects = {
             }
         );
     },
-    start() {
+    bootSequence(itemHandles) {
         //Stage it!
         this.stageAll();
+
+        for (let item in itemHandles) {
+            itemHandles[item].style.visibility = '';
+        }
 
         //Start it!
         this.fadeBackgroundsIn();
@@ -403,3 +407,5 @@ const specialEffects = {
         this.sparkTimeout = setTimeout(() => { this.createSpark(); }, timeOut);
     },
 };
+
+export default { specialEffects };
