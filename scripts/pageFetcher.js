@@ -98,13 +98,13 @@ const pageFetcher = {
 
         return this.extractPageInfo(xmlDoc);
     },
-    async loadScript(script, dirContext, startDir) {
+    async loadScript(script, dirBackStep, reqDocDir) {
 
-        const scriptSrc = script.getAttribute("src");
-        const adjustedSrc = utils.linkAdjustor(scriptSrc, dirContext, startDir);
+        const scriptSrc = script.getAttribute('src');
+        const adjustedSrc = `${dirBackStep}${reqDocDir}${scriptSrc}`; //pageMaestro.linkAdjustor(scriptSrc, dirContext, startDir);
 
         //Ideally we would do this via import but since our scripts can be accessed more than one way
-        const scriptPromise = new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
             const script = document.createElement('script');
             document.body.appendChild(script);
             script.onload = resolve;
@@ -114,17 +114,15 @@ const pageFetcher = {
         });
 
         //Add it to our registry
-        this.extraScriptRegistry.push(`${dirContext}${scriptSrc}`);
+        this.extraScriptRegistry.push(`${adjustedSrc}`);
     },
     fetchScripts(pageScripts, reqDocDir) {
         if (this.currReqUrl !== '') { //currReqUrl would ONLY be blank for an initial page load!
-            const { pathname } = window.location;
-            const rawPath = pathname.replace(/\\/gi, '/').substring(0, pathname.replace(/\\/gi, '/').lastIndexOf('/') + 1);
-            const stDirectory = rawPath.replace(reqDocDir, '');
+            const dirBackStep = this.currReqUrl.includes('../') ? this.currReqUrl.substring(0, this.currReqUrl.lastIndexOf('../') + 3) : '';
 
             //Need a quick check here to see if thisn't the landing page for this.
             const newPageScripts = [...pageScripts].filter(x => {
-                const scriptSrc = x.getAttribute("src").replaceAll('../', '');
+                const scriptSrc = x.getAttribute('src').replaceAll('../', '');
                 const isEngineScript = this.engineScripts.includes(scriptSrc);
                 let retVal = false;
 
@@ -137,12 +135,12 @@ const pageFetcher = {
                 return retVal;
             });
 
-            newPageScripts.forEach(x => this.loadScript(x, reqDocDir, stDirectory)); //This will dynamically load scripts
+            newPageScripts.forEach(x => this.loadScript(x, dirBackStep, reqDocDir)); //This will dynamically load scripts
 
         } else { //add scripts into our extraScriptRegistry
             //Need a quick check here to see if this isn't the landing page for this.
             [...pageScripts].forEach(x => {
-                const scriptSrc = x.getAttribute("src").replaceAll('../', '');
+                const scriptSrc = x.getAttribute('src').replaceAll('../', '');
                 const isEngineScript = this.engineScripts.includes(scriptSrc);
                 if (isEngineScript === false) {
                     const scriptKey = `${reqDocDir}${scriptSrc}`;

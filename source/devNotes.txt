@@ -419,6 +419,35 @@ for (let item in newScript) {
 
 This of course requires each has exports.  The system I put in was a bit more.. crude/simple but it had to take into account of landing directly on a page with a special script.
 
+Spent (a lot) of time doing it.. though it made it harder for the boot sequence to come up smoothly.  Think it's better to leave those scripts at their current level.
+
+The final code looked like this:
+async init() {
+    await Promise.all(
+        //Grab our script modules
+        [
+            'scripts/utils.js',
+            'scripts/pageFetcher.js',
+            'scripts/specialEffects.js',
+        ].map(async x => {
+            const curDirParts = this.currentDirectory.split('/');
+            const dirBackStep = curDirParts.map(() => '../').splice(0, 1).join('');
+
+            const adjustedSrc = `${dirBackStep}${x}`;
+
+            await import(adjustedSrc).then((script) => {
+                const { default: payload } = script;
+                for (let item in payload) {
+                    window[item] = payload[item];
+                }
+            });
+        })
+    ).then(() => {
+        this.startInterface();
+    });
+}
+
+It worked great.. but think the boot sequence came up smoother before.
 
 
 
