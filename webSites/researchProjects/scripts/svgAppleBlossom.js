@@ -309,9 +309,19 @@ const svgAppleBlossom = {
         //Pick color
         let color;
         if (/fullRGB/.test(this.colorScheme)) {
-            const rColor = utils.getRandomInt(0, 255, 0);
-            const gColor = utils.getRandomInt(0, 255, 0);
-            const bColor = utils.getRandomInt(0, 255, 0);
+            let rColor = utils.getRandomInt(0, 255, 0);
+            let gColor = utils.getRandomInt(0, 255, 0);
+            let bColor = utils.getRandomInt(0, 255, 0);
+            
+            try {
+                rColor = utils.getRandomInt(0, 255, 0);
+                gColor = utils.getRandomInt(0, 255, 0);
+                bColor = utils.getRandomInt(0, 255, 0);
+            } catch (err) {
+                rColor = 255;
+                gColor = 255;
+                bColor = 255;
+            }
             color = `#${rColor.toString(16)}${gColor.toString(16)}${bColor.toString(16)}`;
         } else {
             const colorScheme = this.colors[this.colorScheme];
@@ -323,7 +333,13 @@ const svgAppleBlossom = {
                     this.colorIdx += 1;
                 }
             } else {
-                color = colorScheme[utils.getRandomInt(0, colorScheme.length, 0)];
+                let colorIdx;
+                try {
+                    colorIdx = utils.getRandomInt(0, colorScheme.length, 0);
+                } catch (err) {
+                    colorIdx = 0;
+                }
+                color = colorScheme[colorIdx];
             }
         }
 
