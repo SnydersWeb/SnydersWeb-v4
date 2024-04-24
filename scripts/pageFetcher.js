@@ -151,8 +151,9 @@ const pageFetcher = {
     extractPageInfo(docObj) {
         const content = docObj.querySelector('#content'); //Need to get this node early to get our directory context
         const reqDocDir = content !== null ? content.dataset.dir : '';
-        const pageScripts = docObj.querySelectorAll('script');
-
+        const pageHead = docObj.querySelector('head');
+        const pageScripts = pageHead.querySelectorAll('script');
+        
         //Dynamically load scripts that are not in the browser's memory
         this.fetchScripts(pageScripts, reqDocDir);
 

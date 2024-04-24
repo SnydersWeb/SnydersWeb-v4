@@ -33,7 +33,7 @@ class Maestro {
         this.barsInMotion = 0;
         this.isMobile = false;
     }
-
+    
     //Methods
     async init() {
         await Promise.all(
@@ -531,6 +531,14 @@ class Maestro {
             this.currentPageInfo = { ...this.requestedPageInfo };
             this.requestedPageInfo = {};
         }
+
+        //Execute in-line body scripts.
+        const bodyScripts = this.pageContent.querySelectorAll('script');
+        bodyScripts.forEach(item => {
+            try {
+                eval?.(item.innerText);
+            } catch (err) {}
+        });
     }
 
     //Hash changes for forward/backward button support.

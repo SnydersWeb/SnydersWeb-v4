@@ -457,24 +457,17 @@ I spent some time digging through my old code archives and digging up some ancie
 I have also spent some time slightly restructuring Research Projects to make way for my upcoming "Apple Blossom" SVG thing.
 
 Colors for it: (from https://www.mrob.com/pub/xapple2/colors.html)
-                        R   G   B
- black    COLOR=0       0   0   0
- red      COLOR=1     227  30  96
- dk blue  COLOR=2      96  78 189
- purple   COLOR=3     255  68 253
- dk green COLOR=4       0 163  96
- gray     COLOR=5     156 156 156
- med blue COLOR=6      20 207 253
- lt blue  COLOR=7     208 195 255
- brown    COLOR=8      96 114   3
- orange   COLOR=9     255 106  60
- grey     COLOR=10    156 156 156
- pink     COLOR=11    255 160 208
- lt green COLOR=12     20 245  60
- yellow   COLOR=13    208 221 141
- aqua     COLOR=14    114 255 208
- white    COLOR=15    255 255 255
- 
+https://www.rapidtables.com/web/color/RGB_Color.html to convert.
+
+4/24
+I've gotten the SVG Apple blossom done - Overall I'm quite pleased with it.  It's fun to see something I havent' seen in an extremely long time.
+
+Has been interesting from the point of doing real-time SVG generation in a more visible way outside of the spark thing.
+
+Hmm.. what to do next?
+
+
+
 
 
 

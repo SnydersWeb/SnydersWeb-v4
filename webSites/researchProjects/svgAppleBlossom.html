@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
 	<title>SnydersWeb.com - Web Sites - Research Projects</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,6 +14,7 @@
 	<script type="text/javascript" src="../../scripts/topicBarComponent.js" defer></script>
 	<script type="text/javascript" src="../../scripts/subTopicComponent.js" defer></script>
 	<script type="text/javascript" src="../../scripts/maestro.js" defer></script>
+	<script type="text/javascript" src="scripts/svgAppleBlossom.js"></script>
 </head>
 
 <body>
@@ -94,21 +96,151 @@
 
 <h1>SVG Apple Blossom</h1>
 
-Some of my very first adventures into programming was learning Apple II Basic.  I loved playing in both GR and HGR modes!  One of the most satisfying effects was a very simple thing - it was to have 4 lines moving in opposite directions where it would weave a fun and pretty pattern on the screen.   I would spend countless hours playing with different ways to get it to draw various patterns on the screen.  <br /><br />
+<strong class="important">WARNING:</strong> This SVG may potentially trigger seizures for people
+with photosensitive epilepsy. User discretion is advised! (not joking!).<br /><br />
 
-Fast forward to today - SVG is an infinitely flexible and powerful way to draw in the browser space.  It can be used for:
+Some of my very first adventures into programming was learning Apple II Basic. I loved playing
+in both GR and HGR modes! One of the most satisfying effects was a very simple thing - it was to
+have 4 lines moving in opposite directions where it would weave a fun and pretty pattern on the
+screen. I would spend countless hours playing with different ways to get it to draw various
+patterns on the screen. <br /><br />
+
+The Apple II was limited to 16 colors (2 grays so my picker just says 15 color) and a 40 x 40 grid for GR mode. This one of course you can set it to
+whatever you want for the X and Y Axis! You can also set different refresh rates, how many lines, and how many spaces 
+the line moves between cycles.<br /><br />
+
+
+Fast forward to today - SVG is an infinitely flexible and powerful way to draw in the browser
+space. It can be used for:
 <ul>
 	<li>Charts and graphs</li>
 	<li>Games (like Fauxnix)</li>
 	<li>Interface graphics (all the UI components on this site are SVG!)</li>
-	<li>Adding effects to the site (the little sparky things you might have seen are randomly generated SVG lines)</li>
-	<li>Crazy nostalgistic fun stuffs like this</li>
+	<li>Adding effects to the site (the little sparky things you might have seen are randomly
+		generated SVG lines)</li>
+	<li>Fun nostalgistic stuff like this</li>
 </ul> 
 
+<div class="center">
+	<svg id="blossom" height="600" width="800"></svg>
+</div>
 
+<form action="javascript:void(0)" method="post" onsubmit="svgAppleBlossom.setParams(this)"
+	onreset="svgAppleBlossom.clearAll()">
+	<fieldset title="Controls">
+		<legend>Controls</legend>
 
+		<div class="formLine">
+			<div class="fieldLabel"><label for="colorScheme">Color Scheme: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="colorScheme">
+					<option value="apple15">Apple II 15 Color</option>
+					<option value="standard256">256 Color</option>
+					<option value="fullRGB">Full RGB (random)</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<div class="fieldLabel"><label for="colorSequence">Color Sequence: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="colorSequence">
+					<option value="random">Randomize</option>
+					<option value="sequential">Sequential</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<div class="fieldLabel"><label for="rows">Rows: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="rows">
+					<option value="20">20</option>
+					<option value="40" selected="true">40</option>
+					<option value="80">80</option>
+					<option value="120">120</option>
+					<option value="256">256</option>
+					<option value="max">Maximum</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<div class="fieldLabel"><label for="cols">Columns: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="cols">
+					<option value="20">20</option>
+					<option value="40" selected="true">40</option>
+					<option value="80">80</option>
+					<option value="120">120</option>
+					<option value="256">256</option>
+					<option value="max">Maximum</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<div class="fieldLabel"><label for="lines">Lines: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="lines">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<div class="fieldLabel"><label for="stepping">Stepping: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="stepping">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<div class="fieldLabel"><label for="refresh">Refresh: </label>
+			</div>
+			<div class="fieldBox">
+				<select name="refresh">
+					<option value="5">5 ms</option>
+					<option value="10">10 ms</option>
+					<option value="50">50 ms</option>
+					<option value="100" selected="true">100 ms</option>
+					<option value="1000">1 sec</option>
+					<option value="5000">5 sec</option>
+				</select>
+			</div>
+		</div>
+		<div class="formLine">
+			<input type="submit" value="Run it!" /> <input type="reset" />
+		</div>
 
+	</fieldset>
+</form>
 
+<script type="text/javascript">
+	//SnyderD - ok.. maybe a tad "hack" here.  Scripts in the header are run only on first load and body scripts are now 
+	//detected and executed at the time of content load
+	svgAppleBlossom.setCanvasSize();
+</script>
 
 				<br /><br />
 			
@@ -137,4 +269,5 @@ Fast forward to today - SVG is an infinitely flexible and powerful way to draw i
 </div>
 
 </body>
+
 </html>

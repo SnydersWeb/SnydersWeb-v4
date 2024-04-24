@@ -264,4 +264,7 @@ MENU LI {
 
 /* End form related selectors */
 
+#blossom {
+	border: 1px solid #AAAAAA;
+}
 /* End content formatting selectors */

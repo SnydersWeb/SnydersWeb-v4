@@ -1,8 +1,6 @@
 const contactForm = {
     contactFormValidator(evt) {
-        const { name } = evt;
-        const { email } = evt;
-        const { message } = evt;
+        const { name, email, message } = evt;
         const nameErr = name.parentNode.parentNode.querySelector('div.errMsg');
         const emailErr = email.parentNode.parentNode.querySelector('div.errMsg');
         const messageErr = message.parentNode.parentNode.querySelector('div.errMsg');
