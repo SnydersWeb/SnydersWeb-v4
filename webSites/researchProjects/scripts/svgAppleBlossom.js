@@ -309,9 +309,7 @@ const svgAppleBlossom = {
         //Pick color
         let color;
         if (/fullRGB/.test(this.colorScheme)) {
-            let rColor = utils.getRandomInt(0, 255, 0);
-            let gColor = utils.getRandomInt(0, 255, 0);
-            let bColor = utils.getRandomInt(0, 255, 0);
+            let rColor, gColor, bColor;
             
             try {
                 rColor = utils.getRandomInt(0, 255, 0);
@@ -347,10 +345,7 @@ const svgAppleBlossom = {
             for (let item in this.lineIdx) {
                 let currLine = this.lineIdx[item][i];
                 let newLineInfo = { ...currLine };
-                let height;
-                let width;
-                let xPos;
-                let yPos;
+                let height, width, xPos, yPos;
                 let nextStepDist = 0;
 
                 if (/top|bottom/.test(item)) {
