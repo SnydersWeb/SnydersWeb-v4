@@ -466,6 +466,11 @@ Has been interesting from the point of doing real-time SVG generation in a more 
 
 Hmm.. what to do next?
 
+4/29
+While out I discovered, much to my absolute horror that my site was simply NOT working on ANY iOS device!  After some diagnostic time I discovered the culprit - navigator.vibrate!  
+
+
+
 
 
 

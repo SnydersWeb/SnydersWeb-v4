@@ -153,6 +153,7 @@ class Maestro {
                     link.setAttribute('href', 'JavaScript:void(0);');
                     link.dataset.link = linkHref;
                     link.addEventListener('click', () => { mainContainer.dispatchEvent(linkClickEvent); });
+                        
                 } else {
                     const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
                     link.setAttribute('href', linkHref);
@@ -202,8 +203,10 @@ class Maestro {
     async fetchPage(fetchInfo) {
         const { pageURL } = fetchInfo.detail;
 
-        if (this.isMobile) {
-            navigator.vibrate(10); //Haptic feedback
+        if (this.isMobile && navigator && navigator.vibrate) { //Apparently this doesn't work so well with iOS...
+            try {
+                navigator.vibrate(10); //Haptic feedback
+            } catch (err) {}
         }
 
         if (/undefined/i.test(pageURL) || pageURL === this.currPageURL || this.barsInMotion > 0) {

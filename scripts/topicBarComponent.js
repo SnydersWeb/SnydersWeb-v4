@@ -43,7 +43,7 @@ class TopicBar extends HTMLElement {
         this.locData = null;
     }
 
-    adjustTemplatesForPath() {
+	adjustTemplatesForPath() {
         //Fix our templates for current path
         //bit of a brutal hack here for image pathing
         const pageContent = document.querySelector('#content');
@@ -63,8 +63,7 @@ class TopicBar extends HTMLElement {
     connectedCallback() {
         this.addEventListener('keydown', this.handleClick);
         this.addEventListener('removeSubTopic', this.removeSubTopic);
-        this.bar.classList.remove('hover');
-        this.bar.addEventListener('click', this.handleClick);
+        this.addEventListener('click', this.handleClick);
         this.bar.addEventListener('mouseover', this.mouseOver);
         this.bar.addEventListener('mouseout', this.mouseOut);
     };
@@ -72,7 +71,7 @@ class TopicBar extends HTMLElement {
     disconnectedCallback() {
         this.removeEventListener('keydown', this.handleClick);
         this.removeEventListener('removeSubTopic', this.removeSubTopic);
-        this.bar.removeEventListener('click', this.handleClick);
+        this.removeEventListener('click', this.handleClick);
         this.bar.removeEventListener('mouseover', this.mouseOver);
         this.bar.removeEventListener('mouseout', this.mouseOut);
     };
@@ -92,6 +91,7 @@ class TopicBar extends HTMLElement {
     };
 
     handleClick = (evt) => {
+        this.bar.classList.remove('hover');
         const { type, target } = evt;
         let fireDispatch = false;
         if (/sub-topic/i.test(target.tagName)) {
@@ -180,6 +180,7 @@ class TopicBar extends HTMLElement {
         animate.addEventListener('finish', () => {
             this.locData = null;
             this.removeAttribute('promote');
+            this.bar.classList.remove('hover');
             document.querySelector('#mainContainer').dispatchEvent(this.barMotionEnd);
         });
     };

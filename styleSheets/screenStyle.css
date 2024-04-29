@@ -632,7 +632,8 @@
 	}
 
 	#selectedBar TOPIC-BAR .barTextSlot {
-		font-size: 90%;
+		font-size: 85%;
+		white-space: nowrap;
 	}
 
 	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC {
@@ -649,7 +650,7 @@
 	}
 
 	#selectedBar MENU LI SUB-TOPIC {
-		font-size: 90%;
+		font-size: 85%;
 	}
 
 	#selectedBar MENU LI SUB-TOPIC {
@@ -682,7 +683,8 @@
 	}
 
 	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
-		font-size: 90%;
+		font-size: 85%;
+		white-space: nowrap;
 	}
 
 	#contentPanel {

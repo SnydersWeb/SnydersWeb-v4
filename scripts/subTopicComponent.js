@@ -65,7 +65,7 @@ class SubTopic extends HTMLElement {
             }
         );
     }
-
+    
     adjustTemplatesForPath() {
         //Fix our templates for current path
         //bit of a brutal hack here for image pathing
@@ -84,15 +84,15 @@ class SubTopic extends HTMLElement {
     }
 
     connectedCallback() {
-        this.bar.addEventListener('click', this.handleClick);
-        this.bar.addEventListener('keydown', this.handleClick);
+        this.addEventListener('click', this.handleClick);
+        this.addEventListener('keydown', this.handleClick);
         this.bar.addEventListener('mouseover', this.mouseOver);
         this.bar.addEventListener('mouseout', this.mouseOut);
     };
 
     disconnectedCallback() {
-        this.bar.removeEventListener('click', this.handleClick);
-        this.bar.removeEventListener('keydown', this.handleClick);
+        this.removeEventListener('click', this.handleClick);
+        this.removeEventListener('keydown', this.handleClick);
         this.bar.removeEventListener('mouseover', this.mouseOver);
         this.bar.removeEventListener('mouseout', this.mouseOut);
     };
