@@ -480,7 +480,7 @@ class Maestro {
                 //remap domSelectedSubTopicArea to our new bar
                 domSelectedSubTopicArea = utils.createEl('div', { 'class': 'selSubTopics', 'name': 'selectedSubTopic' }, [], promoteBar);
             } else {
-                domSelectedSubTopicArea = promoteBar.querySelector('DIV.selSubTopics');
+                domSelectedSubTopicArea = promoteBar.querySelector('div.selSubTopics');
             }
             if (hasSubMenuArea === false) {
                 //remap domHeaderSubNavArea to our new bar
