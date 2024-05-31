@@ -134,8 +134,9 @@ class Maestro {
             const trueHref = link.getAttribute('href');
             const { nofetch: rawNoFetch } = link.dataset;
             const noFetch = /true/i.test(rawNoFetch); //Some links we do NOT want going through the fetch system!
+            const isAbsoluteURL = /http/i.test(trueHref);
 
-            if (/http/i.test(trueHref) === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false) {
+            if (isAbsoluteURL === false && /mailto/i.test(trueHref) === false && imgRegEx.test(trueHref) === false) {
                 if (noFetch === false) { //NOT Link to external
                     const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
 
@@ -160,7 +161,7 @@ class Maestro {
                 }
             } else if (imgRegEx.test(href)) { //special image link
 
-                const linkHref = this.linkAdjustor(trueHref, currentDirectory, startingDirectory);
+                const linkHref = isAbsoluteURL === false ? this.linkAdjustor(trueHref, currentDirectory, startingDirectory) : trueHref;
 
                 const linkClickEvent = new CustomEvent(
                     'showShot',
