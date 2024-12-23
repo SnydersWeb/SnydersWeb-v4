@@ -151,9 +151,11 @@ The hit-boxing was another rather tricky aspect of the game.  The hitboxes on ea
 
 To accommodate mobile, the interface changes slightly where it renders some on-screen buttons to control the game.  After my initial launch, I received some feedback about the size of the buttons so I went back and greatly increased the size.<br /><br />
 
+Implmenting sound effects in the game ended up being a bit tricky.  Most of the examples I found regarding sound was always in response to some direct user event.  In my case, the events that trigger audio happen from state changes - all sound events depend on things that can only be determined by the game state.  I played around with different permeatations of how to do it - and ended on some "renderless" function-components.  This made it where all I had to do was to include the component to fire a sound.  Where things get very tricky was to change my reducer where sounds are included when they need to be, for as long as they need to be, and are then discarded.  For sounds, I started wth a real recording of a chicken - cropped down to just the part (breif) I needed.  Why chickens?  Well.. why not?  Beyond that, chickens can be funny sounding so there is that!  One other touch was to set the sound-speed to the bird instance.  So birds with low voices and high voices are consistent to keep the "personalities" consistent.<br /><br />
+
 If you have any comments or questions, please use my <a href="../../contact/index.html">Contact Me</a> section as user feedback has already played a valuable role in making this a fun project to play.<br /><br />
 
-
+ 
 
 
 
