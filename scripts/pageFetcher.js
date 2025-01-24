@@ -55,7 +55,6 @@ const pageFetcher = {
             .catch((error) => {
                 this.activeFetch = false;
                 this.mainContainer.dispatchEvent(this.fetchEndEvent);
-                console.log(`Could not fetch result: ${error}`);
             });
     },
     getPage(url) {
@@ -87,7 +86,6 @@ const pageFetcher = {
             .catch((error) => {
                 this.activeFetch = false;
                 this.mainContainer.dispatchEvent(this.fetchEndEvent);
-                console.log(`Could not fetch page: ${error}`);
             });
     },
     parsePageObject(rawHtml) {
