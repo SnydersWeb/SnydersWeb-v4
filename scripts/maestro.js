@@ -32,6 +32,8 @@ class Maestro {
         this.loader = null;
         this.barsInMotion = 0;
         this.isMobile = false;
+        this.devicePermissionMotion = true;
+        this.devicePermissionOrientation = true;
     }
     
     //Methods
@@ -70,6 +72,8 @@ class Maestro {
         this.mainContainer.addEventListener('fetchStart', () => { this.showLoader() });
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
+        // Had to put a setTimeout on this one to allow the UI a tiny fraction to settle after the event.
+        window.addEventListener('orientationchange', () => { setTimeout(() => { specialEffects.orientationChange(); }, 100)});
         window.addEventListener('popstate', () => { this.hashChange() });
 
         this.isMobile = utils.getIsMobile();
@@ -103,13 +107,18 @@ class Maestro {
             specialEffects.sparky();
             this.fetchPage({ detail: { pageURL: cleanHash } });
         }
-
-        if (this.isMobile === false) {
-            //oversize our background elements for the scrolly thing
-            this.backgroundBackLayer.classList.add('overSize');
-            this.backgroundFrontLayer.classList.add('overSize');
-            this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt) });
-        }
+        
+        specialEffects.orientationChange();
+        if (this.isMobile === true) {
+            if (window.DeviceMotionEvent && this.devicePermissionMotion) {
+                window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
+            }
+            if (window.DeviceOrientationEvent && this.devicePermissionOrientation) {
+                window.addEventListener('deviceorientation', (evt) => { specialEffects.moveBackground(evt, true); });
+            }
+        } else {
+            this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt, false); });
+        }        
     }
 
     linkAdjustor(linkLoc, currentDirectory = this.getCurrentDir(), startingDirectory = this.getStartingDir()) {

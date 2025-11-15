@@ -154,6 +154,16 @@ const utils = {
 		});
 		return retVal;
 	},
+
+	debug(debugMsg) {
+		// This can be used for debugging mobile things since there is no console.
+		let debug = document.querySelector('#debugDiv');
+		if (debug === null) {
+			debug = this.createEl('div', {'id': 'debugDiv', 'style': 'position: absolute; top: 0px; left: 0px; z-index: 100; height: 100px; width: 250px; background-color: #FFF'});
+			document.body.appendChild(debug);
+		}
+		debug.innerHTML = debugMsg;		
+	},
 };
 
 export default { utils };

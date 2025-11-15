@@ -11,6 +11,8 @@ const specialEffects = {
         this.isMobile = false;
         this.sparkDiv = null;
         this.sparkTimeout = null;
+        this.overSizeFactorDeskTop = .1;
+        this.overSizeFactorMobile = .5;
 
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
@@ -26,8 +28,16 @@ const specialEffects = {
         }
 
         //setup our intitial states
-        this.backgroundBackLayerXformStart = `translateX(-${innerWidth + innerWidth / 3}px) translateY(0px)`;
-        this.backgroundFrontLayerXformStart = `translateX(${innerWidth + innerWidth / 3}px) translateY(0px)`;
+        let overSizeFactor = 0;
+        if (this.isMobile === true) {
+            // Oversize our background to let them move
+            overSizeFactor = innerWidth * this.overSizeFactorMobile;
+        } else {
+            // Oversize our background to let them move
+            overSizeFactor = innerWidth * this.overSizeFactorDeskTop;
+        }
+        this.backgroundBackLayerXformStart = `translateX(-${innerWidth + overSizeFactor}px) translateY(0px)`;
+        this.backgroundFrontLayerXformStart = `translateX(${innerWidth + overSizeFactor}px) translateY(0px)`;
         this.logoXformStart = `translateX(${(innerWidth / 2) - (this.logo.offsetWidth / 2)}px) translateY(${(innerHeight / 2) - (this.logo.offsetHeight / 2)}px) rotate(1turn)`;
         this.logoSVGXformStart = 'scale(50)';
         this.pageHeaderXformStart = pageHeaderStart;
@@ -316,26 +326,102 @@ const specialEffects = {
             this.mainContainer.dispatchEvent(this.finalizeBoot);
         }
     },
-    moveBackground(evt) {
+    
+    orientationChange() {
+        // For now this handles background resizing - but can have other things added.
+        const { innerWidth, innerHeight } = window;
+        // utils.debug(`innerWidth: ${innerWidth}<br/>innerHeight: ${innerHeight}`);       
+
+        if (this.isMobile === true) {
+            // Oversize our background to let them move
+            const bgOverSizeX = innerWidth * this.overSizeFactorMobile;
+            const bgOverSizeY = innerHeight * this.overSizeFactorMobile;
+            
+            this.backgroundBackLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
+            this.backgroundBackLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
+            this.backgroundBackLayer.style.top = `-${bgOverSizeY}px`;
+            this.backgroundBackLayer.style.left = `-${bgOverSizeX}px`;
+            this.backgroundFrontLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
+            this.backgroundFrontLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
+            this.backgroundFrontLayer.style.top = `-${bgOverSizeY}px`;
+            this.backgroundFrontLayer.style.left = `-${bgOverSizeX}px`;
+
+        } else {
+            // Oversize our background to let them move
+            const bgOverSizeX = innerWidth * this.overSizeFactorDeskTop;
+            const bgOverSizeY = innerHeight * this.overSizeFactorDeskTop;
+            
+            this.backgroundBackLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
+            this.backgroundBackLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
+            this.backgroundBackLayer.style.top = `-${bgOverSizeY}px`;
+            this.backgroundBackLayer.style.left = `-${bgOverSizeX}px`;
+            this.backgroundFrontLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
+            this.backgroundFrontLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
+            this.backgroundFrontLayer.style.top = `-${bgOverSizeY}px`;
+            this.backgroundFrontLayer.style.left = `-${bgOverSizeX}px`;
+
+        }     
+    },
+    moveBackground(evt, isGyroEvent) {
         if (this.mainContainerInfo === undefined) { //Needed this since the boot sequence may or may not have run!
             this.mainContainer = document.querySelector('#mainContainer');
             this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
         }
+        let backMoveDampener = 50;
+        let frontMoveDampener = 100;
+        let x = 0;
+        let y = 0;
+        let backLayerShiftX = 0;
+        let backLayerShiftY = 0;
+        let frontLayerShiftX = 0;
+        let frontLayerShiftY = 0;
 
-        const { clientX: x, clientY: y } = evt;
-        const { height, width } = this.mainContainerInfo;
-        const centerHeight = height / 2;
-        const centerWidth = width / 2;
+        if (isGyroEvent ===  true) {
+            backMoveDampener = 1;
+            frontMoveDampener = 2;
+            const landscape = matchMedia("(orientation: landscape)").matches;
 
-        const backLayer = document.querySelector('#backgroundBackLayer');
-        const frontLayer = document.querySelector('#backgroundFrontLayer');
+            if (landscape === true) { // landscape
+                if (Math.abs(evt.beta) > 90) {
+                    x = Math.abs(evt.beta) - 180;
+                } else {
+                    x = evt.beta;
+                }
+                y = evt.gamma;
+            } else { // portrait
+                x = evt.gamma;
+                y = evt.beta;
+            }
 
-        const backMoveDampener = 50;
-        const frontMoveDampener = 100;
+            backLayerShiftX = x / backMoveDampener;
+            backLayerShiftY = y / backMoveDampener;
+            frontLayerShiftX = x / frontMoveDampener;
+            frontLayerShiftY = y / frontMoveDampener;
+            // this.utils.debug(`landscape: ${landscape}<br/>type: ${evt.type}<br/>alpha: ${Math.round(evt.alpha)}<br/>beta: ${Math.round(evt.beta)}<br/>gamma: ${Math.round(evt.gamma)}`);       
+        } else {        
+            const { height, width } = this.mainContainerInfo;
+            const centerHeight = height / 2;
+            const centerWidth = width / 2;
+
+            x = evt.clientX;
+            y = evt.clientY;
+            backLayerShiftX = (centerWidth - x) / backMoveDampener;
+            backLayerShiftY = (centerHeight - y) / backMoveDampener;
+            frontLayerShiftX = (centerWidth - x) / frontMoveDampener;
+            frontLayerShiftY = (centerHeight - y) / frontMoveDampener;
+        }
 
         //shift our backgrounds depending on where our mouse is.
-        backLayer.style.transform = `translate(${(centerWidth - x) / backMoveDampener}px, ${(centerHeight - y) / backMoveDampener}px)`;
-        frontLayer.style.transform = `translate(${(centerWidth - x) / frontMoveDampener}px, ${(centerHeight - y) / frontMoveDampener}px)`;
+        this.backgroundBackLayer.style.transform = `translate(${backLayerShiftX}px, ${backLayerShiftY}px)`;
+        this.backgroundFrontLayer.style.transform = `translate(${frontLayerShiftX}px, ${frontLayerShiftY}px)`;
+    },
+    detectShake(evt) {
+        const sparkThreshold = 20;
+        const { x, y, z } = evt.accelerationIncludingGravity;
+        // this.utils.debug(`accWG<br/>x: ${x?.toFixed(2)}<br/>y: ${y?.toFixed(2)}<br/>z: ${z?.toFixed(2)}`);
+        if (x > sparkThreshold || y > sparkThreshold || z > sparkThreshold) {
+            this.createSpark();
+        }
     },
     createSpark() {
         const { innerWidth, innerHeight } = window;

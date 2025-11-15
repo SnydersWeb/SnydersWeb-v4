@@ -469,9 +469,13 @@ Hmm.. what to do next?
 4/29
 While out I discovered, much to my absolute horror that my site was simply NOT working on ANY iOS device!  After some diagnostic time I discovered the culprit - navigator.vibrate!  
 
+11/14/2025
+Decided to try to chase motion sensors.  Think I've got it mostly beaten though the phone gyroscopes are a little tricky to deal with.  Biggest one is there is one spot (in landscape) where the background can "jump".  
+Smoothing that part out is a bit tricky though.  
 
+I've also implemented a "shake" detection that will fire the sparky thing.  A fun little change.  Doesn't serve any function of course outside of fun.
 
-
+ToDd: I need to work on the mechanism to get iPhone to read the gyroscopes.
 
 
 

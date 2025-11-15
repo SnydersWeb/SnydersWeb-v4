@@ -54,14 +54,6 @@
 		overflow: hidden;
 	}
 
-	#backgroundBackLayer.overSize,
-	#backgroundFrontLayer.overSize {
-		height: 130%;
-		width: 130%;
-		left: -15px;
-		top: -15px;
-	}
-
 	#backgroundFrontLayer {
 		background-image: url('../interfaceImages/backgroundFrontLayer.svg');
 		z-index: 3;
