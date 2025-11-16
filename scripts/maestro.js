@@ -32,12 +32,11 @@ class Maestro {
         this.loader = null;
         this.barsInMotion = 0;
         this.isMobile = false;
-        this.devicePermissionMotion = true;
-        this.devicePermissionOrientation = true;
     }
     
     //Methods
     async init() {
+        
         await Promise.all(
             //Grab our script modules
             [
@@ -59,10 +58,62 @@ class Maestro {
             })
         ).then(() => {
             this.startInterface();
+
+            // iOS Permission Request
+            if (this.isMobile === true) {
+                let permissionRequested = false;
+
+                const requestPermissions = async () => {
+                    if (permissionRequested) return;
+                    permissionRequested = true;
+
+                    // Remove listener to prevent re-trigger
+                    document.body.removeEventListener('touchstart', requestPermissions);
+                    await this.iosRequestPermission();
+                };
+
+                if (typeof DeviceMotionEvent.requestPermission === 'function' || typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    document.body.addEventListener('touchstart', requestPermissions, { once: true, passive: false });
+                } else {
+                    this.iosRequestPermission();
+                }
+            }
         });
     }
 
+    async iosRequestPermission() {
+        try {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                // iOS 13+ – explicit user gesture needed
+                const response = await DeviceMotionEvent.requestPermission();
+                if (response === 'granted') {
+                    window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
+                } else {
+                    window.removeEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
+                }
+            } else {
+                window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
+            }
+        } catch(err) {}
+
+        try {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+ – explicit user gesture needed
+                const response = await DeviceOrientationEvent.requestPermission();
+                if (response === 'granted') {
+                    window.addEventListener('deviceorientation', (evt) => { specialEffects.moveBackground(evt, true); });
+                } else {
+                    window.removeEventListener('deviceorientation', (evt) => { specialEffects.moveBackground(evt, true); });
+                }
+            } else {
+                window.addEventListener('deviceorientation', (evt) => { specialEffects.moveBackground(evt, true); });
+            }
+        } catch(err) {}
+    }
+
     startInterface() {
+        this.isMobile = utils.getIsMobile();
+
         //Selected Topic Bar events
         this.pageHeader.addEventListener('removeSubTopic', (evt) => { this.removeSubTopic(evt) });
 
@@ -75,8 +126,6 @@ class Maestro {
         // Had to put a setTimeout on this one to allow the UI a tiny fraction to settle after the event.
         window.addEventListener('orientationchange', () => { setTimeout(() => { specialEffects.orientationChange(); }, 100)});
         window.addEventListener('popstate', () => { this.hashChange() });
-
-        this.isMobile = utils.getIsMobile();
 
         //get our first page.
         this.currentPageInfo = pageFetcher.extractPageInfo(document);
@@ -109,14 +158,7 @@ class Maestro {
         }
         
         specialEffects.orientationChange();
-        if (this.isMobile === true) {
-            if (window.DeviceMotionEvent && this.devicePermissionMotion) {
-                window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
-            }
-            if (window.DeviceOrientationEvent && this.devicePermissionOrientation) {
-                window.addEventListener('deviceorientation', (evt) => { specialEffects.moveBackground(evt, true); });
-            }
-        } else {
+        if (this.isMobile === false) {
             this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt, false); });
         }        
     }
