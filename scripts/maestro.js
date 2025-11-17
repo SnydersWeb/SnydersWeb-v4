@@ -58,26 +58,6 @@ class Maestro {
             })
         ).then(() => {
             this.startInterface();
-
-            // iOS Permission Request
-            if (this.isMobile === true) {
-                let permissionRequested = false;
-
-                const requestPermissions = async () => {
-                    if (permissionRequested) return;
-                    permissionRequested = true;
-
-                    // Remove listener to prevent re-trigger
-                    document.body.removeEventListener('touchstart', requestPermissions);
-                    await this.iosRequestPermission();
-                };
-
-                if (typeof DeviceMotionEvent.requestPermission === 'function' || typeof DeviceOrientationEvent.requestPermission === 'function') {
-                    document.body.addEventListener('touchstart', requestPermissions, { once: true, passive: false });
-                } else {
-                    this.iosRequestPermission();
-                }
-            }
         });
     }
 
@@ -160,7 +140,19 @@ class Maestro {
         specialEffects.orientationChange();
         if (this.isMobile === false) {
             this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt, false); });
-        }        
+        } else {
+            const requestPermissions = async () => {
+                await this.iosRequestPermission();
+            };
+
+            if (typeof DeviceMotionEvent.requestPermission === 'function' ||
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+                this.mainContainer.addEventListener('click', requestPermissions, { once: true });
+                this.mainContainer.addEventListener('touchstart', requestPermissions, { once: true, passive: false });
+            } else {
+                this.iosRequestPermission();
+            }
+        }              
     }
 
     linkAdjustor(linkLoc, currentDirectory = this.getCurrentDir(), startingDirectory = this.getStartingDir()) {
