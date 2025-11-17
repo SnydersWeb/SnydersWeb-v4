@@ -138,7 +138,7 @@ class Maestro {
             this.fetchPage({ detail: { pageURL: cleanHash } });
         }
         
-        specialEffects.orientationChange();
+        specialEffects.resizeBackground();
         if (this.isMobile === false) {
             this.mainContainer.addEventListener('mousemove', (evt) => { specialEffects.moveBackground(evt, false); });
         } else {
