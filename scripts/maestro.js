@@ -63,20 +63,6 @@ class Maestro {
 
     async iosRequestPermission() {
         try {
-            if (typeof DeviceMotionEvent.requestPermission === 'function') {
-                // iOS 13+ – explicit user gesture needed
-                const response = await DeviceMotionEvent.requestPermission();
-                if (response === 'granted') {
-                    window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
-                } else {
-                    window.removeEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
-                }
-            } else {
-                window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
-            }
-        } catch(err) {}
-
-        try {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 // iOS 13+ – explicit user gesture needed
                 const response = await DeviceOrientationEvent.requestPermission();
@@ -87,6 +73,20 @@ class Maestro {
                 }
             } else {
                 window.addEventListener('deviceorientation', (evt) => { specialEffects.moveBackground(evt, true); });
+            }
+        } catch(err) {}
+
+        try {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                // iOS 13+ – explicit user gesture needed
+                const response = await DeviceMotionEvent.requestPermission();
+                if (response === 'granted') {
+                    window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
+                } else {
+                    window.removeEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
+                }
+            } else {
+                window.addEventListener('devicemotion', (evt) => { specialEffects.detectShake(evt); });
             }
         } catch(err) {}
     }
