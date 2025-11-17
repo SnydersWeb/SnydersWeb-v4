@@ -327,7 +327,7 @@ const specialEffects = {
         }
     },
     
-    orientationChange() {
+    resizeBackground() {
         // For now this handles background resizing - but can have other things added.
         const { innerWidth, innerHeight } = window;
         // utils.debug(`innerWidth: ${innerWidth}<br/>innerHeight: ${innerHeight}`);       

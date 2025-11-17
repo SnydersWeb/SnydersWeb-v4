@@ -104,7 +104,8 @@ class Maestro {
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
         // Had to put a setTimeout on this one to allow the UI a tiny fraction to settle after the event.
-        window.addEventListener('orientationchange', () => { setTimeout(() => { specialEffects.orientationChange(); }, 100)});
+        window.addEventListener('orientationchange', () => { setTimeout(() => { specialEffects.resizeBackground(); }, 100)});
+        window.addEventListener('resize', () => { setTimeout(() => { specialEffects.resizeBackground(); }, 100)});
         window.addEventListener('popstate', () => { this.hashChange() });
 
         //get our first page.
