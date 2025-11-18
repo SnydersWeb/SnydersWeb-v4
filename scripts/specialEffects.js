@@ -382,8 +382,8 @@ const specialEffects = {
             const landscape = matchMedia("(orientation: landscape)").matches;
 
             if (landscape === true) { // landscape
-       		    x = 0 - evt.beta;
-		        y = 0 - evt.gamma;
+       		    x = evt.beta;
+		        y = evt.gamma;
             } else { // portrait
                 x = 0 - evt.gamma;
                 y = 0 - evt.beta;
