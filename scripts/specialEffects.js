@@ -382,15 +382,11 @@ const specialEffects = {
             const landscape = matchMedia("(orientation: landscape)").matches;
 
             if (landscape === true) { // landscape
-                if (Math.abs(evt.beta) > 90) {
-                    x = Math.abs(evt.beta) - 180;
-                } else {
-                    x = evt.beta;
-                }
-                y = evt.gamma;
+       		    x = 0 - evt.beta;
+		        y = 0 - evt.gamma;
             } else { // portrait
-                x = evt.gamma;
-                y = evt.beta;
+                x = 0 - evt.gamma;
+                y = 0 - evt.beta;
             }
 
             backLayerShiftX = x / backMoveDampener;
