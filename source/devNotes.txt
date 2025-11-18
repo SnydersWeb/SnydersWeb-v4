@@ -475,8 +475,16 @@ Smoothing that part out is a bit tricky though.
 
 I've also implemented a "shake" detection that will fire the sparky thing.  A fun little change.  Doesn't serve any function of course outside of fun.
 
-ToDd: I need to work on the mechanism to get iPhone to read the gyroscopes.
+ToDo: I need to work on the mechanism to get iPhone to read the gyroscopes.
 
+11/17/2025
+I've got the mechanism for iOS permission requests polished out and working well as far as I can tell (BrowserStack test showed it)
+
+I also spent some time polishing out the animation.  It has been tricky to get the motion where i really like it and get it consistent since
+the axis/sensors "flip" depending on the orientation of the device.  
+
+Last bits of polish - centralized the background shift variables and also added some
+clearTimeouts to avoid things getting triggered needlessly.
 
 
 

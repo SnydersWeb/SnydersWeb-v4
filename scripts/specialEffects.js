@@ -12,7 +12,12 @@ const specialEffects = {
         this.sparkDiv = null;
         this.sparkTimeout = null;
         this.overSizeFactorDeskTop = .1;
-        this.overSizeFactorMobile = .5;
+        this.overSizeFactorMobile = .25;
+        this.deskTopBackMoveDampener = 50;
+        this.deskTopFrontMoveDampener = 100;
+        this.mobileBackMoveDampener = .25;
+        this.mobileFrontMoveDampener = .5;
+        
 
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
@@ -367,8 +372,6 @@ const specialEffects = {
             this.mainContainer = document.querySelector('#mainContainer');
             this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
         }
-        let backMoveDampener = 50;
-        let frontMoveDampener = 100;
         let x = 0;
         let y = 0;
         let backLayerShiftX = 0;
@@ -377,8 +380,6 @@ const specialEffects = {
         let frontLayerShiftY = 0;
 
         if (isGyroEvent ===  true) {
-            backMoveDampener = 1;
-            frontMoveDampener = 2;
             const landscape = matchMedia("(orientation: landscape)").matches;
 
             if (landscape === true) { // landscape
@@ -389,10 +390,10 @@ const specialEffects = {
                 y = 0 - evt.beta;
             }
 
-            backLayerShiftX = x / backMoveDampener;
-            backLayerShiftY = y / backMoveDampener;
-            frontLayerShiftX = x / frontMoveDampener;
-            frontLayerShiftY = y / frontMoveDampener;
+            backLayerShiftX = x / this.mobileBackMoveDampener;
+            backLayerShiftY = y / this.mobileBackMoveDampener;
+            frontLayerShiftX = x / this.mobileFrontMoveDampener;
+            frontLayerShiftY = y / this.mobileFrontMoveDampener;
             // this.utils.debug(`landscape: ${landscape}<br/>type: ${evt.type}<br/>alpha: ${Math.round(evt.alpha)}<br/>beta: ${Math.round(evt.beta)}<br/>gamma: ${Math.round(evt.gamma)}`);       
         } else {        
             const { height, width } = this.mainContainerInfo;
@@ -401,10 +402,10 @@ const specialEffects = {
 
             x = evt.clientX;
             y = evt.clientY;
-            backLayerShiftX = (centerWidth - x) / backMoveDampener;
-            backLayerShiftY = (centerHeight - y) / backMoveDampener;
-            frontLayerShiftX = (centerWidth - x) / frontMoveDampener;
-            frontLayerShiftY = (centerHeight - y) / frontMoveDampener;
+            backLayerShiftX = (centerWidth - x) / this.deskTopBackMoveDampener;
+            backLayerShiftY = (centerHeight - y) / this.deskTopBackMoveDampener;
+            frontLayerShiftX = (centerWidth - x) / this.deskTopFrontMoveDampener;
+            frontLayerShiftY = (centerHeight - y) / this.deskTopFrontMoveDampener;
         }
 
         //shift our backgrounds depending on where our mouse is.

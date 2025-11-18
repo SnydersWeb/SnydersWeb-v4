@@ -22,6 +22,8 @@ class Maestro {
         //Not doing anything with the background stuff for now
         this.backgroundBackLayer = document.querySelector('#backgroundBackLayer');
         this.backgroundFrontLayer = document.querySelector('#backgroundFrontLayer');
+        this.orientTimeout = 0;
+        this.resizeTimeout = 0;
 
         //Information about where we're starting
         this.currentPageInfo = {};
@@ -104,8 +106,14 @@ class Maestro {
         this.mainContainer.addEventListener('fetchEnd', () => { this.hideLoader() });
         this.mainContainer.addEventListener('barMotionEnd', () => { this.barMotionEnd() });
         // Had to put a setTimeout on this one to allow the UI a tiny fraction to settle after the event.
-        window.addEventListener('orientationchange', () => { setTimeout(() => { specialEffects.resizeBackground(); }, 100)});
-        window.addEventListener('resize', () => { setTimeout(() => { specialEffects.resizeBackground(); }, 100)});
+        window.addEventListener('orientationchange', () => { 
+            clearTimeout(this.orientTimeout);
+            this.orientTimeout = setTimeout(() => { specialEffects.resizeBackground(); }, 100)
+        });
+        window.addEventListener('resize', () => { 
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => { specialEffects.resizeBackground(); }, 100)
+        });
         window.addEventListener('popstate', () => { this.hashChange() });
 
         //get our first page.
