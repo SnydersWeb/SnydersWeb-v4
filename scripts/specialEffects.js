@@ -17,7 +17,7 @@ const specialEffects = {
         this.deskTopFrontMoveDampener = 50;
         this.mobileBackMoveDampener = .5;
         this.mobileFrontMoveDampener = 1.0;
-        
+        this.shakeSparkThreshold = 20;
 
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
@@ -405,10 +405,9 @@ const specialEffects = {
         this.backgroundFrontLayer.style.transform = `translate(${frontLayerShiftX}px, ${frontLayerShiftY}px)`;
     },
     detectShake(evt) {
-        const sparkThreshold = 20;
         const { x, y, z } = evt.accelerationIncludingGravity;
         // this.utils.debug(`accWG<br/>x: ${x?.toFixed(2)}<br/>y: ${y?.toFixed(2)}<br/>z: ${z?.toFixed(2)}`);
-        if (x > sparkThreshold || y > sparkThreshold || z > sparkThreshold) {
+        if (x > this.shakeSparkThreshold || y > this.shakeSparkThreshold || z > this.shakeSparkThreshold) {
             this.createSpark();
         }
     },
