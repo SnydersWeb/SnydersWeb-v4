@@ -8,15 +8,15 @@ const specialEffects = {
             this[item] = handles[item];
         }
         this.logoSVG = this.logo.querySelector('img');
-        this.isMobile = false;
+        this.isMobile = this.utils.getIsMobile();
         this.sparkDiv = null;
         this.sparkTimeout = null;
-        this.overSizeFactorDeskTop = .1;
-        this.overSizeFactorMobile = .25;
-        this.deskTopBackMoveDampener = 50;
-        this.deskTopFrontMoveDampener = 100;
-        this.mobileBackMoveDampener = .25;
-        this.mobileFrontMoveDampener = .5;
+        this.overSizeFactorDeskTop = 1.25;
+        this.overSizeFactorMobile = 2;
+        this.deskTopBackMoveDampener = 25;
+        this.deskTopFrontMoveDampener = 50;
+        this.mobileBackMoveDampener = .5;
+        this.mobileFrontMoveDampener = 1.0;
         
 
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
@@ -26,7 +26,6 @@ const specialEffects = {
         let contentPanelStart = `translateY(${this.contentPanel.offsetHeight * 1.05}px)`;
 
         if (unselectedBarArea.y < 10) { //Likely mobile view so our transforms are a bit differnt
-            this.isMobile = true;
             pageHeaderStart = `translateX(${this.pageHeader.offsetHeight * 10}px)`;
             unselectedBarStart = `translateY(-${this.unselectedBarArea.offsetHeight * 10}px)`;
             contentPanelStart = `translateY(${this.contentPanel.offsetWidth * 5}px)`;
@@ -335,37 +334,30 @@ const specialEffects = {
     resizeBackground() {
         // For now this handles background resizing - but can have other things added.
         const { innerWidth, innerHeight } = window;
-        // utils.debug(`innerWidth: ${innerWidth}<br/>innerHeight: ${innerHeight}`);       
-
+        let bgOverSizeX;
+        let bgOverSizeY;
+        
         if (this.isMobile === true) {
             // Oversize our background to let them move
-            const bgOverSizeX = innerWidth * this.overSizeFactorMobile;
-            const bgOverSizeY = innerHeight * this.overSizeFactorMobile;
-            
-            this.backgroundBackLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
-            this.backgroundBackLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
-            this.backgroundBackLayer.style.top = `-${bgOverSizeY}px`;
-            this.backgroundBackLayer.style.left = `-${bgOverSizeX}px`;
-            this.backgroundFrontLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
-            this.backgroundFrontLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
-            this.backgroundFrontLayer.style.top = `-${bgOverSizeY}px`;
-            this.backgroundFrontLayer.style.left = `-${bgOverSizeX}px`;
-
+            bgOverSizeX = innerWidth * this.overSizeFactorMobile;
+            bgOverSizeY = innerHeight * this.overSizeFactorMobile;          
         } else {
             // Oversize our background to let them move
-            const bgOverSizeX = innerWidth * this.overSizeFactorDeskTop;
-            const bgOverSizeY = innerHeight * this.overSizeFactorDeskTop;
-            
-            this.backgroundBackLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
-            this.backgroundBackLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
-            this.backgroundBackLayer.style.top = `-${bgOverSizeY}px`;
-            this.backgroundBackLayer.style.left = `-${bgOverSizeX}px`;
-            this.backgroundFrontLayer.style.height = `${innerHeight + bgOverSizeY * 2}px`;
-            this.backgroundFrontLayer.style.width = `${innerWidth + bgOverSizeX * 2}px`;
-            this.backgroundFrontLayer.style.top = `-${bgOverSizeY}px`;
-            this.backgroundFrontLayer.style.left = `-${bgOverSizeX}px`;
+            bgOverSizeX = innerWidth * this.overSizeFactorDeskTop;
+            bgOverSizeY = innerHeight * this.overSizeFactorDeskTop;
+        }
 
-        }     
+        const bgOffsetX = (bgOverSizeX - innerWidth) / 2;
+        const bgOffsetY = (bgOverSizeY - innerHeight) / 2;
+
+        this.backgroundBackLayer.style.height = `${bgOverSizeY}px`;
+        this.backgroundBackLayer.style.width = `${bgOverSizeX}px`;
+        this.backgroundBackLayer.style.top = `-${bgOffsetY}px`;
+        this.backgroundBackLayer.style.left = `-${bgOffsetX}px`;
+        this.backgroundFrontLayer.style.height = `${bgOverSizeY}px`;
+        this.backgroundFrontLayer.style.width = `${bgOverSizeX}px`;
+        this.backgroundFrontLayer.style.top = `-${bgOffsetY}px`;
+        this.backgroundFrontLayer.style.left = `-${bgOffsetX}px`;
     },
     moveBackground(evt, isGyroEvent) {
         if (this.mainContainerInfo === undefined) { //Needed this since the boot sequence may or may not have run!
