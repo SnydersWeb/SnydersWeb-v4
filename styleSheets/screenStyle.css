@@ -802,20 +802,20 @@
 	}
 	
 	#logo {
-		height: 123px;
-		width: 144px;
-		top: -24px;
-		left: -34px;	
+		height: 110px;
+		width: 124px;
+		top: -36px;
+		left: -46px;	
 	}
 	
 	#logo IMG {
-		scale: .65;	
+		scale: .5;	
 	}
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
 		height: 45px;
-		top: 105px;
+		top: 72px;
 		left: -50px;
 		right: -50px;
 		z-index: 3;
@@ -823,7 +823,7 @@
 	}
 
 	#selectedBar TOPIC-BAR .barTextSlot {
-		font-size: 85%;
+		font-size: 65%;
 	}
 
 	#selectedBar TOPIC-BAR .selSubTopics SUB-TOPIC {
@@ -850,18 +850,21 @@
 
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
-		top: -4px;
-		left: 85px;
+		top: 0px;
+		left: 65px;
 		height: fit-content;
+		width: fit-content;
 		right: 0px;
+		position: relative;
+		float: left;
 	}
 
 	#unSelectedBarArea MENU LI {
-		float: left;
-		position: relative;
-		height: fit-content;
+		width: 73px;
+		height: 24px;
 		margin: 0px 0px 0px 0px;
-		scale: .7;
+		scale: .6;
+		float: left;
 	}
 
 	#unSelectedBarArea MENU LI TOPIC-BAR {
@@ -869,16 +872,16 @@
 		position: relative;
 		height: 28px;
 		width: fit-content;
-		min-width: 90px;
+		min-width: 70px;
 		margin: 0px;
 	}
 
 	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
-		font-size: 78%;
+		font-size: 65%;
 	}
 
 	#contentPanel {
-		top: 175px;
+		top: 168px;
 		right: 5px;
 		bottom: 0px;
 		left: 5px;
@@ -961,32 +964,35 @@
 }
 
 /* Landscape phones with less vertical space */
-@media only screen and (min-device-width: 700px) and (max-device-height: 340px) {
+@media only screen and (min-device-width: 500px) and (max-device-height: 340px) {
 	#logo {
-		height: 131px;
+		height: 104px;
 		width: 152px;
-		top: -26px;
-		left: 0px;	
+		top: -38px;
+		left: -26px;	
 	}
 	
 	#logo IMG {
-		scale: .65;	
+		scale: .45;	
 	}
 
 	/* Begin Selected Topic Bar Selctors */
 	#selectedBar {
 		height: 45px;
 		top: 5px;
-		left: 185px;
+		left: 145px;
 		right: 5px;
+	}
+
+	#selectedBar TOPIC-BAR .barTextSlot {
+		font-size: 65%;
 	}
 
 	/* Begin UnSelected Topic Bar Selctors */
 	#unSelectedBarArea {
-		top: 90px;
+		top: 68px;
 		left: 3px;
-		bottom: 90px;
-		width: 176px;
+		width: 136px;
 	}
 
 	#unSelectedBarArea MENU LI {
@@ -994,7 +1000,11 @@
 	}
 
 	#unSelectedBarArea MENU LI TOPIC-BAR {
-		height: 42px;
+		height: 22px;
+	}
+	
+	#unSelectedBarArea MENU LI TOPIC-BAR .barTextSlot {
+		font-size: 65%;
 	}
 
 	/* Begin Content Area Selctors */
@@ -1002,6 +1012,6 @@
 		top: 75px;
 		right: 5px;
 		bottom: 0px;
-		left: 185px;
+		left: 145px;
 	}
 }

@@ -122,9 +122,7 @@ class Maestro {
 
         const { hash } = window.location;
         let cleanHash = hash.replace('#', '');
-        if (this.initialized === false && cleanHash === '') { // no hash means a fresh hit
-            this.mainContainer.addEventListener('finalizeBoot', (evt) => { this.finalizeBoot(evt) });
-            const itemHandles = {
+        const itemHandles = {
                 backgroundBackLayer: this.backgroundBackLayer,
                 backgroundFrontLayer: this.backgroundFrontLayer,
                 mainContainer: this.mainContainer,
@@ -134,12 +132,16 @@ class Maestro {
                 contentPanel: this.contentPanel,
             };
 
+        specialEffects.setHandles(itemHandles);
+                        
+        if (this.initialized === false && cleanHash === '') { // no hash means a fresh hit
+            this.mainContainer.addEventListener('finalizeBoot', (evt) => { this.finalizeBoot(evt) });
+
             //hide the elements at first.
             for (let item in itemHandles) {
                 itemHandles[item].style.visibility = 'hidden';
             }
 
-            specialEffects.setHandles(itemHandles);
             specialEffects.bootSequence(itemHandles);
         } else {
             specialEffects.sparky();
