@@ -360,10 +360,13 @@ const specialEffects = {
         this.backgroundFrontLayer.style.left = `-${bgOffsetX}px`;
     },
     moveBackground(evt, isGyroEvent) {
-        if (this.mainContainerInfo === undefined) { //Needed this since the boot sequence may or may not have run!
+        if (this.mainContainerInfo === undefined) { 
             this.mainContainer = document.querySelector('#mainContainer');
             this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
+            // Initialize a memory variable for our gamma latch
+            this.lastStableGamma = 0; 
         }
+        
         let x = 0;
         let y = 0;
         let backLayerShiftX = 0;
@@ -371,22 +374,33 @@ const specialEffects = {
         let frontLayerShiftX = 0;
         let frontLayerShiftY = 0;
 
-        if (isGyroEvent ===  true) {
+        if (isGyroEvent === true) {
             const landscape = matchMedia("(orientation: landscape)").matches;
 
+            let safeBeta = evt.beta; // Let up/down pitch move freely!
+            let safeGamma = evt.gamma;
+
+            // The Gimbal Lock Fix 2.0: 
+            // Only freeze the unstable axis (gamma) when the phone is held steeply 
+            // (passing through the 90-degree vertical pole).
+            if (Math.abs(evt.beta) > 75 && Math.abs(evt.beta) < 105) {
+                safeGamma = this.lastStableGamma;
+            } else {
+                this.lastStableGamma = safeGamma;
+            }
+
             if (landscape === true) { // landscape
-       		    x = evt.beta;
-		        y = evt.gamma;
+                x = safeBeta;
+                y = safeGamma;
             } else { // portrait
-                x = 0 - evt.gamma;
-                y = 0 - evt.beta;
+                x = 0 - safeGamma; // Side-to-side movement (momentarily locks at the pole)
+                y = 0 - safeBeta;  // Up-and-down movement (never locks)
             }
 
             backLayerShiftX = x / this.mobileBackMoveDampener;
             backLayerShiftY = y / this.mobileBackMoveDampener;
             frontLayerShiftX = x / this.mobileFrontMoveDampener;
             frontLayerShiftY = y / this.mobileFrontMoveDampener;
-            // this.utils.debug(`landscape: ${landscape}<br/>type: ${evt.type}<br/>alpha: ${Math.round(evt.alpha)}<br/>beta: ${Math.round(evt.beta)}<br/>gamma: ${Math.round(evt.gamma)}`);       
         } else {        
             const { height, width } = this.mainContainerInfo;
             const centerHeight = height / 2;

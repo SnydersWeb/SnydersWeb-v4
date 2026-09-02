@@ -23,7 +23,6 @@
             display: inline;
             fill-opacity: 1;
             stroke-width: var(--stroke2);
-            filter: url(#shadow);
         }
         rect.bgBkBlueChip {
             fill: var(--blue-fill-color);
@@ -93,10 +92,6 @@
     </style>
 
     <defs>
-        <filter id="shadow">
-            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.5">
-            </feDropShadow>
-        </filter>    
         <pattern id="backgroundRearLayerPat" x="0" y="0" width="118" height="118" patternUnits="userSpaceOnUse">
             <g id="bgBk">
                 <path class="lineProps bgBkGreyLine" d="M 35.544023,91.586937 V 84.190475 H 0.10212247" />

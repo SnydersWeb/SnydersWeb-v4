@@ -13,6 +13,9 @@
 	--color-sub-bar-link-white: #FFFFFF;
 	--content-panel-scroll-base: #7E848F;
 	--content-panel-scroll-bar: #536170;
+	--drop-shadow-color: rgba(0, 0, 0, 0.75);
+	--drop-shadow-ui-element: drop-shadow(4px 4px 6px var(--drop-shadow-color));
+	--drop-shadow-background: drop-shadow(2px 2px 6px var(--drop-shadow-color));
 }
 
 /* Begin Tag Level Selctors */

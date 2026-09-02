@@ -22,7 +22,8 @@
     </style>
     <defs>
         <filter id="shadow">
-            <feDropShadow dx="4" dy="4" stdDeviation="2" flood-color="#000">
+            <!-- Increased stdDeviation from 2 to 3 (since SVG stdDeviation roughly corresponds to half the CSS blur radius) -->
+            <feDropShadow dx="4" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.75">
             </feDropShadow>
         </filter>
     </defs>
