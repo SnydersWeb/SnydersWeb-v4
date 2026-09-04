@@ -19,6 +19,22 @@ const specialEffects = {
         this.mobileFrontMoveDampener = 1.0;
         this.shakeSparkThreshold = 20;
 
+        //Variables used for background manipulation
+        this.lerpEase = 0.4;
+        this.mainContainer = null;
+        this.mainContainerInfo = null;
+        this.lastStableGamma = 0; 
+        
+        this.targetBackX = 0;
+        this.targetBackY = 0;
+        this.targetFrontX = 0;
+        this.targetFrontY = 0;
+
+        this.currentBackX = 0;
+        this.currentBackY = 0;
+        this.currentFrontX = 0;
+        this.currentFrontY = 0;
+
         const unselectedBarArea = this.unselectedBarArea.getBoundingClientRect();
 
         let pageHeaderStart = `translateY(-${this.pageHeader.offsetHeight * 1.5}px)`;
@@ -360,19 +376,17 @@ const specialEffects = {
         this.backgroundFrontLayer.style.left = `-${bgOffsetX}px`;
     },
     moveBackground(evt, isGyroEvent) {
-        if (this.mainContainerInfo === undefined) { 
+        if (this.mainContainerInfo === null) { 
             this.mainContainer = document.querySelector('#mainContainer');
             this.mainContainerInfo = this.mainContainer.getBoundingClientRect();
-            // Initialize a memory variable for our gamma latch
             this.lastStableGamma = 0; 
+            
+            // Kick off the infinite animation loop
+            this.animateBackgroundLoop();
         }
         
         let x = 0;
         let y = 0;
-        let backLayerShiftX = 0;
-        let backLayerShiftY = 0;
-        let frontLayerShiftX = 0;
-        let frontLayerShiftY = 0;
 
         if (isGyroEvent === true) {
             const landscape = matchMedia("(orientation: landscape)").matches;
@@ -381,8 +395,6 @@ const specialEffects = {
             let safeGamma = evt.gamma;
 
             // The Gimbal Lock Fix 2.0: 
-            // Only freeze the unstable axis (gamma) when the phone is held steeply 
-            // (passing through the 90-degree vertical pole).
             if (Math.abs(evt.beta) > 75 && Math.abs(evt.beta) < 105) {
                 safeGamma = this.lastStableGamma;
             } else {
@@ -393,14 +405,16 @@ const specialEffects = {
                 x = safeBeta;
                 y = safeGamma;
             } else { // portrait
-                x = 0 - safeGamma; // Side-to-side movement (momentarily locks at the pole)
-                y = 0 - safeBeta;  // Up-and-down movement (never locks)
+                x = 0 - safeGamma; 
+                y = 0 - safeBeta;  
             }
 
-            backLayerShiftX = x / this.mobileBackMoveDampener;
-            backLayerShiftY = y / this.mobileBackMoveDampener;
-            frontLayerShiftX = x / this.mobileFrontMoveDampener;
-            frontLayerShiftY = y / this.mobileFrontMoveDampener;
+            // UPDATE TARGETS ONLY (No DOM manipulation here)
+            this.targetBackX = x / this.mobileBackMoveDampener;
+            this.targetBackY = y / this.mobileBackMoveDampener;
+            this.targetFrontX = x / this.mobileFrontMoveDampener;
+            this.targetFrontY = y / this.mobileFrontMoveDampener;
+            
         } else {        
             const { height, width } = this.mainContainerInfo;
             const centerHeight = height / 2;
@@ -408,15 +422,30 @@ const specialEffects = {
 
             x = evt.clientX;
             y = evt.clientY;
-            backLayerShiftX = (centerWidth - x) / this.deskTopBackMoveDampener;
-            backLayerShiftY = (centerHeight - y) / this.deskTopBackMoveDampener;
-            frontLayerShiftX = (centerWidth - x) / this.deskTopFrontMoveDampener;
-            frontLayerShiftY = (centerHeight - y) / this.deskTopFrontMoveDampener;
+            
+            // UPDATE TARGETS ONLY (No DOM manipulation here)
+            this.targetBackX = (centerWidth - x) / this.deskTopBackMoveDampener;
+            this.targetBackY = (centerHeight - y) / this.deskTopBackMoveDampener;
+            this.targetFrontX = (centerWidth - x) / this.deskTopFrontMoveDampener;
+            this.targetFrontY = (centerHeight - y) / this.deskTopFrontMoveDampener;
+        }
+    },
+    animateBackgroundLoop() {
+        // The LERP Math: current = current + (target - current) * ease
+        this.currentBackX += (this.targetBackX - this.currentBackX) * this.lerpEase;
+        this.currentBackY += (this.targetBackY - this.currentBackY) * this.lerpEase;
+        
+        this.currentFrontX += (this.targetFrontX - this.currentFrontX) * this.lerpEase;
+        this.currentFrontY += (this.targetFrontY - this.currentFrontY) * this.lerpEase;
+
+        // Apply the interpolated coordinates to the DOM
+        if (this.backgroundBackLayer && this.backgroundFrontLayer) {
+            this.backgroundBackLayer.style.transform = `translate(${this.currentBackX}px, ${this.currentBackY}px)`;
+            this.backgroundFrontLayer.style.transform = `translate(${this.currentFrontX}px, ${this.currentFrontY}px)`;
         }
 
-        //shift our backgrounds depending on where our mouse is.
-        this.backgroundBackLayer.style.transform = `translate(${backLayerShiftX}px, ${backLayerShiftY}px)`;
-        this.backgroundFrontLayer.style.transform = `translate(${frontLayerShiftX}px, ${frontLayerShiftY}px)`;
+        // Loop the animation at the exact refresh rate of the device display
+        requestAnimationFrame(() => this.animateBackgroundLoop());
     },
     detectShake(evt) {
         const { x, y, z } = evt.accelerationIncludingGravity;
