@@ -92,6 +92,13 @@ Or you can contact me with the form below:<br /><br />
 
 <form action="javascript:void(0)" method="post" onsubmit="contactForm.checkContactForm(this)">
 <div class="contactResult hide"></div>
+
+<!-- Honeypot field (hidden from human visitors, bots will auto-populate) -->
+<div style="display:none;" aria-hidden="true">
+	<label for="website">Leave this field blank</label>
+	<input id="website" name="website" type="text" tabindex="-1" autocomplete="off" value="" />
+</div>
+
 <fieldset title="Contact Information">
 <legend>Contact Information</legend>
 	<div class="formLine">
@@ -121,7 +128,7 @@ Or you can contact me with the form below:<br /><br />
 			<label for="message">Message: </label>
 		</div>
 		<div class="fieldBox">
-			<textarea rows="7" cols="40" id="message" name="message"> </textarea>*
+			<textarea rows="7" cols="40" id="message" name="message"></textarea>*
 		</div>
 		<div class="errMsg"></div>
 	</div>
